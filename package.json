@@ -1,0 +1,32 @@
+{
+	"name": "kodcord",
+	"version": "0.0.1-alpha",
+	"description": "",
+	"type": "module",
+	"exports": {
+		".": {
+			"import": "./lib/index.mjs",
+			"require": "./lib/index.cjs"
+		}
+	},
+	"main": "./lib/index.cjs",
+	"types": "./lib/index.d.ts",
+	"files": ["lib"],
+	"scripts": {
+		"build": "biome check --write src/ && unbuild",
+		"test": "bun test"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "Kodeko Studios Proprietary License",
+	"devDependencies": {
+		"@biomejs/biome": "1.8.2",
+		"@types/node": "20.14.8",
+		"unbuild": "2.0.0"
+	},
+	"dependencies": {
+		"@types/bun": "^1.1.5",
+		"discord-api-types": "0.37.90",
+		"husky": "9.0.11"
+	}
+}
