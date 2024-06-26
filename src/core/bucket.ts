@@ -23,7 +23,8 @@ export class Bucket {
 
 	/**
 	 * Creates an instance of the Bucket class.
-	 * @param limit - The maximum number of requests allowed in the bucket.
+	 *
+	 * @param limit The maximum number of requests allowed in the bucket.
 	 */
 	constructor(limit: number) {
 		this.remaining = this.limit = limit;
@@ -33,7 +34,8 @@ export class Bucket {
 
 	/**
 	 * Processes the next request in the queue.
-	 * @param override - Whether to override the current processing state.
+	 *
+	 * @param override Whether to override the current processing state.
 	 */
 	public process(override = false): void {
 		if (!this.queue.length) {
@@ -85,8 +87,9 @@ export class Bucket {
 
 	/**
 	 * Adds a new request to the queue.
-	 * @param func - The function to be added to the queue.
-	 * @param unshift - Whether to add the function to the front of the queue.
+	 *
+	 * @param func The function to be added to the queue.
+	 * @param unshift Whether to add the function to the front of the queue.
 	 */
 	public push<T>(func: QueueItem<T>, unshift?: boolean): void {
 		if (unshift) {

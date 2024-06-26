@@ -18,13 +18,14 @@ export class Logger {
 	/** The source of the log message */
 	public readonly from: string;
 
-	constructor(options?: LoggerOptions) {
-		this.prefix = this.makePrefix(options?.prefix ?? "AKORD");
-		this.from = options?.from?.toUpperCase() ?? "LOG";
+	constructor({ prefix, from }: LoggerOptions = {}) {
+		this.prefix = this.makePrefix(prefix ?? "AKORD");
+		this.from = from?.toUpperCase() ?? "LOG";
 	}
 
 	/**
 	 * Gets the prefix for log messages with Akord styling.
+	 *
 	 * @returns The prefix string.
 	 */
 	public makePrefix(prefix: string) {
@@ -33,9 +34,10 @@ export class Logger {
 
 	/**
 	 * Pads the given text to the specified length using the specified characters.
-	 * @param text - The text to pad.
-	 * @param length - The desired length of the padded text.
-	 * @param chars - The characters to use for padding. Defaults to a space.
+	 *
+	 * @param text The text to pad.
+	 * @param length The desired length of the padded text.
+	 * @param chars The characters to use for padding. Defaults to a space.
 	 * @returns The padded text.
 	 */
 	public pad(text: string, length: number, chars = " "): string {
@@ -47,7 +49,8 @@ export class Logger {
 
 	/**
 	 * Creates an ANSI escape code string with the specified styles.
-	 * @param styles - The styles to apply.
+	 *
+	 * @param styles The styles to apply.
 	 * @returns The ANSI escape code string.
 	 */
 	public createAnsiCode(...styles: string[]): string {
@@ -56,8 +59,9 @@ export class Logger {
 
 	/**
 	 * Colors the given text with the specified ANSI styles.
-	 * @param text - The text to color.
-	 * @param styles - The styles to apply.
+	 *
+	 * @param text The text to color.
+	 * @param styles The styles to apply.
 	 * @returns The styled text.
 	 */
 	public color(text: string, ...styles: string[]): string {
@@ -66,7 +70,8 @@ export class Logger {
 
 	/**
 	 * Formats the given text by adding a tab character before each line.
-	 * @param text - The text to format.
+	 *
+	 * @param text The text to format.
 	 * @returns The formatted text.
 	 */
 	public format(text: string): string {
@@ -75,7 +80,8 @@ export class Logger {
 
 	/**
 	 * Logs an informational message.
-	 * @param from - The source of the message.
+	 *
+	 * @param from The source of the message.
 	 */
 	public info(...message: unknown[]) {
 		console.log(
@@ -89,7 +95,8 @@ export class Logger {
 
 	/**
 	 * Logs a debug message.
-	 * @param message - The message to log.
+	 *
+	 * @param message The message to log.
 	 */
 	public debug(...message: unknown[]) {
 		console.log(
@@ -103,7 +110,8 @@ export class Logger {
 
 	/**
 	 * Logs a warning message.
-	 * @param message - The message to log.
+	 *
+	 * @param message The message to log.
 	 */
 	public warn(...message: unknown[]) {
 		console.log(
@@ -117,7 +125,8 @@ export class Logger {
 
 	/**
 	 * Logs an error message.
-	 * @param error - The error message to log.
+	 *
+	 * @param error The error message to log.
 	 */
 	public error(...error: unknown[]) {
 		console.log(
@@ -131,6 +140,7 @@ export class Logger {
 
 	/**
 	 * Gets the current date and time formatted as a string.
+	 *
 	 * @returns The formatted date and time string.
 	 */
 	private get time() {

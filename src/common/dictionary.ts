@@ -15,6 +15,8 @@ export class Dictionary<Key, Value> extends Map<Key, Value> {
 	/** The maximum number of entries the dictionary can hold. */
 	public readonly limit: number;
 
+	private readonly name: string;
+
 	/**
 	 * Constructs a new instance of Dictionary.
 	 *
@@ -27,16 +29,17 @@ export class Dictionary<Key, Value> extends Map<Key, Value> {
 		limit?: Nullable<number>,
 		name?: Nullable<string>,
 	) {
-		limit ||= Number.POSITIVE_INFINITY;
+		limit = limit && limit > 0 ? Math.round(limit) : Number.POSITIVE_INFINITY;
+
 		if (iterable) {
 			const array = Array.from(iterable);
 			if (array.length > limit) iterable = array.slice(0, limit);
 		}
+
 		super(iterable);
-		this.logger = new Logger({
-			from: `Dictionary<${name ?? `unnamed-${(Date.now() * Math.round(Math.random() * 1000)).toString(36)}`}>`,
-		});
+		this.logger = new Logger({ from: "dictionary" });
 		this.limit = limit;
+		this.name = name ?? "unknown";
 	}
 
 	/**
@@ -51,8 +54,10 @@ export class Dictionary<Key, Value> extends Map<Key, Value> {
 		if (this.has(key)) return super.set(key, value);
 
 		if (this.size === this.limit) {
-			this.logger.warn("Dictionary is full. Cannot add more items.");
-			// throw new Error("Dictionary is full. Cannot add more items.");
+			this.logger.warn(
+				`The Dictionary "${this.name}" has reached it's limit (${this.size}/${this.limit}). Cannot add more items.`,
+			);
+			return this;
 		}
 
 		return super.set(key, value);
