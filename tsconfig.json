@@ -49,7 +49,7 @@
 		"noImplicitOverride": true,
 
 		/* Completeness */
-		"skipLibCheck": true /* Skip type checking all .d.ts files. */
+		"skipLibCheck": false /* Skip type checking all .d.ts files. */
 	},
 	"include": ["./src/**/*.ts"],
 	"exclude": ["node_modules", "lib", "*.config.ts"]
