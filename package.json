@@ -23,13 +23,15 @@
 	"license": "Kodeko Studios Proprietary License",
 	"devDependencies": {
 		"@biomejs/biome": "1.8.2",
+		"@types/bun": "1.1.5",
 		"@types/node": "20.14.8",
+		"@types/ws": "8.5.10",
 		"mitata": "0.1.11",
 		"unbuild": "2.0.0"
 	},
 	"dependencies": {
-		"@types/bun": "^1.1.5",
 		"discord-api-types": "0.37.90",
-		"husky": "9.0.11"
+		"husky": "9.0.11",
+		"ws": "8.17.1"
 	}
 }
