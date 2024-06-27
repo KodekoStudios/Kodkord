@@ -1,10 +1,19 @@
+import type { Client } from "@core/client";
 import type { APIUser } from "discord-api-types/v10";
 import { Base } from "../base";
+import { UserAvatar } from "./user.avatar";
 
 /**
  * Represents a Discord user.
  */
 export class User extends Base<APIUser> {
+	public readonly avatar: UserAvatar<typeof this.data.id, typeof this.data.avatar>;
+
+	constructor(data: APIUser, client: Client) {
+		super(data, client);
+		this.avatar = new UserAvatar(data.id, data.avatar);
+	}
+
 	/**
 	 * The user's username.
 	 *
@@ -21,15 +30,6 @@ export class User extends Base<APIUser> {
 	 */
 	public get discriminator(): string {
 		return this.data.discriminator;
-	}
-
-	/**
-	 * The user's avatar hash.
-	 *
-	 * @returns The avatar hash of the user
-	 */
-	public get avatar(): string | null {
-		return this.data.avatar;
 	}
 
 	/**

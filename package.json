@@ -11,7 +11,9 @@
 	},
 	"main": "./lib/index.cjs",
 	"types": "./lib/index.d.ts",
-	"files": ["lib"],
+	"files": [
+		"lib"
+	],
 	"scripts": {
 		"build": "biome check --write src/ && unbuild",
 		"test": "bun test"
@@ -22,6 +24,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "1.8.2",
 		"@types/node": "20.14.8",
+		"mitata": "0.1.11",
 		"unbuild": "2.0.0"
 	},
 	"dependencies": {

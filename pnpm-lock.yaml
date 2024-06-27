@@ -24,6 +24,9 @@ importers:
       '@types/node':
         specifier: 20.14.8
         version: 20.14.8
+      mitata:
+        specifier: 0.1.11
+        version: 0.1.11
       unbuild:
         specifier: 2.0.0
         version: 2.0.0(typescript@5.5.2)
@@ -923,6 +926,9 @@ packages:
   minimatch@5.1.6:
     resolution: {integrity: sha512-lKwV/1brpG6mBUFHtb7NUmtABCb2WZZmm2wNiOA5hAb8VdCS4B3dtMWyvcoViccwAW/COERjXLt0zP1zXUN26g==}
     engines: {node: '>=10'}
+
+  mitata@0.1.11:
+    resolution: {integrity: sha512-cs6FiWcnRxn7atVumm8wA8R70XCDmMXgVgb/qWUSjr5dwuIBr7zC+22mbGYPlbyFixlIOjuP//A0e72Q1ZoGDw==}
 
   mkdist@1.5.3:
     resolution: {integrity: sha512-XXvaXyS3k/fCExY2/c9z0fmJ9kWq/UZeZZGQ0R693M004lowXNJKIENdH5Cf5Uu3LtSB9vhGu/1YM7IGjWbfxA==}
@@ -2113,6 +2119,8 @@ snapshots:
   minimatch@5.1.6:
     dependencies:
       brace-expansion: 2.0.1
+
+  mitata@0.1.11: {}
 
   mkdist@1.5.3(typescript@5.5.2):
     dependencies:
