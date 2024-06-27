@@ -40,12 +40,13 @@ export class UserManager extends BaseManager<User> {
 	}
 
 	/**
+	 * Filters the users in the store based on the provided predicate function.
 	 *
-	 * @param callback
-	 * @returns
+	 * @param predicate A function that takes a User object as an argument and returns a boolean indicating whether the user should be included in the result.
+	 * @returns An array of User objects that match the criteria specified in the predicate function.
 	 */
-	public filter(callback: (user: User) => boolean): User[] {
-		return [...this.store.values()].filter(callback);
+	public filter(predicate: (user: User) => boolean): User[] {
+		return [...this.store.values()].filter(predicate);
 	}
 
 	/**

@@ -32,7 +32,7 @@ export class Dictionary<Key, Value> extends Map<Key, Value> {
 		limit = limit && limit > 0 ? Math.round(limit) : Number.POSITIVE_INFINITY;
 
 		if (iterable) {
-			const array = Array.from(iterable);
+			const array = [...iterable];
 			if (array.length > limit) iterable = array.slice(0, limit);
 		}
 
