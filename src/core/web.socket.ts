@@ -154,10 +154,17 @@ export class WebSocket {
 	 */
 	private handleMessage(message: string) {
 		const payload = JSON.parse(message) as GatewayReceivePayload;
-		this.logger.debug("Received message:", payload);
+
+		payload.t && this.logger.debug("Received Event:", payload.t);
 
 		switch (payload.op) {
 			case GatewayOpcodes.Dispatch:
+				if (payload.t === GatewayDispatchEvents.Ready) {
+					this.logger.debug(
+						`Connected as ${payload.d.user.username}#${payload.d.user.discriminator}`,
+					);
+				}
+
 				this.handleDispatch(payload);
 				break;
 
@@ -181,16 +188,11 @@ export class WebSocket {
 	 *
 	 * @param payload The 'Dispatch' payload received from Discord.
 	 */
-	private handleDispatch({ d, t }: GatewayDispatchPayload) {
+	public handleDispatch({ d, t }: GatewayDispatchPayload) {
 		switch (t) {
 			case GatewayDispatchEvents.MessageCreate:
 				this.handleMessageCreate(d);
 				break;
-
-			// Message to Aaron:
-			//  Add more event handlers as needed.
-			//  You can refer to the Discord Gateway documentation for more information.
-			//  https://discord.com/developers/docs/topics/gateway
 
 			default:
 				break;
@@ -216,10 +218,6 @@ export class WebSocket {
 	 * @param data The message data received from Discord.
 	 */
 	private handleMessageCreate(data: GatewayMessageCreateDispatchData) {
-		// Message to Aaron:
-		//  Use Client to Client.emit(GatewayDispatchEvents.MessageCreate, new Message(data)) or something.
-		//  Message class doesn't exists btw
-
 		this.logger.debug("Received message:", data);
 	}
 }

@@ -15,3 +15,10 @@ export type MakeRequired<Type, Keys extends keyof Type> = Type & {
  * @template Type The underlying type.
  */
 export type Nullable<Type> = Type | null | undefined;
+
+/**
+ * Represents a type that may be a promise.
+ *
+ * @template Type The underlying type.
+ */
+export type ProbablyPromise<Type> = Type | Promise<Type>;
