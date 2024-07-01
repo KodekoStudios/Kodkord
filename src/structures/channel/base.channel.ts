@@ -24,7 +24,7 @@ export abstract class BaseChannel<T extends APIGuildChannel<ChannelType>> extend
 	 * Whether the channel is marked as NSFW (Not Safe For Work).
 	 */
 	public get nsfw(): boolean {
-		return this.data.nsfw || false;
+		return this.data.nsfw ?? false;
 	}
 
 	/**
@@ -35,9 +35,9 @@ export abstract class BaseChannel<T extends APIGuildChannel<ChannelType>> extend
 	}
 
 	/**
-	 * The ID of the parent category channel, if this channel is a child of a category.
+	 * The Id of the parent category channel, if this channel is a child of a category.
 	 */
-	public get parentId(): string | null {
-		return this.data.parent_id || null;
+	public get parentId(): Snowflake | null {
+		return this.data.parent_id ?? null;
 	}
 }

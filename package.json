@@ -15,6 +15,7 @@
 		"lib"
 	],
 	"scripts": {
+		"fix": "biome check --fix --unsafe src/",
 		"build": "biome check --write src/ && unbuild",
 		"test": "bun test"
 	},

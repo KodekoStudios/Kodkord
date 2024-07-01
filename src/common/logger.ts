@@ -41,7 +41,10 @@ export class Logger {
 	 * @returns The padded text.
 	 */
 	public pad(text: string, length: number, chars = " "): string {
-		if (text.length >= length) return text;
+		if (text.length >= length) {
+			return text;
+		}
+
 		const start = Math.floor(length / 2) - text.length;
 		const end = length - start - text.length;
 		return chars.repeat(start) + text + chars.repeat(end);

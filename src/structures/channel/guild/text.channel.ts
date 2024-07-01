@@ -24,6 +24,6 @@ export class GuildTextChannel extends BaseChannel<APITextChannel> {
 	 * The rate limit per user for sending messages in this channel, in seconds.
 	 */
 	public get rateLimitPerUser(): number {
-		return this.data.rate_limit_per_user || 0;
+		return this.data.rate_limit_per_user ?? 0;
 	}
 }

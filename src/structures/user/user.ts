@@ -7,8 +7,15 @@ import { UserAvatar } from "./user.avatar";
  * Represents a Discord user.
  */
 export class User extends Base<APIUser> {
+	/** The user's avatar. */
 	public readonly avatar: UserAvatar<typeof this.data.id, typeof this.data.avatar>;
 
+	/**
+	 * Creates an instance of User.
+	 *
+	 * @param data The APIUser object from which to extract the user's data.
+	 * @param client The client object.
+	 */
 	constructor(data: APIUser, client: Client) {
 		super(data, client);
 		this.avatar = new UserAvatar(data.id, data.avatar);
