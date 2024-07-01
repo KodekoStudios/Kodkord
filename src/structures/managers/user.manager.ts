@@ -4,7 +4,15 @@ import { type APIUser, Routes } from "discord-api-types/v10";
 import { User } from "../user/user";
 import { BaseManager } from "./base.manager";
 
+/**
+ * Manages the users in the client.
+ */
 export class UserManager extends BaseManager<User> {
+	/**
+	 * Creates an instance of the UserManager class.
+	 *
+	 * @param client The client object.
+	 */
 	constructor(client: Client) {
 		super(client, "user manager");
 	}

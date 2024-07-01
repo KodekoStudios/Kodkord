@@ -3,16 +3,16 @@ import {
 	GatewayDispatchEvents,
 	type GatewayDispatchPayload,
 	type GatewayHello,
-	type GatewayMessageCreateDispatchData,
 	GatewayOpcodes,
 	type GatewayReceivePayload,
 	GatewayVersion,
 } from "discord-api-types/v10";
 import WS from "ws";
+import type { Client } from "./client";
+import { RawEvents } from "./events";
 
 /**
  * The address for the WebSocket connection to the Discord gateway.
- * It includes the gateway version and encoding information.
  */
 export const WebSocketAddress = `wss://gateway.discord.gg/?v=${GatewayVersion}&encoding=json`;
 
@@ -30,7 +30,7 @@ export enum OperatingSystem {
  */
 export interface WebSocketOptions {
 	/**
-	 * The Discord bot token.
+	 * The Discord app token.
 	 */
 	token: string;
 
@@ -45,7 +45,7 @@ export interface WebSocketOptions {
 	device?: string;
 
 	/**
-	 * The operating system of the device running the bot (default is "linux").
+	 * The operating system of the device running the app (default is "linux").
 	 */
 	os?: OperatingSystem;
 }
@@ -60,22 +60,28 @@ export class WebSocket {
 	private device: string;
 	private os: OperatingSystem;
 
+	/** The client instance for interacting with the Discord API. */
+	public readonly client: Client;
+
 	/**
 	 * The number of intents for the WebSocket.
 	 */
 	public readonly intents: number;
 
 	/**
-	 * Creates an instance of DiscordWebSocket.
+	 * Creates a new WebSocket instance.
 	 *
-	 * @param token The bot token used for authentication.
+	 * @param options The options for configuring the WebSocket connection.
+	 * @param options.token The Discord app token.
+	 * @param options.intents The intents for the WebSocket connection.
+	 * @param options.device The device name (default is "kodcord").
+	 * @param options.os The operating system of the device running the app (default is "linux").
 	 */
-	constructor({
-		token,
-		intents,
-		device = "kodcord",
-		os = OperatingSystem.Linux,
-	}: WebSocketOptions) {
+	constructor(
+		client: Client,
+		{ token, intents, device = "kodcord", os = OperatingSystem.Linux }: WebSocketOptions,
+	) {
+		this.client = client;
 		this.logger = new Logger({ from: "web socket" });
 		this.token = token;
 		this.intents = intents;
@@ -85,6 +91,7 @@ export class WebSocket {
 
 	/**
 	 * Establishes a WebSocket connection to the Discord gateway.
+	 *
 	 * Initiates the connection and handles events such as 'open', 'message', 'close', and 'error'.
 	 */
 	public connect(): void {
@@ -191,7 +198,10 @@ export class WebSocket {
 	public handleDispatch({ d, t }: GatewayDispatchPayload) {
 		switch (t) {
 			case GatewayDispatchEvents.MessageCreate:
-				this.handleMessageCreate(d);
+				this.client.events.get("MESSAGE_CREATE")?.(
+					RawEvents.MESSAGE_CREATE(this.client, d),
+					this.client,
+				);
 				break;
 
 			default:
@@ -209,15 +219,5 @@ export class WebSocket {
 		setInterval(() => {
 			this.ws.send(JSON.stringify({ op: 1, d: null }));
 		}, heartbeat_interval);
-	}
-
-	/**
-	 * Handles the 'MESSAGE_CREATE' event type, which indicates a new message was created in a channel.
-	 * Implements custom logic to process and respond to incoming messages.
-	 *
-	 * @param data The message data received from Discord.
-	 */
-	private handleMessageCreate(data: GatewayMessageCreateDispatchData) {
-		this.logger.debug("Received message:", data);
 	}
 }

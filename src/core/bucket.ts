@@ -11,7 +11,9 @@ export interface QueueItem<T> {
  * Represents a bucket for managing rate limits and queuing requests.
  */
 export class Bucket {
+	// biome-ignore lint/correctness/noUndeclaredVariables: Timer is not declared in the NodeJS namespace cuz it's a Bun type.
 	private processingResetAfter?: NodeJS.Timeout | Timer | boolean;
+	// biome-ignore lint/correctness/noUndeclaredVariables: Same as above.
 	private processing?: NodeJS.Timeout | Timer | boolean;
 	private queue: QueueItem<unknown>[];
 	private remaining: number;
@@ -38,7 +40,7 @@ export class Bucket {
 	 * @param override Whether to override the current processing state.
 	 */
 	public process(override = false): void {
-		if (!this.queue.length) {
+		if (this.queue.length === 0) {
 			if (this.processing) {
 				clearTimeout(this.processing as NodeJS.Timeout);
 				this.processing = false;
