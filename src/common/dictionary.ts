@@ -33,7 +33,9 @@ export class Dictionary<Key, Value> extends Map<Key, Value> {
 
 		if (iterable) {
 			const array = [...iterable];
-			if (array.length > limit) iterable = array.slice(0, limit);
+			if (array.length > limit) {
+				iterable = array.slice(0, limit);
+			}
 		}
 
 		super(iterable);
@@ -51,7 +53,9 @@ export class Dictionary<Key, Value> extends Map<Key, Value> {
 	 * @returns The updated Dictionary instance.
 	 */
 	public override set(key: Key, value: Value): this {
-		if (this.has(key)) return super.set(key, value);
+		if (this.has(key)) {
+			return super.set(key, value);
+		}
 
 		if (this.size === this.limit) {
 			this.logger.warn(
