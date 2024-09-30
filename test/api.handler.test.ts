@@ -4,12 +4,12 @@ import { describe, expect, it } from "bun:test";
 
 describe("APIHandler", () => {
 	const apiHandler = new APIHandler({
-		token: "your_discord_token_here",
+		token: process.env.test_token ?? '',
 		type: "Bot",
 	});
 
 	it("should fetch guild details successfully", async () => {
-		const guildId = "your_guild_id_here";
+		const guildId = process.env.test_guild_id ?? '';
 		try {
 			const response = await apiHandler.get<APIGuild>(`/guilds/${guildId}`);
 			console.log("Server details:", { id: response.id, name: response.name });

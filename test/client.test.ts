@@ -4,14 +4,14 @@ import { Client } from "../src/core/client";
 
 describe("Client", () => {
 	const client = new Client({
-		token: "your_bot_token",
+		token: process.env.test_token ?? '', // Your bot token
 		type: "Bot",
 	});
 
 	it("should fetch current user", async () => {
 		const currentUser = await client.users.self();
 		expect(currentUser).toBeInstanceOf(User);
-		expect(currentUser.id).toBe("your_app_id");
+		expect(currentUser.id).toBe(process.env.test_app_id);
 	});
 
 	it("should fetch a user by Id", async () => {

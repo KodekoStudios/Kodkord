@@ -1,6 +1,6 @@
 import type { DefaultUserAvatarAssets } from "discord-api-types/v10";
 import type { Nullable } from "../../src/types";
-import { group, bench, run } from "mitata";
+import { bench, run, summary } from "mitata";
 
 class CAvatar {
 	public readonly default_avatar: DefaultUserAvatarAssets;
@@ -23,7 +23,7 @@ class CAvatar {
 		return `https://example.com/images/default_${this.default_avatar}?size=${size}`;
 	}
 
-	public display(size: number) {
+	public display(_size: number) {
 		return this.avatar ? this.url(4096) : this.default(4096);
 	}
 }
@@ -49,7 +49,7 @@ const OAvatar = (avatar: Nullable<string>, default_avatar: DefaultUserAvatarAsse
 	},
 });
 
-group("Class vs Object", () => {
+summary(() => {
 	bench("Object", () => OAvatar("avatar_example", 1));
 	bench("Class", () => new CAvatar("avatar_example", 1));
 });
