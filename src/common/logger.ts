@@ -1,5 +1,5 @@
 /*
- * Modified for AKORD
+ * Modified for Kodcord
  * Based on https://github.com/Pavez7274/akore/blob/dev/src/structures/logger.ts
  */
 
@@ -12,19 +12,19 @@ interface LoggerOptions {
  * Logger class for logging messages with ANSI styling and formatting.
  */
 export class Logger {
-	/** Prefix for log messages with Akord styling */
+	/** Prefix for log messages with Kodcord styling */
 	public readonly prefix: string;
 
 	/** The source of the log message */
 	public readonly from: string;
 
 	constructor({ prefix, from }: LoggerOptions = {}) {
-		this.prefix = this.makePrefix(prefix ?? "AKORD");
+		this.prefix = this.makePrefix(prefix ?? "KODCORD");
 		this.from = from?.toUpperCase() ?? "LOG";
 	}
 
 	/**
-	 * Gets the prefix for log messages with Akord styling.
+	 * Gets the prefix for log messages with Kodcord styling.
 	 *
 	 * @returns The prefix string.
 	 */

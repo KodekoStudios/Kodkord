@@ -88,7 +88,7 @@ export class APIHandler {
 
 		const headers: Record<string, string> = {
 			Authorization: `${this.options.type || "Bot"} ${this.options.token}`,
-			"User-Agent": this.options.agent || "Akord (https://github.com/Akord)",
+			"User-Agent": this.options.agent || "Kodcord (https://github.com/KodekoStudios)",
 			"Content-Type": "application/json",
 		};
 
