@@ -32,7 +32,7 @@ export class Client {
 	public readonly ws: WebSocket;
 
 	/** The command manager for managing commands. */
-	public readonly commands: CommandManager;
+	commands: CommandManager;
 
 	/** The event manager for managing events. */
 	public readonly events: EventManager;

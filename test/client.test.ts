@@ -20,4 +20,24 @@ describe("Client", () => {
 		expect(fetchedUser).toBeInstanceOf(User);
 		expect(fetchedUser.id).toBe(userId);
 	});
+
+	it("should set a command", () => {
+		client.commands.set({
+			name: "ping",
+			execute: (message) => {
+				message.reply("Pong!");
+			},
+		});
+		expect(client.commands.store.get("ping")).toBeDefined();
+	});
+
+	it("should execute a command", () => {
+		const message = {
+			content: "!ping",
+			reply: (content: string) => {
+				expect(content).toBe("Pong!");
+			},
+		};
+		client.commands.store.get("ping")?.execute(message);
+	});
 });

@@ -4,12 +4,17 @@ import { Message } from "@structures/message/message";
 import type { GatewayMessageCreateDispatchData } from "discord-api-types/v10";
 import { BaseManager } from "./base.manager";
 
+interface Command {
+	name: string;
+	execute: (message: Message) => void;
+}
+
 /**
  * Manages commands for the client.
  */
-export class CommandManager extends BaseManager<unknown> {
+export class CommandManager extends BaseManager<Command> {
 	/** The dictionary to store commands. */
-	public declare store: Dictionary<string, unknown>;
+	declare store: Dictionary<string, Command>;
 
 	/**
 	 * Creates a new instance of the CommandManager class.
@@ -18,6 +23,10 @@ export class CommandManager extends BaseManager<unknown> {
 	 */
 	constructor(client: Client) {
 		super(client, "command manager");
+	}
+
+	async set(command: Command) {
+		this.store.set(command.name, command);
 	}
 
 	/**
@@ -44,6 +53,13 @@ export class CommandManager extends BaseManager<unknown> {
 
 		const content = rawMessage.content.slice(prefix.length).trimStart();
 
-		this.logger.info("Command Detected.\n", `Content: ${content}\n`, `Prefix: ${prefix}`);
+		this.logger.info("Command Detected.\n", `Content: ${content}\n`, `Prefix: ${prefix}`)
+		
+		const command = this.store.get(content);
+
+		if (command) {
+			command.execute(message);
+		}
+
 	}
 }
