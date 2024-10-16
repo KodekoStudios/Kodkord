@@ -10,7 +10,7 @@ import { Logger } from "./logger";
  */
 export class Dictionary<Key, Value> extends Map<Key, Value> {
 	/** Logger instance used for logging warnings and errors. */
-	protected logger: Logger;
+	protected logger?: Logger;
 
 	/** The maximum number of entries the dictionary can hold. */
 	public readonly limit: number;
@@ -29,18 +29,18 @@ export class Dictionary<Key, Value> extends Map<Key, Value> {
 		limit?: Nullable<number>,
 		name?: Nullable<string>,
 	) {
-		limit = limit && limit > 0 ? Math.round(limit) : Number.POSITIVE_INFINITY;
+		const effectiveLimit = limit && limit > 0 ? Math.round(limit) : Number.POSITIVE_INFINITY;
 
-		if (iterable) {
+		// Avoid copying array unless it's necessary
+		if (iterable && effectiveLimit < Number.POSITIVE_INFINITY) {
 			const array = [...iterable];
-			if (array.length > limit) {
-				iterable = array.slice(0, limit);
+			if (array.length > effectiveLimit) {
+				iterable = array.slice(0, effectiveLimit);
 			}
 		}
 
 		super(iterable);
-		this.logger = new Logger({ from: "dictionary" });
-		this.limit = limit;
+		this.limit = effectiveLimit;
 		this.name = name ?? "unknown";
 	}
 
@@ -53,17 +53,18 @@ export class Dictionary<Key, Value> extends Map<Key, Value> {
 	 * @returns The updated Dictionary instance.
 	 */
 	public override set(key: Key, value: Value): this {
-		if (this.has(key)) {
-			return super.set(key, value);
-		}
+		if (!this.has(key) && this.size === this.limit) {
+			// Lazy initialization of logger
+			if (!this.logger) {
+				this.logger = new Logger({ from: "DICTIONARY" });
+			}
 
-		if (this.size === this.limit) {
 			this.logger.warn(
-				`The Dictionary "${this.name}" has reached it's limit (${this.size}/${this.limit}). Cannot add more items.`,
+				"Dictionary Capacity Exceeded",
+				`The Dictionary {italic:${this.name}} has reached it's limit {black:(${this.size}/${this.limit})}. Cannot add more items!`,
 			);
 			return this;
 		}
-
 		return super.set(key, value);
 	}
 
