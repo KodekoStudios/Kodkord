@@ -22,7 +22,7 @@ export class CommandManager extends BaseManager<Command> {
 	 * @param client The client instance.
 	 */
 	constructor(client: Client) {
-		super(client, "command manager");
+		super(client, "COMMAND MANAGER");
 	}
 
 	async set(command: Command) {
@@ -53,8 +53,8 @@ export class CommandManager extends BaseManager<Command> {
 
 		const content = rawMessage.content.slice(prefix.length).trimStart();
 
-		this.logger.info("Command Detected.\n", `Content: ${content}\n`, `Prefix: ${prefix}`)
-		
+		this.logger.inform("Command Detected.\n", `Content: ${content}\n`, `Prefix: ${prefix}`)
+
 		const command = this.store.get(content);
 
 		if (command) {

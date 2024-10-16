@@ -82,7 +82,7 @@ export class WebSocket {
 		{ token, intents, device = "kodcord", os = OperatingSystem.Linux }: WebSocketOptions,
 	) {
 		this.client = client;
-		this.logger = new Logger({ from: "web socket" });
+		this.logger = new Logger({ from: "WEB SOCKET" });
 		this.token = token;
 		this.intents = intents;
 		this.device = device;
@@ -116,7 +116,7 @@ export class WebSocket {
 		});
 
 		this.ws.on("error", (error: Error) => {
-			this.logger.error(error.message);
+			this.logger.throw(error.message);
 		});
 	}
 

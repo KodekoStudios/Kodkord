@@ -18,7 +18,7 @@ export class EventManager extends BaseManager<PredicateEventHandler[EventNames]>
 	 * @param client The client instance.
 	 */
 	constructor(client: Client) {
-		super(client, "event manager");
+		super(client, "EVENT MANAGER");
 	}
 
 	/**

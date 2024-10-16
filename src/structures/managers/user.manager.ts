@@ -14,7 +14,7 @@ export class UserManager extends BaseManager<User> {
 	 * @param client The client object.
 	 */
 	constructor(client: Client) {
-		super(client, "user manager");
+		super(client, "USER MANAGER");
 	}
 
 	/**
