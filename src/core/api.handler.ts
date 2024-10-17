@@ -18,10 +18,19 @@ export enum RequestMethod {
  * Options for configuring the API handler.
  */
 export interface ApiHandlerOptions {
+	/** The base URL for the API. Defaults to Discord's API base URL. */
 	baseURL?: string;
+
+	/** The authentication token for API requests. */
 	token: string;
+
+	/** The type of token being used for authorization. */
 	type?: "Bearer" | "Bot";
+
+	/** Optional user agent string for requests. */
 	agent?: string;
+
+	/** Optional flag to enable debug logging. */
 	debug?: boolean;
 }
 
@@ -29,32 +38,48 @@ export interface ApiHandlerOptions {
  * Options for making API requests.
  */
 export interface ApiRequestOptions {
+	/** The body data to send with the request, if applicable. */
 	body?: Record<string, object>;
+
+	/** Query parameters to append to the request URL. */
 	query?: Record<string, string>;
+
+	/** Optional reason for audit logs when performing certain actions. */
 	reason?: string;
 }
 
 /**
  * Handles interactions with the Discord API.
+ *
+ * This class provides methods for making requests to the Discord API while managing rate limits
+ * and automatically handling authorization headers.
  */
 export class APIHandler {
+	/** Configuration options for the API handler. */
 	private options: ApiHandlerOptions;
+
+	/** The base URL for API requests. */
 	private baseURL: string;
+
+	/** A dictionary to manage rate limits for API routes. */
 	private ratelimits: Dictionary<string, Bucket>;
 
 	/**
-	 * Creates an instance of APIHandler.
+	 * Constructs a new instance of the APIHandler class.
 	 *
 	 * @param options Options for configuring the API handler.
 	 */
 	constructor(options: ApiHandlerOptions) {
 		this.options = options;
 		this.baseURL = options.baseURL || RouteBases.api;
-		this.ratelimits = new Dictionary(undefined, undefined, "Rate Limits");
+		this.ratelimits = new Dictionary(undefined, undefined, "RATE LIMITS");
 	}
 
 	/**
 	 * Retrieves or creates a Bucket for the given route.
+	 *
+	 * This method checks if a Bucket exists for the specified API route. If not, it creates a new
+	 * Bucket with a specified rate limit.
 	 *
 	 * @param route The API route for which to get or create a Bucket.
 	 * @returns The Bucket instance associated with the route.
@@ -69,12 +94,39 @@ export class APIHandler {
 	}
 
 	/**
-	 * Executes a request to the Discord API.
+	 * Centralized method to build headers for API requests.
+	 *
+	 * This method constructs the headers required for making API requests, including
+	 * authorization and optional audit log reasons.
+	 *
+	 * @param reason Optional reason for audit logs.
+	 * @returns An object with all necessary headers.
+	 */
+	private buildHeaders(reason?: string): Record<string, string> {
+		const headers: Record<string, string> = {
+			Authorization: `${this.options.type || "Bot"} ${this.options.token}`,
+			"User-Agent": this.options.agent || "Kodcord (https://github.com/KodekoStudios)",
+			"Content-Type": "application/json",
+		};
+
+		if (reason) {
+			headers["X-Audit-Log-Reason"] = reason;
+		}
+
+		return headers;
+	}
+
+	/**
+	 * Executes a request to the Discord API with improved error handling.
+	 *
+	 * This method makes a network request to the specified API route using the provided HTTP
+	 * method and options. It manages rate limits and handles errors that may occur during
+	 * the request.
 	 *
 	 * @param method The HTTP method for the request.
 	 * @param route The API route to request.
-	 * @param options Additional options for the request.
-	 * @returns The response data from the API.
+	 * @param options Additional options for the request, including body and query parameters.
+	 * @returns A promise that resolves to the response data from the API.
 	 */
 	public async request<T>(
 		method: RequestMethod,
@@ -86,20 +138,8 @@ export class APIHandler {
 			url.search = new URLSearchParams(options.query).toString();
 		}
 
-		const headers: Record<string, string> = {
-			Authorization: `${this.options.type || "Bot"} ${this.options.token}`,
-			"User-Agent": this.options.agent || "Kodcord (https://github.com/KodekoStudios)",
-			"Content-Type": "application/json",
-		};
-
-		if (options.reason) {
-			headers["X-Audit-Log-Reason"] = options.reason;
-		}
-
-		const requestOptions: RequestInit = {
-			method,
-			headers,
-		};
+		const headers = this.buildHeaders(options.reason);
+		const requestOptions: RequestInit = { method, headers };
 
 		if (options.body) {
 			requestOptions.body = JSON.stringify(options.body);
@@ -110,21 +150,19 @@ export class APIHandler {
 
 		return new Promise((resolve, reject) => {
 			bucket.push({
-				next: (cb, _res, rej) => {
-					fetch(url.toString(), requestOptions)
-						.then((response) => {
-							if (!response.ok) {
-								rej(`Discord API request failed with status ${response.status}`);
-							}
-							return response.json();
-						})
-						.then((data) => {
-							cb();
-							resolve(data);
-						})
-						.catch((error) => {
-							rej(`Failed to execute Discord API request: ${error.message}`);
-						});
+				next: async (cb, _res, rej) => {
+					try {
+						const response = await fetch(url.toString(), requestOptions);
+						if (!response.ok) {
+							rej(`Discord API request failed with status ${response.status}`);
+							return;
+						}
+						const data = await response.json();
+						cb();
+						resolve(data);
+					} catch (error) {
+						rej(`Failed to execute Discord API request: ${(error as Error).message}`);
+					}
 				},
 				resolve,
 				reject,
@@ -135,9 +173,11 @@ export class APIHandler {
 	/**
 	 * Sends a GET request to the Discord API.
 	 *
+	 * This method is a convenience wrapper for making GET requests to the specified API route.
+	 *
 	 * @param route The API route to request.
-	 * @param options Additional options for the request.
-	 * @returns The response data from the API.
+	 * @param options Additional options for the request, including query parameters.
+	 * @returns A promise that resolves to the response data from the API.
 	 */
 	public async get<T>(route: string, options?: ApiRequestOptions): Promise<T> {
 		return this.request(RequestMethod.Get, route, options);
@@ -146,9 +186,11 @@ export class APIHandler {
 	/**
 	 * Sends a POST request to the Discord API.
 	 *
+	 * This method is a convenience wrapper for making POST requests to the specified API route.
+	 *
 	 * @param route The API route to request.
-	 * @param options Additional options for the request.
-	 * @returns The response data from the API.
+	 * @param options Additional options for the request, including body data.
+	 * @returns A promise that resolves to the response data from the API.
 	 */
 	public async post<T>(route: string, options?: ApiRequestOptions): Promise<T> {
 		return this.request(RequestMethod.Post, route, options);
@@ -157,9 +199,11 @@ export class APIHandler {
 	/**
 	 * Sends a PATCH request to the Discord API.
 	 *
+	 * This method is a convenience wrapper for making PATCH requests to the specified API route.
+	 *
 	 * @param route The API route to request.
-	 * @param options Additional options for the request.
-	 * @returns The response data from the API.
+	 * @param options Additional options for the request, including body data.
+	 * @returns A promise that resolves to the response data from the API.
 	 */
 	public async patch<T>(route: string, options?: ApiRequestOptions): Promise<T> {
 		return this.request(RequestMethod.Patch, route, options);
@@ -168,9 +212,11 @@ export class APIHandler {
 	/**
 	 * Sends a PUT request to the Discord API.
 	 *
+	 * This method is a convenience wrapper for making PUT requests to the specified API route.
+	 *
 	 * @param route The API route to request.
-	 * @param options Additional options for the request.
-	 * @returns The response data from the API.
+	 * @param options Additional options for the request, including body data.
+	 * @returns A promise that resolves to the response data from the API.
 	 */
 	public async put<T>(route: string, options?: ApiRequestOptions): Promise<T> {
 		return this.request(RequestMethod.Put, route, options);
@@ -179,9 +225,11 @@ export class APIHandler {
 	/**
 	 * Sends a DELETE request to the Discord API.
 	 *
+	 * This method is a convenience wrapper for making DELETE requests to the specified API route.
+	 *
 	 * @param route The API route to request.
 	 * @param options Additional options for the request.
-	 * @returns The response data from the API.
+	 * @returns A promise that resolves to the response data from the API.
 	 */
 	public async delete<T>(route: string, options?: ApiRequestOptions): Promise<T> {
 		return this.request(RequestMethod.Delete, route, options);
