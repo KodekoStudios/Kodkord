@@ -106,7 +106,7 @@ export class APIHandler {
 		}
 
 		const bucket = this.getOrCreateBucket(route);
-		await bucket.triggerResetAfter(); // Ensure rate limit reset before processing
+		await bucket.scheduleRateLimitReset(); // Ensure rate limit reset before processing
 
 		return new Promise((resolve, reject) => {
 			bucket.push({
