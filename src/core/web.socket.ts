@@ -11,14 +11,10 @@ import WS from "ws";
 import type { Client } from "./client";
 import { RawEvents } from "./events";
 
-/**
- * The address for the WebSocket connection to the Discord gateway.
- */
+/** The WebSocket URL for the Discord gateway connection. */
 export const WebSocketAddress = `wss://gateway.discord.gg/?v=${GatewayVersion}&encoding=json`;
 
-/**
- * Enum for different operating systems.
- */
+/** Enum for various operating systems. */
 export enum OperatingSystem {
 	Windows = "windows",
 	Linux = "linux",
@@ -26,32 +22,24 @@ export enum OperatingSystem {
 }
 
 /**
- * Options for configuring the WebSocket connection.
+ * Configuration options for establishing a WebSocket connection to Discord.
  */
 export interface WebSocketOptions {
-	/**
-	 * The Discord app token.
-	 */
+	/** The token for authenticating with the Discord API. */
 	token: string;
 
-	/**
-	 * The intents for the WebSocket connection.
-	 */
+	/** The bitmask representing the intents for the WebSocket connection. */
 	intents: number;
 
-	/**
-	 * The device name (default is "kodcord").
-	 */
+	/** The name of the device (default is "kodcord"). */
 	device?: string;
 
-	/**
-	 * The operating system of the device running the app (default is "linux").
-	 */
+	/** The operating system of the client device (default is "linux"). */
 	os?: OperatingSystem;
 }
 
 /**
- * Represents a WebSocket connection to the Discord gateway.
+ * Represents a WebSocket connection to the Discord gateway for real-time communication.
  */
 export class WebSocket {
 	private declare ws: WS;
@@ -60,13 +48,14 @@ export class WebSocket {
 	private device: string;
 	private os: OperatingSystem;
 
-	/** The client instance for interacting with the Discord API. */
+	/** The client instance associated with this WebSocket connection. */
 	public readonly client: Client;
 
-	/**
-	 * The number of intents for the WebSocket.
-	 */
+	/** The bitmask representing the enabled intents for the WebSocket connection. */
 	public readonly intents: number;
+
+	// biome-ignore lint/correctness/noUndeclaredVariables: Timer is not declared in the NodeJS namespace cuz it's a Bun type.
+	private heartbeatInterval?: NodeJS.Timeout | Timer;
 
 	/**
 	 * Creates a new WebSocket instance.
@@ -108,11 +97,12 @@ export class WebSocket {
 
 		this.ws.on("close", () => {
 			// Message to Aaron:
-			//  You may want to handle the reconnection logic here.
-			//  If you want it, just do it.
-			//  My recommendation is to limit the number of attempts to reconnect.
-
-			this.logger.debug("WebSocket connection closed.");
+			//  Fuck your Aarón, I made your job.
+			this.logger.debug(
+				"WebSocket connection closed.",
+				"The connection will be attempted to be reestablished..."
+			);
+			this.reconnect();
 		});
 
 		this.ws.on("error", (error: Error) => {
@@ -121,10 +111,14 @@ export class WebSocket {
 	}
 
 	/**
-	 * Disconnects the WebSocket connection.
+	 * Disconnects the WebSocket connection, clears listeners, and stops the heartbeat.
 	 */
 	public disconnect(): void {
 		this.logger.debug("Disconnecting WebSocket...");
+
+		if (this.heartbeatInterval) {
+			clearInterval(this.heartbeatInterval);
+		}
 
 		this.ws.removeAllListeners();
 		this.ws.close();
@@ -133,8 +127,17 @@ export class WebSocket {
 	}
 
 	/**
-	 * Sends an identify payload to authenticate and initialize the connection.
-	 * This method is called once the WebSocket connection is established.
+	 * Attempts to reconnect the WebSocket after a disconnect event.
+	 * Uses a delay before attempting to reconnect.
+	 */
+	private reconnect(): void {
+		this.logger.debug("Reconnecting WebSocket...");
+		setTimeout(() => this.connect(), 5000); // Exponential backoff can be implemented here
+	}
+
+	/**
+	 * Sends an identification payload to authenticate and establish the WebSocket session with Discord.
+	 * Called automatically when the WebSocket connection is opened.
 	 */
 	private identify(): void {
 		this.ws.send(
@@ -154,23 +157,26 @@ export class WebSocket {
 	}
 
 	/**
-	 * Handles incoming messages received through the WebSocket connection.
-	 * Parses and processes different types of payload messages (e.g., 'Dispatch', 'Hello').
+	 * Processes incoming WebSocket messages from Discord.
+	 * Determines the type of message received and routes it to the appropriate handler.
 	 *
-	 * @param message The raw message received from the WebSocket.
+	 * @param message The raw WebSocket message received from Discord.
 	 */
 	private handleMessage(message: string) {
 		const payload = JSON.parse(message) as GatewayReceivePayload;
 
-		payload.t && this.logger.debug("Received Event:", payload.t);
+		if (payload.t) {
+			this.logger.debug(`Received Event {underline:${payload.t}}`, JSON.stringify(payload, null, 2));
+		}
+
 
 		switch (payload.op) {
 			case GatewayOpcodes.Dispatch:
-				if (payload.t === GatewayDispatchEvents.Ready) {
-					this.logger.debug(
-						`Connected as ${payload.d.user.username}#${payload.d.user.discriminator}`,
-					);
-				}
+				// if (payload.t === GatewayDispatchEvents.Ready) {
+				// 	this.logger.debug(
+				// 		`Connected as ${payload.d.user.username}#${payload.d.user.discriminator}`,
+				// 	);
+				// }
 
 				this.handleDispatch(payload);
 				break;
@@ -185,13 +191,14 @@ export class WebSocket {
 			//  https://discord.com/developers/docs/topics/gateway
 
 			default:
+				this.logger.warn(`Unhandled WebSocket opcode: ${payload.op}`);
 				break;
 		}
 	}
 
 	/**
-	 * Handles the 'Dispatch' payload type, which represents an event sent by Discord.
-	 * Differentiates and processes various event types (e.g., 'MESSAGE_CREATE', 'GUILD_CREATE').
+	 * Handles 'Dispatch' payloads from Discord, which represent various events.
+	 * Dispatches events to the client's event handlers (e.g., 'MESSAGE_CREATE', 'GUILD_CREATE').
 	 *
 	 * @param payload The 'Dispatch' payload received from Discord.
 	 */
@@ -210,14 +217,14 @@ export class WebSocket {
 	}
 
 	/**
-	 * Handles the 'Hello' payload type, which provides heartbeat information.
-	 * Sends periodic heartbeat messages to maintain the WebSocket connection.
+	 * Handles the 'Hello' payload from Discord, which includes the heartbeat interval.
+	 * Sends heartbeat messages at regular intervals to maintain the WebSocket connection.
 	 *
-	 * @param payload The 'Hello' payload received from Discord.
+	 * @param payload The 'Hello' payload containing the heartbeat interval.
 	 */
-	private handleHello({ d: { heartbeat_interval } }: GatewayHello) {
-		setInterval(() => {
-			this.ws.send(JSON.stringify({ op: 1, d: null }));
+	private handleHello({ d: { heartbeat_interval } }: GatewayHello): void {
+		this.heartbeatInterval = setInterval(() => {
+			this.ws.send(JSON.stringify({ op: GatewayOpcodes.Heartbeat, d: null }));
 		}, heartbeat_interval);
 	}
 }
