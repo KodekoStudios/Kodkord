@@ -154,8 +154,8 @@ export class Logger {
 					x === ANSICodes.BITColor
 					? ANSICodes.ResetColor
 					: (typeof x === "number" && ((x >= 40 && x <= 47) || (x >= 100 && x <= 107))) ||
-						x === ANSICodes.RGBBackground ||
-						x === ANSICodes.BITBackground
+							x === ANSICodes.RGBBackground ||
+							x === ANSICodes.BITBackground
 						? ANSICodes.ResetBgColor
 						: style && !style.startsWith("Reset")
 							? ANSICodes[`Reset${style}` as unknown as keyof typeof ANSICodes]

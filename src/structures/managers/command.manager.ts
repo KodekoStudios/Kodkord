@@ -4,7 +4,7 @@ import { Message } from "@structures/message/message";
 import type { GatewayMessageCreateDispatchData } from "discord-api-types/v10";
 import { BaseManager } from "./base.manager";
 
-interface Command {
+export interface Command {
 	name: string;
 	execute: (message: Message) => void;
 }
@@ -53,13 +53,12 @@ export class CommandManager extends BaseManager<Command> {
 
 		const content = rawMessage.content.slice(prefix.length).trimStart();
 
-		this.logger.inform("Command Detected.\n", `Content: ${content}\n`, `Prefix: ${prefix}`)
+		this.logger.inform("Command Detected.\n", `Content: ${content}\n`, `Prefix: ${prefix}`);
 
 		const command = this.store.get(content);
 
 		if (command) {
 			command.execute(message);
 		}
-
 	}
 }
