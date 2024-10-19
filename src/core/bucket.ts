@@ -1,12 +1,12 @@
 /**
  * Interface for a queue item in the Bucket.
- * 
+ *
  * @template T The type of the data being processed by the queue.
  */
 export interface QueueItem<T> {
 	/**
 	 * Function that processes the next item in the queue.
-	 * 
+	 *
 	 * @param cb Callback function to be called after the current item is processed.
 	 * @param resolve Function to resolve the current item and proceed with its result.
 	 * @param reject Function to handle any errors during the processing.
@@ -15,24 +15,23 @@ export interface QueueItem<T> {
 
 	/**
 	 * Function to resolve the current item with the provided data.
-	 * 
+	 *
 	 * @param data The resolved data for the current item.
 	 */
 	resolve: (data: T) => void;
 
 	/**
 	 * Function to reject the current item with an error.
-	 * 
+	 *
 	 * @param err The error that occurred while processing the current item.
 	 */
 	reject: (err: unknown) => void;
 }
 
-
 /**
  * Manages rate-limited execution of requests and their queuing.
- * 
- * The Bucket class is responsible for processing requests with a rate limit, ensuring that 
+ *
+ * The Bucket class is responsible for processing requests with a rate limit, ensuring that
  * no more than a specified number of requests are processed in a given time window.
  */
 export class Bucket {
@@ -70,7 +69,7 @@ export class Bucket {
 
 	/**
 	 * Constructs a new instance of the Bucket class.
-	 * 
+	 *
 	 * @param limit The maximum number of requests allowed in a given rate limit window.
 	 */
 	constructor(limit: number) {
@@ -81,11 +80,11 @@ export class Bucket {
 
 	/**
 	 * Processes the next request in the queue if rate limits allow.
-	 * 
+	 *
 	 * This method handles the logic to process the next request in the queue while ensuring
 	 * that rate limits are respected. If the rate limit is exceeded, it schedules the next
 	 * available time to process pending requests.
-	 * 
+	 *
 	 * @param override Whether to force processing the next request, ignoring the current processing state.
 	 */
 	public process(override = false): void {
@@ -146,13 +145,13 @@ export class Bucket {
 
 	/**
 	 * Adds a new request to the queue.
-	 * 
+	 *
 	 * Requests can either be added to the front or the back of the queue. If added to the front
 	 * (`unshift` is true), the request will be processed before other pending requests.
-	 * 
+	 *
 	 * @param func The function representing the request to be added to the queue.
 	 * @param unshift If true, the request is added to the front of the queue. Defaults to false.
-	 * 
+	 *
 	 * @template T The type of the data being processed by the request.
 	 */
 	public push<T>(func: QueueItem<T>, unshift?: boolean): void {
@@ -165,7 +164,7 @@ export class Bucket {
 
 	/**
 	 * Triggers a reset for the remaining requests after a delay.
-	 * 
+	 *
 	 * This method schedules a reset of the remaining request count after a specified delay,
 	 * allowing the bucket to continue processing more requests.
 	 */
@@ -178,7 +177,7 @@ export class Bucket {
 
 	/**
 	 * Resets the rate limit by increasing the remaining request count.
-	 * 
+	 *
 	 * This method is called when the reset window has passed, allowing the bucket to accept
 	 * new requests. It increments the remaining request count and clears any ongoing reset timer.
 	 *

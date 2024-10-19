@@ -31,10 +31,10 @@ export interface WebSocketOptions {
 	/** The bitmask representing the intents for the WebSocket connection. */
 	intents: number;
 
-	/** The name of the device (default is "kodcord"). */
+	/** The name of the device, defaults to "kodcord"). */
 	device?: string;
 
-	/** The operating system of the client device (default is "linux"). */
+	/** The operating system of the client device, defaults to "linux". */
 	os?: OperatingSystem;
 }
 
@@ -58,13 +58,10 @@ export class WebSocket {
 	private heartbeatInterval?: NodeJS.Timeout | Timer;
 
 	/**
-	 * Creates a new WebSocket instance.
+	 * Constructs a new WebSocket instance.
 	 *
-	 * @param options The options for configuring the WebSocket connection.
-	 * @param options.token The Discord app token.
-	 * @param options.intents The intents for the WebSocket connection.
-	 * @param options.device The device name (default is "kodcord").
-	 * @param options.os The operating system of the device running the app (default is "linux").
+	 * @param client The client instance managing this WebSocket connection.
+	 * @param options Configuration options for the WebSocket connection.
 	 */
 	constructor(
 		client: Client,
@@ -79,9 +76,7 @@ export class WebSocket {
 	}
 
 	/**
-	 * Establishes a WebSocket connection to the Discord gateway.
-	 *
-	 * Initiates the connection and handles events such as 'open', 'message', 'close', and 'error'.
+	 * Establishes the WebSocket connection to the Discord gateway and handles events such as 'open', 'message', 'close', and 'error'.
 	 */
 	public connect(): void {
 		this.ws = new WS(WebSocketAddress);
@@ -100,7 +95,7 @@ export class WebSocket {
 			//  Fuck your Aarón, I made your job.
 			this.logger.debug(
 				"WebSocket connection closed.",
-				"The connection will be attempted to be reestablished..."
+				"The connection will be attempted to be reestablished...",
 			);
 			this.reconnect();
 		});
@@ -166,9 +161,11 @@ export class WebSocket {
 		const payload = JSON.parse(message) as GatewayReceivePayload;
 
 		if (payload.t) {
-			this.logger.debug(`Received Event {underline:${payload.t}}`, JSON.stringify(payload, null, 2));
+			this.logger.debug(
+				`Received Event {underline:${payload.t}}`,
+				JSON.stringify(payload, null, 2),
+			);
 		}
-
 
 		switch (payload.op) {
 			case GatewayOpcodes.Dispatch:

@@ -8,7 +8,7 @@ import {
 } from "discord-api-types/v10";
 
 /**
- * Options for generating image URLs with Discord's CDN.
+ * Options for generating image URLs from Discord's CDN.
  */
 interface ImageOptions {
 	format?: UserAvatarFormat;
@@ -17,21 +17,21 @@ interface ImageOptions {
 
 /**
  * Represents a user's avatar with methods to generate URLs for the avatar image.
+ *
+ * @template UserId Type of the user's ID (Snowflake).
+ * @template Hash Type of the avatar hash (string or null).
  */
 export class UserAvatar<UserId extends Snowflake, Hash extends string | null> {
 	private readonly userId: UserId;
 
-	/**
-	 * The user's avatar hash
-	 *
-	 * See https://discord.com/developers/docs/reference#image-formatting
-	 */
+	/** The avatar hash of the user, or null if the user has no custom avatar. */
 	public readonly hash: Hash;
 
 	/**
-	 * Creates an instance of UserAvatar.
+	 * Constructs a new instance of the UserAvatar class.
 	 *
-	 * @param user The APIUser object from which to extract the user's ID and avatar
+	 * @param userId The ID of the user.
+	 * @param hash The avatar hash of the user, or null if no custom avatar.
 	 */
 	constructor(userId: UserId, hash: Hash) {
 		this.userId = userId;
@@ -39,26 +39,24 @@ export class UserAvatar<UserId extends Snowflake, Hash extends string | null> {
 	}
 
 	/**
-	 * Returns the URL of the user's avatar with the specified options.
+	 * Generates the URL for the user's custom avatar with the given options.
 	 *
-	 * @param options The options for the image URL
-	 * @returns The URL of the user's avatar or null if no avatar is set
+	 * @param options The image options, including format and size.
+	 * @returns The URL of the user's custom avatar, or null if no avatar is set.
 	 */
 	public url({ format = ImageFormat.WebP, size = 1024 }: ImageOptions = {}): string | null {
-		if (this.hash) {
-			return `${RouteBases.cdn}${CDNRoutes.userAvatar(this.userId, this.hash, format)}?size=${size}`;
-		}
-
-		return null;
+		return this.hash
+			? `${RouteBases.cdn}${CDNRoutes.userAvatar(this.userId, this.hash, format)}?size=${size}`
+			: null;
 	}
 
 	/**
-	 * Returns the URL of the user's default avatar with the specified options.
+	 * Generates the URL for the user's default avatar based on their user ID.
 	 *
-	 * The value for index parameter will be `(userId >> 22) % 6`.
+	 * The default avatar is chosen using the formula `(userId >> 22) % 6`.
 	 *
-	 * @param options The options for the image URL
-	 * @returns The URL of the default avatar
+	 * @param options The image options, including size.
+	 * @returns The URL of the user's default avatar.
 	 */
 	public default({ size = 1024 }: ImageOptions = {}): string {
 		const index = Number((BigInt(this.userId) >> 22n) % 6n) as DefaultUserAvatarAssets;
@@ -66,13 +64,34 @@ export class UserAvatar<UserId extends Snowflake, Hash extends string | null> {
 	}
 
 	/**
-	 * Returns the display URL of the user's avatar with the specified options.
-	 * If an avatar is set, it returns the URL of the avatar; otherwise, it returns the URL of the default avatar.
+	 * Generates the display URL of the user's avatar. If a custom avatar exists, it returns its URL;
+	 * otherwise, it falls back to the default avatar.
 	 *
-	 * @param options The options for the image URL
-	 * @returns The display URL of the avatar or default avatar
+	 * @param options The image options, including format and size.
+	 * @returns The URL of the user's avatar or default avatar.
 	 */
 	public display(options: ImageOptions = {}): string {
 		return this.url(options) ?? this.default(options);
+	}
+
+	/**
+	 * Checks whether the user has a custom avatar.
+	 *
+	 * @returns True if the user has a custom avatar, false if using the default avatar.
+	 */
+	public hasCustomAvatar(): Hash extends string ? true : false {
+		return (this.hash !== null) as Hash extends string ? true : false;
+	}
+
+	/**
+	 * Checks if the given image size is valid.
+	 *
+	 * @param size The size to validate.
+	 * @returns True if the size is valid, false otherwise.
+	 */
+	public static isValidImageSize(
+		size: number,
+	): size is 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 {
+		return size >= 16 && size <= 4096 && (size & (size - 1)) === 0;
 	}
 }

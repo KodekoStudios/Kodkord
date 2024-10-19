@@ -4,17 +4,17 @@ import { Base } from "../base";
 import { UserAvatar } from "./user.avatar";
 
 /**
- * Represents a Discord user.
+ * Represents a Discord user and provides methods to access their data.
  */
 export class User extends Base<APIUser> {
-	/** The user's avatar. */
+	/** The user's avatar, encapsulated in the UserAvatar class. */
 	public readonly avatar: UserAvatar<typeof this.data.id, typeof this.data.avatar>;
 
 	/**
-	 * Creates an instance of User.
+	 * Constructs a new instance of the User class.
 	 *
-	 * @param data The APIUser object from which to extract the user's data.
-	 * @param client The client object.
+	 * @param data The APIUser object containing user data from the Discord API.
+	 * @param client The client instance that is interacting with the API.
 	 */
 	constructor(data: APIUser, client: Client) {
 		super(data, client);
@@ -22,90 +22,90 @@ export class User extends Base<APIUser> {
 	}
 
 	/**
-	 * The user's username.
+	 * Retrieves the user's username.
 	 *
-	 * @returns The username of the user
+	 * @returns The username of the user.
 	 */
 	public get username(): string {
 		return this.data.username;
 	}
 
 	/**
-	 * The user's discriminator (the 4-digit tag).
+	 * Retrieves the user's discriminator (the 4-digit tag).
 	 *
-	 * @returns The discriminator of the user
+	 * @returns The discriminator (tag) of the user.
 	 */
 	public get discriminator(): string {
 		return this.data.discriminator;
 	}
 
 	/**
-	 * Whether the user is a bot.
+	 * Checks if the user is a bot.
 	 *
-	 * @returns True if the user is a bot, false otherwise
+	 * @returns `true` if the user is a bot, otherwise `false`.
 	 */
 	public get bot(): boolean {
-		return this.data.bot ?? false;
+		return Boolean(this.data.bot);
 	}
 
 	/**
-	 * Whether the user is an Official Discord System user (part of the urgent message system).
+	 * Checks if the user is an official system account (used for urgent messages).
 	 *
-	 * @returns True if the user is a system user, false otherwise
+	 * @returns `true` if the user is a system account, otherwise `false`.
 	 */
 	public get system(): boolean {
-		return this.data.system ?? false;
+		return Boolean(this.data.system);
 	}
 
 	/**
-	 * The user's locale.
+	 * Retrieves the user's locale (language setting).
 	 *
-	 * @returns The locale of the user
+	 * @returns The locale of the user, or `null` if not available.
 	 */
 	public get locale(): string | null {
 		return this.data.locale ?? null;
 	}
 
 	/**
-	 * Whether the user has two-factor authentication enabled.
+	 * Checks if the user has two-factor authentication enabled.
 	 *
-	 * @returns True if the user has two-factor authentication enabled, false otherwise
+	 * @returns `true` if the user has two-factor authentication enabled, otherwise `false`.
 	 */
 	public get mfaEnabled(): boolean {
-		return this.data.mfa_enabled ?? false;
+		return Boolean(this.data.mfa_enabled);
 	}
 
 	/**
-	 * The user's banner hash.
+	 * Retrieves the user's banner hash.
 	 *
-	 * @returns The banner hash of the user
+	 * @returns The user's banner hash, or `null` if not set.
 	 */
 	public get banner(): string | null {
 		return this.data.banner ?? null;
 	}
 
 	/**
-	 * The user's accent color.
+	 * Retrieves the user's accent color.
 	 *
-	 * @returns The accent color of the user
+	 * @returns The user's accent color as a number, or `null` if not set.
 	 */
 	public get accentColor(): number | null {
 		return this.data.accent_color ?? null;
 	}
 
 	/**
-	 * The user's premium type (Nitro subscription type).
+	 * Retrieves the user's premium type (Nitro subscription type).
 	 *
-	 * @returns The premium type of the user
+	 * @returns The user's premium type as a number, or `null` if not subscribed.
 	 */
 	public get premiumType(): number | null {
 		return this.data.premium_type ?? null;
 	}
 
 	/**
-	 * The user's public flags.
+	 * Retrieves the user's public flags.
 	 *
-	 * @returns The public flags of the user
+	 * @returns The user's public flags as a number, or `null` if none are set.
 	 */
 	public get publicFlags(): number | null {
 		return this.data.public_flags ?? null;

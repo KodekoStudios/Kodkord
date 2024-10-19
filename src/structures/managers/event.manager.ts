@@ -7,10 +7,8 @@ import { BaseManager } from "./base.manager";
  * Manages event handlers for different events.
  */
 export class EventManager extends BaseManager<PredicateEventHandler[EventNames]> {
-	/**
-	 * The dictionary that stores the event handlers.
-	 */
-	public declare store: Dictionary<EventNames, PredicateEventHandler[EventNames]>;
+	/** A dictionary to storage events. */
+	public declare storage: Dictionary<EventNames, PredicateEventHandler[EventNames]>;
 
 	/**
 	 * Creates a new instance of the EventManager class.
@@ -28,7 +26,7 @@ export class EventManager extends BaseManager<PredicateEventHandler[EventNames]>
 	 * @returns The event handler function, or a default function if not found.
 	 */
 	public get(event: EventNames) {
-		return this.store.get(event) ?? (() => null);
+		return this.storage.get(event) ?? (() => null);
 	}
 
 	/**
@@ -38,6 +36,6 @@ export class EventManager extends BaseManager<PredicateEventHandler[EventNames]>
 	 * @param predicate The event handler function.
 	 */
 	public set<T extends EventNames>(event: T, predicate: PredicateEventHandler[T]) {
-		this.store.set(event, predicate);
+		this.storage.set(event, predicate);
 	}
 }

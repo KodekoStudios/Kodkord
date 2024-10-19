@@ -5,107 +5,122 @@ import { User } from "../user/user";
 import { BaseManager } from "./base.manager";
 
 /**
- * Manages the users in the client.
+ * Manages user data within the client.
  */
 export class UserManager extends BaseManager<User> {
 	/**
-	 * Creates an instance of the UserManager class.
+	 * Constructs a new instance of the UserManager class.
 	 *
-	 * @param client The client object.
+	 * @param client The client object used to interact with the Discord API.
 	 */
 	constructor(client: Client) {
 		super(client, "USER MANAGER");
 	}
 
 	/**
-	 * Retrieves a user from the store by Id.
+	 * Retrieves a user from the storage by their ID.
 	 *
-	 * @param userId The Id of the user to retrieve.
-	 * @returns The user object if found, otherwise undefined.
+	 * @param userId The ID of the user to retrieve.
+	 * @returns The User object if found; otherwise, undefined.
 	 */
 	public get(userId: Snowflake): User | undefined {
-		return this.store.get(userId);
+		return this.storage.get(userId);
 	}
 
 	/**
-	 * Checks if a user exists in the store.
+	 * Checks if a user exists in the storage.
 	 *
-	 * @param userId The Id of the user to check for.
-	 * @returns True if the user exists in the store, false otherwise.
+	 * @param userId The ID of the user to check for.
+	 * @returns True if the user exists in the storage; otherwise, false.
 	 */
 	public has(userId: Snowflake): boolean {
-		return this.store.has(userId);
+		return this.storage.has(userId);
 	}
 
 	/**
-	 * Removes a user from the store by Id.
+	 * Removes a user from the storage by their ID.
 	 *
-	 * @param userId The Id of the user to remove from the store.
-	 * @returns True if the user was successfully removed, false otherwise.
+	 * @param userId The ID of the user to remove from the storage.
+	 * @returns True if the user was successfully removed; otherwise, false.
 	 */
 	public remove(userId: Snowflake): boolean {
-		return this.store.delete(userId);
+		return this.storage.delete(userId);
 	}
 
 	/**
-	 * Filters the users in the store based on the provided predicate function.
+	 * Filters the users in the storage based on a predicate function.
 	 *
-	 * @param predicate A function that takes a User object as an argument and returns a boolean indicating whether the user should be included in the result.
-	 * @returns An array of User objects that match the criteria specified in the predicate function.
+	 * @param predicate A function that takes a User object and returns a boolean indicating inclusion.
+	 * @returns An array of User objects that match the criteria specified in the predicate.
 	 */
 	public filter(predicate: (user: User) => boolean): User[] {
-		return [...this.store.values()].filter(predicate);
+		return [...this.storage.values()].filter(predicate);
 	}
 
-	/**
-	 * Clears all users from the store.
-	 */
+	/** Clears all users from the storage. */
 	public clear() {
-		this.store.clear();
+		this.storage.clear();
 	}
 
 	/**
-	 * Fetches all users from the store.
+	 * Fetches all users from the storage.
 	 *
+	 * @param onError Optional callback that will be called if an error occurs during fetching.
 	 * @returns A promise that resolves with an array of users.
 	 */
-	public async fetchAll(): Promise<User[]> {
-		const userIds = Array.from(this.store.keys());
+	public async refetch(onError: (error: Error) => void): Promise<User[]> {
+		const userIds = Array.from(this.storage.keys());
 
-		// Fetch all users from the API that are not already in the store
+		// Fetch and update all users from the API
 		const users = await Promise.all(
 			userIds.map(async (userId) => {
-				const user = await this.fetch(userId);
-				return user;
+				try {
+					const user = await this.fetch(userId);
+					return user;
+				} catch (error) {
+					// Call the onError callback if provided
+					if (onError) {
+						onError(error as Error);
+					}
+					return undefined; // or handle the error as needed
+				}
 			}),
 		);
 
-		return users;
+		return users.filter((user): user is User => user !== undefined); // Filter out undefined results
 	}
 
 	/**
-	 * Fetches a single user by Id.
+	 * Fetches a single user by their ID.
 	 *
-	 * @param userId The Id of the user to fetch.
-	 * @returns A promise that resolves with the user object.
+	 * @param userId The ID of the user to fetch.
+	 * @param force Whether to bypass the cache and always fetch from the API.
+	 * @returns A promise that resolves with the User object.
+	 * @throws An error if the user could not be fetched from the API.
 	 */
-	public async fetch(userId: Snowflake): Promise<User> {
-		// Check if the user is already in the store
-		if (this.store.has(userId)) {
-			return this.store.get(userId) as User;
+	public async fetch(userId: Snowflake, force = false): Promise<User> {
+		// Check if the user is already in the storage and not forced to fetch
+		if (!force && this.storage.has(userId)) {
+			return this.storage.get(userId) as User;
 		}
 
-		// Fetch the user from the API
-		const apiUser = await this.client.APIHandler.get<APIUser>(Routes.user(userId));
-		const user = new User(apiUser, this.client);
-		this.store.set(user.id, user);
-		return user;
+		// Fetch the user from the API and handle errors
+		try {
+			const apiUser = await this.client.APIHandler.get<APIUser>(Routes.user(userId));
+			const user = new User(apiUser, this.client);
+			this.storage.set(user.id, user);
+			return user;
+		} catch (error) {
+			this.logger.throw(`Failed to fetch user with ID ${userId}`, (error as Error).message);
+			throw new Error(`Failed to fetch user with ID ${userId}: ${(error as Error).message}`); // Improved error handling, this is tecnically unreachable.
+		}
 	}
 
 	/**
-	 * Retrieves the current user's information (/users/@me).
+	 * Retrieves the current user's information from the API (/users/@me).
 	 *
-	 * @returns A promise resolving to the current user's information.
+	 * @returns A promise resolving to the current User object.
+	 * @throws An error if the current user information could not be fetched.
 	 */
 	public async self(): Promise<User> {
 		try {

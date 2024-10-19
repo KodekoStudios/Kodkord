@@ -6,11 +6,11 @@ import type { Snowflake } from "discord-api-types/globals";
 export abstract class BaseManager<T> {
 	protected readonly client: Client;
 	readonly logger: Logger;
-	readonly store: Dictionary<Snowflake, T>;
+	readonly storage: Dictionary<Snowflake, T>;
 
 	constructor(client: Client, name: string) {
 		this.client = client;
 		this.logger = new Logger({ from: name });
-		this.store = new Dictionary(undefined, undefined, name);
+		this.storage = new Dictionary(undefined, undefined, name);
 	}
 }
