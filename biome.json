@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+	"$schema": "https://biomejs.dev/schemas/1.9.2/schema.json",
 	"organizeImports": {
 		"enabled": true
 	},
@@ -25,21 +25,7 @@
 				"useArrayLiterals": "error"
 			},
 			"nursery": {
-				"noDuplicateElseIf": "error",
-				"noEvolvingTypes": "error",
-				"noMisplacedAssertion": "warn",
-				"noUnusedFunctionParameters": {
-					"level": "error",
-					"fix": "unsafe"
-				},
-				"noUselessStringConcat": {
-					"level": "error",
-					"fix": "unsafe"
-				},
-				"useExplicitLengthCheck": {
-					"level": "error",
-					"fix": "unsafe"
-				}
+				"noDuplicateElseIf": "error"
 			},
 			"style": {
 				"noNamespace": "error",

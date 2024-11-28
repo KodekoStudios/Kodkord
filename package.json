@@ -28,6 +28,7 @@
 		"@types/node": "22.7.4",
 		"@types/ws": "8.5.12",
 		"mitata": "1.0.10",
+		"mkdist": "1.6.0",
 		"unbuild": "2.0.0"
 	},
 	"dependencies": {
