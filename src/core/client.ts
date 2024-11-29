@@ -1,3 +1,4 @@
+import { ChannelManager } from "@structures/managers/channel.manager";
 import { CommandManager } from "@structures/managers/command.manager";
 import { EventManager } from "@structures/managers/event.manager";
 import { UserManager } from "@structures/managers/user.manager";
@@ -47,6 +48,9 @@ export class Client {
 	/** The user manager responsible for managing user-related operations. */
 	public readonly users: UserManager;
 
+	/** The channel manager responsible for managing channel-related operations. */
+	public readonly channels: ChannelManager;
+
 	/** The current user (bot or application) associated with this client. */
 	public declare me: User;
 
@@ -64,6 +68,7 @@ export class Client {
 		this.ws.handleDispatch = async (packet) => await this.onPacket(packet);
 
 		this.users = new UserManager(this);
+		this.channels = new ChannelManager(this);
 		this.events = new EventManager(this);
 		this.commands = new CommandManager(this);
 	}

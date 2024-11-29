@@ -1,10 +1,11 @@
 import { describe, expect, it } from "bun:test";
-import { User } from "../src/structures/user/user";
 import { Client } from "../src/core/client";
+import { GuildTextChannel } from "../src/structures/channel/guild/text.channel";
+import { User } from "../src/structures/user/user";
 
 describe("Client", () => {
 	const client = new Client({
-		token: process.env.test_token ?? '', // Your bot token
+		token: process.env.test_token ?? "", // Your bot token
 		type: "Bot",
 	});
 
@@ -21,6 +22,14 @@ describe("Client", () => {
 		expect(fetchedUser.id).toBe(userId);
 	});
 
+	it("should fetch a channel by Id", async () => {
+		const channelId = "1212603668466241576";
+		const fetchedChannel = await client.channels.fetch(channelId);
+		console.log("fetchedChannel:", fetchedChannel.data);
+		expect(fetchedChannel).toBeInstanceOf(GuildTextChannel);
+		expect(fetchedChannel.id).toBe(channelId);
+	});
+
 	it("should set a command", () => {
 		client.commands.set({
 			name: "ping",
@@ -28,7 +37,7 @@ describe("Client", () => {
 				message.reply("Pong!");
 			},
 		});
-		expect(client.commands.store.get("ping")).toBeDefined();
+		expect(client.commands.storage.get("ping")).toBeDefined();
 	});
 
 	it("should execute a command", () => {
@@ -38,6 +47,6 @@ describe("Client", () => {
 				expect(content).toBe("Pong!");
 			},
 		};
-		client.commands.store.get("ping")?.execute(message);
+		client.commands.storage.get("ping")?.execute(message);
 	});
 });
