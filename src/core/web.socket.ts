@@ -9,10 +9,10 @@ import {
 } from "discord-api-types/v10";
 import WS from "ws";
 import type { Client } from "./client";
-import { RawEvents } from "./events";
+import { RAW_EVENTS } from "./events";
 
 /** The WebSocket URL for the Discord gateway connection. */
-export const WebSocketAddress = `wss://gateway.discord.gg/?v=${GatewayVersion}&encoding=json`;
+export const WEB_SOCKET_ADDRESS = `wss://gateway.discord.gg/?v=${GatewayVersion}&encoding=json`;
 
 /** Enum for various operating systems. */
 export enum OperatingSystem {
@@ -63,7 +63,7 @@ export class WebSocket {
 	 * @param client The client instance managing this WebSocket connection.
 	 * @param options Configuration options for the WebSocket connection.
 	 */
-	constructor(
+	public constructor(
 		client: Client,
 		{ token, intents, device = "kodcord", os = OperatingSystem.Linux }: WebSocketOptions,
 	) {
@@ -79,7 +79,7 @@ export class WebSocket {
 	 * Establishes the WebSocket connection to the Discord gateway and handles events such as 'open', 'message', 'close', and 'error'.
 	 */
 	public connect(): void {
-		this.ws = new WS(WebSocketAddress);
+		this.ws = new WS(WEB_SOCKET_ADDRESS);
 
 		this.ws.on("open", () => {
 			this.logger.debug("WebSocket connected.");
@@ -157,17 +157,17 @@ export class WebSocket {
 	 *
 	 * @param message The raw WebSocket message received from Discord.
 	 */
-	private handleMessage(message: string) {
-		const payload = JSON.parse(message) as GatewayReceivePayload;
+	private handleMessage(message: string): void {
+		const PAYLOAD = JSON.parse(message) as GatewayReceivePayload;
 
-		if (payload.t) {
+		if (PAYLOAD.t) {
 			this.logger.debug(
-				`Received Event {underline:${payload.t}}`,
-				JSON.stringify(payload, null, 2),
+				`Received Event {underline:${PAYLOAD.t}}`,
+				JSON.stringify(PAYLOAD, null, 2),
 			);
 		}
 
-		switch (payload.op) {
+		switch (PAYLOAD.op) {
 			case GatewayOpcodes.Dispatch:
 				// if (payload.t === GatewayDispatchEvents.Ready) {
 				// 	this.logger.debug(
@@ -175,11 +175,11 @@ export class WebSocket {
 				// 	);
 				// }
 
-				this.handleDispatch(payload);
+				this.handleDispatch(PAYLOAD);
 				break;
 
 			case GatewayOpcodes.Hello:
-				this.handleHello(payload);
+				this.handleHello(PAYLOAD);
 				break;
 
 			// Message to Aaron:
@@ -188,7 +188,7 @@ export class WebSocket {
 			//  https://discord.com/developers/docs/topics/gateway
 
 			default:
-				this.logger.warn(`Unhandled WebSocket opcode: ${payload.op}`);
+				this.logger.warn(`Unhandled WebSocket opcode: ${PAYLOAD.op}`);
 				break;
 		}
 	}
@@ -199,11 +199,11 @@ export class WebSocket {
 	 *
 	 * @param payload The 'Dispatch' payload received from Discord.
 	 */
-	public handleDispatch({ d, t }: GatewayDispatchPayload) {
+	public handleDispatch({ d, t }: GatewayDispatchPayload): void {
 		switch (t) {
 			case GatewayDispatchEvents.MessageCreate:
 				this.client.events.get("MESSAGE_CREATE")?.(
-					RawEvents.MESSAGE_CREATE(this.client, d),
+					RAW_EVENTS.MESSAGE_CREATE(this.client, d),
 					this.client,
 				);
 				break;

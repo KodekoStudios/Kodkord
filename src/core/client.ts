@@ -59,7 +59,7 @@ export class Client {
 	 *
 	 * @param options Configuration options for the client.
 	 */
-	constructor(options: ClientOptions) {
+	public constructor(options: ClientOptions) {
 		this.options = options;
 
 		this.APIHandler = new APIHandler(options);

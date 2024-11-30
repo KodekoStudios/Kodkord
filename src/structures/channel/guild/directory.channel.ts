@@ -1,7 +1,10 @@
 import type { ChannelType } from "discord-api-types/v10";
-import { BaseGuildChannel } from "../base.channel";
+import { GuildChannel } from "../base.channel";
 
-export class GuildDirectoryChannel extends BaseGuildChannel {
-	declare type: ChannelType.GuildDirectory;
-	declare data; //¿?
+/**
+ * @todo Implement things, I guess...
+ */
+export class GuildDirectoryChannel extends GuildChannel<ChannelType.GuildDirectory> {
+	/** The raw API data for the guild directory channel. */
+	public declare readonly data;
 }

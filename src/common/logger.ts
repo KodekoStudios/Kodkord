@@ -15,9 +15,10 @@ export function format(source: string, indent: number, fill = " "): string {
  * Represents a logger utility for logging messages with different log levels.
  */
 export class Logger {
-	private DEBUG: boolean;
-	public readonly PREFIX: string;
-	public readonly FROM: string;
+	private shouldDebug: boolean;
+
+	public readonly prefix: string;
+	public readonly from: string;
 
 	/**
 	 * Creates an instance of the Logger class.
@@ -27,14 +28,14 @@ export class Logger {
 	 * @param options.from The source of the log messages (default is `"LOG"`).
 	 * @param options.debug Whether to enable debug mode (default is `true`).
 	 */
-	constructor({
+	public constructor({
 		prefix = "KODCORD",
 		from = "LOG",
 		debug = true,
 	}: { prefix?: string; from?: string; debug?: boolean } = {}) {
-		this.PREFIX = prefix;
-		this.FROM = from;
-		this.DEBUG = debug;
+		this.prefix = prefix;
+		this.from = from;
+		this.shouldDebug = debug;
 	}
 
 	/**
@@ -45,7 +46,7 @@ export class Logger {
 	 */
 	public inform(description?: string, ...messages: unknown[]): void {
 		this.log({
-			header: { texts: [this.PREFIX, this.FROM, "INFORMATION"], style: ANSICodes.BgGreen },
+			header: { texts: [this.prefix, this.from, "INFORMATION"], style: ANSICodes.BgGreen },
 			description: description?.split(/\n/g) ?? [],
 			body: messages.map(String),
 		});
@@ -58,9 +59,9 @@ export class Logger {
 	 * @param messages The debug messages to log.
 	 */
 	public debug(description?: string, ...messages: unknown[]): void {
-		if (this.DEBUG) {
+		if (this.shouldDebug) {
 			this.log({
-				header: { texts: [this.PREFIX, this.FROM, "DEBUG"], style: ANSICodes.BgMagenta },
+				header: { texts: [this.prefix, this.from, "DEBUG"], style: ANSICodes.BgMagenta },
 				description: description?.split(/\n/g) ?? [],
 				body: messages.map(String),
 			});
@@ -75,7 +76,7 @@ export class Logger {
 	 */
 	public warn(description?: string, ...messages: unknown[]): void {
 		this.log({
-			header: { texts: [this.PREFIX, this.FROM, "WARNING"], style: ANSICodes.BgYellow },
+			header: { texts: [this.prefix, this.from, "WARNING"], style: ANSICodes.BgYellow },
 			description: description?.split(/\n/g) ?? [],
 			body: messages.map(String),
 		});
@@ -89,7 +90,7 @@ export class Logger {
 	 */
 	public throw(description?: string, ...messages: unknown[]): void {
 		this.log({
-			header: { texts: [this.PREFIX, this.FROM, "ERROR"], style: ANSICodes.BgRed },
+			header: { texts: [this.prefix, this.from, "ERROR"], style: ANSICodes.BgRed },
 			description: description?.split(/\n/g) ?? [],
 			body: messages.map(String),
 		});
@@ -108,14 +109,14 @@ export class Logger {
 		texts,
 		style = ANSICodes.BgBlue,
 	}: { texts: string[]; style?: ANSICodes }): string {
-		const header = this.stylize(` ${texts.join(" > ")} `, style, ANSICodes.Bold);
-		const time = this.stylize(` ${this.time()} `, style, ANSICodes.Bold);
+		const HEADER = this.stylize(` ${texts.join(" > ")} `, style, ANSICodes.Bold);
+		const TIME = this.stylize(` ${this.time()} `, style, ANSICodes.Bold);
 
-		const separator = "".padStart(
-			Math.round(process.stdout.columns / 1.5 - header.length - time.length),
+		const SEPARATOR = "".padStart(
+			Math.round(process.stdout.columns / 1.5 - HEADER.length - TIME.length),
 			"-",
 		);
-		return `${header} ${separator} ${time}`;
+		return `${HEADER} ${SEPARATOR} ${TIME}`;
 	}
 
 	/**
@@ -133,7 +134,7 @@ export class Logger {
 	 * @param styles The ANSI styles to apply.
 	 * @returns The string with the applied ANSI styles.
 	 */
-	public ANSI(...styles: (number | ANSICodes)[]): `\u001B[${string}m` {
+	public ansi(...styles: (number | ANSICodes)[]): `\u001B[${string}m` {
 		return `\x1b[${styles.join(";")}m`;
 	}
 
@@ -144,26 +145,50 @@ export class Logger {
 	 * @param styles The ANSI styles to apply.
 	 * @returns The stylized text.
 	 */
+	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Yeah... this is complex.
 	public stylize(text: string, ...styles: (number | ANSICodes)[]): string {
-		const reset = styles
-			// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Yeah... this is complex :3
-			.map((x) => {
-				const style = ANSICodes[+x];
-				return (typeof x === "number" && ((x >= 30 && x <= 37) || (x >= 90 && x <= 97))) ||
-					x === ANSICodes.RGBColor ||
-					x === ANSICodes.BITColor
-					? ANSICodes.ResetColor
-					: (typeof x === "number" && ((x >= 40 && x <= 47) || (x >= 100 && x <= 107))) ||
-							x === ANSICodes.RGBBackground ||
-							x === ANSICodes.BITBackground
-						? ANSICodes.ResetBgColor
-						: style && !style.startsWith("Reset")
-							? ANSICodes[`Reset${style}` as unknown as keyof typeof ANSICodes]
-							: undefined;
-			})
-			.filter((x, i, y) => x && y.indexOf(x) === i) as ANSICodes[];
+		const RESET = new Set<ANSICodes>();
 
-		return this.ANSI(...styles) + text + this.ANSI(...reset);
+		for (const STYLE of styles) {
+			const IS_NUMBER = typeof STYLE === "number";
+
+			if (
+				(IS_NUMBER && ((STYLE >= 30 && STYLE <= 37) || (STYLE >= 90 && STYLE <= 97))) ||
+				STYLE === ANSICodes.RGBColor ||
+				STYLE === ANSICodes.BITColor
+			) {
+				RESET.add(ANSICodes.ResetColor);
+			} else if (
+				(IS_NUMBER && ((STYLE >= 40 && STYLE <= 47) || (STYLE >= 100 && STYLE <= 107))) ||
+				STYLE === ANSICodes.RGBBackground ||
+				STYLE === ANSICodes.BITBackground
+			) {
+				RESET.add(ANSICodes.ResetBgColor);
+			} else if (STYLE in ANSICodes && !ANSICodes[STYLE].startsWith("Reset")) {
+				RESET.add(ANSICodes[`Reset${ANSICodes[STYLE]}` as keyof typeof ANSICodes] as ANSICodes);
+			}
+		}
+
+		// * Old implementation, too complex.
+		// const reset = styles
+		// 	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Yeah... this is complex :3
+		// 	.map((x) => {
+		// 		const style = ANSICodes[+x];
+		// 		return (typeof x === "number" && ((x >= 30 && x <= 37) || (x >= 90 && x <= 97))) ||
+		// 			x === ANSICodes.RGBColor ||
+		// 			x === ANSICodes.BITColor
+		// 			? ANSICodes.ResetColor
+		// 			: (typeof x === "number" && ((x >= 40 && x <= 47) || (x >= 100 && x <= 107))) ||
+		// 				x === ANSICodes.RGBBackground ||
+		// 				x === ANSICodes.BITBackground
+		// 				? ANSICodes.ResetBgColor
+		// 				: style && !style.startsWith("Reset")
+		// 					? ANSICodes[`Reset${style}` as unknown as keyof typeof ANSICodes]
+		// 					: undefined;
+		// 	})
+		// 	.filter((x, i, y) => x && y.indexOf(x) === i) as ANSICodes[];
+
+		return this.ansi(...styles) + text + this.ansi(...Array.from(RESET));
 	}
 
 	/**
@@ -172,21 +197,22 @@ export class Logger {
 	 * @param text The text to parse.
 	 * @returns The parsed text with ANSI styles applied.
 	 */
-	public parse(text: string) {
-		const codes = Object.fromEntries(
+	public parse(text: string): string {
+		const CODES = Object.fromEntries(
 			Object.keys(ANSICodes)
 				.filter((k) => Number.isNaN(+k))
 				.map((k) => [k.toLowerCase(), ANSICodes[k as keyof typeof ANSICodes]]),
 		);
-		const regex = /{\s*([\w\d;]+)\s*:\s*([^{}]+)}/gim;
+		const REGEX = /{\s*([\w\d;]+)\s*:\s*([^{}]+)}/gim;
 
-		while (regex.test(text)) {
-			text = text.replace(regex, (_, code: string, content: string) =>
-				this.stylize(content, ...code.split(";").map((x) => codes[x.toLowerCase()] ?? +x)),
+		let new_text = text;
+		while (REGEX.test(text)) {
+			new_text = text.replace(REGEX, (_, code: string, content: string) =>
+				this.stylize(content, ...code.split(";").map((x) => CODES[x.toLowerCase()] ?? +x)),
 			);
 		}
 
-		return text;
+		return new_text;
 	}
 
 	/**
@@ -221,10 +247,10 @@ export class Logger {
 	}): void {
 		console.log(
 			this.format(
-				`\n\n${this.header(header)}\n${description.map((t) => this.format(this.parse(`{bold:${t}}`))).join("\n")}\n${body
+				`${this.header(header)}\n${description.map((t) => this.format(this.parse(`{bold:${t}}`))).join("\n")}\n${body
 					.flatMap((x) => this.body(...x.split("\n")))
 					.map((x) => this.parse(x))
-					.join("\n")}\n\n\n`,
+					.join("\n")}\n`,
 			),
 		);
 	}
@@ -234,9 +260,9 @@ export class Logger {
 	 *
 	 * @returns The current time in the format "MM/DD/YYYY HH:MM:SS".
 	 */
-	protected time() {
-		const date = new Date();
-		return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+	protected time(): string {
+		const DATE = new Date();
+		return `${DATE.toLocaleDateString()} ${DATE.toLocaleTimeString()}`;
 	}
 }
 

@@ -33,7 +33,7 @@ export class UserAvatar<UserId extends Snowflake, Hash extends string | null> {
 	 * @param userId The ID of the user.
 	 * @param hash The avatar hash of the user, or null if no custom avatar.
 	 */
-	constructor(userId: UserId, hash: Hash) {
+	public constructor(userId: UserId, hash: Hash) {
 		this.userId = userId;
 		this.hash = hash;
 	}
@@ -59,8 +59,8 @@ export class UserAvatar<UserId extends Snowflake, Hash extends string | null> {
 	 * @returns The URL of the user's default avatar.
 	 */
 	public default({ size = 1024 }: ImageOptions = {}): string {
-		const index = Number((BigInt(this.userId) >> 22n) % 6n) as DefaultUserAvatarAssets;
-		return `${RouteBases.cdn}${CDNRoutes.defaultUserAvatar(index)}?size=${size}` as const;
+		const INDEX = Number((BigInt(this.userId) >> 22n) % 6n) as DefaultUserAvatarAssets;
+		return `${RouteBases.cdn}${CDNRoutes.defaultUserAvatar(INDEX)}?size=${size}` as const;
 	}
 
 	/**

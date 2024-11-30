@@ -1,17 +1,14 @@
 import type { Nullable } from "@types";
 import type { APIGuildVoiceChannel, ChannelType } from "discord-api-types/v10";
-import { BaseGuildChannel } from "../base.channel";
+import { GuildChannel } from "../base.channel";
 
 /**
  * Represents a voice channel in a guild.
  * Provides properties specific to voice channels, such as bitrate, user limit, and RTC region.
  */
-export class GuildVoiceChannel extends BaseGuildChannel {
-	/** The type of the channel, representing a guild voice channel. */
-	declare type: ChannelType.GuildVoice;
-
+export class GuildVoiceChannel extends GuildChannel<ChannelType.GuildVoice> {
 	/** The raw API data for the voice channel. */
-	declare data: APIGuildVoiceChannel;
+	public declare data: APIGuildVoiceChannel;
 
 	/**
 	 * Retrieves the ID of the guild this voice channel belongs to.

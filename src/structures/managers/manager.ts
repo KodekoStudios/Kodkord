@@ -3,7 +3,7 @@ import { Logger } from "@common/logger";
 import type { Client } from "@core/client";
 import type { Snowflake } from "discord-api-types/globals";
 
-export abstract class BaseManager<T> {
+export abstract class Manager<T> {
 	protected readonly client: Client;
 	readonly logger: Logger;
 	readonly debugger?: Logger;

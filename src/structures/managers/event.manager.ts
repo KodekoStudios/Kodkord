@@ -1,12 +1,12 @@
 import type { Dictionary } from "@common/dictionary";
 import type { Client } from "@core/client";
 import type { EventNames, PredicateEventHandler } from "@core/events";
-import { BaseManager } from "./base.manager";
+import { Manager } from "./manager";
 
 /**
  * Manages event handlers for different events.
  */
-export class EventManager extends BaseManager<PredicateEventHandler[EventNames]> {
+export class EventManager extends Manager<PredicateEventHandler[EventNames]> {
 	/** A dictionary to storage events. */
 	public declare storage: Dictionary<EventNames, PredicateEventHandler[EventNames]>;
 
@@ -15,7 +15,7 @@ export class EventManager extends BaseManager<PredicateEventHandler[EventNames]>
 	 *
 	 * @param client The client instance.
 	 */
-	constructor(client: Client) {
+	public constructor(client: Client) {
 		super(client, "EVENT MANAGER");
 	}
 
@@ -25,8 +25,9 @@ export class EventManager extends BaseManager<PredicateEventHandler[EventNames]>
 	 * @param event The name of the event.
 	 * @returns The event handler function, or a default function if not found.
 	 */
-	public get(event: EventNames) {
-		return this.storage.get(event) ?? (() => null);
+	// biome-ignore lint/suspicious/noExplicitAny: sowwy.
+	public get(event: EventNames): (data_0: any, data_1: Client) => unknown {
+		return this.storage.get(event) ?? ((): null => null);
 	}
 
 	/**
@@ -35,7 +36,7 @@ export class EventManager extends BaseManager<PredicateEventHandler[EventNames]>
 	 * @param event The name of the event.
 	 * @param predicate The event handler function.
 	 */
-	public set<T extends EventNames>(event: T, predicate: PredicateEventHandler[T]) {
+	public set<T extends EventNames>(event: T, predicate: PredicateEventHandler[T]): void {
 		this.storage.set(event, predicate);
 	}
 }

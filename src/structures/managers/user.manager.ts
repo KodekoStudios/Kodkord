@@ -2,18 +2,18 @@ import type { Client } from "@core/client";
 import type { Snowflake } from "discord-api-types/globals";
 import { type APIUser, Routes } from "discord-api-types/v10";
 import { User } from "../user/user";
-import { BaseManager } from "./base.manager";
+import { Manager } from "./manager";
 
 /**
  * Manages user data within the client.
  */
-export class UserManager extends BaseManager<User> {
+export class UserManager extends Manager<User> {
 	/**
 	 * Constructs a new instance of the UserManager class.
 	 *
 	 * @param client The client object used to interact with the Discord API.
 	 */
-	constructor(client: Client) {
+	public constructor(client: Client) {
 		super(client, "USER MANAGER");
 	}
 
@@ -58,7 +58,7 @@ export class UserManager extends BaseManager<User> {
 	}
 
 	/** Clears all users from the storage. */
-	public clear() {
+	public clear(): void {
 		this.storage.clear();
 	}
 
@@ -69,14 +69,14 @@ export class UserManager extends BaseManager<User> {
 	 * @returns A promise that resolves with an array of users.
 	 */
 	public async refetch(onError: (error: Error) => void): Promise<User[]> {
-		const userIds = Array.from(this.storage.keys());
+		const USER_IDS = Array.from(this.storage.keys());
 
 		// Fetch and update all users from the API
-		const users = await Promise.all(
-			userIds.map(async (userId) => {
+		const USERS = await Promise.all(
+			USER_IDS.map(async (userId) => {
 				try {
-					const user = await this.fetch(userId);
-					return user;
+					const USER = await this.fetch(userId);
+					return USER;
 				} catch (error) {
 					// Call the onError callback if provided
 					if (onError) {
@@ -87,7 +87,7 @@ export class UserManager extends BaseManager<User> {
 			}),
 		);
 
-		return users.filter((user): user is User => user !== undefined); // Filter out undefined results
+		return USERS.filter((user): user is User => user !== undefined); // Filter out undefined results
 	}
 
 	/**
@@ -106,10 +106,10 @@ export class UserManager extends BaseManager<User> {
 
 		// Fetch the user from the API and handle errors
 		try {
-			const apiUser = await this.client.APIHandler.get<APIUser>(Routes.user(userId));
-			const user = new User(apiUser, this.client);
-			this.storage.set(user.id, user);
-			return user;
+			const API_USER = await this.client.APIHandler.get<APIUser>(Routes.user(userId));
+			const USER = new User(API_USER, this.client);
+			this.storage.set(USER.id, USER);
+			return USER;
 		} catch (error) {
 			this.logger.throw(`Failed to fetch user with ID ${userId}`, (error as Error).message);
 			throw new Error(`Failed to fetch user with ID ${userId}: ${(error as Error).message}`); // Improved error handling, this is tecnically unreachable.
@@ -124,9 +124,9 @@ export class UserManager extends BaseManager<User> {
 	 */
 	public async self(): Promise<User> {
 		try {
-			const response = await this.client.APIHandler.get<APIUser>(Routes.user("@me"));
-			const user = new User(response, this.client);
-			return user;
+			const RESPONSE = await this.client.APIHandler.get<APIUser>(Routes.user("@me"));
+			const USER = new User(RESPONSE, this.client);
+			return USER;
 		} catch (error) {
 			throw new Error(`Failed to fetch current user: ${(<Error>error).message}`);
 		}

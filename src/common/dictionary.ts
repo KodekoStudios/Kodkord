@@ -24,23 +24,24 @@ export class Dictionary<Key, Value> extends Map<Key, Value> {
 	 * @param limit Optional maximum number of entries the dictionary can hold.
 	 * @param name Optional name or identifier for the dictionary instance (used in warning messages).
 	 */
-	constructor(
+	public constructor(
 		iterable?: Nullable<Iterable<readonly [Key, Value]>>,
 		limit?: Nullable<number>,
 		name?: Nullable<string>,
 	) {
-		const effectiveLimit = limit && limit > 0 ? Math.round(limit) : Number.POSITIVE_INFINITY;
+		const EFFECTIVE_LIMIT = limit && limit > 0 ? Math.round(limit) : Number.POSITIVE_INFINITY;
 
 		// Avoid copying array unless it's necessary
-		if (iterable && effectiveLimit < Number.POSITIVE_INFINITY) {
-			const array = [...iterable];
-			if (array.length > effectiveLimit) {
-				iterable = array.slice(0, effectiveLimit);
+		if (iterable && EFFECTIVE_LIMIT < Number.POSITIVE_INFINITY) {
+			const ARRAY = [...iterable];
+			if (ARRAY.length > EFFECTIVE_LIMIT) {
+				// biome-ignore lint/style/noParameterAssign: stfu.
+				iterable = ARRAY.slice(0, EFFECTIVE_LIMIT);
 			}
 		}
 
 		super(iterable);
-		this.limit = effectiveLimit;
+		this.limit = EFFECTIVE_LIMIT;
 		this.name = name ?? "unknown";
 	}
 

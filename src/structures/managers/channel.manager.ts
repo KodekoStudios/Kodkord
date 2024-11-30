@@ -1,6 +1,6 @@
 import type { Client } from "@core/client";
-import type { BaseChannel } from "@structures/channel/base.channel";
-import { type AllChannels, channelFrom } from "@structures/channel/channel";
+import type { Channel } from "@structures/channel/base.channel";
+import { type AnyChannel, channelFrom } from "@structures/channel/channel";
 import type { Snowflake } from "discord-api-types/globals";
 import {
 	type APIChannel,
@@ -8,35 +8,35 @@ import {
 	type RESTPatchAPIChannelJSONBody,
 	Routes,
 } from "discord-api-types/v10";
-import { BaseManager } from "./base.manager";
+import { Manager } from "./manager";
 
 /**
  * Manages channel data within the client.
  */
-export class ChannelManager extends BaseManager<AllChannels> {
+export class ChannelManager extends Manager<AnyChannel> {
 	/**
 	 * Constructs a new instance of the ChannelManager class.
 	 *
 	 * @param client The client object used to interact with the Discord API.
 	 */
-	constructor(client: Client) {
+	public constructor(client: Client) {
 		super(client, "CHANNEL MANAGER");
 	}
 
 	/**
-	 * Retrieves a channel from the storage by its ID.
+	 * Retrieves a channel from the storage by its Id.
 	 *
-	 * @param channelId The ID of the channel to retrieve.
+	 * @param channelId The Id of the channel to retrieve.
 	 * @returns The BaseChannel object if found; otherwise, undefined.
 	 */
-	public get(channelId: Snowflake): AllChannels | undefined {
+	public get(channelId: Snowflake): AnyChannel | undefined {
 		return this.storage.get(channelId);
 	}
 
 	/**
 	 * Checks if a channel exists in the storage.
 	 *
-	 * @param channelId The ID of the channel to check for.
+	 * @param channelId The Id of the channel to check for.
 	 * @returns True if the channel exists in the storage; otherwise, false.
 	 */
 	public has(channelId: Snowflake): boolean {
@@ -44,9 +44,9 @@ export class ChannelManager extends BaseManager<AllChannels> {
 	}
 
 	/**
-	 * Removes a channel from the storage by its ID.
+	 * Removes a channel from the storage by its Id.
 	 *
-	 * @param channelId The ID of the channel to remove.
+	 * @param channelId The Id of the channel to remove.
 	 * @returns True if the channel was successfully removed; otherwise, false.
 	 */
 	public remove(channelId: Snowflake): boolean {
@@ -56,30 +56,30 @@ export class ChannelManager extends BaseManager<AllChannels> {
 	/**
 	 * Fetches a channel from the Discord API or cache.
 	 *
-	 * @param channelId The ID of the channel to fetch.
+	 * @param channelId The Id of the channel to fetch.
 	 * @param force Whether to bypass the cache and always fetch from the API.
 	 * @returns A Promise resolving to the channel object.
 	 */
-	public async fetch(channelId: Snowflake, force = false): Promise<AllChannels> {
+	public async fetch(channelId: Snowflake, force = false): Promise<AnyChannel> {
 		if (!force && this.storage.has(channelId)) {
-			return this.storage.get(channelId) as BaseChannel<ChannelType>;
+			return this.storage.get(channelId) as Channel<ChannelType>;
 		}
 
 		try {
-			const apiChannel = await this.client.APIHandler.get<APIChannel>(Routes.channel(channelId));
-			const channel = channelFrom(apiChannel, this.client);
-			this.storage.set(channel.id, channel);
-			return channel;
+			const API_CHANNEL = await this.client.APIHandler.get<APIChannel>(Routes.channel(channelId));
+			const CHANNEL = channelFrom(API_CHANNEL, this.client);
+			this.storage.set(CHANNEL.id, CHANNEL);
+			return CHANNEL;
 		} catch (error) {
-			this.logger.throw(`Failed to fetch channel with ID ${channelId}`, (error as Error).message);
-			throw new Error(`Failed to fetch channel with ID ${channelId}: ${(error as Error).message}`);
+			this.logger.throw(`Failed to fetch channel with Id ${channelId}`, (error as Error).message);
+			throw new Error(`Failed to fetch channel with Id ${channelId}: ${(error as Error).message}`);
 		}
 	}
 
 	/**
 	 * Edits a channel's data.
 	 *
-	 * @param channelId The ID of the channel to edit.
+	 * @param channelId The Id of the channel to edit.
 	 * @param body The updated channel data.
 	 * @param reason Optional reason for editing the channel.
 	 * @returns A Promise resolving to the updated channel object.
@@ -88,18 +88,21 @@ export class ChannelManager extends BaseManager<AllChannels> {
 		channelId: Snowflake,
 		body: RESTPatchAPIChannelJSONBody,
 		reason?: string,
-	): Promise<AllChannels> {
+	): Promise<AnyChannel> {
 		try {
-			const apiChannel = await this.client.APIHandler.patch<APIChannel>(Routes.channel(channelId), {
-				body: body as Record<string, object>,
-				reason: reason,
-			});
-			const updatedChannel = channelFrom(apiChannel, this.client);
-			this.storage.set(channelId, updatedChannel);
-			return updatedChannel;
+			const API_CHANNEL = await this.client.APIHandler.patch<APIChannel>(
+				Routes.channel(channelId),
+				{
+					body: body as Record<string, object>,
+					reason,
+				},
+			);
+			const UPDATED_CHANNEL = channelFrom(API_CHANNEL, this.client);
+			this.storage.set(channelId, UPDATED_CHANNEL);
+			return UPDATED_CHANNEL;
 		} catch (error) {
-			this.logger.throw(`Failed to edit channel with ID ${channelId}`, (error as Error).message);
-			throw new Error(`Failed to edit channel with ID ${channelId}: ${(error as Error).message}`);
+			this.logger.throw(`Failed to edit channel with Id ${channelId}`, (error as Error).message);
+			throw new Error(`Failed to edit channel with Id ${channelId}: ${(error as Error).message}`);
 		}
 	}
 
@@ -111,24 +114,24 @@ export class ChannelManager extends BaseManager<AllChannels> {
 	}
 
 	/**
-	 * Deletes a channel by its ID.
+	 * Deletes a channel by its Id.
 	 *
-	 * @param channelId The ID of the channel to delete.
+	 * @param channelId The Id of the channel to delete.
 	 * @param reason Optional reason for deletion.
 	 * @returns A Promise resolving to the deleted channel object.
 	 */
-	public async delete(channelId: Snowflake, reason?: string): Promise<AllChannels> {
+	public async delete(channelId: Snowflake, reason?: string): Promise<AnyChannel> {
 		try {
-			const apiChannel = await this.client.APIHandler.delete<APIChannel>(
+			const API_CHANNEL = await this.client.APIHandler.delete<APIChannel>(
 				Routes.channel(channelId),
 				{ reason },
 			);
-			const deletedChannel = channelFrom(apiChannel, this.client);
+			const DELETED_CHANNEL = channelFrom(API_CHANNEL, this.client);
 			this.storage.delete(channelId);
-			return deletedChannel;
+			return DELETED_CHANNEL;
 		} catch (error) {
-			this.logger.throw(`Failed to delete channel with ID ${channelId}`, (error as Error).message);
-			throw new Error(`Failed to delete channel with ID ${channelId}: ${(error as Error).message}`);
+			this.logger.throw(`Failed to delete channel with Id ${channelId}`, (error as Error).message);
+			throw new Error(`Failed to delete channel with Id ${channelId}: ${(error as Error).message}`);
 		}
 	}
 
@@ -138,7 +141,7 @@ export class ChannelManager extends BaseManager<AllChannels> {
 	 * @param predicate A function that takes a BaseChannel object and returns a boolean.
 	 * @returns An array of BaseChannel objects matching the predicate.
 	 */
-	public filter(predicate: (channel: AllChannels) => boolean): BaseChannel<ChannelType>[] {
+	public filter(predicate: (channel: AnyChannel) => boolean): AnyChannel[] {
 		return [...this.storage.values()].filter(predicate);
 	}
 }

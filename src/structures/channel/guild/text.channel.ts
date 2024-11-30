@@ -1,17 +1,14 @@
 import type { Nullable } from "@types";
 import type { APITextChannel, ChannelType } from "discord-api-types/v10";
-import { BaseGuildChannel } from "../base.channel";
+import { GuildChannel } from "../base.channel";
 
 /**
  * Represents a text channel in a Discord guild.
  * Text channels are used for general chat and communication within a guild.
  */
-export class GuildTextChannel extends BaseGuildChannel {
-	/** The channel type, always `GuildText`. */
-	declare type: ChannelType.GuildText;
-
+export class GuildTextChannel extends GuildChannel<ChannelType.GuildText> {
 	/** The raw API data for the text channel. */
-	declare data: APITextChannel;
+	public declare readonly data: APITextChannel;
 
 	/**
 	 * Retrieves the ID of the guild this text channel belongs to.

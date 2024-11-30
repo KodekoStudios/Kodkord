@@ -16,9 +16,17 @@ export class User extends Base<APIUser> {
 	 * @param data The APIUser object containing user data from the Discord API.
 	 * @param client The client instance that is interacting with the API.
 	 */
-	constructor(data: APIUser, client: Client) {
+	public constructor(data: APIUser, client: Client) {
 		super(data, client);
 		this.avatar = new UserAvatar(data.id, data.avatar);
+	}
+
+	/**
+	 * @todo Force values ​​to be updated for `this.data`.
+	 * @returns A promise that resolves with the User object.
+	 */
+	public fetch(): Promise<User> {
+		return this.client.users.fetch(this.id, true);
 	}
 
 	/**

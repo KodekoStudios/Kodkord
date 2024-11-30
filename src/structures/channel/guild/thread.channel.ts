@@ -1,26 +1,22 @@
 import type { Nullable } from "@types";
 import type { APIGuildCategoryChannel, APIThreadChannel, ChannelType } from "discord-api-types/v10";
-import { BaseGuildChannel } from "../base.channel";
+import { GuildChannel } from "../base.channel";
 
 /**
  * Represents a thread channel in a Discord guild.
  * Thread channels allow users to have discussions separate from the main chat.
  */
-export class GuildThreadChannel extends BaseGuildChannel {
-	/** The type of thread channel. Can be `PublicThread`, `PrivateThread`, or `AnnouncementThread`. */
-	declare type:
-		| ChannelType.PublicThread
-		| ChannelType.PrivateThread
-		| ChannelType.AnnouncementThread;
-
+export class GuildThreadChannel extends GuildChannel<
+	ChannelType.PublicThread | ChannelType.PrivateThread | ChannelType.AnnouncementThread
+> {
 	/** The raw API data for the thread channel. */
-	declare data: APIThreadChannel;
+	public declare readonly data: APIThreadChannel;
 
 	/**
 	 * Retrieves the name of the thread channel.
 	 * @returns A string representing the name of the channel.
 	 */
-	public get name(): string {
+	public override get name(): string {
 		return this.data.name;
 	}
 

@@ -4,9 +4,10 @@ import {
 	type APIChannelBase,
 	type APIGuildChannel,
 	ChannelType,
+	type GuildChannelType,
 	type RESTPatchAPIChannelJSONBody,
 } from "discord-api-types/v10";
-import type { AllChannels, AllGuildTextableChannels, AllTextableChannels } from "./channel";
+import type { AnyChannel, AnyGuildTextableChannel, AnyTextableChannels } from "./channel";
 import type { DMChannel } from "./dm.channel";
 import type { GuildCategoryChannel } from "./guild/category.channel";
 import type { GuildDirectoryChannel } from "./guild/directory.channel";
@@ -20,116 +21,138 @@ import type { GuildVoiceChannel } from "./guild/voice.channel";
 
 /**
  * Base class for channels that are not editable.
- * @template T - The specific channel type.
+ *
+ * @template T The specific channel type.
  */
-export class BaseNoEditableChannel<T extends ChannelType> extends Base<
-	APIChannelBase<ChannelType>
-> {
-	declare type: T;
-
+export class ReadonlyChannel<T extends ChannelType> extends Base<APIChannelBase<T>> {
 	/**
-	 * Determine the intent of the channel based on its ID.
-	 * @param id - The channel ID.
+	 * Determine the intent of the channel based on its Id.
+	 *
+	 * @param id The channel Id.
 	 * @returns The intent of the channel, either "DirectMessages" or "Guilds".
 	 */
-	static __intent__(id: string): "DirectMessages" | "Guilds" {
+	public static getIntent(id: string): "DirectMessages" | "Guilds" {
 		return id === "@me" ? "DirectMessages" : "Guilds";
 	}
 
+	/** The type associated with this channel. */
+	public get type(): ChannelType {
+		return this.data.type;
+	}
+
+	public get name(): APIChannelBase<T>["name"] {
+		return this.data.name;
+	}
+
 	/** The URL to the channel. */
-	get url(): string {
+	public get url(): string {
 		return `https://discord.com/channels/${this.id}`;
 	}
 
 	/**
 	 * Fetches the latest channel data.
-	 * @param force - Whether to bypass caching and fetch fresh data.
+	 *
+	 * @param force Whether to bypass caching and fetch fresh data.
 	 * @returns The fetched channel data.
 	 */
-	fetch(force = false) {
+	public fetch(force = false): Promise<AnyChannel> {
 		return this.client.channels.fetch(this.id, force);
 	}
 
 	/**
 	 * Deletes the channel.
-	 * @param reason - Optional reason for deleting the channel.
+	 *
+	 * @param reason Optional reason for deleting the channel.
 	 * @returns A promise resolving when the channel is deleted.
 	 */
-	delete(reason?: string) {
-		return this.client.channels.delete(this.id, { reason });
+	public delete(reason?: string): Promise<AnyChannel> {
+		return this.client.channels.delete(this.id, reason);
 	}
 
-	/**
-	 * Converts the channel to a string representation.
-	 * @returns The string representation of the channel.
-	 */
-	override toString(): string {
+	// I fking don't know how to document this, bleh.
+	// /**
+	//  * Converts the channel to a string representation.
+	//  *
+	//  * @returns The string representation of the channel.
+	//  */
+	public mention(): string {
 		return `<#${this.id}>`;
 	}
 
 	// Type checks for channel categorization
-	isStage(): this is GuildStageVoiceChannel {
+	public isStage(): this is GuildStageVoiceChannel {
 		return this.type === ChannelType.GuildStageVoice;
 	}
 
-	isMedia(): this is GuildMediaChannel {
+	public isMedia(): this is GuildMediaChannel {
 		return this.type === ChannelType.GuildMedia;
 	}
 
-	isDM(): this is DMChannel {
-		return [ChannelType.DM, ChannelType.GroupDM].includes(this.type);
+	public isDM(): this is DMChannel {
+		// ! Below I give an explanation of why not to do this.
+		// ! return [ChannelType.DM, ChannelType.GroupDM].includes(this.type);
+		return this.type === ChannelType.DM || this.type === ChannelType.GroupDM;
 	}
 
-	isForum(): this is GuildForumChannel {
+	public isForum(): this is GuildForumChannel {
 		return this.type === ChannelType.GuildForum;
 	}
 
-	isThread(): this is GuildThreadChannel {
-		return [
-			ChannelType.PublicThread,
-			ChannelType.PrivateThread,
-			ChannelType.AnnouncementThread,
-		].includes(this.type);
+	public isThread(): this is GuildThreadChannel {
+		// ! Aaron pls don't do this!!
+		// ! These Enum values range from 10 to 12.
+		// ! Can be checked with O(1) complexity
+		// ! and directly in the CPU without invoking
+		// ! additional functions.
+		// ! return [
+		// ! 	ChannelType.PublicThread,
+		// ! 	ChannelType.PrivateThread,
+		// ! 	ChannelType.AnnouncementThread,
+		// ! ].includes(this.type);
+		return this.type >= 10 && this.type <= 12;
 	}
 
-	isDirectory(): this is GuildDirectoryChannel {
+	public isDirectory(): this is GuildDirectoryChannel {
 		return this.type === ChannelType.GuildDirectory;
 	}
 
-	isVoice(): this is GuildVoiceChannel {
+	public isVoice(): this is GuildVoiceChannel {
 		return this.type === ChannelType.GuildVoice;
 	}
 
-	isTextGuild(): this is GuildTextChannel {
+	public isTextGuild(): this is GuildTextChannel {
 		return this.type === ChannelType.GuildText;
 	}
 
-	isCategory(): this is GuildCategoryChannel {
+	public isCategory(): this is GuildCategoryChannel {
 		return this.type === ChannelType.GuildCategory;
 	}
 
-	isNews(): this is GuildNewsChannel {
+	public isNews(): this is GuildNewsChannel {
 		return this.type === ChannelType.GuildAnnouncement;
 	}
 
-	isTextable(): this is AllTextableChannels {
+	public isTextable(): this is AnyTextableChannels {
 		return "messages" in this;
 	}
 
-	isGuildTextable(): this is AllGuildTextableChannels {
+	public isGuildTextable(): this is AnyGuildTextableChannel {
 		return !this.isDM() && this.isTextable();
 	}
 
-	isThreadOnly(): this is GuildForumChannel | GuildMediaChannel {
+	public isThreadOnly(): this is GuildForumChannel | GuildMediaChannel {
 		return this.isForum() || this.isMedia();
 	}
 
 	/**
 	 * Checks if the channel matches one of the specified types.
-	 * @param channelTypes - The types to check against.
+	 *
+	 * @param channelTypes The types to check against.
 	 * @returns Whether the channel matches one of the specified types.
 	 */
-	is<T extends ChannelType[]>(channelTypes: T): this is Extract<AllChannels, { type: T[number] }> {
+	public is<T extends ChannelType[]>(
+		channelTypes: T,
+	): this is Extract<AnyChannel, { type: T[number] }> {
 		return channelTypes.includes(this.type);
 	}
 }
@@ -137,9 +160,7 @@ export class BaseNoEditableChannel<T extends ChannelType> extends Base<
 /**
  * Represents a base channel.
  */
-export class BaseChannel<T extends ChannelType> extends BaseNoEditableChannel<T> {
-	declare client: Client;
-
+export class Channel<T extends ChannelType> extends ReadonlyChannel<T> {
 	/**
 	 * Edits the channel.
 	 *
@@ -147,50 +168,54 @@ export class BaseChannel<T extends ChannelType> extends BaseNoEditableChannel<T>
 	 * @param reason The reason for editing the channel.
 	 * @returns The edited channel.
 	 */
-	edit(body: RESTPatchAPIChannelJSONBody, reason?: string) {
-		return this.client.channels.edit(this.id, body, {
-			reason,
-			guildId: "guildId" in this ? (this.guildId as string) : "@me",
-		});
+	public edit(body: RESTPatchAPIChannelJSONBody, reason?: string): Promise<this> {
+		// return this.client.channels.edit(this.id, body, {
+		// 	guildId: "guildId" in this ? (this.guildId as string) : "@me",
+		// 	reason,
+		// });
+		return this.client.channels.edit(this.id, body, reason) as Promise<this>;
 	}
 }
 
 /**
  * Represents a base guild channel.
  */
-export class BaseGuildChannel extends BaseChannel<ChannelType> {
-	constructor(data: APIGuildChannel<ChannelType>, client: Client) {
-		const { permission_overwrites, ...rest } = data;
-		super(rest, client);
+export class GuildChannel<T extends GuildChannelType> extends Channel<T> {
+	public constructor(data: APIGuildChannel<T>, client: Client) {
+		const { permission_overwrites, ...REST } = data;
+		super(REST, client);
 	}
 
 	/**
-	 * The permission overwrites for the channel.
-	 * @param position The position of the overwrite.
+	 * Sets the position of the channel.
+	 *
+	 * @param position The new position.
 	 * @param reason The reason for this action.
 	 * @returns The updated channel object.
 	 */
-	setPosition(position: number, reason?: string) {
+	public setPosition(position: number, reason?: string): Promise<this> {
 		return this.edit({ position }, reason);
 	}
 
 	/**
 	 * Sets the name of the channel.
+	 *
 	 * @param name The new name of the channel.
 	 * @param reason The reason for this action.
 	 * @returns The updated channel object.
 	 */
-	setName(name: string, reason?: string) {
+	public setName(name: string, reason?: string): Promise<this> {
 		return this.edit({ name }, reason);
 	}
 
 	/**
 	 * Sets the parent of the channel.
-	 * @param parent_id The new parent of the channel.
+	 *
+	 * @param parentId The new parent of the channel.
 	 * @param reason The reason for this action.
 	 * @returns The updated channel object.
 	 */
-	setParent(parent_id: string | null, reason?: string) {
-		return this.edit({ parent_id }, reason);
+	public setParent(parentId: string | null, reason?: string): Promise<this> {
+		return this.edit({ parent_id: parentId }, reason);
 	}
 }

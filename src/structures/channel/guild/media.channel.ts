@@ -6,24 +6,21 @@ import type {
 	ChannelType,
 	SortOrderType,
 } from "discord-api-types/v10";
-import { BaseGuildChannel } from "../base.channel";
+import { GuildChannel } from "../base.channel";
 
 /**
  * Represents a media channel in a guild.
  * Media channels are specialized channels for media-related content, like images, videos, etc.
  */
-export class GuildMediaChannel extends BaseGuildChannel {
-	/** The channel type, always `GuildMedia`. */
-	declare type: ChannelType.GuildMedia;
-
+export class GuildMediaChannel extends GuildChannel<ChannelType.GuildMedia> {
 	/** The raw API data for the media channel. */
-	declare data: APIGuildMediaChannel;
+	public declare readonly data: APIGuildMediaChannel;
 
 	/**
 	 * Retrieves the name of the media channel.
 	 * @returns A string representing the channel's name.
 	 */
-	public get name(): string {
+	public override get name(): string {
 		return this.data.name;
 	}
 

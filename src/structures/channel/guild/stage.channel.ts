@@ -4,18 +4,15 @@ import type {
 	APIGuildVoiceChannel,
 	ChannelType,
 } from "discord-api-types/v10";
-import { BaseGuildChannel } from "../base.channel";
+import { GuildChannel } from "../base.channel";
 
 /**
  * Represents a stage voice channel in a guild.
  * Stage voice channels are designed for one-to-many audio communication, similar to a public speaker stage.
  */
-export class GuildStageVoiceChannel extends BaseGuildChannel {
-	/** The channel type, always `GuildStageVoice`. */
-	declare type: ChannelType.GuildStageVoice;
-
+export class GuildStageVoiceChannel extends GuildChannel<ChannelType.GuildStageVoice> {
 	/** The raw API data for the stage voice channel. */
-	declare data: APIGuildStageVoiceChannel;
+	public declare readonly data: APIGuildStageVoiceChannel;
 
 	/**
 	 * Retrieves the ID of the guild this stage voice channel belongs to.

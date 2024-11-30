@@ -2,7 +2,7 @@ import type { Dictionary } from "@common/dictionary";
 import type { Client } from "@core/client";
 import { Message } from "@structures/message/message";
 import type { GatewayMessageCreateDispatchData } from "discord-api-types/v10";
-import { BaseManager } from "./base.manager";
+import { Manager } from "./manager";
 
 /**
  * Represents a command to be executed when invoked.
@@ -18,16 +18,16 @@ export interface Command {
 /**
  * Manages and handles client commands.
  */
-export class CommandManager extends BaseManager<Command> {
+export class CommandManager extends Manager<Command> {
 	/** A dictionary to storage registered commands by their names. */
-	declare storage: Dictionary<string, Command>;
+	public declare storage: Dictionary<string, Command>;
 
 	/**
 	 * Constructs a new instance of the CommandManager class.
 	 *
 	 * @param client The client instance that this manager belongs to.
 	 */
-	constructor(client: Client) {
+	public constructor(client: Client) {
 		super(client, "COMMAND MANAGER");
 	}
 
@@ -36,7 +36,7 @@ export class CommandManager extends BaseManager<Command> {
 	 *
 	 * @param command The command to be registered.
 	 */
-	async set(command: Command) {
+	public set(command: Command): void {
 		this.storage.set(command.name, command);
 	}
 
@@ -45,32 +45,32 @@ export class CommandManager extends BaseManager<Command> {
 	 *
 	 * @param rawMessage The raw message data received from the Discord gateway.
 	 */
-	async message(rawMessage: GatewayMessageCreateDispatchData) {
-		const client = this.client;
-		const message = new Message(rawMessage, this.client);
+	public async message(rawMessage: GatewayMessageCreateDispatchData): Promise<void> {
+		const CLIENT = this.client;
+		const MESSAGE = new Message(rawMessage, this.client);
 
 		// Get default prefixes and dynamically handle custom prefix resolution.
-		const prefixes = client.options.defaultPrefix ?? [];
-		if (client.options.handlers?.prefix) {
-			const customPrefixes = await client.options.handlers.prefix(message);
-			prefixes.push(...customPrefixes);
+		const PREFIXES = CLIENT.options.defaultPrefix ?? [];
+		if (CLIENT.options.handlers?.prefix) {
+			const CUSTOM_PREFIXES = await CLIENT.options.handlers.prefix(MESSAGE);
+			PREFIXES.push(...CUSTOM_PREFIXES);
 		}
 
 		// Sort prefixes to match the longest prefix first.
-		const prefix = prefixes
-			.sort((a, b) => b.length - a.length)
-			.find((x) => rawMessage.content.startsWith(x));
+		const PREFIX = PREFIXES.sort((a, b) => b.length - a.length).find((x) =>
+			rawMessage.content.startsWith(x),
+		);
 
 		// Exit if no valid prefix is found.
-		if (!prefix) {
+		if (!PREFIX) {
 			return;
 		}
 
 		// Extract the command from the message content by removing the prefix.
-		const content = rawMessage.content.slice(prefix.length).trimStart();
-		this.debugger?.debug("Command Detected.", `Content: ${content}`, `Prefix: ${prefix}`);
+		const CONTENT = rawMessage.content.slice(PREFIX.length).trimStart();
+		this.debugger?.debug("Command Detected.", `Content: ${CONTENT}`, `Prefix: ${PREFIX}`);
 
 		// Attempt to retrieve and execute the corresponding command.
-		this.storage.get(content.split(/\s+/)[0])?.run(message);
+		this.storage.get(CONTENT.split(/\s+/)[0])?.run(MESSAGE);
 	}
 }

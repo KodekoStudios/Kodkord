@@ -1,6 +1,6 @@
-import { defineBuildConfig } from "unbuild";
 import { readdirSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
+import { defineBuildConfig } from "unbuild";
 
 /**
  * Recursively finds all files with the name "index.ts" in the specified directory.
@@ -9,23 +9,24 @@ import { join, resolve } from "node:path";
  * @param list An optional array to store the file paths. Defaults to an empty array.
  * @returns An array of file paths that match the criteria.
  */
-function findFiles(dir: string, list: string[] = []) {
-	const files = readdirSync(dir);
+function findFiles(dir: string, list: string[] = []): string[] {
+	const FILES = readdirSync(dir);
 
-	for (const file of files) {
-		const FilePath = join(dir, file);
-		const FileStat = statSync(FilePath);
+	for (const FILE of FILES) {
+		const FILE_PATH = join(dir, FILE);
+		const FILE_STAT = statSync(FILE_PATH);
 
-		if (FileStat.isDirectory()) {
-			findFiles(FilePath, list);
-		} else if (file === "index.ts") {
-			list.push(FilePath);
+		if (FILE_STAT.isDirectory()) {
+			findFiles(FILE_PATH, list);
+		} else if (FILE === "index.ts") {
+			list.push(FILE_PATH);
 		}
 	}
 
 	return list;
 }
 
+// biome-ignore lint/style/noDefaultExport: lil biome linter, this is a config >:(
 export default defineBuildConfig({
 	entries: findFiles("src").map((file) => ({
 		input: file,
@@ -51,6 +52,10 @@ export default defineBuildConfig({
 					find: "@structures",
 					replacement: resolve(__dirname, "./src/structures"),
 				},
+				{
+					find: "@types",
+					replacement: resolve(__dirname, "./src/types.d.ts")
+				}
 			],
 		},
 	},
