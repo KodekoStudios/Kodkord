@@ -68,7 +68,7 @@ export class CommandManager extends BaseManager<Command> {
 
 		// Extract the command from the message content by removing the prefix.
 		const content = rawMessage.content.slice(prefix.length).trimStart();
-		this.logger.debug("Command Detected.", `Content: ${content}`, `Prefix: ${prefix}`);
+		this.debugger?.debug("Command Detected.", `Content: ${content}`, `Prefix: ${prefix}`);
 
 		// Attempt to retrieve and execute the corresponding command.
 		this.storage.get(content.split(/\s+/)[0])?.run(message);

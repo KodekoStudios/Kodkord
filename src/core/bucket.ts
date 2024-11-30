@@ -187,4 +187,25 @@ export class Bucket {
 		this.remaining++;
 		this.processingResetAfter = undefined;
 	}
+
+	/**
+	 * Splits an array into chunks of a specified size.
+	 *
+	 * @param array The array to be split.
+	 * @param chunks The number of chunks to split the array into.
+	 * @returns An array of chunks, each containing a subset of the original array.
+	 */
+	static chunk<T>(array: T[], chunks: number): T[][] {
+		let index = 0;
+		let resIndex = 0;
+		const result = new Array<T[]>(Math.ceil(array.length / chunks));
+
+		while (index < array.length) {
+			// biome-ignore lint/suspicious/noAssignInExpressions: >:3
+			result[resIndex] = array.slice(index, (index += chunks));
+			resIndex++;
+		}
+
+		return result;
+	}
 }

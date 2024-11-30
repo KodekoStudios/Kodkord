@@ -7,7 +7,7 @@ import { User } from "@structures/user/user";
 import type { ProbablyPromise } from "@types";
 import type { GatewayDispatchPayload } from "discord-api-types/v10";
 import { APIHandler, type ApiHandlerOptions } from "./api.handler";
-import { WebSocket } from "./web.socket";
+import { ShardManager } from "./sharding/shard.manager";
 
 /**
  * Configuration options for the Discord Client.
@@ -37,7 +37,7 @@ export class Client {
 	public readonly APIHandler: APIHandler;
 
 	/** The WebSocket connection to Discord's gateway for real-time events. */
-	public readonly ws: WebSocket;
+	public declare ws: ShardManager;
 
 	/** The command manager responsible for managing client commands. */
 	public commands: CommandManager;
@@ -64,9 +64,6 @@ export class Client {
 
 		this.APIHandler = new APIHandler(options);
 
-		this.ws = new WebSocket(this, { token: options.token, intents: options.intents ?? 0 });
-		this.ws.handleDispatch = async (packet) => await this.onPacket(packet);
-
 		this.users = new UserManager(this);
 		this.channels = new ChannelManager(this);
 		this.events = new EventManager(this);
@@ -77,14 +74,16 @@ export class Client {
 	 * Handles incoming packets received from the WebSocket connection.
 	 * Processes events like 'READY' and 'MESSAGE_CREATE'.
 	 *
+	 * @param _shardId The ID of the shard that received the packet.
 	 * @param packet The dispatch payload received from Discord.
 	 */
-	protected async onPacket(packet: GatewayDispatchPayload) {
+	async onPacket(_shardId: number, packet: GatewayDispatchPayload) {
 		if (packet.t === "READY") {
 			this.me = new User(packet.d.user, this);
 		}
 
 		if (packet.t === "MESSAGE_CREATE") {
+			await this.events.get(packet.t)(this, packet.d); // 🔥🔥
 			await this.commands.message(packet.d);
 		}
 	}
@@ -94,14 +93,13 @@ export class Client {
 	 * Initiates real-time communication and starts event processing.
 	 */
 	public async connect(): Promise<void> {
-		this.ws.connect();
-	}
+		this.ws = new ShardManager({
+			token: this.options.token,
+			intents: this.options.intents ?? 0,
+			info: await this.APIHandler.get("/gateway/bot"),
+			handlePayload: async (shardId, packet) => await this.onPacket(shardId, packet),
+		});
 
-	/**
-	 * Attempts to reconnect the WebSocket after a disconnection.
-	 */
-	public async reconnect(): Promise<void> {
-		this.ws.disconnect();
-		this.ws.connect();
+		await this.ws.spawnShards();
 	}
 }

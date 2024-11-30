@@ -22,3 +22,10 @@ export type Nullable<Type> = Type | null | undefined;
  * @template Type The underlying type.
  */
 export type ProbablyPromise<Type> = Type | Promise<Type>;
+
+/**
+ * Extracts the argument types of a function.
+ *
+ * @template F The function to extract the argument types from.
+ */
+export type ArgumentTypes<F> = F extends (...args: infer A) => unknown ? A : never;

@@ -18,3 +18,5 @@ export * from "./structures/message/base.message";
 export * from "./structures/message/message";
 export * from "./structures/user/user.avatar";
 export * from "./structures/user/user";
+
+export * from "discord-api-types/v10";
