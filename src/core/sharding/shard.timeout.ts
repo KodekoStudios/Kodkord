@@ -2,17 +2,17 @@
  * Manages rate-limited execution of requests and their queuing.
  */
 export class ConnectTimeout {
-	readonly promises: ((x: boolean) => unknown)[] = [];
+	public readonly promises: ((x: boolean) => unknown)[] = [];
 	protected interval?: ReturnType<typeof setInterval> = undefined;
-	intervalTime: number;
+	public intervalTime: number;
 
-	constructor(intervalTime = 5000) {
+	public constructor(intervalTime = 5000) {
 		this.intervalTime = intervalTime;
 	}
 
-	wait() {
+	public wait(): Promise<undefined | boolean> {
 		return new Promise<boolean>((res) => {
-			if (!this.promises.length) {
+			if (this.promises.length === 0) {
 				this.interval = setInterval(() => {
 					this.shift();
 				}, this.intervalTime);
@@ -22,9 +22,9 @@ export class ConnectTimeout {
 		});
 	}
 
-	shift() {
+	public shift(): void {
 		this.promises.shift()?.(true);
-		if (!this.promises.length) {
+		if (this.promises.length === 0) {
 			clearInterval(this.interval);
 			this.interval = undefined;
 		}
@@ -38,17 +38,17 @@ export class ConnectQueue {
 	private queue: ((() => unknown) | undefined)[] = [];
 	private remaining = 0;
 	protected interval?: ReturnType<typeof setInterval> = undefined;
-	intervalTime: number;
-	concurrency: number;
+	public intervalTime: number;
+	public concurrency: number;
 
-	constructor(intervalTime = 5000, concurrency = 1) {
+	public constructor(intervalTime = 5000, concurrency = 1) {
 		this.intervalTime = intervalTime;
 		this.concurrency = concurrency;
 
 		this.remaining = concurrency;
 	}
 
-	push(callback: () => unknown) {
+	public push(callback: () => unknown): unknown {
 		if (this.remaining === 0) {
 			return this.queue.push(callback);
 		}
@@ -63,11 +63,11 @@ export class ConnectQueue {
 		return this.queue.push(callback);
 	}
 
-	startInterval() {
+	public startInterval(): void {
 		this.interval = setInterval(() => {
 			let cb: (() => void) | undefined;
 			// biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
-			while (this.queue.length && !(cb = this.queue.shift())) {
+			while (this.queue.length > 0 && !(cb = this.queue.shift())) {
 				//
 			}
 			if (cb) {
@@ -76,7 +76,7 @@ export class ConnectQueue {
 			if (this.remaining < this.concurrency) {
 				return this.remaining++;
 			}
-			if (!this.queue.length) {
+			if (this.queue.length === 0) {
 				clearInterval(this.interval);
 				this.interval = undefined;
 			}

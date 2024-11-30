@@ -18,39 +18,39 @@ import {
 	ShardSocketCloseCodes,
 } from "./types.d";
 
-export const properties = {
+export const PROPERTIES = {
 	os: process.platform,
 	browser: "Seyfert",
 	device: "Seyfert",
 };
 
 export class Shard {
-	logger?: Logger;
+	public readonly logger?: Logger;
 
-	data: Partial<ShardData> | ShardData = {
+	public data: Partial<ShardData> | ShardData = {
 		resume_seq: null,
 	};
 
-	connectTimeout = new ConnectTimeout();
+	public connectTimeout = new ConnectTimeout();
 
-	websocket: WebSocket | null = null;
-	heart: ShardHeart = {
+	public websocket: WebSocket | null = null;
+	public heart: ShardHeart = {
 		interval: 30e3,
 		ack: true,
 	};
 
-	bucket: Bucket;
-	offlineSendQueue: ((_?: unknown) => void)[] = [];
+	public bucket: Bucket;
+	public offlineSendQueue: ((_?: unknown) => void)[] = [];
 
-	options: MakeRequired<ShardOptions, "properties" | "ratelimitOptions">;
+	public options: MakeRequired<ShardOptions, "properties" | "ratelimitOptions">;
 
-	id: number;
+	public id: number;
 
-	constructor(id: number, options: ShardOptions) {
+	public constructor(id: number, options: ShardOptions) {
 		this.id = id;
 
 		this.options = {
-			properties,
+			properties: PROPERTIES,
 			ratelimitOptions: {
 				rateLimitResetInterval: 60_000,
 				maxRequestsPerRateLimitTick: 120,
@@ -65,42 +65,42 @@ export class Shard {
 				})
 			: undefined;
 
-		const safe = this.calculateSafeRequests();
-		this.bucket = new Bucket(safe);
+		const SAFE = this.calculateSafeRequests();
+		this.bucket = new Bucket(SAFE);
 	}
 
-	get latency() {
+	public get latency(): number {
 		return this.heart.lastAck && this.heart.lastBeat
 			? this.heart.lastAck - this.heart.lastBeat
 			: Number.POSITIVE_INFINITY;
 	}
 
-	get isOpen() {
+	public get isOpen(): boolean {
 		return this.websocket?.readyState === 1;
 	}
 
-	get gatewayURL() {
+	public get gatewayURL(): string {
 		return this.options.info.url;
 	}
 
-	get resumeGatewayURL() {
+	public get resumeGatewayURL(): string | undefined {
 		return this.data.resume_gateway_url;
 	}
 
-	get currentGatewayURL() {
-		const url = new URL(this.resumeGatewayURL ?? this.options.info.url);
-		url.searchParams.set("v", "10");
-		return url.href;
+	public get currentGatewayURL(): string {
+		const GATEWAY_URL = new URL(this.resumeGatewayURL ?? this.options.info.url);
+		GATEWAY_URL.searchParams.set("v", "10");
+		return GATEWAY_URL.href;
 	}
 
-	ping() {
+	public ping(): Promise<number> {
 		if (!this.websocket) {
 			return Promise.resolve(Number.POSITIVE_INFINITY);
 		}
-		return this.websocket.ping();
+		return this.websocket.ping() as unknown as Promise<number>;
 	}
 
-	async connect() {
+	public async connect(): Promise<void> {
 		await this.connectTimeout.wait();
 		if (this.isOpen) {
 			this.logger?.debug(`[Shard #${this.id}] Attempted to connect while open`);
@@ -113,29 +113,33 @@ export class Shard {
 
 		this.websocket = new WebSocket(this.currentGatewayURL);
 
-		this.websocket.onmessage = ({ data }: { data: string | Buffer }) => {
+		this.websocket.onmessage = ({ data }: { data: string | Buffer }): void => {
 			this.handleMessage(data);
 		};
 
-		this.websocket.onclose = (event: { code: number; reason: string }) => this.handleClosed(event);
+		this.websocket.onclose = (event: { code: number; reason: string }): Promise<void> =>
+			this.handleClosed(event);
 
 		// @ts-expect-error
-		this.websocket.onerror = (event: ErrorEvent) => this.logger?.throw(`${event}`);
+		this.websocket.onerror = (event: ErrorEvent): void => this.logger?.throw(`${event}`);
 
-		this.websocket.onopen = () => {
+		this.websocket.onopen = (): void => {
 			this.heart.ack = true;
 		};
 	}
 
-	async send<T extends GatewaySendPayload = GatewaySendPayload>(force: boolean, message: T) {
+	public async send<T extends GatewaySendPayload = GatewaySendPayload>(
+		force: boolean,
+		message: T,
+	): Promise<void> {
 		this.logger?.inform(
 			`[Shard #${this.id}] Sending: ${GatewayOpcodes[message.op]} ${JSON.stringify(
 				message.d,
 				(_, value) => {
 					if (typeof value === "string") {
 						return value.replaceAll(this.options.token, (v) => {
-							const split = v.split(".");
-							return `${split[0]}.${"*".repeat(split[1].length)}.${"*".repeat(split[2].length)}`;
+							const SPLIT = v.split(".");
+							return `${SPLIT[0]}.${"*".repeat(SPLIT[1].length)}.${"*".repeat(SPLIT[2].length)}`;
 						});
 					}
 					return value;
@@ -149,7 +153,7 @@ export class Shard {
 		this.websocket?.send(JSON.stringify(message));
 	}
 
-	async identify() {
+	public async identify(): Promise<void> {
 		await this.send(true, {
 			op: GatewayOpcodes.Identify,
 			d: {
@@ -163,7 +167,7 @@ export class Shard {
 		});
 	}
 
-	get resumable() {
+	public get resumable(): boolean {
 		return !!(
 			this.data.resume_gateway_url &&
 			this.data.session_id &&
@@ -171,7 +175,7 @@ export class Shard {
 		);
 	}
 
-	async resume() {
+	public async resume(): Promise<void> {
 		await this.send(true, {
 			op: GatewayOpcodes.Resume,
 			d: {
@@ -182,7 +186,7 @@ export class Shard {
 		});
 	}
 
-	async heartbeat(requested: boolean) {
+	public async heartbeat(requested: boolean): Promise<void> {
 		this.logger?.debug(
 			`[Shard #${this.id}] Sending ${requested ? "" : "un"}requested heartbeat (Ack=${this.heart.ack})`,
 		);
@@ -204,18 +208,18 @@ export class Shard {
 		);
 	}
 
-	async disconnect() {
+	public async disconnect(): Promise<void> {
 		this.logger?.inform(`[Shard #${this.id}] Disconnecting`);
 		await this.close(ShardSocketCloseCodes.Shutdown, "Shard down request");
 	}
 
-	async reconnect() {
+	public async reconnect(): Promise<void> {
 		this.logger?.inform(`[Shard #${this.id}] Reconnecting`);
 		await this.disconnect();
 		await this.connect();
 	}
 
-	async onpacket(packet: GatewayReceivePayload) {
+	public async onpacket(packet: GatewayReceivePayload): Promise<void> {
 		if (packet.s !== null) {
 			this.data.resume_seq = packet.s;
 		}
@@ -287,7 +291,7 @@ export class Shard {
 		}
 	}
 
-	protected async handleClosed(close: { code: number; reason: string }) {
+	protected async handleClosed(close: { code: number; reason: string }): Promise<void> {
 		clearInterval(this.heart.nodeInterval);
 		this.logger?.warn(
 			`${ShardSocketCloseCodes[close.code] ?? GatewayCloseCodes[close.code] ?? close.code} (${close.code})`,
@@ -338,19 +342,21 @@ export class Shard {
 		}
 	}
 
-	async close(code: number, reason: string) {
+	public close(code: number, reason: string): void {
 		clearInterval(this.heart.nodeInterval);
 		if (!this.isOpen) {
-			return this.logger?.warn(`[Shard #${this.id}] Is not open, reason:`, reason);
+			this.logger?.warn(`[Shard #${this.id}] Is not open, reason:`, reason);
+			return;
 		}
 		this.logger?.debug(`[Shard #${this.id}] Called close with reason:`, reason);
 		this.websocket?.close(code, reason);
 	}
 
-	protected handleMessage(data: string | Buffer) {
+	protected handleMessage(data: string | Buffer): Promise<void> | undefined {
 		let packet: GatewayDispatchPayload;
 		try {
 			if (data instanceof Buffer) {
+				// biome-ignore lint/style/noParameterAssign:
 				data = inflateSync(data);
 			}
 			packet = JSON.parse(data as string);
@@ -361,21 +367,21 @@ export class Shard {
 		return this.onpacket(packet);
 	}
 
-	checkOffline(force: boolean) {
+	public checkOffline(force: boolean): Promise<unknown> {
 		if (!this.isOpen) {
 			return new Promise((resolve) => this.offlineSendQueue[force ? "unshift" : "push"](resolve));
 		}
 		return Promise.resolve();
 	}
 
-	calculateSafeRequests(): number {
-		const safeRequests =
+	public calculateSafeRequests(): number {
+		const SAFE_REQUESTS =
 			this.options.ratelimitOptions.maxRequestsPerRateLimitTick -
 			Math.ceil(this.options.ratelimitOptions.rateLimitResetInterval / this.heart.interval) * 2;
 
-		if (safeRequests < 0) {
+		if (SAFE_REQUESTS < 0) {
 			return 0;
 		}
-		return safeRequests;
+		return SAFE_REQUESTS;
 	}
 }

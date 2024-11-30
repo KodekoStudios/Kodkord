@@ -77,13 +77,13 @@ export class Client {
 	 * @param _shardId The ID of the shard that received the packet.
 	 * @param packet The dispatch payload received from Discord.
 	 */
-	async onPacket(_shardId: number, packet: GatewayDispatchPayload) {
+	protected async onPacket(_shardId: number, packet: GatewayDispatchPayload): Promise<void> {
 		if (packet.t === "READY") {
 			this.me = new User(packet.d.user, this);
 		}
 
 		if (packet.t === "MESSAGE_CREATE") {
-			await this.events.get(packet.t)(this, packet.d); // 🔥🔥
+			await this.events.get(packet.t)(packet.d, this); // 🔥🔥
 			await this.commands.message(packet.d);
 		}
 	}
@@ -97,7 +97,7 @@ export class Client {
 			token: this.options.token,
 			intents: this.options.intents ?? 0,
 			info: await this.APIHandler.get("/gateway/bot"),
-			handlePayload: async (shardId, packet) => await this.onPacket(shardId, packet),
+			handlePayload: async (shardId, packet): Promise<void> => await this.onPacket(shardId, packet),
 		});
 
 		await this.ws.spawnShards();

@@ -195,17 +195,17 @@ export class Bucket {
 	 * @param chunks The number of chunks to split the array into.
 	 * @returns An array of chunks, each containing a subset of the original array.
 	 */
-	static chunk<T>(array: T[], chunks: number): T[][] {
+	public static chunk<T>(array: T[], chunks: number): T[][] {
 		let index = 0;
-		let resIndex = 0;
-		const result = new Array<T[]>(Math.ceil(array.length / chunks));
+		let res_index = 0;
+		const RESULT = new Array<T[]>(Math.ceil(array.length / chunks));
 
 		while (index < array.length) {
 			// biome-ignore lint/suspicious/noAssignInExpressions: >:3
-			result[resIndex] = array.slice(index, (index += chunks));
-			resIndex++;
+			RESULT[res_index] = array.slice(index, (index += chunks));
+			res_index++;
 		}
 
-		return result;
+		return RESULT;
 	}
 }

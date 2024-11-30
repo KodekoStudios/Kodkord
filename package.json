@@ -16,6 +16,7 @@
 	],
 	"scripts": {
 		"fix": "biome check --fix --unsafe src/",
+		"lint": "biome lint --unsafe --write src/",
 		"build": "biome check --write src/ && unbuild",
 		"test": "bun test"
 	},

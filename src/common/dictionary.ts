@@ -35,7 +35,6 @@ export class Dictionary<Key, Value> extends Map<Key, Value> {
 		if (iterable && EFFECTIVE_LIMIT < Number.POSITIVE_INFINITY) {
 			const ARRAY = [...iterable];
 			if (ARRAY.length > EFFECTIVE_LIMIT) {
-				// biome-ignore lint/style/noParameterAssign: stfu.
 				iterable = ARRAY.slice(0, EFFECTIVE_LIMIT);
 			}
 		}
