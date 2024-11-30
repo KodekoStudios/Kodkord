@@ -13,7 +13,7 @@ export class DMChannel extends Channel<ChannelType.DM> {
 	 *
 	 * @returns A string representing the name of the DM channel, or `null` if not available.
 	 */
-	public get name(): Nullable<string> {
+	public override get name(): Nullable<string> {
 		return this.data.name;
 	}
 

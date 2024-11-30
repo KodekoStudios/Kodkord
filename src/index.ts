@@ -17,4 +17,3 @@ export * from "./structures/managers/user.manager";
 export * from "./structures/message/message";
 export * from "./structures/user/user";
 export * from "./structures/user/user.avatar";
-

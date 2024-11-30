@@ -5,7 +5,7 @@ import type { APIMessage, APIUser } from "discord-api-types/v10";
  * Represents a base message.
  * @template T The type of the underlying API message.
  */
-export abstract class Message extends Base<APIMessage> {
+export class Message extends Base<APIMessage> {
 	/**
 	 * Gets the content of the message.
 	 */
