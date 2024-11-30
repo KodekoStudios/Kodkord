@@ -19,7 +19,7 @@ export abstract class Base<Data extends object> {
 	 * @param data The data associated with the class.
 	 * @param client The client object.
 	 */
-	constructor(data: Data, client: Client) {
+	public constructor(data: Data, client: Client) {
 		this.client = client;
 		this.data = data;
 	}

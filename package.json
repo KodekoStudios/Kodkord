@@ -23,7 +23,7 @@
 	"author": "",
 	"license": "Kodeko Studios Proprietary License",
 	"devDependencies": {
-		"@biomejs/biome": "1.9.2",
+		"@biomejs/biome": "1.9.4",
 		"@types/bun": "1.1.10",
 		"@types/node": "22.7.4",
 		"@types/ws": "8.5.12",

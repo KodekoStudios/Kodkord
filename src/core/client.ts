@@ -59,13 +59,13 @@ export class Client {
 	 *
 	 * @param options Configuration options for the client.
 	 */
-	constructor(options: ClientOptions) {
+	public constructor(options: ClientOptions) {
 		this.options = options;
 
 		this.APIHandler = new APIHandler(options);
 
 		this.ws = new WebSocket(this, { token: options.token, intents: options.intents ?? 0 });
-		this.ws.handleDispatch = async (packet) => await this.onPacket(packet);
+		this.ws.handleDispatch = async (packet): Promise<void> => await this.onPacket(packet);
 
 		this.users = new UserManager(this);
 		this.channels = new ChannelManager(this);
@@ -79,7 +79,7 @@ export class Client {
 	 *
 	 * @param packet The dispatch payload received from Discord.
 	 */
-	protected async onPacket(packet: GatewayDispatchPayload) {
+	protected async onPacket(packet: GatewayDispatchPayload): Promise<void> {
 		if (packet.t === "READY") {
 			this.me = new User(packet.d.user, this);
 		}
@@ -93,14 +93,14 @@ export class Client {
 	 * Connects the client to the Discord gateway via WebSocket.
 	 * Initiates real-time communication and starts event processing.
 	 */
-	public async connect(): Promise<void> {
+	public connect(): void {
 		this.ws.connect();
 	}
 
 	/**
 	 * Attempts to reconnect the WebSocket after a disconnection.
 	 */
-	public async reconnect(): Promise<void> {
+	public reconnect(): void {
 		this.ws.disconnect();
 		this.ws.connect();
 	}

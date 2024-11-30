@@ -1,12 +1,12 @@
 import type { Nullable } from "@types";
 import type { ChannelType } from "discord-api-types/v10";
-import { BaseChannel } from "./base.channel";
+import { Channel } from "./base.channel";
 
 /**
  * Represents a Direct Message (DM) channel in Discord.
  * Provides basic properties for DM channels, such as name and flags.
  */
-export class DMChannel extends BaseChannel<ChannelType.DM> {
+export class DMChannel extends Channel<ChannelType.DM> {
 	/**
 	 * Retrieves the name of the DM channel.
 	 * This is typically `null` since DM channels don't usually have names.

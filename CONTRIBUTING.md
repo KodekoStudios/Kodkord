@@ -2,6 +2,9 @@
 
 - [Project Collaboration Guidelines](#project-collaboration-guidelines)
   - [1. Code Style](#1-code-style)
+    - [**Imports**](#imports)
+    - [**Linter**](#linter)
+    - [**Formatter**](#formatter)
   - [2. Commits](#2-commits)
   - [3. Pull Requests](#3-pull-requests)
   - [4. Documentation](#4-documentation)
@@ -12,24 +15,59 @@
   - [9. Code Reviews](#9-code-reviews)
   - [10. License](#10-license)
 
-#### 1. Code Style
-Much of the code style is defined in the `biome.json` file. Here is a summary of the key settings and naming conventions:
+#### 1. Code Style  
+The code style is largely defined in the `biome.json` file. Below is a point-by-point explanation of the key settings and why they are preferred:  
 
-- **Imports**: Automatically organized.
-- **Linter**: Enabled with recommended and additional rules:
-  - Suspicious: `noEmptyBlockStatements`, `noConfusingVoidType`, `noGlobalIsFinite`, `noGlobalIsNan`, `noExplicitAny`, `noAssignInExpressions`.
-  - Style: `noNonNullAssertion`, `noParameterAssign`, `noInferrableTypes`, `useNumberNamespace`, `noDefaultExport`, `useFilenamingConvention`, `noUselessElse`, `noNegationElse`, `noParameterProperties`, `noShoutyConstants`, `useAsConstAssertion`, `useCollapsedElseIf`, `useConst`, `useExportType`.
-  - Complexity: `noForEach`.
-- **Formatter**: Enabled with error formatting, indentation width of 2, tab indentation style, and line width of 100.
+##### **Imports**  
+- **`organizeImports: enabled`**  
+  **Automatically** organizes imports to keep the code clean and consistent, reducing manual effort.  
 
-**Naming Conventions**:
-- Functions: camelCase
-- Variables: snake_case
-- Enums, interfaces, types: PascalCase
-- Classes: PascalCase
-- Templates: Full names in PascalCase
+##### **Linter**  
+The linter enforces rules to maintain code correctness, readability, and performance:  
 
-For more details, refer to the `biome.json` file.
+1. **Complexity Rules**  
+   - **`noMultipleSpacesInRegularExpressionLiterals`**: Avoids excessive spaces in regex, improving readability.  
+   - **`useSimplifiedLogicExpression`**: Promotes simpler expressions for clarity.  
+   - **`noUselessLoneBlockStatements`**: Prevents redundant code blocks, reducing noise.  
+   - **`noExcessiveNestedTestSuites`**: Limits deeply nested tests, improving maintainability.  
+   - **`noEmptyTypeParameters`**: Ensures type definitions are meaningful.  
+   - **`noUselessTernary`**: Encourages readable conditional expressions.  
+   - **`useDateNow`**: Prefers `Date.now()` for consistency and performance.  
+   - **`noForEach`**: Avoids `forEach` to favor faster and more flexible iteration patterns.  
+
+2. **Correctness Rules**  
+   - **`noUndeclaredDependencies`**: Prevents missing dependency declarations.  
+   - **`noUnusedVariables`**: Eliminates unused variables for cleaner code.  
+   - **`noConstructorReturn`**: Prevents unintended behavior by disallowing return statements in constructors.  
+
+3. **Nursery Rules**  
+   - **`useConsistentMemberAccessibility`**: Enforces explicit member visibility, improving clarity.  
+   - **`useExplicitType`**: Encourages specifying types for better type safety.  
+   - **`noDuplicateElseIf`**: Reduces redundancy and logical errors.  
+
+4. **Performance Rules**  
+   - **`noAccumulatingSpread`**: Avoids inefficient patterns when handling arrays.  
+
+5. **Security Rules**  
+   - **`noGlobalEval`**: Prevents potential security vulnerabilities.  
+
+6. **Style Rules**  
+   - **`useConsistentArrayType`**: Ensures a consistent syntax for array types.  
+   - **`useNamingConvention`**: Enforces conventions like `PascalCase` for types, `CONSTANT_CASE` for constants, etc., to improve readability.  
+   - **`noDefaultExport`**: Promotes named exports for clearer API structures.  
+   - **`useForOf`**: Prefers `for...of` loops for better readability and maintainability.  
+
+##### **Formatter**  
+- **`formatWithErrors: true`**  
+  Ensures formatting issues are treated as errors to maintain high standards.  
+- **`indentWidth: 2`**  
+  A smaller indentation width improves readability, especially for deeply nested code.  
+- **`indentStyle: tab`**  
+  Tabs provide flexibility for developers to adjust their view preferences.  
+- **`lineWidth: 100`**  
+  Limits line length to improve readability on various devices and screen sizes.  
+
+These settings together enforce a consistent and high-quality codebase, reducing the likelihood of bugs and making collaboration easier.
 
 #### 2. Commits
 Commit messages should follow this structure:

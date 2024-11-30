@@ -72,7 +72,7 @@ export class Bucket {
 	 *
 	 * @param limit The maximum number of requests allowed in a given rate limit window.
 	 */
-	constructor(limit: number) {
+	public constructor(limit: number) {
 		this.remaining = this.limit = limit;
 		this.resetAfter = this.reset = 0;
 		this.queue = [];
@@ -102,15 +102,15 @@ export class Bucket {
 			return;
 		}
 
-		const now = Date.now();
+		const NOW = Date.now();
 
 		// Reset the limit if the reset time has passed.
-		if (!this.reset || this.reset < now) {
-			this.reset = now;
+		if (!this.reset || this.reset < NOW) {
+			this.reset = NOW;
 			this.remaining = this.limit;
 		}
 
-		this.last = now;
+		this.last = NOW;
 
 		// If no requests are remaining, schedule processing after a delay.
 		if (this.remaining <= 0) {
@@ -119,7 +119,7 @@ export class Bucket {
 					this.processing = false;
 					this.process(true);
 				},
-				this.resetAfter ? 0.5 : Math.max(0, (this.reset || 0) - now) + 1,
+				this.resetAfter ? 0.5 : Math.max(0, (this.reset || 0) - NOW) + 1,
 			);
 			return;
 		}
@@ -128,8 +128,8 @@ export class Bucket {
 		this.processing = true;
 
 		// Process the next item in the queue.
-		const shift = this.queue.shift() as QueueItem<unknown>;
-		shift.next(
+		const SHIFT = this.queue.shift() as QueueItem<unknown>;
+		SHIFT.next(
 			() => {
 				// If more items are in the queue, continue processing.
 				if (this.queue.length > 0) {
@@ -138,8 +138,8 @@ export class Bucket {
 					this.processing = false;
 				}
 			},
-			shift.resolve,
-			shift.reject,
+			SHIFT.resolve,
+			SHIFT.reject,
 		);
 	}
 

@@ -69,7 +69,7 @@ export class APIHandler {
 	 *
 	 * @param options Options for configuring the API handler.
 	 */
-	constructor(options: ApiHandlerOptions) {
+	public constructor(options: ApiHandlerOptions) {
 		this.options = options;
 		this.baseURL = options.baseURL || RouteBases.api;
 		this.ratelimits = new Dictionary(undefined, undefined, "RATE LIMITS");
@@ -103,17 +103,17 @@ export class APIHandler {
 	 * @returns An object with all necessary headers.
 	 */
 	private buildHeaders(reason?: string): Record<string, string> {
-		const headers: Record<string, string> = {
+		const HEADERS: Record<string, string> = {
 			Authorization: `${this.options.type || "Bot"} ${this.options.token}`,
 			"User-Agent": this.options.agent || "Kodcord (https://github.com/KodekoStudios)",
 			"Content-Type": "application/json",
 		};
 
 		if (reason) {
-			headers["X-Audit-Log-Reason"] = reason;
+			HEADERS["X-Audit-Log-Reason"] = reason;
 		}
 
-		return headers;
+		return HEADERS;
 	}
 
 	/**
@@ -133,33 +133,34 @@ export class APIHandler {
 		route: string,
 		options: ApiRequestOptions = {},
 	): Promise<T> {
+		// biome-ignore lint/style/useNamingConvention: I can't call this URL cuz URL is a class.
 		const url = new URL(`${this.baseURL}${route}`);
 		if (options.query) {
 			url.search = new URLSearchParams(options.query).toString();
 		}
 
-		const headers = this.buildHeaders(options.reason);
-		const requestOptions: RequestInit = { method, headers };
+		const HEADERS = this.buildHeaders(options.reason);
+		const REQUEST_OPTIONS: RequestInit = { method, headers: HEADERS };
 
 		if (options.body) {
-			requestOptions.body = JSON.stringify(options.body);
+			REQUEST_OPTIONS.body = JSON.stringify(options.body);
 		}
 
-		const bucket = this.getOrCreateBucket(route);
-		await bucket.scheduleRateLimitReset(); // Ensure rate limit reset before processing
+		const BUCKET = this.getOrCreateBucket(route);
+		await BUCKET.scheduleRateLimitReset(); // Ensure rate limit reset before processing
 
 		return new Promise((resolve, reject) => {
-			bucket.push({
-				next: async (cb, _res, rej) => {
+			BUCKET.push({
+				next: async (cb, _res, rej): Promise<void> => {
 					try {
-						const response = await fetch(url.toString(), requestOptions);
-						if (!response.ok) {
-							rej(`Discord API request failed with status ${response.status}`);
+						const RESPONSE = await fetch(url.toString(), REQUEST_OPTIONS);
+						if (!RESPONSE.ok) {
+							rej(`Discord API request failed with status ${RESPONSE.status}`);
 							return;
 						}
-						const data = await response.json();
+						const DATA = await RESPONSE.json();
 						cb();
-						resolve(data);
+						resolve(DATA);
 					} catch (error) {
 						rej(`Failed to execute Discord API request: ${(error as Error).message}`);
 					}
@@ -179,7 +180,7 @@ export class APIHandler {
 	 * @param options Additional options for the request, including query parameters.
 	 * @returns A promise that resolves to the response data from the API.
 	 */
-	public async get<T>(route: string, options?: ApiRequestOptions): Promise<T> {
+	public get<T>(route: string, options?: ApiRequestOptions): Promise<T> {
 		return this.request(RequestMethod.Get, route, options);
 	}
 
@@ -192,7 +193,7 @@ export class APIHandler {
 	 * @param options Additional options for the request, including body data.
 	 * @returns A promise that resolves to the response data from the API.
 	 */
-	public async post<T>(route: string, options?: ApiRequestOptions): Promise<T> {
+	public post<T>(route: string, options?: ApiRequestOptions): Promise<T> {
 		return this.request(RequestMethod.Post, route, options);
 	}
 
@@ -205,7 +206,7 @@ export class APIHandler {
 	 * @param options Additional options for the request, including body data.
 	 * @returns A promise that resolves to the response data from the API.
 	 */
-	public async patch<T>(route: string, options?: ApiRequestOptions): Promise<T> {
+	public patch<T>(route: string, options?: ApiRequestOptions): Promise<T> {
 		return this.request(RequestMethod.Patch, route, options);
 	}
 
@@ -218,7 +219,7 @@ export class APIHandler {
 	 * @param options Additional options for the request, including body data.
 	 * @returns A promise that resolves to the response data from the API.
 	 */
-	public async put<T>(route: string, options?: ApiRequestOptions): Promise<T> {
+	public put<T>(route: string, options?: ApiRequestOptions): Promise<T> {
 		return this.request(RequestMethod.Put, route, options);
 	}
 
@@ -231,7 +232,7 @@ export class APIHandler {
 	 * @param options Additional options for the request.
 	 * @returns A promise that resolves to the response data from the API.
 	 */
-	public async delete<T>(route: string, options?: ApiRequestOptions): Promise<T> {
+	public delete<T>(route: string, options?: ApiRequestOptions): Promise<T> {
 		return this.request(RequestMethod.Delete, route, options);
 	}
 }

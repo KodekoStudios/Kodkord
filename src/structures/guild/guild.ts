@@ -25,7 +25,7 @@ export class Guild extends Base<APIGuild> {
 	 *
 	 * @returns The guild name
 	 */
-	public get name() {
+	public get name(): string {
 		return this.data.name;
 	}
 

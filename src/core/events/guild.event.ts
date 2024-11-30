@@ -2,6 +2,7 @@ import type { Client } from "@core/client";
 import { Guild } from "@structures/guild/guild";
 import { User } from "@structures/user/user";
 import type {
+	APIGuildScheduledEvent,
 	GatewayGuildAuditLogEntryCreateDispatchData,
 	GatewayGuildBanAddDispatchData,
 	GatewayGuildBanRemoveDispatchData,
@@ -13,24 +14,39 @@ import type {
 	GatewayGuildScheduledEventUpdateDispatchData,
 	GatewayGuildScheduledEventUserAddDispatchData,
 	GatewayGuildScheduledEventUserRemoveDispatchData,
+	Snowflake,
 } from "discord-api-types/v10";
 
 export const GUILD_AUDIT_LOG_ENTRY_CREATE = (
 	_self: Client,
 	data: GatewayGuildAuditLogEntryCreateDispatchData,
-) => {
+): GatewayGuildAuditLogEntryCreateDispatchData => {
 	return data;
 };
 
-export const GUILD_BAN_ADD = (self: Client, data: GatewayGuildBanAddDispatchData) => {
+export const GUILD_BAN_ADD = (
+	self: Client,
+	data: GatewayGuildBanAddDispatchData,
+): {
+	user: User;
+	// biome-ignore lint/style/useNamingConvention: ...
+	guild_id: Snowflake;
+} => {
 	return { ...data, user: new User(data.user, self) };
 };
 
-export const GUILD_BAN_REMOVE = (self: Client, data: GatewayGuildBanRemoveDispatchData) => {
+export const GUILD_BAN_REMOVE = (
+	self: Client,
+	data: GatewayGuildBanRemoveDispatchData,
+): {
+	user: User;
+	// biome-ignore lint/style/useNamingConvention: ...
+	guild_id: Snowflake;
+} => {
 	return { ...data, user: new User(data.user, self) };
 };
 
-export const GUILD_CREATE = (self: Client, data: GatewayGuildCreateDispatchData) => {
+export const GUILD_CREATE = (self: Client, data: GatewayGuildCreateDispatchData): Guild => {
 	return new Guild(data, self);
 };
 
@@ -48,7 +64,7 @@ export const GUILD_CREATE = (self: Client, data: GatewayGuildCreateDispatchData)
 export const GUILD_INTEGRATIONS_UPDATE = (
 	_self: Client,
 	data: GatewayGuildIntegrationsUpdateDispatchData,
-) => {
+): typeof data => {
 	return data;
 };
 
@@ -56,42 +72,49 @@ export const GUILD_INTEGRATIONS_UPDATE = (
 // 	return new GuildMember(data, self);
 // };
 
-export const GUILD_MEMBER_REMOVE = (self: Client, data: GatewayGuildMemberRemoveDispatchData) => {
+export const GUILD_MEMBER_REMOVE = (
+	self: Client,
+	data: GatewayGuildMemberRemoveDispatchData,
+): {
+	user: User;
+	// biome-ignore lint/style/useNamingConvention: ...
+	guild_id: Snowflake;
+} => {
 	return { ...data, user: new User(data.user, self) };
 };
 
 export const GUILD_SCHEDULED_EVENT_CREATE = (
 	_self: Client,
 	data: GatewayGuildScheduledEventCreateDispatchData,
-) => {
+): APIGuildScheduledEvent => {
 	return data;
 };
 
 export const GUILD_SCHEDULED_EVENT_UPDATE = (
 	_self: Client,
 	data: GatewayGuildScheduledEventUpdateDispatchData,
-) => {
+): typeof data => {
 	return data;
 };
 
 export const GUILD_SCHEDULED_EVENT_DELETE = (
 	_self: Client,
 	data: GatewayGuildScheduledEventDeleteDispatchData,
-) => {
+): typeof data => {
 	return data;
 };
 
 export const GUILD_SCHEDULED_EVENT_USER_ADD = (
 	_self: Client,
 	data: GatewayGuildScheduledEventUserAddDispatchData,
-) => {
+): typeof data => {
 	return data;
 };
 
 export const GUILD_SCHEDULED_EVENT_USER_REMOVE = (
 	_self: Client,
 	data: GatewayGuildScheduledEventUserRemoveDispatchData,
-) => {
+): typeof data => {
 	return data;
 };
 

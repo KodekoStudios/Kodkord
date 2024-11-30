@@ -1,10 +1,10 @@
 import type { Client } from "@core/client";
 import { MESSAGE_CREATE } from "./message.event";
 
-export const RawEvents = { MESSAGE_CREATE };
+export const RAW_EVENTS = { MESSAGE_CREATE };
 
 export type ClientEvents = {
-	[EventName in keyof typeof RawEvents]: ReturnType<(typeof RawEvents)[EventName]>;
+	[EventName in keyof typeof RAW_EVENTS]: ReturnType<(typeof RAW_EVENTS)[EventName]>;
 };
 
 export type EventNames = Extract<keyof ClientEvents, string>;

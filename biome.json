@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.2/schema.json",
+	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
 	"organizeImports": {
 		"enabled": true
 	},
@@ -8,41 +8,155 @@
 		"rules": {
 			"recommended": true,
 			"complexity": {
-				"noExcessiveCognitiveComplexity": "warn",
+				"noMultipleSpacesInRegularExpressionLiterals": "error",
 				"useSimplifiedLogicExpression": "error",
+				"noUselessLoneBlockStatements": "error",
 				"noExcessiveNestedTestSuites": "error",
-				"noVoid": "warn"
+				"noEmptyTypeParameters": "error",
+				"noExtraBooleanCast": "error",
+				"noUselessThisAlias": "error",
+				"noStaticOnlyClass": "error",
+				"useOptionalChain": "error",
+				"noUselessTernary": "error",
+				"noUselessRename": "error",
+				"useLiteralKeys": "error",
+				"noUselessLabel": "error",
+				"noThisInStatic": "error",
+				"useDateNow": "error",
+				"noForEach": "error",
+				"noExcessiveCognitiveComplexity": "warn",
+				"noUselessStringConcat": "warn",
+				"noUselessConstructor": "warn",
+				"useArrowFunction": "warn",
+				"noUselessCatch": "warn",
+				"noVoid": "warn",
+				"noUselessEmptyExport": "info",
+				"noUselessSwitchCase": "info",
+				"useSimpleNumberKeys": "info",
+				"useRegexLiterals": "info",
+				"useFlatMap": "info"
 			},
 			"correctness": {
-				"noNewSymbol": {
-					"level": "error",
-					"fix": "unsafe"
-				},
+				"noConstantMathMinMaxClamp": "error",
+				"noUndeclaredDependencies": "off",
 				"noUndeclaredVariables": "error",
-				"noUnusedImports": "warn",
-				"noUnusedPrivateClassMembers": "warn",
+				"noConstructorReturn": "error",
+				"noConstantCondition": "error",
 				"noUnusedVariables": "error",
-				"useArrayLiterals": "error"
+				"useArrayLiterals": "error",
+				"noUnusedImports": "error",
+				"noNewSymbol": "error",
+				"useIsNan": "error",
+				"noUnusedPrivateClassMembers": "warn",
+				"noPrecisionLoss": "info"
 			},
 			"nursery": {
-				"noDuplicateElseIf": "error"
+				"useConsistentMemberAccessibility": {
+					"options": {
+						"accessibility": "explicit"
+					},
+					"level": "error"
+				},
+				"useAdjacentOverloadSignatures": "error",
+				"noUselessEscapeInRegex": "error",
+				"noDuplicateElseIf": "error",
+				"useExplicitType": "error",
+				"useCollapsedIf": "error",
+				"useGuardForIn": "error",
+				"useAtIndex": "info",
+				"noSubstr": "info"
+			},
+			"performance": {
+				"noAccumulatingSpread": "warn"
+			},
+			"security": {
+				"noGlobalEval": "error"
 			},
 			"style": {
-				"noNamespace": "error",
-				"noNegationElse": "error",
-				"noParameterProperties": "error",
-				"noShoutyConstants": "error",
-				"useBlockStatements": {
+				"useConsistentBuiltinInstantiation": "error",
+				"noUnusedTemplateLiteral": "error",
+				"useConsistentArrayType": {
+					"options": {
+						"syntax": "shorthand"
+					},
 					"level": "error",
 					"fix": "unsafe"
 				},
-				"useConsistentArrayType": "error",
-				"useShorthandAssign": "warn",
-				"noParameterAssign": "off"
+				"useExplicitLengthCheck": "error",
+				"noParameterProperties": "error",
+				"useNamingConvention": {
+					"options": {
+						"strictCase": false,
+						"conventions": [
+							{
+								"selector": {
+									"kind": "typeLike"
+								},
+								"formats": [
+									"PascalCase"
+								]
+							},
+							{
+								"selector": {
+									"kind": "const"
+								},
+								"formats": [
+									"CONSTANT_CASE"
+								]
+							},
+							{
+								"selector": {
+									"kind": "variable"
+								},
+								"formats": [
+									"snake_case"
+								]
+							},
+							{
+								"selector": {
+									"kind": "functionParameter"
+								},
+								"match": "([a-z][A-z]*|_[A-z]*)(_[0-9]+)?"
+							},
+							{
+								"selector": {
+									"kind": "classMember"
+								},
+								"formats": [
+									"camelCase",
+									"PascalCase"
+								]
+							},
+							{
+								"selector": {
+									"kind": "objectLiteralProperty"
+								},
+								"match": ".+"
+							}
+						]
+					},
+					"level": "error"
+				},
+				"useAsConstAssertion": "error",
+				"noNonNullAssertion": "error",
+				"useShorthandAssign": "error",
+				"useCollapsedElseIf": "error",
+				"useBlockStatements": "error",
+				"noParameterAssign": "error",
+				"noShoutyConstants": "error",
+				"noDefaultExport": "error",
+				"noCommaOperator": "error",
+				"noUselessElse": "error",
+				"noNamespace": "error",
+				"useForOf": "error",
+				"noVar": "error",
+				"noInferrableTypes": "warn",
+				"noYodaExpression": "warn"
 			},
 			"suspicious": {
 				"noEmptyBlockStatements": "error",
-				"noEmptyInterface": "error"
+				"noEmptyInterface": "error",
+				"useAwait": "info"
 			}
 		}
 	},
