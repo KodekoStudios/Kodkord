@@ -6,7 +6,7 @@ import type {
 	ChannelType,
 	SortOrderType,
 } from "discord-api-types/v10";
-import { GuildChannel } from "../base.channel";
+import { GuildChannel } from "../guild.channel";
 
 /**
  * Represents a media channel in a guild.

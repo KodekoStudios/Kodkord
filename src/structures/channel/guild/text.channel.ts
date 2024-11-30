@@ -1,6 +1,6 @@
 import type { Nullable } from "@types";
 import type { APITextChannel, ChannelType } from "discord-api-types/v10";
-import { GuildChannel } from "../base.channel";
+import { GuildChannel } from "../guild.channel";
 
 /**
  * Represents a text channel in a Discord guild.

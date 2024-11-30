@@ -1,6 +1,6 @@
 import type { Nullable } from "@types";
 import type { ChannelType } from "discord-api-types/v10";
-import { Channel } from "./base.channel";
+import { Channel } from "./channel";
 
 /**
  * Represents a Direct Message (DM) channel in Discord.
