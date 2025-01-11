@@ -1,6 +1,5 @@
 import { parentPort, workerData } from "node:worker_threads";
 import { Logger } from "@common/logger";
-import { calculateShardId } from "@common/utils";
 import { Bucket } from "@core/bucket";
 import type { MakeRequired } from "@types";
 import {
@@ -124,7 +123,7 @@ export class ShardManager extends Map<number, Shard> {
 	}
 
 	public calculateShardId(guildId: string): number {
-		return calculateShardId(guildId, this.totalShards);
+		return Number((BigInt(guildId) >> 22n) % BigInt(this.totalShards ?? 1));
 	}
 
 	public create(shardId: number): Shard {
