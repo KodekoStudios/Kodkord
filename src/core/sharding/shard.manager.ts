@@ -12,7 +12,48 @@ import {
 } from "discord-api-types/v10";
 import { PROPERTIES, Shard } from "./shard";
 import { ConnectQueue } from "./shard.timeout";
-import type { ShardData, ShardManagerOptions } from "./types";
+
+import type { APIGatewayBotInfo, GatewayPresenceUpdateData } from "discord-api-types/v10";
+import type { ShardData, ShardDetails } from "./shard";
+
+export interface ShardManagerOptions extends ShardDetails {
+	/** Important data which is used by the manager to connect shards to the gateway. */
+	info: APIGatewayBotInfo;
+	/**
+	 * Delay in milliseconds to wait before spawning next shard. OPTIMAL IS ABOVE 5100. YOU DON'T WANT TO HIT THE RATE LIMIT!!!
+	 * @default 5300
+	 */
+	spawnShardDelay?: number;
+	/**
+	 * Total amount of shards your bot uses. Useful for zero-downtime updates or resharding.
+	 * @default 1
+	 */
+	totalShards?: number;
+	shardStart?: number;
+	shardEnd?: number;
+	/**
+	 * The payload handlers for messages on the shard.
+	 */
+	handlePayload(shardId: number, packet: GatewayDispatchPayload): unknown;
+	/**
+	 * wheter to send debug information to the console
+	 */
+	debug?: boolean;
+	/**
+	 * Set a presence.
+	 */
+	presence?: (shardId: number, workerId: number) => GatewayPresenceUpdateData;
+
+	compress?: boolean;
+	resharding?: {
+		/**
+		 * @returns the gateway connection info
+		 */
+		getInfo?(): Promise<APIGatewayBotInfo>;
+		interval: number;
+		percentage: number;
+	};
+}
 
 const SHARD_MANAGER_DEFAULTS = {
 	totalShards: 1,
@@ -23,11 +64,12 @@ const SHARD_MANAGER_DEFAULTS = {
 	version: 10,
 	shardStart: 0,
 	resharding: {
-		interval: 8 * 60 * 60 * 1e3, // 8h
+		interval: 288e5, // 8h
 		percentage: 80,
 	},
 };
 
+// ! Why this does not extends the Manager class?????
 export class ShardManager extends Map<number, Shard> {
 	protected connectQueue: ConnectQueue;
 	public options: MakeRequired<ShardManagerOptions, keyof typeof SHARD_MANAGER_DEFAULTS>;
@@ -138,6 +180,7 @@ export class ShardManager extends Map<number, Shard> {
 		if (this.options.resharding.interval <= 0) {
 			return;
 		}
+
 		if (this.shardStart !== 0 || this.shardEnd !== this.totalShards) {
 			return this.debugger?.debug("Cannot start resharder");
 		}
@@ -145,11 +188,13 @@ export class ShardManager extends Map<number, Shard> {
 		this.debugger?.debug("Resharder enabled");
 		setInterval(async () => {
 			this.debugger?.debug("Checking if reshard is needed");
+			// TODO: Make a if (!INFO) throw instead of expect error.
 			// @ts-expect-error fuck you
 			const INFO = await this.options.resharding.getInfo();
 			if (INFO.shards <= this.totalShards) {
 				return this.debugger?.debug("Resharding not needed");
 			}
+
 			// https://github.com/discordeno/discordeno/blob/6a5f446c0651b9fad9f1550ff1857fe7a026426b/packages/gateway/src/manager.ts#L106C8-L106C94
 			const PERCENTAGE = (INFO.shards / ((this.totalShards * 2500) / 1000)) * 100;
 			if (PERCENTAGE < this.options.resharding.percentage) {
@@ -172,11 +217,12 @@ export class ShardManager extends Map<number, Shard> {
 				_: number,
 				packet: GatewayDispatchPayload,
 				// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Yeah... this is complex :3
-			): undefined | undefined => {
+			): void => {
 				if (packet.t === "GUILD_CREATE" || packet.t === "GUILD_DELETE") {
 					HANDLE_GUILDS.delete(packet.d.id);
 					if (shards_connected === INFO.shards && HANDLE_GUILDS.size === 0) {
-						return CLEAN_PROCESS(sharder);
+						CLEAN_PROCESS(sharder);
+						return;
 					}
 				}
 
@@ -241,9 +287,9 @@ export class ShardManager extends Map<number, Shard> {
 		return this.create(shardId).identify();
 	}
 
-	public disconnect(shardId: number): Promise<void> | undefined {
+	public disconnect(shardId: number): void {
 		this.debugger?.inform(`Shard #${shardId} force disconnect`);
-		return this.get(shardId)?.disconnect();
+		this.get(shardId)?.disconnect();
 	}
 
 	public disconnectAll(): void {
@@ -253,12 +299,9 @@ export class ShardManager extends Map<number, Shard> {
 		}
 	}
 
-	public setShardPresence(
-		shardId: number,
-		payload: GatewayUpdatePresence["d"],
-	): undefined | undefined {
+	public setShardPresence(shardId: number, payload: GatewayUpdatePresence["d"]): void {
 		this.debugger?.inform(`Shard #${shardId} update presence`);
-		return this.send<GatewayUpdatePresence>(shardId, {
+		this.send<GatewayUpdatePresence>(shardId, {
 			op: GatewayOpcodes.PresenceUpdate,
 			d: payload,
 		});
@@ -274,11 +317,11 @@ export class ShardManager extends Map<number, Shard> {
 		guildId: string,
 		channelId: string,
 		options: Pick<GatewayVoiceStateUpdate["d"], "self_deaf" | "self_mute">,
-	): undefined | undefined {
+	): void {
 		const SHARD_ID = this.calculateShardId(guildId);
 		this.debugger?.inform(`Shard #${SHARD_ID} join voice ${channelId} in ${guildId}`);
 
-		return this.send<GatewayVoiceStateUpdate>(SHARD_ID, {
+		this.send<GatewayVoiceStateUpdate>(SHARD_ID, {
 			op: GatewayOpcodes.VoiceStateUpdate,
 			d: {
 				guild_id: guildId,
@@ -288,10 +331,10 @@ export class ShardManager extends Map<number, Shard> {
 		});
 	}
 
-	public leaveVoice(guildId: string): undefined | undefined {
+	public leaveVoice(guildId: string): void {
 		const SHARD_ID = this.calculateShardId(guildId);
 
-		return this.send<GatewayVoiceStateUpdate>(SHARD_ID, {
+		this.send<GatewayVoiceStateUpdate>(SHARD_ID, {
 			op: GatewayOpcodes.VoiceStateUpdate,
 			d: {
 				guild_id: guildId,
@@ -302,14 +345,16 @@ export class ShardManager extends Map<number, Shard> {
 		});
 	}
 
-	public send<T extends GatewaySendPayload>(shardId: number, payload: T): undefined | undefined {
+	public send<T extends GatewaySendPayload>(shardId: number, payload: T): void {
 		if (workerData?.__USING_WATCHER__) {
-			return parentPort?.postMessage({
+			parentPort?.postMessage({
 				type: "SEND_TO_SHARD",
 				shardId,
 				payload,
 			});
+			return;
 		}
+
 		this.get(shardId)?.send(false, payload);
 	}
 
