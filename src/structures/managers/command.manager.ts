@@ -40,6 +40,10 @@ export class CommandManager extends Manager<Command> {
 		this.storage.set(command.name, command);
 	}
 
+	public get(name: string): Command | undefined {
+		return this.storage.get(name);
+	}
+
 	/**
 	 * Handles incoming messages from Discord to detect and process commands.
 	 *
