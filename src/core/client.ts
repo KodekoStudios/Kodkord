@@ -8,6 +8,7 @@ import type { ProbablyPromise } from "@types";
 import type { GatewayDispatchPayload } from "discord-api-types/v10";
 import { APIHandler, type ApiHandlerOptions } from "./api.handler";
 import { ShardManager } from "./sharding/shard.manager";
+import { MessageManager } from "@structures/managers/message.manager";
 
 /**
  * Configuration options for the Discord Client.
@@ -40,7 +41,7 @@ export class Client {
 	public declare ws: ShardManager;
 
 	/** The command manager responsible for managing client commands. */
-	public commands: CommandManager;
+	public readonly commands: CommandManager;
 
 	/** The event manager responsible for managing event listeners and dispatching events. */
 	public readonly events: EventManager;
@@ -50,6 +51,9 @@ export class Client {
 
 	/** The channel manager responsible for managing channel-related operations. */
 	public readonly channels: ChannelManager;
+
+	/** The message manager responsible for managing message-related operations */
+	public readonly messages: MessageManager;
 
 	/** The current user (bot or application) associated with this client. */
 	public declare me: User;
@@ -64,10 +68,11 @@ export class Client {
 
 		this.APIHandler = new APIHandler(options);
 
+		this.commands = new CommandManager(this);
+		this.events = new EventManager(this);
 		this.users = new UserManager(this);
 		this.channels = new ChannelManager(this);
-		this.events = new EventManager(this);
-		this.commands = new CommandManager(this);
+		this.messages = new MessageManager(this);
 	}
 
 	/**
