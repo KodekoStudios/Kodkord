@@ -63,7 +63,7 @@ const CHANNELS = {
  *
  * @template T The specific channel type.
  */
-export class ReadonlyChannel<T extends ChannelType> extends Base<APIChannelBase<T>> {
+export abstract class ReadonlyChannel<T extends ChannelType> extends Base<APIChannelBase<T>> {
 	/**
 	 * Factory function to create a channel instance based on the provided API data and client.
 	 *
@@ -72,7 +72,7 @@ export class ReadonlyChannel<T extends ChannelType> extends Base<APIChannelBase<
 	 * @returns An appropriate channel instance.
 	 */
 	public static from<T extends ChannelType>(data: APIChannelBase<T>, client: Client): AnyChannel {
-		// @ts-ignore
+		// @ts-expect-error
 		return new CHANNELS[data.type](data, client);
 	}
 
@@ -211,7 +211,7 @@ export class ReadonlyChannel<T extends ChannelType> extends Base<APIChannelBase<
 /**
  * Represents a channel.
  */
-export class Channel<T extends ChannelType> extends ReadonlyChannel<T> {
+export abstract class Channel<T extends ChannelType> extends ReadonlyChannel<T> {
 	/**
 	 * Edits the channel.
 	 *
