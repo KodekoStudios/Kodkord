@@ -1,6 +1,6 @@
 import type { Nullable } from "@types";
 import type { APIGuildCategoryChannel, APIOverwrite, ChannelType } from "discord-api-types/v10";
-import { GuildChannel } from "../base.channel";
+import { GuildChannel } from "../guild.channel";
 
 /**
  * Represents a category channel within a guild.

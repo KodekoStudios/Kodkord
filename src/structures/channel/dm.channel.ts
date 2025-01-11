@@ -1,6 +1,6 @@
 import type { Nullable } from "@types";
 import type { ChannelType } from "discord-api-types/v10";
-import { Channel } from "./base.channel";
+import { Channel } from "./channel";
 
 /**
  * Represents a Direct Message (DM) channel in Discord.
@@ -14,7 +14,7 @@ export class DMChannel extends Channel<ChannelType.DM> {
 	 * @returns A string representing the name of the DM channel, or `null` if not available.
 	 */
 	public override get name(): Nullable<string> {
-		return this.data.name;
+		return super.name;
 	}
 
 	/**

@@ -29,7 +29,6 @@ export const GUILD_BAN_ADD = (
 	data: GatewayGuildBanAddDispatchData,
 ): {
 	user: User;
-	// biome-ignore lint/style/useNamingConvention: ...
 	guild_id: Snowflake;
 } => {
 	return { ...data, user: new User(data.user, self) };
@@ -40,7 +39,6 @@ export const GUILD_BAN_REMOVE = (
 	data: GatewayGuildBanRemoveDispatchData,
 ): {
 	user: User;
-	// biome-ignore lint/style/useNamingConvention: ...
 	guild_id: Snowflake;
 } => {
 	return { ...data, user: new User(data.user, self) };
@@ -77,7 +75,6 @@ export const GUILD_MEMBER_REMOVE = (
 	data: GatewayGuildMemberRemoveDispatchData,
 ): {
 	user: User;
-	// biome-ignore lint/style/useNamingConvention: ...
 	guild_id: Snowflake;
 } => {
 	return { ...data, user: new User(data.user, self) };

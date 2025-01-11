@@ -4,7 +4,7 @@ import type {
 	APIGuildVoiceChannel,
 	ChannelType,
 } from "discord-api-types/v10";
-import { GuildChannel } from "../base.channel";
+import { GuildChannel } from "../guild.channel";
 
 /**
  * Represents a stage voice channel in a guild.
