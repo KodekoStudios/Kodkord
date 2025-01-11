@@ -1,70 +1,70 @@
-import { describe, it, expect } from "bun:test";
+import { describe, expect, it } from "bun:test";
 import { Dictionary } from "../src/common/dictionary";
 
 describe("Dictionary", () => {
 	it("should set and get values correctly", () => {
-		const dict = new Dictionary<string, number>();
-		dict.set("one", 1);
-		dict.set("two", 2);
+		const DICTIONARY = new Dictionary<string, number>();
+		DICTIONARY.set("one", 1);
+		DICTIONARY.set("two", 2);
 
-		expect(dict.get("one")).toBe(1);
-		expect(dict.get("two")).toBe(2);
+		expect(DICTIONARY.get("one")).toBe(1);
+		expect(DICTIONARY.get("two")).toBe(2);
 	});
 
 	it("should respect the limit and log a warning when limit is reached", () => {
-		const limit = 2;
-		const dict = new Dictionary<string, number>(undefined, limit, "testDict");
-		dict.set("one", 1);
-		dict.set("two", 2);
-		dict.set("three", 3);
+		const LIMIT = 2;
+		const DICTIONARY = new Dictionary<string, number>(undefined, LIMIT, "testDict");
+		DICTIONARY.set("one", 1);
+		DICTIONARY.set("two", 2);
+		DICTIONARY.set("three", 3);
 
-		expect(dict.size).toBe(limit);
+		expect(DICTIONARY.size).toBe(LIMIT);
 	});
 
 	it("should correctly calculate the remaining capacity", () => {
-		const dict = new Dictionary<string, number>(undefined, 3);
-		dict.set("one", 1);
-		dict.set("two", 2);
+		const DICTIONARY = new Dictionary<string, number>(undefined, 3);
+		DICTIONARY.set("one", 1);
+		DICTIONARY.set("two", 2);
 
-		expect(dict.remaining).toBe(1);
+		expect(DICTIONARY.remaining).toBe(1);
 	});
 
 	it("should initialize with iterable values correctly", () => {
-		const iterable = [
+		const ITERABLE = [
 			["one", 1],
 			["two", 2],
 		] as [string, number][];
-		const dict = new Dictionary<string, number>(iterable);
+		const DICTIONARY = new Dictionary<string, number>(ITERABLE);
 
-		expect(dict.get("one")).toBe(1);
-		expect(dict.get("two")).toBe(2);
+		expect(DICTIONARY.get("one")).toBe(1);
+		expect(DICTIONARY.get("two")).toBe(2);
 	});
 
 	it("should not exceed limit when initialized with an iterable", () => {
-		const iterable = [
+		const ITERABLE = [
 			["one", 1],
 			["two", 2],
 			["three", 3],
 		] as [string, number][];
-		const limit = 2;
-		const dict = new Dictionary<string, number>(iterable, limit);
+		const LIMIT = 2;
+		const DICTIONARY = new Dictionary<string, number>(ITERABLE, LIMIT);
 
-		expect(dict.size).toBe(limit);
+		expect(DICTIONARY.size).toBe(LIMIT);
 	});
 
 	it("should return correct remaining capacity when limit is not set", () => {
-		const dict = new Dictionary<string, number>();
-		dict.set("one", 1);
-		dict.set("two", 2);
+		const DICTIONARY = new Dictionary<string, number>();
+		DICTIONARY.set("one", 1);
+		DICTIONARY.set("two", 2);
 
-		expect(dict.remaining).toBe(Number.POSITIVE_INFINITY - dict.size);
+		expect(DICTIONARY.remaining).toBe(Number.POSITIVE_INFINITY - DICTIONARY.size);
 	});
 
 	it("should log a warning if trying to add items beyond the limit", () => {
-		const dict = new Dictionary<string, number>(undefined, 1, "limitedDict");
-		dict.set("one", 1);
-		dict.set("two", 2);
+		const DICTIONARY = new Dictionary<string, number>(undefined, 1, "limitedDict");
+		DICTIONARY.set("one", 1);
+		DICTIONARY.set("two", 2);
 
-		expect(dict.size).toBe(1);
+		expect(DICTIONARY.size).toBe(1);
 	});
 });
