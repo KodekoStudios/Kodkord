@@ -39,7 +39,7 @@ export interface ApiHandlerOptions {
  */
 export interface ApiRequestOptions {
 	/** The body data to send with the request, if applicable. */
-	body?: Record<string, object>;
+	body?: object;
 
 	/** Query parameters to append to the request URL. */
 	query?: Record<string, string>;

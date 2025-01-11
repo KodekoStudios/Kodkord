@@ -92,7 +92,7 @@ export class ChannelManager extends Manager<AnyChannel> {
 			const API_CHANNEL = await this.client.APIHandler.patch<APIChannel>(
 				Routes.channel(channelId),
 				{
-					body: body as Record<string, object>,
+					body,
 					reason,
 				},
 			);

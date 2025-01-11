@@ -1,5 +1,5 @@
 import { Base } from "@structures/base";
-import type { AnyChannel } from "@structures/channel/channel";
+import type { AnyChannel } from "../channel/channel";
 import {
 	type APIAttachment,
 	type APIChannelMention,
@@ -10,6 +10,7 @@ import {
 	type APIWebhook,
 	type MessageFlags,
 	MessageType,
+	type RESTPostAPIChannelMessageJSONBody,
 	type Snowflake,
 } from "discord-api-types/v10";
 import type { User } from "../user/user";
@@ -25,7 +26,7 @@ export interface MessageMentions {
  * Represents a base message.
  * @template Type The type of the underlying API message.
  */
-export class Message<Type extends MessageType = MessageType.Default> extends Base<
+export class Message<Type extends MessageType = MessageType> extends Base<
 	APIMessage & { type: Type }
 > {
 	// Getters
@@ -90,7 +91,7 @@ export class Message<Type extends MessageType = MessageType.Default> extends Bas
 		return this.data.flags;
 	}
 
-	// Utility Methods
+	// Get Methods
 	public channel(): Promise<AnyChannel> {
 		return this.client.channels.fetch(this.data.channel_id);
 	}
@@ -104,12 +105,72 @@ export class Message<Type extends MessageType = MessageType.Default> extends Bas
 		return this.data.author as APIWebhook;
 	}
 
+	// Reference-related Methods
+	public isReply(): boolean {
+		return this.data.message_reference?.message_id !== undefined;
+	}
+
+	public async reply(payload: RESTPostAPIChannelMessageJSONBody, force = false): Promise<Message> {
+		const CHANNEL = await this.channel();
+
+		// Ensure the channel supports sending messages
+		if (!CHANNEL.isTextable()) {
+			throw new Error(`Cannot reply to a message in a non-textable channel (ID: ${CHANNEL.id}).`);
+		}
+
+		// Assign the reference to the payload
+		payload.message_reference = {
+			message_id: this.id,
+			channel_id: CHANNEL.id,
+			fail_if_not_exists: !force,
+			guild_id: CHANNEL.isGuildTextable() ? (CHANNEL.guildId ?? undefined) : undefined,
+		};
+
+		// Send the reply
+		return CHANNEL.postMessage(payload);
+	}
+
+	public async fetchReferencedMessage(): Promise<Message | null> {
+		if (!this.isReply()) {
+			return null;
+		}
+
+		const CHANNEL = await this.channel();
+		if (!CHANNEL.isTextable()) {
+			throw new Error(
+				`Cannot fetch the referenced message in a non-textable channel (ID: ${CHANNEL.id}).`,
+			);
+		}
+
+		return this.client.messages.fetch(CHANNEL.id, this.data.referenced_message?.id as string);
+	}
+
 	// Date Conversion Methods
 	public date(): Date {
 		return new Date(this.data.timestamp);
 	}
 
 	// Reactions Methods
+	public async addReaction(emoji: string): Promise<void> {
+		const CHANNEL = await this.channel();
+		if (!CHANNEL.isTextable()) {
+			throw new Error(`Cannot add a reaction in a non-textable channel (ID: ${CHANNEL.id}).`);
+		}
+		await this.client.APIHandler.post(
+			`/channels/${CHANNEL.id}/messages/${this.id}/reactions/${encodeURIComponent(emoji)}/@me`,
+		);
+	}
+
+	public async removeReaction(emoji: string, userId: Snowflake = "@me"): Promise<void> {
+		const CHANNEL = await this.channel();
+		if (!CHANNEL.isTextable()) {
+			throw new Error(`Cannot remove a reaction in a non-textable channel (ID: ${CHANNEL.id}).`);
+		}
+		await this.client.APIHandler.delete(
+			`/channels/${CHANNEL.id}/messages/${this.id}/reactions/${encodeURIComponent(emoji)}/${userId}`,
+		);
+	}
+
 	public getReaction(reaction: string): APIReaction | undefined {
 		return this.data.reactions?.find(
 			({ emoji: { id, name } }) => id === reaction || name === reaction,

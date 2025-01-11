@@ -1,6 +1,7 @@
 import { ChannelManager } from "@structures/managers/channel.manager";
 import { CommandManager } from "@structures/managers/command.manager";
 import { EventManager } from "@structures/managers/event.manager";
+import { MessageManager } from "@structures/managers/message.manager";
 import { UserManager } from "@structures/managers/user.manager";
 import type { Message } from "@structures/message/message";
 import { User } from "@structures/user/user";
@@ -8,7 +9,6 @@ import type { ProbablyPromise } from "@types";
 import type { GatewayDispatchPayload } from "discord-api-types/v10";
 import { APIHandler, type ApiHandlerOptions } from "./api.handler";
 import { ShardManager } from "./sharding/shard.manager";
-import { MessageManager } from "@structures/managers/message.manager";
 
 /**
  * Configuration options for the Discord Client.

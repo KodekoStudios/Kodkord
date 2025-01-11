@@ -1,10 +1,14 @@
 import type { Client } from "@core/client";
 import { Base } from "@structures/base";
+import { Message } from "@structures/message/message";
 import {
 	type APIChannelBase,
+	type APIMessage,
 	ChannelType,
 	type GuildChannelType,
 	type RESTPatchAPIChannelJSONBody,
+	type RESTPostAPIChannelMessageJSONBody,
+	Routes,
 } from "discord-api-types/v10";
 import { DMChannel } from "./dm.channel";
 import type { GuildChannel } from "./guild.channel";
@@ -184,7 +188,7 @@ export abstract class ReadonlyChannel<T extends ChannelType> extends Base<APICha
 	}
 
 	public isTextable(): this is AnyTextableChannels {
-		return "messages" in this;
+		return this.type !== ChannelType.GuildCategory && this.type !== ChannelType.GuildForum;
 	}
 
 	public isGuildTextable(): this is AnyGuildTextableChannel {
@@ -225,5 +229,18 @@ export abstract class Channel<T extends ChannelType> extends ReadonlyChannel<T> 
 		// 	reason,
 		// });
 		return this.client.channels.edit(this.id, body, reason) as Promise<this>;
+	}
+
+	public async postMessage(payload: RESTPostAPIChannelMessageJSONBody): Promise<Message> {
+		if (this.isCategory()) {
+			throw new Error("Cannot send messages in categoties");
+		}
+
+		const RESPONSE = await this.client.APIHandler.post<APIMessage>(
+			Routes.channelMessages(this.id),
+			{ body: payload },
+		);
+
+		return new Message(RESPONSE, this.client);
 	}
 }
