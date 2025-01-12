@@ -1,5 +1,6 @@
 import type { Nullable } from "@types";
-import type { APITextChannel, ChannelType } from "discord-api-types/v10";
+import { type APITextChannel, ChannelType } from "discord-api-types/v10";
+import { ReadonlyChannel } from "../channel";
 import { GuildChannel } from "../guild.channel";
 
 /**
@@ -40,5 +41,10 @@ export class GuildTextChannel extends GuildChannel<ChannelType.GuildText> {
 	 */
 	public get rateLimitPerUser(): number {
 		return this.data.rate_limit_per_user ?? 0;
+	}
+
+	static {
+		// @ts-expect-error
+		ReadonlyChannel.Channels[ChannelType.GuildText] = GuildTextChannel;
 	}
 }

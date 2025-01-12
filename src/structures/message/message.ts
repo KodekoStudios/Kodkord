@@ -1,5 +1,4 @@
 import { Base } from "@structures/base";
-import type { AnyChannel } from "../channel/channel";
 import {
 	type APIAttachment,
 	type APIChannelMention,
@@ -13,6 +12,7 @@ import {
 	type RESTPostAPIChannelMessageJSONBody,
 	type Snowflake,
 } from "discord-api-types/v10";
+import type { AnyChannel } from "../channel/channel";
 import type { User } from "../user/user";
 
 export interface MessageMentions {

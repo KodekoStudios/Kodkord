@@ -10,17 +10,17 @@ import {
 	type RESTPostAPIChannelMessageJSONBody,
 	Routes,
 } from "discord-api-types/v10";
-import { DMChannel } from "./dm.channel";
+import type { DMChannel } from "./dm.channel";
 import type { GuildChannel } from "./guild.channel";
-import { GuildCategoryChannel } from "./guild/category.channel";
-import { GuildDirectoryChannel } from "./guild/directory.channel";
-import { GuildForumChannel } from "./guild/forum.channel";
-import { GuildMediaChannel } from "./guild/media.channel";
-import { GuildNewsChannel } from "./guild/news.channel";
-import { GuildStageVoiceChannel } from "./guild/stage.channel";
-import { GuildTextChannel } from "./guild/text.channel";
-import { GuildThreadChannel } from "./guild/thread.channel";
-import { GuildVoiceChannel } from "./guild/voice.channel";
+import type { GuildCategoryChannel } from "./guild/category.channel";
+import type { GuildDirectoryChannel } from "./guild/directory.channel";
+import type { GuildForumChannel } from "./guild/forum.channel";
+import type { GuildMediaChannel } from "./guild/media.channel";
+import type { GuildNewsChannel } from "./guild/news.channel";
+import type { GuildStageVoiceChannel } from "./guild/stage.channel";
+import type { GuildTextChannel } from "./guild/text.channel";
+import type { GuildThreadChannel } from "./guild/thread.channel";
+import type { GuildVoiceChannel } from "./guild/voice.channel";
 
 export type AnyGuildTextableChannel =
 	| GuildTextChannel
@@ -46,28 +46,16 @@ export type AnyChannel =
 	| AnyGuildChannel
 	| DMChannel;
 
-const CHANNELS = {
-	[ChannelType.GuildText]: GuildTextChannel,
-	[ChannelType.DM]: DMChannel,
-	[ChannelType.GuildVoice]: GuildVoiceChannel,
-	[ChannelType.GroupDM]: DMChannel, // TODO: Make a GroupDMChannel class.
-	[ChannelType.GuildCategory]: GuildCategoryChannel,
-	[ChannelType.GuildAnnouncement]: GuildNewsChannel,
-	[ChannelType.AnnouncementThread]: GuildThreadChannel,
-	[ChannelType.PublicThread]: GuildThreadChannel,
-	[ChannelType.PrivateThread]: GuildThreadChannel,
-	[ChannelType.GuildStageVoice]: GuildStageVoiceChannel,
-	[ChannelType.GuildDirectory]: GuildDirectoryChannel,
-	[ChannelType.GuildForum]: GuildForumChannel,
-	[ChannelType.GuildMedia]: GuildMediaChannel,
-} as const;
-
 /**
  * Class for channels that are non-editable.
  *
  * @template T The specific channel type.
  */
 export abstract class ReadonlyChannel<T extends ChannelType> extends Base<APIChannelBase<T>> {
+	public static Channels: Record<ChannelType, typeof Channel> = {} as Record<
+		ChannelType,
+		typeof Channel
+	>;
 	/**
 	 * Factory function to create a channel instance based on the provided API data and client.
 	 *
@@ -77,7 +65,7 @@ export abstract class ReadonlyChannel<T extends ChannelType> extends Base<APICha
 	 */
 	public static from<T extends ChannelType>(data: APIChannelBase<T>, client: Client): AnyChannel {
 		// @ts-expect-error
-		return new CHANNELS[data.type](data, client);
+		return new ReadonlyChannel.Channels[data.type](data, client);
 	}
 
 	/**
