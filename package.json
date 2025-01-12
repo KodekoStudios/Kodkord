@@ -18,6 +18,7 @@
 		"fix": "biome check --fix --unsafe src/",
 		"lint": "biome lint --unsafe --write src/",
 		"build": "biome check --write src/ && unbuild",
+		"prepare": "unbuild",
 		"test": "bun test"
 	},
 	"keywords": [],
