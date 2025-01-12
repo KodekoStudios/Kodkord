@@ -1,6 +1,5 @@
 import type { Client } from "@core/client";
-import type { Channel } from "@structures/channel/base.channel";
-import { type AnyChannel, channelFrom } from "@structures/channel/channel";
+import { type AnyChannel, Channel } from "@structures/channel/channel";
 import type { Snowflake } from "discord-api-types/globals";
 import {
 	type APIChannel,
@@ -67,7 +66,7 @@ export class ChannelManager extends Manager<AnyChannel> {
 
 		try {
 			const API_CHANNEL = await this.client.APIHandler.get<APIChannel>(Routes.channel(channelId));
-			const CHANNEL = channelFrom(API_CHANNEL, this.client);
+			const CHANNEL = Channel.from(API_CHANNEL, this.client);
 			this.storage.set(CHANNEL.id, CHANNEL);
 			return CHANNEL;
 		} catch (error) {
@@ -93,11 +92,11 @@ export class ChannelManager extends Manager<AnyChannel> {
 			const API_CHANNEL = await this.client.APIHandler.patch<APIChannel>(
 				Routes.channel(channelId),
 				{
-					body: body as Record<string, object>,
+					body,
 					reason,
 				},
 			);
-			const UPDATED_CHANNEL = channelFrom(API_CHANNEL, this.client);
+			const UPDATED_CHANNEL = Channel.from(API_CHANNEL, this.client);
 			this.storage.set(channelId, UPDATED_CHANNEL);
 			return UPDATED_CHANNEL;
 		} catch (error) {
@@ -126,7 +125,7 @@ export class ChannelManager extends Manager<AnyChannel> {
 				Routes.channel(channelId),
 				{ reason },
 			);
-			const DELETED_CHANNEL = channelFrom(API_CHANNEL, this.client);
+			const DELETED_CHANNEL = Channel.from(API_CHANNEL, this.client);
 			this.storage.delete(channelId);
 			return DELETED_CHANNEL;
 		} catch (error) {

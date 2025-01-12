@@ -7,7 +7,7 @@
 
 		/* Modules */
 		"module": "ESNext",
-		"rootDir": "./src/",
+		"rootDir": ".",
 		"moduleResolution": "Node",
 		"typeRoots": ["node_modules/@types"],
 		"resolveJsonModule": true,
@@ -51,6 +51,6 @@
 		/* Completeness */
 		"skipLibCheck": false /* Skip type checking all .d.ts files. */
 	},
-	"include": ["./src/**/*.ts"],
+	"include": ["./src/**/*.ts", "./test/**/*", "test/client.ts"],
 	"exclude": ["node_modules", "lib", "*.config.ts"]
 }

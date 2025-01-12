@@ -1,6 +1,11 @@
 import type { Nullable } from "@types";
-import type { APIGuildCategoryChannel, APIThreadChannel, ChannelType } from "discord-api-types/v10";
-import { GuildChannel } from "../base.channel";
+import {
+	type APIGuildCategoryChannel,
+	type APIThreadChannel,
+	ChannelType,
+} from "discord-api-types/v10";
+import { ReadonlyChannel } from "../channel";
+import { GuildChannel } from "../guild.channel";
 
 /**
  * Represents a thread channel in a Discord guild.
@@ -139,5 +144,14 @@ export class GuildThreadChannel extends GuildChannel<
 	 */
 	public get lastPinTimestamp(): Nullable<Date> {
 		return this.data.last_pin_timestamp ? new Date(this.data.last_pin_timestamp) : null;
+	}
+
+	static {
+		// @ts-expect-error
+		ReadonlyChannel.Channels[ChannelType.AnnouncementThread] = GuildThreadChannel;
+		// @ts-expect-error
+		ReadonlyChannel.Channels[ChannelType.PrivateThread] = GuildThreadChannel;
+		// @ts-expect-error
+		ReadonlyChannel.Channels[ChannelType.PublicThread] = GuildThreadChannel;
 	}
 }

@@ -1,6 +1,7 @@
 import type { Nullable } from "@types";
-import type { APIGuildVoiceChannel, ChannelType } from "discord-api-types/v10";
-import { GuildChannel } from "../base.channel";
+import { type APIGuildVoiceChannel, ChannelType } from "discord-api-types/v10";
+import { ReadonlyChannel } from "../channel";
+import { GuildChannel } from "../guild.channel";
 
 /**
  * Represents a voice channel in a guild.
@@ -104,5 +105,10 @@ export class GuildVoiceChannel extends GuildChannel<ChannelType.GuildVoice> {
 	 */
 	public get lastMessageId(): Nullable<string> {
 		return this.data.last_message_id;
+	}
+
+	static {
+		// @ts-expect-error
+		ReadonlyChannel.Channels[ChannelType.GuildVoice] = GuildVoiceChannel;
 	}
 }

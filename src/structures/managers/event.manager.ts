@@ -1,14 +1,14 @@
 import type { Dictionary } from "@common/dictionary";
 import type { Client } from "@core/client";
-import type { EventNames, PredicateEventHandler } from "@core/events";
+import type { EventNames, ResolverEventHandler } from "@core/events";
 import { Manager } from "./manager";
 
 /**
  * Manages event handlers for different events.
  */
-export class EventManager extends Manager<PredicateEventHandler[EventNames]> {
+export class EventManager extends Manager<ResolverEventHandler[EventNames]> {
 	/** A dictionary to storage events. */
-	public declare storage: Dictionary<EventNames, PredicateEventHandler[EventNames]>;
+	public declare storage: Dictionary<EventNames, ResolverEventHandler[EventNames]>;
 
 	/**
 	 * Creates a new instance of the EventManager class.
@@ -36,7 +36,7 @@ export class EventManager extends Manager<PredicateEventHandler[EventNames]> {
 	 * @param event The name of the event.
 	 * @param predicate The event handler function.
 	 */
-	public set<T extends EventNames>(event: T, predicate: PredicateEventHandler[T]): void {
+	public set<T extends EventNames>(event: T, predicate: ResolverEventHandler[T]): void {
 		this.storage.set(event, predicate);
 	}
 }

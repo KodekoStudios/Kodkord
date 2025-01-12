@@ -1,38 +1,26 @@
-import type { ArgumentTypes } from "@types";
-
 import type { Client } from "@core/client";
+import type { ArgumentTypes } from "@types";
+import * as GuildEvents from "./guild.event";
+import * as MessageEvents from "./message.event";
+import * as UserEvents from "./user.event";
 
-// //
+/** Consolidates all raw events into a single object. */
+export const RAW_EVENTS = { ...GuildEvents, ...MessageEvents, ...UserEvents };
 
-import { RAW, READY, RESUMED } from "./dispatch.event";
-import { GUILD_BAN_ADD, GUILD_CREATE } from "./guild.event";
-import { MESSAGE_CREATE } from "./message.event";
-import { USER_UPDATE } from "./user.event";
-
-// //
-
-export const RAW_EVENTS = {
-	READY,
-	RESUMED,
-	RAW,
-	MESSAGE_CREATE,
-	USER_UPDATE,
-	GUILD_CREATE,
-	GUILD_BAN_ADD,
-};
-
-// //
-
+/** Maps event names to their respective return types. */
 export type ClientEvents = {
 	[EventName in keyof typeof RAW_EVENTS]: ReturnType<(typeof RAW_EVENTS)[EventName]>;
 };
 
+/** Extracts string-based event names from ClientEvents. */
 export type EventNames = Extract<keyof ClientEvents, string>;
 
-export type PredicateEventHandler2 = {
+/** Represents a handler for raw event arguments. */
+export type RawEventHandler = {
 	[K in EventNames]: (...data: ArgumentTypes<(typeof RAW_EVENTS)[K]>) => unknown;
 };
 
-export type PredicateEventHandler = {
+/** Represents a handler for resolved event data with client context. */
+export type ResolverEventHandler = {
 	[K in EventNames]: (...data: [Awaited<ClientEvents[K]>, Client]) => unknown;
 };
