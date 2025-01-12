@@ -4,13 +4,22 @@ import type { Client } from "@core/client";
 
 // //
 
+import { RAW, READY, RESUMED } from "./dispatch.event";
 import { GUILD_BAN_ADD, GUILD_CREATE } from "./guild.event";
 import { MESSAGE_CREATE } from "./message.event";
 import { USER_UPDATE } from "./user.event";
 
 // //
 
-export const RAW_EVENTS = { MESSAGE_CREATE, GUILD_CREATE, GUILD_BAN_ADD, USER_UPDATE };
+export const RAW_EVENTS = {
+	READY,
+	RESUMED,
+	RAW,
+	MESSAGE_CREATE,
+	USER_UPDATE,
+	GUILD_CREATE,
+	GUILD_BAN_ADD,
+};
 
 // //
 

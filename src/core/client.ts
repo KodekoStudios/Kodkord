@@ -1,3 +1,4 @@
+import { Logger } from "@common/logger";
 import { ChannelManager } from "@structures/managers/channel.manager";
 import { CommandManager } from "@structures/managers/command.manager";
 import { EventManager } from "@structures/managers/event.manager";
@@ -30,6 +31,9 @@ export interface ClientOptions extends ApiHandlerOptions {
  * A Discord Client that interacts with the Discord API for sending and receiving data.
  */
 export class Client {
+	/** The logger used for logging messages. */
+	public readonly logger: Logger;
+
 	/** The options used to configure the client. */
 	public readonly options: ClientOptions;
 
@@ -55,6 +59,16 @@ export class Client {
 	public declare me: User;
 
 	/**
+	 * The bot's ID.
+	 */
+	public declare botId: string;
+
+	/**
+	 * The bot's application ID.
+	 */
+	public declare applicationId: string;
+
+	/**
 	 * Constructs a new instance of the Client class.
 	 *
 	 * @param options Configuration options for the client.
@@ -68,6 +82,8 @@ export class Client {
 		this.channels = new ChannelManager(this);
 		this.events = new EventManager(this);
 		this.commands = new CommandManager(this);
+
+		this.logger = new Logger({ from: "CLIENT" });
 	}
 
 	/**
@@ -77,9 +93,17 @@ export class Client {
 	 * @param _shardId The ID of the shard that received the packet.
 	 * @param packet The dispatch payload received from Discord.
 	 */
-	protected async onPacket(_shardId: number, packet: GatewayDispatchPayload): Promise<void> {
+	protected async onPacket(shardId: number, packet: GatewayDispatchPayload): Promise<void> {
 		if (packet.t === "READY") {
 			this.me = new User(packet.d.user, this);
+			// this.applicationId = packet.d.application.id;
+			// this.botId = packet.d.user.id;
+
+			// this.options.debug
+			// 	? this.logger.debug(`#${shardId}[${packet.d.user.username}](${this.botId}) is online...`)
+			// 	: null;
+
+			// await this.events.get(packet.t)(packet.d, this);
 		}
 
 		if (packet.t === "MESSAGE_CREATE") {

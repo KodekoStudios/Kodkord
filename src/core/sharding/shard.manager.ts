@@ -172,11 +172,12 @@ export class ShardManager extends Map<number, Shard> {
 				_: number,
 				packet: GatewayDispatchPayload,
 				// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Yeah... this is complex :3
-			): undefined | undefined => {
+			): void => {
 				if (packet.t === "GUILD_CREATE" || packet.t === "GUILD_DELETE") {
 					HANDLE_GUILDS.delete(packet.d.id);
 					if (shards_connected === INFO.shards && HANDLE_GUILDS.size === 0) {
-						return CLEAN_PROCESS(sharder);
+						CLEAN_PROCESS(sharder);
+						return;
 					}
 				}
 
@@ -253,15 +254,13 @@ export class ShardManager extends Map<number, Shard> {
 		}
 	}
 
-	public setShardPresence(
-		shardId: number,
-		payload: GatewayUpdatePresence["d"],
-	): undefined | undefined {
+	public setShardPresence(shardId: number, payload: GatewayUpdatePresence["d"]): void {
 		this.debugger?.inform(`Shard #${shardId} update presence`);
-		return this.send<GatewayUpdatePresence>(shardId, {
+		this.send<GatewayUpdatePresence>(shardId, {
 			op: GatewayOpcodes.PresenceUpdate,
 			d: payload,
 		});
+		return;
 	}
 
 	public setPresence(payload: GatewayUpdatePresence["d"]): void {
@@ -274,11 +273,11 @@ export class ShardManager extends Map<number, Shard> {
 		guildId: string,
 		channelId: string,
 		options: Pick<GatewayVoiceStateUpdate["d"], "self_deaf" | "self_mute">,
-	): undefined | undefined {
+	): void {
 		const SHARD_ID = this.calculateShardId(guildId);
 		this.debugger?.inform(`Shard #${SHARD_ID} join voice ${channelId} in ${guildId}`);
 
-		return this.send<GatewayVoiceStateUpdate>(SHARD_ID, {
+		this.send<GatewayVoiceStateUpdate>(SHARD_ID, {
 			op: GatewayOpcodes.VoiceStateUpdate,
 			d: {
 				guild_id: guildId,
@@ -286,12 +285,13 @@ export class ShardManager extends Map<number, Shard> {
 				...options,
 			},
 		});
+		return;
 	}
 
-	public leaveVoice(guildId: string): undefined | undefined {
+	public leaveVoice(guildId: string): void {
 		const SHARD_ID = this.calculateShardId(guildId);
 
-		return this.send<GatewayVoiceStateUpdate>(SHARD_ID, {
+		this.send<GatewayVoiceStateUpdate>(SHARD_ID, {
 			op: GatewayOpcodes.VoiceStateUpdate,
 			d: {
 				guild_id: guildId,
@@ -300,15 +300,17 @@ export class ShardManager extends Map<number, Shard> {
 				self_deaf: false,
 			},
 		});
+		return;
 	}
 
-	public send<T extends GatewaySendPayload>(shardId: number, payload: T): undefined | undefined {
+	public send<T extends GatewaySendPayload>(shardId: number, payload: T): void {
 		if (workerData?.__USING_WATCHER__) {
-			return parentPort?.postMessage({
+			parentPort?.postMessage({
 				type: "SEND_TO_SHARD",
 				shardId,
 				payload,
 			});
+			return;
 		}
 		this.get(shardId)?.send(false, payload);
 	}
