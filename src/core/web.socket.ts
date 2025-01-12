@@ -143,7 +143,7 @@ export class WebSocket {
 					intents: this.intents,
 					properties: {
 						$os: this.os,
-						$browser: "Kodcord",
+						$browser: "kodcord",
 						$device: this.device,
 					},
 				},
@@ -169,11 +169,11 @@ export class WebSocket {
 
 		switch (PAYLOAD.op) {
 			case GatewayOpcodes.Dispatch:
-				if (PAYLOAD.t === GatewayDispatchEvents.Ready) {
-					this.logger.debug(
-						`Connected as ${PAYLOAD.d.user.username}#${PAYLOAD.d.user.discriminator}`,
-					);
-				}
+				// if (payload.t === GatewayDispatchEvents.Ready) {
+				// 	this.logger.debug(
+				// 		`Connected as ${payload.d.user.username}#${payload.d.user.discriminator}`,
+				// 	);
+				// }
 
 				this.handleDispatch(PAYLOAD);
 				break;

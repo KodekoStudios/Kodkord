@@ -75,7 +75,8 @@ export class UserManager extends Manager<User> {
 		const USERS = await Promise.all(
 			USER_IDS.map(async (userId) => {
 				try {
-					return await this.fetch(userId);
+					const USER = await this.fetch(userId);
+					return USER;
 				} catch (error) {
 					// Call the onError callback if provided
 					if (onError) {

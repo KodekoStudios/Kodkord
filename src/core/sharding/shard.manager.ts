@@ -1,5 +1,6 @@
 import { parentPort, workerData } from "node:worker_threads";
 import { Logger } from "@common/logger";
+import { calculateShardId } from "@common/utils";
 import { Bucket } from "@core/bucket";
 import type { MakeRequired } from "@types";
 import {
@@ -11,48 +12,7 @@ import {
 } from "discord-api-types/v10";
 import { PROPERTIES, Shard } from "./shard";
 import { ConnectQueue } from "./shard.timeout";
-
-import type { APIGatewayBotInfo, GatewayPresenceUpdateData } from "discord-api-types/v10";
-import type { ShardData, ShardDetails } from "./shard";
-
-export interface ShardManagerOptions extends ShardDetails {
-	/** Important data which is used by the manager to connect shards to the gateway. */
-	info: APIGatewayBotInfo;
-	/**
-	 * Delay in milliseconds to wait before spawning next shard. OPTIMAL IS ABOVE 5100. YOU DON'T WANT TO HIT THE RATE LIMIT!!!
-	 * @default 5300
-	 */
-	spawnShardDelay?: number;
-	/**
-	 * Total amount of shards your bot uses. Useful for zero-downtime updates or resharding.
-	 * @default 1
-	 */
-	totalShards?: number;
-	shardStart?: number;
-	shardEnd?: number;
-	/**
-	 * The payload handlers for messages on the shard.
-	 */
-	handlePayload(shardId: number, packet: GatewayDispatchPayload): unknown;
-	/**
-	 * wheter to send debug information to the console
-	 */
-	debug?: boolean;
-	/**
-	 * Set a presence.
-	 */
-	presence?: (shardId: number, workerId: number) => GatewayPresenceUpdateData;
-
-	compress?: boolean;
-	resharding?: {
-		/**
-		 * @returns the gateway connection info
-		 */
-		getInfo?(): Promise<APIGatewayBotInfo>;
-		interval: number;
-		percentage: number;
-	};
-}
+import type { ShardData, ShardManagerOptions } from "./types";
 
 const SHARD_MANAGER_DEFAULTS = {
 	totalShards: 1,
@@ -63,12 +23,11 @@ const SHARD_MANAGER_DEFAULTS = {
 	version: 10,
 	shardStart: 0,
 	resharding: {
-		interval: 288e5, // 8h
+		interval: 8 * 60 * 60 * 1e3, // 8h
 		percentage: 80,
 	},
 };
 
-// ! Why this does not extends the Manager class?????
 export class ShardManager extends Map<number, Shard> {
 	protected connectQueue: ConnectQueue;
 	public options: MakeRequired<ShardManagerOptions, keyof typeof SHARD_MANAGER_DEFAULTS>;
@@ -123,7 +82,7 @@ export class ShardManager extends Map<number, Shard> {
 	}
 
 	public calculateShardId(guildId: string): number {
-		return Number((BigInt(guildId) >> 22n) % BigInt(this.totalShards ?? 1));
+		return calculateShardId(guildId, this.totalShards);
 	}
 
 	public create(shardId: number): Shard {
@@ -179,7 +138,6 @@ export class ShardManager extends Map<number, Shard> {
 		if (this.options.resharding.interval <= 0) {
 			return;
 		}
-
 		if (this.shardStart !== 0 || this.shardEnd !== this.totalShards) {
 			return this.debugger?.debug("Cannot start resharder");
 		}
@@ -187,13 +145,11 @@ export class ShardManager extends Map<number, Shard> {
 		this.debugger?.debug("Resharder enabled");
 		setInterval(async () => {
 			this.debugger?.debug("Checking if reshard is needed");
-			// TODO: Make a if (!INFO) throw instead of expect error.
 			// @ts-expect-error fuck you
 			const INFO = await this.options.resharding.getInfo();
 			if (INFO.shards <= this.totalShards) {
 				return this.debugger?.debug("Resharding not needed");
 			}
-
 			// https://github.com/discordeno/discordeno/blob/6a5f446c0651b9fad9f1550ff1857fe7a026426b/packages/gateway/src/manager.ts#L106C8-L106C94
 			const PERCENTAGE = (INFO.shards / ((this.totalShards * 2500) / 1000)) * 100;
 			if (PERCENTAGE < this.options.resharding.percentage) {
@@ -286,9 +242,9 @@ export class ShardManager extends Map<number, Shard> {
 		return this.create(shardId).identify();
 	}
 
-	public disconnect(shardId: number): void {
+	public disconnect(shardId: number): Promise<void> | undefined {
 		this.debugger?.inform(`Shard #${shardId} force disconnect`);
-		this.get(shardId)?.disconnect();
+		return this.get(shardId)?.disconnect();
 	}
 
 	public disconnectAll(): void {
@@ -356,7 +312,6 @@ export class ShardManager extends Map<number, Shard> {
 			});
 			return;
 		}
-
 		this.get(shardId)?.send(false, payload);
 	}
 

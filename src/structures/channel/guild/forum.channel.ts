@@ -1,13 +1,12 @@
 import type { Nullable } from "@types";
-import {
-	type APIGuildCategoryChannel,
-	type APIGuildForumChannel,
-	type APIGuildForumDefaultReactionEmoji,
+import type {
+	APIGuildCategoryChannel,
+	APIGuildForumChannel,
+	APIGuildForumDefaultReactionEmoji,
 	ChannelType,
-	type SortOrderType,
+	SortOrderType,
 } from "discord-api-types/v10";
-import { ReadonlyChannel } from "../channel";
-import { GuildChannel } from "../guild.channel";
+import { GuildChannel } from "../base.channel";
 
 /**
  * Represents a forum channel in a guild.
@@ -142,10 +141,5 @@ export class GuildForumChannel extends GuildChannel<ChannelType.GuildForum> {
 	 */
 	public get defaultReactionEmoji(): Nullable<APIGuildForumDefaultReactionEmoji> {
 		return this.data.default_reaction_emoji;
-	}
-
-	static {
-		// @ts-expect-error
-		ReadonlyChannel.Channels[ChannelType.GuildForum] = GuildForumChannel;
 	}
 }

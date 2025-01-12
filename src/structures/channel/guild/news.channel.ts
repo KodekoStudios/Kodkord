@@ -1,7 +1,6 @@
 import type { Nullable } from "@types";
-import { type APINewsChannel, ChannelType } from "discord-api-types/v10";
-import { ReadonlyChannel } from "../channel";
-import { GuildChannel } from "../guild.channel";
+import type { APINewsChannel, ChannelType } from "discord-api-types/v10";
+import { GuildChannel } from "../base.channel";
 
 /**
  * Represents a news channel (also called announcement channel) in a Discord guild.
@@ -44,10 +43,5 @@ export class GuildNewsChannel extends GuildChannel<ChannelType.GuildAnnouncement
 	 */
 	public get rateLimitPerUser(): number {
 		return this.data.rate_limit_per_user ?? 0;
-	}
-
-	static {
-		// @ts-expect-error
-		ReadonlyChannel.Channels[ChannelType.GuildAnnouncement] = GuildNewsChannel;
 	}
 }

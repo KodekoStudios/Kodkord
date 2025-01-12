@@ -90,12 +90,6 @@
 						"conventions": [
 							{
 								"selector": {
-									"kind": "typeProperty"
-								},
-								"match": ".+"
-							},
-							{
-								"selector": {
 									"kind": "typeLike"
 								},
 								"formats": [

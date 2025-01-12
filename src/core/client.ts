@@ -2,7 +2,6 @@ import { Logger } from "@common/logger";
 import { ChannelManager } from "@structures/managers/channel.manager";
 import { CommandManager } from "@structures/managers/command.manager";
 import { EventManager } from "@structures/managers/event.manager";
-import { MessageManager } from "@structures/managers/message.manager";
 import { UserManager } from "@structures/managers/user.manager";
 import type { Message } from "@structures/message/message";
 import { User } from "@structures/user/user";
@@ -45,7 +44,7 @@ export class Client {
 	public declare ws: ShardManager;
 
 	/** The command manager responsible for managing client commands. */
-	public readonly commands: CommandManager;
+	public commands: CommandManager;
 
 	/** The event manager responsible for managing event listeners and dispatching events. */
 	public readonly events: EventManager;
@@ -55,9 +54,6 @@ export class Client {
 
 	/** The channel manager responsible for managing channel-related operations. */
 	public readonly channels: ChannelManager;
-
-	/** The message manager responsible for managing message-related operations */
-	public readonly messages: MessageManager;
 
 	/** The current user (bot or application) associated with this client. */
 	public declare me: User;
@@ -82,11 +78,12 @@ export class Client {
 
 		this.APIHandler = new APIHandler(options);
 
-		this.commands = new CommandManager(this);
-		this.events = new EventManager(this);
 		this.users = new UserManager(this);
 		this.channels = new ChannelManager(this);
-		this.messages = new MessageManager(this);
+		this.events = new EventManager(this);
+		this.commands = new CommandManager(this);
+
+		this.logger = new Logger({ from: "CLIENT" });
 	}
 
 	/**
