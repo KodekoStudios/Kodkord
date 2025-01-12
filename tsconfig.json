@@ -12,11 +12,9 @@
 		"typeRoots": ["node_modules/@types"],
 		"resolveJsonModule": true,
 		"paths": {
-			"@structures/*": ["./src/structures/*.ts", "./src/structures/*/index.ts"],
-			"@common/*": ["./src/common/*.ts", "./src/common/*/index.ts"],
-			"@core/*": ["./src/core/*.ts", "./src/core/*/index.ts"],
-			"@types": ["./src/types.d.ts"],
-			"@*": ["./src/*"]
+			"@common/*": ["./src/common/*.ts"],
+			"@core/*": ["./src/core/*.ts"],
+			"@api/*": ["./src/api/*.ts"]
 		},
 
 		/* Emit */

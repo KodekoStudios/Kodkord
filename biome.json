@@ -92,40 +92,31 @@
 								"selector": {
 									"kind": "typeLike"
 								},
-								"formats": [
-									"PascalCase"
-								]
+								"formats": ["PascalCase"]
 							},
 							{
 								"selector": {
 									"kind": "const"
 								},
-								"formats": [
-									"CONSTANT_CASE"
-								]
+								"formats": ["CONSTANT_CASE"]
 							},
 							{
 								"selector": {
 									"kind": "variable"
 								},
-								"formats": [
-									"snake_case"
-								]
+								"formats": ["snake_case"]
 							},
 							{
 								"selector": {
 									"kind": "functionParameter"
 								},
-								"match": "([a-z][A-z]*|_[A-z]*)(_[0-9]+)?"
+								"match": "([a-z_][A-z_]*|_[A-z]*)(_[0-9]+)?"
 							},
 							{
 								"selector": {
 									"kind": "classMember"
 								},
-								"formats": [
-									"camelCase",
-									"PascalCase"
-								]
+								"formats": ["camelCase", "PascalCase"]
 							},
 							{
 								"selector": {

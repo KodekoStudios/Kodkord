@@ -1,80 +1,114 @@
-import type { Nullable } from "@types";
-import { Logger } from "./logger";
+import { Warn } from "./log";
 
-/**
- * Represents a dictionary-like collection that extends Map.
- * Provides additional functionality for logging and size limit management.
- *
- * @template Key The type of keys in the dictionary.
- * @template Value The type of values in the dictionary.
- */
-export class Dictionary<Key, Value> extends Map<Key, Value> {
-	/** Logger instance used for logging warnings and errors. */
-	protected logger?: Logger;
-
-	/** The maximum number of entries the dictionary can hold. */
+export class Dictionary<Key, Type> extends Map<Key, Type> {
+	public readonly name: string;
 	public readonly limit: number;
 
-	private readonly name: string;
-
-	/**
-	 * Constructs a new instance of Dictionary.
-	 *
-	 * @param iterable Optional initial values to populate the dictionary.
-	 * @param limit Optional maximum number of entries the dictionary can hold.
-	 * @param name Optional name or identifier for the dictionary instance (used in warning messages).
-	 */
-	public constructor(
-		iterable?: Nullable<Iterable<readonly [Key, Value]>>,
-		limit?: Nullable<number>,
-		name?: Nullable<string>,
-	) {
+	public constructor(iterable?: Iterable<readonly [Key, Type]>, limit?: number, name?: string) {
 		const EFFECTIVE_LIMIT = limit && limit > 0 ? Math.round(limit) : Number.POSITIVE_INFINITY;
 
-		// Avoid copying array unless it's necessary
 		if (iterable && EFFECTIVE_LIMIT < Number.POSITIVE_INFINITY) {
-			const ARRAY = [...iterable];
-			if (ARRAY.length > EFFECTIVE_LIMIT) {
-				iterable = ARRAY.slice(0, EFFECTIVE_LIMIT);
-			}
+			let count = 0;
+			const LIMITED_ITERABLE: Iterable<readonly [Key, Type]> = {
+				[Symbol.iterator]: function* () {
+					for (const ITEM of iterable) {
+						if (count++ >= EFFECTIVE_LIMIT) {
+							break;
+						}
+						yield ITEM;
+					}
+				},
+			};
+			super(LIMITED_ITERABLE);
+		} else {
+			super(iterable);
 		}
 
-		super(iterable);
 		this.limit = EFFECTIVE_LIMIT;
-		this.name = name ?? "unknown";
+		this.name = name || "unknown";
 	}
 
-	/**
-	 * Sets the value for the specified key in the dictionary.
-	 * Overrides the native Map's set method to include size limit checking.
-	 *
-	 * @param key The key to set in the dictionary.
-	 * @param value The value to associate with the key.
-	 * @returns The updated Dictionary instance.
-	 */
-	public override set(key: Key, value: Value): this {
-		if (!this.has(key) && this.size === this.limit) {
-			// Lazy initialization of logger
-			if (!this.logger) {
-				this.logger = new Logger({ from: "DICTIONARY" });
-			}
+	public filter(callback: (value: Type, key: Key, dict: this) => boolean): Dictionary<Key, Type> {
+		return new Dictionary(
+			[...this].filter(([key, value]) => callback(value, key, this)),
+			this.limit,
+			this.name,
+		);
+	}
 
-			this.logger.warn(
-				"Dictionary Capacity Exceeded",
-				`The Dictionary {italic:${this.name}} has reached it's limit {black:(${this.size}/${this.limit})}. Cannot add more items!`,
+	public find(callback: (value: Type, key: Key, dict: this) => boolean): Type | undefined {
+		for (const [KEY, VALUE] of this) {
+			if (callback(VALUE, KEY, this)) {
+				return VALUE;
+			}
+		}
+
+		return undefined;
+	}
+
+	public every(callback: (value: Type, key: Key, dict: this) => boolean): boolean {
+		for (const [KEY, VALUE] of this) {
+			if (!callback(VALUE, KEY, this)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public some(callback: (value: Type, key: Key, dict: this) => boolean): boolean {
+		for (const [KEY, VALUE] of this) {
+			if (callback(VALUE, KEY, this)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public reduce<T>(
+		callback: (accumulator: T, value: Type, key: Key, dict: this) => T,
+		initial: T,
+	): T {
+		return [...this].reduce((acc, [key, value]) => callback(acc, value, key, this), initial);
+	}
+
+	public map<T>(callback: (value: Type, key: Key, dict: this) => T): Dictionary<Key, T> {
+		return new Dictionary(
+			[...this].map(([key, value]) => [key, callback(value, key, this)] as const),
+			this.limit,
+			this.name,
+		);
+	}
+
+	public override set(key: Key, value: Type): this {
+		if (this.size >= this.limit) {
+			console.warn(
+				new Warn(
+					`Dictionary > ${this.name}`,
+					`Reached its limit of ${this.limit} entries.`,
+				).format(),
 			);
+
 			return this;
 		}
+
 		return super.set(key, value);
 	}
 
-	/**
-	 * Retrieves the remaining capacity of the dictionary.
-	 * Calculates the difference between the limit and the current size.
-	 *
-	 * @readonly
-	 */
-	public get remaining(): number {
+	public first(): Type | undefined {
+		return this.values().next().value;
+	}
+
+	public last(): Type | undefined {
+		return [...this.values()].at(-1);
+	}
+
+	public clone(): Dictionary<Key, Type> {
+		return new Dictionary([...this], this.limit, this.name);
+	}
+
+	public remaining(): number {
 		return this.limit - this.size;
 	}
 }

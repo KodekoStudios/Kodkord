@@ -49,13 +49,17 @@ export default defineBuildConfig({
 					replacement: resolve(__dirname, "./src/core"),
 				},
 				{
-					find: "@structures",
-					replacement: resolve(__dirname, "./src/structures"),
+					find: "@api",
+					replacement: resolve(__dirname, "./src/api"),
+				},
+				{
+					find: "@classes",
+					replacement: resolve(__dirname, "./src/classes"),
 				},
 				{
 					find: "@types",
-					replacement: resolve(__dirname, "./src/types.d.ts")
-				}
+					replacement: resolve(__dirname, "./src/types.d.ts"),
+				},
 			],
 		},
 	},
