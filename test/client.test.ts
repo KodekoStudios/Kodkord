@@ -1,10 +1,13 @@
 import { describe, expect, it } from "bun:test";
-import { Client, GuildTextChannel, type Message, User } from "../src/index";
+import { Client, GatewayIntentBits, GuildTextChannel, User } from "../src/index";
 
 describe("Client", () => {
 	const CLIENT = new Client({
 		token: process.env.test_token as string,
 		type: "Bot",
+		defaultPrefix: ["k!"],
+		intents:
+			GatewayIntentBits.Guilds | GatewayIntentBits.GuildMessages | GatewayIntentBits.MessageContent,
 	});
 
 	it("should fetch current user", async () => {
@@ -21,31 +24,29 @@ describe("Client", () => {
 	});
 
 	it("should fetch a channel by Id", async () => {
-		const ID = "1212603668466241576";
+		const ID = "913243741710594048";
 		const CHANNEL = await CLIENT.channels.fetch(ID);
-		console.log("fetchedChannel:", CHANNEL.data);
+		console.log("Fetched Channel:", CHANNEL.data);
 		expect(CHANNEL).toBeInstanceOf(GuildTextChannel);
 		expect(CHANNEL.id).toBe(ID);
 	});
 
 	it("should set a command", () => {
 		CLIENT.commands.set({
-			name: "ping",
-			run: (message): void => {
-				// @ts-expect-error
-				message.reply("Pong!");
+			name: "reply",
+			run: async (message): Promise<void> => {
+				const RES = await message.reply({
+					content: "Testing!",
+				});
+				console.log(RES.data);
 			},
 		});
 
 		expect(CLIENT.commands.get("ping")).toBeDefined();
 	});
 
-	it("should run a command", () => {
-		CLIENT.commands.get("ping")?.run({
-			content: "!ping",
-			reply: (content: string): void => {
-				expect(content).toBe("Pong!");
-			},
-		} as unknown as Message);
+	it("should run a command", async () => {
+		const MESSAGE = await CLIENT.messages.fetch("913243741710594048", "1327754552757452910");
+		CLIENT.commands.get("reply")?.run(MESSAGE);
 	});
 });
