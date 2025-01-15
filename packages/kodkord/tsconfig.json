@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": ["src/**/*"],
+  "compilerOptions": {
+    "rootDir": "src/",
+    "outDir": "lib/",
+    "paths": {
+      "@common/*": ["./src/common/*.ts"],
+			"@core/*": ["./src/core/*.ts"],
+			"@api/*": ["./src/api/*.ts"]
+    }
+  }
+}

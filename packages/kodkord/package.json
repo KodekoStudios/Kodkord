@@ -1,0 +1,36 @@
+{
+  "name": "kodkord",
+  "version": "1.0.0",
+  "description": "Kodkord is a simple and lightweight Discord API wrapper for Bun.",
+  "keywords": [
+    "kodkord",
+    "discord",
+    "api",
+    "wrapper",
+    "bun"
+  ],
+  "scripts": {
+    "fix": "biome check --fix --unsafe src/",
+    "build": "biome check --fix src/ && unbuild"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.cjs"
+    }
+  },
+  "main": "lib/index.cjs",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "dependencies": {
+    "discord-api-types": "0.37.115",
+    "ws": "8.18.0"
+  },
+  "devDependencies": {
+    "@types/ws": "8.5.13",
+    "unbuild": "3.3.0"
+  }
+}

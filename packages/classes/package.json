@@ -1,0 +1,17 @@
+{
+  "name": "@kodkord/classes",
+  "version": "1.0.0",
+  "description": "Classes for Kodkord.",
+
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.cjs"
+    }
+  },
+
+  "main": "lib/index.cjs",
+  "types": "lib/index.d.ts",
+  "files": ["lib"]
+}

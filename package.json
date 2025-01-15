@@ -1,0 +1,31 @@
+{
+  "name": "kodkord-monorepo",
+  "version": "1.0.0",
+  "description": "Monorepo for Kodkord.",
+  "private": true,
+  "scripts": {
+    "build": ""
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Kodeko Studios",
+    "url": "https://github.com/KodekoStudios"
+  },
+  "contributors": [
+    {
+      "name": "Pavéz",
+      "email": "maxpavez02@gmail.com",
+      "url": "https://github.com/Pavez7274"
+    }
+  ],
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/bun": "1.1.16",
+    "@types/node": "22.10.5",
+    "pnpm": "9.15.3",
+    "unbuild": "3.3.0"
+  },
+  "dependencies": {
+    "tslib": "2.8.1"
+  }
+}

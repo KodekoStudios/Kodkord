@@ -1,0 +1,51 @@
+{
+    "files": [],
+    "references": [
+        { "path": "./packages/kodkord/" },
+        { "path": "./packages/classes/" }
+    ],
+	"exclude": ["node_modules", "lib", "*.config.ts"],
+    "compilerOptions": {
+        /* Language and Environment */
+        "target": "ES2022",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+
+        /* Modules */
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "typeRoots": ["./node_modules/@types"],
+        "resolveJsonModule": true,
+
+        /* Emit */
+        "declaration": true,
+		"emitDeclarationOnly": true,
+		"sourceMap": true,
+		"removeComments": false,
+		"importHelpers": true,
+		"downlevelIteration": true,
+
+        /* Interop Constraints */
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+
+		/* Type Checking */
+		"strict": true,
+		"noImplicitAny": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"strictBindCallApply": true,
+		"strictPropertyInitialization": true,
+		"noImplicitThis": true,
+		"useUnknownInCatchVariables": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitOverride": true,
+
+        /* Completeness */
+		"skipLibCheck": false
+    }
+}
