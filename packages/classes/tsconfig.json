@@ -4,5 +4,8 @@
   "compilerOptions": {
     "rootDir": "src/",
     "outDir": "lib/",
+    "paths": {
+      "@entity": ["./src/core/entity.ts"]
+    }
   }
 }

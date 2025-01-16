@@ -1,8 +1,11 @@
 {
   "name": "@kodkord/classes",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Classes for Kodkord.",
-
+  "scripts": {
+    "fix": "biome check --fix --unsafe src/",
+    "build": "biome check --fix src/ && unbuild"
+  },
   "type": "module",
   "exports": {
     ".": {
@@ -10,8 +13,16 @@
       "require": "./lib/index.cjs"
     }
   },
-
   "main": "lib/index.cjs",
   "types": "lib/index.d.ts",
-  "files": ["lib"]
+  "files": [
+    "lib"
+  ],
+  "dependencies": {
+    "discord-api-types": "0.37.115",
+    "kodkord": "*"
+  },
+  "devDependencies": {
+    "unbuild": "3.3.1"
+  }
 }
