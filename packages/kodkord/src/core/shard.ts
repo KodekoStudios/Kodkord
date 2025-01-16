@@ -7,7 +7,7 @@ export type ShardSettings = Partial<WebSocketSettings>;
 
 /**
  * Represents a single shard for handling Discord Gateway connections.
- * 
+ *
  * The Shard class manages an individual connection to Discord's Gateway for a specific
  * subset of guilds, based on Discord's sharding mechanism. It encapsulates the lifecycle
  * of the WebSocket connection, including connection, disconnection, and error handling.
@@ -24,7 +24,7 @@ export class Shard {
 
 	/**
 	 * Calculates the shard Id for a given guild based on Discord's sharding formula.
-	 * 
+	 *
 	 * @param guildId The Id of the guild as a string.
 	 * @param shards The total number of shards.
 	 * @returns The shard Id that is responsible for the given guild.
@@ -35,7 +35,7 @@ export class Shard {
 
 	/**
 	 * Creates a new Shard instance.
-	 * 
+	 *
 	 * @param client The parent client responsible for creating this shard.
 	 * @param id The Id of the shard.
 	 * @param settings Optional shard-specific settings that override the client's default WebSocket settings.
@@ -54,7 +54,7 @@ export class Shard {
 
 	/**
 	 * Connects the shard to Discord's Gateway.
-	 * 
+	 *
 	 * - If the shard is already connected, logs a warning and does nothing.
 	 * - Otherwise, attempts to establish a connection and logs the status.
 	 */
@@ -78,7 +78,7 @@ export class Shard {
 
 	/**
 	 * Disconnects the shard from Discord's Gateway.
-	 * 
+	 *
 	 * - If the shard is not connected, logs a warning and does nothing.
 	 * - Otherwise, attempts to cleanly close the connection and logs the status.
 	 */
@@ -105,9 +105,9 @@ export class Shard {
 
 	/**
 	 * Returns the REST client associated with this shard.
-	 * 
+	 *
 	 * This provides access to the client's REST interface for making API requests.
-	 * 
+	 *
 	 * @returns The REST client instance from the parent client.
 	 */
 	public get rest(): Client["rest"] {

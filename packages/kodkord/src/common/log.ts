@@ -1,10 +1,10 @@
 /**
  * Provides a lightweight, extensible logging mechanism with customizable formatting.
- * 
+ *
  * The `Loggable` class is designed to be extended and used for temporary logging purposes,
  * avoiding the memory overhead of persistent logger instances. Each instance is created
  * when needed and goes out of scope once used, improving performance.
- * 
+ *
  * @abstract
  */
 export abstract class Loggable {
@@ -19,7 +19,7 @@ export abstract class Loggable {
 
 	/**
 	 * Creates a new `Loggable` instance.
-	 * 
+	 *
 	 * @param level The log level used to identify the type of log
 	 * @param header The header of the log, typically a title or identifier
 	 * @param messages Additional lines or content for the log
@@ -52,8 +52,8 @@ export abstract class Loggable {
 
 	/**
 	 * Formats the log into a styled string suitable for console output.
-	 * 
-	 * The format includes the log header, timestamp, and a separator. 
+	 *
+	 * The format includes the log header, timestamp, and a separator.
 	 * @returns A formatted log string
 	 */
 	public format(): string {
@@ -69,7 +69,7 @@ export abstract class Loggable {
 
 	/**
 	 * Formats the individual lines of the log with a consistent style.
-	 * 
+	 *
 	 * Each line is prefixed with a vertical bar (`|`) for clarity.
 	 * @returns A formatted string containing all log lines
 	 */
@@ -87,7 +87,7 @@ export abstract class Loggable {
 export class Note extends Loggable {
 	/**
 	 * Creates a new `Note` log entry.
-	 * 
+	 *
 	 * @param header The header of the log, typically a title or identifier.
 	 * @param messages Additional lines or content for the log.
 	 */
@@ -103,7 +103,7 @@ export class Note extends Loggable {
 export class Warn extends Loggable {
 	/**
 	 * Creates a new `Warn` log entry.
-	 * 
+	 *
 	 * @param header The header of the log, typically a title or identifier
 	 * @param messages Additional lines or content for the log
 	 */
@@ -119,7 +119,7 @@ export class Warn extends Loggable {
 export class Trace extends Loggable {
 	/**
 	 * Creates a new `Trace` log entry.
-	 * 
+	 *
 	 * @param header The header of the log, typically a title or identifier
 	 * @param messages Additional lines or content for the log
 	 */
@@ -131,7 +131,7 @@ export class Trace extends Loggable {
 
 /**
  * A log entry with a predefined "Panic" level and red background styling.
- * 
+ *
  * The `Panic` log entry includes an additional method for converting the log
  * into an `Error` object, useful for throwing or further handling.
  */
@@ -139,7 +139,7 @@ export class Trace extends Loggable {
 export class Panic extends Loggable {
 	/**
 	 * Creates a new `Panic` log entry.
-	 * 
+	 *
 	 * @param header The header of the log, typically a title or identifier
 	 * @param messages Additional lines or content for the log
 	 */
@@ -150,9 +150,9 @@ export class Panic extends Loggable {
 
 	/**
 	 * Converts the log entry into an `Error` object.
-	 * 
+	 *
 	 * The resulting `Error` will contain the concatenated lines of the log as its message.
-	 * 
+	 *
 	 * @returns An `Error` object representing the log entry
 	 */
 	public toError(): Error {
@@ -162,10 +162,10 @@ export class Panic extends Loggable {
 
 /**
  * Stylizes the given string by applying the specified ANSI codes.
- * 
+ *
  * The function resets specific styles automatically, such as text color, background color,
  * or other text formatting, based on the provided ANSI codes.
- * 
+ *
  * @param input The string to be stylized.
  * @param codes ANSI codes to apply to the string.
  * @returns The stylized string with the applied ANSI codes.
@@ -199,10 +199,10 @@ export function stylize(input: string, ...codes: ANSICodes[]): string {
 
 /**
  * Generates an ANSI escape sequence for the provided ANSI codes.
- * 
+ *
  * This function returns a valid ANSI escape sequence that can be used
  * to style text in a terminal.
- * 
+ *
  * @param codes ANSI codes to include in the escape sequence.
  * @returns The ANSI escape sequence as a string.
  */
@@ -212,7 +212,7 @@ export function ansi(...codes: ANSICodes[]): `\u001B[${string}m` {
 
 /**
  * Enum representing various ANSI escape codes for styling text and backgrounds.
- * 
+ *
  * Includes codes for text styles, text colors, and background colors.
  * Reset codes are also provided to clear specific styles.
  */

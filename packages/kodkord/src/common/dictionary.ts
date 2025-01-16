@@ -135,7 +135,7 @@ export class Dictionary<Key, Type> extends Map<Key, Type> {
 	 * Adds or updates an entry in the dictionary.
 	 *
 	 * If the dictionary has reached its limit, the entry will not be added.
-	 * 
+	 *
 	 * @param key The key of the entry.
 	 * @param value The value of the entry.
 	 * @returns The current dictionary instance.

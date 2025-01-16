@@ -30,7 +30,7 @@ export interface WebSocketSettings {
 
 /**
  * Manages the WebSocket connection to the Discord Gateway.
- * 
+ *
  * The `WebSocket` class handles the low-level communication with the Discord Gateway,
  * including sending the initial identify payload, responding to heartbeats, and
  * processing incoming Gateway events. It ensures the connection remains active and
@@ -39,7 +39,7 @@ export interface WebSocketSettings {
 export class WebSocket {
 	/**
 	 * The interval timer used to send heartbeats to the Gateway.
-	 * 
+	 *
 	 * This ensures the connection stays alive.
 	 */
 	// biome-ignore lint/correctness/noUndeclaredVariables: Timer is a Bun type.
@@ -53,7 +53,7 @@ export class WebSocket {
 
 	/**
 	 * Creates a new `WebSocket` instance.
-	 * 
+	 *
 	 * @param settings The settings required to establish a WebSocket connection.
 	 */
 	public constructor(settings: WebSocketSettings) {
@@ -62,7 +62,7 @@ export class WebSocket {
 
 	/**
 	 * Establishes a WebSocket connection to the Discord Gateway.
-	 * 
+	 *
 	 * - Sets up event listeners for handling incoming messages, connection lifecycle events, and errors.
 	 * - Automatically sends the identify payload upon successful connection.
 	 * - Begins sending periodic heartbeats upon receiving the "Hello" event from the Gateway.
@@ -129,7 +129,7 @@ export class WebSocket {
 
 	/**
 	 * Disconnects the WebSocket connection and clears resources.
-	 * 
+	 *
 	 * - Stops the heartbeat interval.
 	 * - Removes all event listeners from the WebSocket instance.
 	 * - Closes the WebSocket connection.
@@ -149,7 +149,7 @@ export class WebSocket {
 
 	/**
 	 * Sends the identify payload to the Discord Gateway.
-	 * 
+	 *
 	 * This payload contains the bot's token, intents, and client properties. It is required
 	 * to authenticate the connection and begin receiving events.
 	 */
@@ -171,7 +171,7 @@ export class WebSocket {
 
 	/**
 	 * Sends a heartbeat payload to the Discord Gateway.
-	 * 
+	 *
 	 * The heartbeat is sent to indicate the connection is still active. Discord requires
 	 * regular heartbeats to prevent the connection from being closed.
 	 */
@@ -186,7 +186,7 @@ export class WebSocket {
 
 	/**
 	 * Checks if the WebSocket connection is disconnected.
-	 * 
+	 *
 	 * @returns `true` if the WebSocket connection is closed, otherwise `false`.
 	 */
 	public disconnected(): boolean {
@@ -195,7 +195,7 @@ export class WebSocket {
 
 	/**
 	 * Checks if the WebSocket connection is established.
-	 * 
+	 *
 	 * @returns `true` if the WebSocket connection is open, otherwise `false`.
 	 */
 	public connected(): boolean {

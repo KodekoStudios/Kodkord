@@ -5,19 +5,19 @@ import { Sharder } from "./sharder";
 
 /**
  * Represents a mapping of event types to their corresponding callback functions.
- * 
+ *
  * This interface extends `Dictionary`, allowing each event to have a handler function
  * that processes the payload for that event type. The event type is inferred based on
  * the generic `Event`, which defaults to `GatewayDispatchEvents`.
- * 
+ *
  * @template Event The event type to which the handler applies.
-*/
+ */
 // @ts-expect-error
 export interface Events<Event extends GatewayDispatchEvents = GatewayDispatchEvents>
 	extends Dictionary<Event, (data: GatewayDispatchPayload) => unknown> {
 	/**
 	 * Sets a callback function for a specific event.
-	 * 
+	 *
 	 * @param event The event to bind the callback to.
 	 * @param callback The function to handle the event data.
 	 * @returns The instance of the `Events` interface, allowing method chaining.
@@ -29,7 +29,7 @@ export interface Events<Event extends GatewayDispatchEvents = GatewayDispatchEve
 
 	/**
 	 * Gets the callback function associated with a specific event.
-	 * 
+	 *
 	 * @param event The event for which to retrieve the callback function.
 	 * @returns The callback function for the event, or `undefined` if no handler is set.
 	 */
@@ -40,7 +40,7 @@ export interface Events<Event extends GatewayDispatchEvents = GatewayDispatchEve
 
 /**
  * Represents the settings required to initialize a client.
- * 
+ *
  * This type extends `RestSettings` and adds an additional property `intents` to manage
  * the events the client will listen to.
  */
@@ -48,7 +48,7 @@ export type ClientSettings = RestSettings & { intents: number };
 
 /**
  * Represents the main bot client.
- * 
+ *
  * This class encapsulates the client settings, shard management, event handling, and
  * communication with the Discord API via the `Rest` class. It manages the connection
  * and allows interaction with the Discord Gateway.
@@ -68,7 +68,7 @@ export class Client {
 
 	/**
 	 * Creates a new client instance with the provided settings.
-	 * 
+	 *
 	 * @param settings The settings used to configure the client.
 	 */
 	public constructor(settings: ClientSettings) {

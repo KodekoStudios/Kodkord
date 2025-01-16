@@ -36,7 +36,7 @@ export interface APIRequestParameters {
 
 /**
  * A class for managing RESTful interactions with the Discord API.
- * 
+ *
  * The `Rest` class provides methods to send HTTP requests to Discord's REST API.
  * It ensures proper rate-limiting using buckets and handles request retries when necessary.
  */
@@ -49,7 +49,7 @@ export class Rest {
 
 	/**
 	 * Creates a new `Rest` instance.
-	 * 
+	 *
 	 * @param settings Configuration settings for the REST client.
 	 */
 	public constructor(settings: RestSettings & { baseURL?: string }) {
@@ -59,7 +59,7 @@ export class Rest {
 
 	/**
 	 * Sends a DELETE request to the specified API route.
-	 * 
+	 *
 	 * @param route API route to send the request to.
 	 * @param parameters Optional parameters for the request.
 	 * @returns A promise resolving to the response of the request.
@@ -70,7 +70,7 @@ export class Rest {
 
 	/**
 	 * Sends a PATCH request to the specified API route.
-	 * 
+	 *
 	 * @param route API route to send the request to.
 	 * @param parameters Optional parameters for the request.
 	 * @returns A promise resolving to the response of the request.
@@ -81,7 +81,7 @@ export class Rest {
 
 	/**
 	 * Sends a POST request to the specified API route.
-	 * 
+	 *
 	 * @param route API route to send the request to.
 	 * @param parameters Optional parameters for the request.
 	 * @returns A promise resolving to the response of the request.
@@ -92,7 +92,7 @@ export class Rest {
 
 	/**
 	 * Sends a PUT request to the specified API route.
-	 * 
+	 *
 	 * @param route API route to send the request to.
 	 * @param parameters Optional parameters for the request.
 	 * @returns A promise resolving to the response of the request.
@@ -103,7 +103,7 @@ export class Rest {
 
 	/**
 	 * Sends a GET request to the specified API route.
-	 * 
+	 *
 	 * @param route API route to send the request to.
 	 * @param parameters Optional parameters for the request.
 	 * @returns A promise resolving to the response of the request.
@@ -114,10 +114,10 @@ export class Rest {
 
 	/**
 	 * Sends a request to the Discord API.
-	 * 
+	 *
 	 * - Applies rate limits using buckets based on the API route.
 	 * - Automatically constructs headers and appends query parameters if provided.
-	 * 
+	 *
 	 * @param method HTTP method for the request.
 	 * @param route API route to send the request to.
 	 * @param parameters Optional parameters for the request.
@@ -169,9 +169,9 @@ export class Rest {
 
 	/**
 	 * Retrieves the rate-limiting bucket for the specified route.
-	 * 
+	 *
 	 * If no bucket exists for the route, a new one is created.
-	 * 
+	 *
 	 * @param route API route for which the bucket is required.
 	 * @returns The bucket associated with the route.
 	 */
@@ -185,10 +185,10 @@ export class Rest {
 
 	/**
 	 * Builds the headers for an API request.
-	 * 
+	 *
 	 * - Includes the authorization token, content type, and user agent.
 	 * - Adds the audit log reason if provided.
-	 * 
+	 *
 	 * @param reason Optional reason for the request, used for audit logs.
 	 * @returns An object representing the headers.
 	 */

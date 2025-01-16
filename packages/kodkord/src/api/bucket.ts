@@ -1,11 +1,14 @@
 import { Warn } from "@common/log";
 
 /** A task to be processed by the bucket. */
-export type Task<Type> = (resolve: (value: Type) => void, reject: (reason?: unknown) => void) => void;
+export type Task<Type> = (
+	resolve: (value: Type) => void,
+	reject: (reason?: unknown) => void,
+) => void;
 
 /**
  * A rate-limit-aware task processor.
- * 
+ *
  * Processes tasks in order while respecting a specific rate limit. Used primarily for API calls requiring rate-limit management, such as Discord's API.
  */
 export class Bucket {
@@ -29,7 +32,7 @@ export class Bucket {
 
 	/**
 	 * Creates a new `Bucket` instance.
-	 * 
+	 *
 	 * @param limit Maximum number of tasks allowed in the rate limit window. Defaults to 1.
 	 * @param reset Initial timestamp when the rate limit window resets. Defaults to the current time.
 	 */
@@ -44,9 +47,9 @@ export class Bucket {
 
 	/**
 	 * Processes tasks in the queue while respecting the rate limit.
-	 * 
+	 *
 	 * If the rate limit is reached, waits until the reset time before continuing.
-	 * 
+	 *
 	 * @param override If `true`, forces processing even if another process is already active. Defaults to `false`.
 	 * @returns Resolves when all tasks in the queue are processed.
 	 */
@@ -86,9 +89,9 @@ export class Bucket {
 
 	/**
 	 * Adds a new task to the queue.
-	 * 
+	 *
 	 * If a position is provided, the task will be inserted at that position in the queue. Otherwise, it is added to the end.
-	 * 
+	 *
 	 * @param task The task to add.
 	 * @param at Optional position to insert the task in the queue.
 	 */
@@ -104,7 +107,7 @@ export class Bucket {
 
 	/**
 	 * Resets the state of the bucket.
-	 * 
+	 *
 	 * Clears the task queue, resets rate-limit counters, and marks the bucket as ready to process tasks.
 	 */
 	public resetState(): void {
@@ -122,7 +125,7 @@ export class Bucket {
 
 	/**
 	 * Resumes task processing if paused.
-	 * 
+	 *
 	 * Tasks in the queue will start processing again.
 	 */
 	public resume(): void {
