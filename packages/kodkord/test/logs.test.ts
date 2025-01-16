@@ -2,9 +2,9 @@ import { describe, it, expect } from "bun:test";
 import { Panic, Note, Trace, Warn } from "../src/common/log";
 
 describe("Logs", () => {
-	it("Sould log a note", () => {
+	it("Should log a note", () => {
 		const NOTE = new Note("Test", "Line 1", "Line 2", "Line 3");
-		NOTE.log();
+		NOTE.note();
 		expect(NOTE).toBeDefined();
 	});
 
