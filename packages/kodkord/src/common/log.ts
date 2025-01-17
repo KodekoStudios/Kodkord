@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable @typescript-eslint/no-mixed-enums */
+/* eslint-disable @stylistic/no-extra-parens */
+
 /**
  * Provides a lightweight, extensible logging mechanism with customizable formatting.
  *
@@ -12,7 +16,10 @@ export abstract class Loggable {
 	protected readonly level: string;
 
 	/** The header details of the log, including the header value and ANSI codes for styling. */
-	protected readonly header: { value: string; codes: ANSICodes[] };
+	protected readonly header: {
+		value: string;
+		codes: ANSICodes[];
+	};
 
 	/** The lines of the log message. */
 	protected readonly lines: string[];
@@ -26,7 +33,10 @@ export abstract class Loggable {
 	 */
 	public constructor(level: string, header: string, ...messages: string[]) {
 		this.level = level;
-		this.header = { value: header, codes: [] };
+		this.header = {
+			value: header,
+			codes: []
+		};
 		this.lines = messages;
 	}
 
@@ -61,7 +71,7 @@ export abstract class Loggable {
 		const TIME = `${DATE.toLocaleDateString()} ${DATE.toLocaleTimeString()}`;
 		const HEADER = ` Kodkord > ${this.level} > ${this.header.value} `;
 		const SEPARATOR = "-".repeat(
-			Math.max(0, Math.round(process.stdout.columns / 1.5) - HEADER.length - TIME.length),
+			Math.max(0, Math.round(process.stdout.columns / 1.5) - HEADER.length - TIME.length)
 		);
 
 		return `\n${stylize(HEADER, ...this.header.codes)} ${stylize(SEPARATOR, ANSICodes.Dim)} ${stylize(TIME, ANSICodes.Dim)}\n${this.formatLines()}`;
@@ -76,7 +86,7 @@ export abstract class Loggable {
 	public formatLines(): string {
 		return stylize(
 			this.lines.map((line) => line.replace(/(\n?)(.+)/g, "$1 | $2")).join("\n"),
-			ANSICodes.Dim,
+			ANSICodes.Dim
 		);
 	}
 }
@@ -170,7 +180,6 @@ export class Panic extends Loggable {
  * @param codes ANSI codes to apply to the string.
  * @returns The stylized string with the applied ANSI codes.
  */
-// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: No one needs to undestand this.
 export function stylize(input: string, ...codes: ANSICodes[]): string {
 	const RESET = new Set<ANSICodes>();
 
@@ -283,5 +292,5 @@ export enum ANSICodes {
 	BgBrightBlue = 104,
 	BgBrightMagenta = 105,
 	BgBrightCyan = 106,
-	BgBrightWhite = 107,
+	BgBrightWhite = 107
 }

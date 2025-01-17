@@ -1,6 +1,8 @@
-import { Rest, type RestSettings } from "@api/rest";
+import type { GatewayDispatchPayload, GatewayDispatchEvents } from "discord-api-types/v10";
+
+import { type RestSettings, Rest } from "@api/rest";
 import { Dictionary } from "@common/dictionary";
-import type { GatewayDispatchEvents, GatewayDispatchPayload } from "discord-api-types/v10";
+
 import { Sharder } from "./sharder";
 
 /**
@@ -44,7 +46,7 @@ export interface Events<Event extends GatewayDispatchEvents = GatewayDispatchEve
  * This type extends `RestSettings` and adds an additional property `intents` to manage
  * the events the client will listen to.
  */
-export type ClientSettings = RestSettings & { intents: number };
+export type ClientSettings = { intents: number } & RestSettings;
 
 /**
  * Represents the main bot client.

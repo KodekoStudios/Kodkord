@@ -1,13 +1,23 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*",
+    "test/**/*",
+    "build.config.ts"
+  ],
   "compilerOptions": {
-    "rootDir": "src/",
+    "rootDir": ".",
     "outDir": "lib/",
     "paths": {
-      "@common/*": ["./src/common/*.ts"],
-			"@core/*": ["./src/core/*.ts"],
-			"@api/*": ["./src/api/*.ts"]
+      "@common/*": [
+        "./src/common/*.ts"
+      ],
+      "@core/*": [
+        "./src/core/*.ts"
+      ],
+      "@api/*": [
+        "./src/api/*.ts"
+      ]
     }
   }
 }

@@ -1,11 +1,16 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*",
+    "build.config.ts"
+  ],
   "compilerOptions": {
     "rootDir": "src/",
     "outDir": "lib/",
     "paths": {
-      "@entity": ["./src/core/entity.ts"]
+      "@entity": [
+        "./src/core/entity.ts"
+      ]
     }
   }
 }

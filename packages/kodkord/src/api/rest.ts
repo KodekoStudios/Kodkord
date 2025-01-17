@@ -1,7 +1,8 @@
-import { URL } from "node:url";
+import { RouteBases } from "discord-api-types/v10";
 import { Dictionary } from "@common/dictionary";
 import { Panic } from "@common/log";
-import { RouteBases } from "discord-api-types/v10";
+import { URL } from "node:url";
+
 import { Bucket } from "./bucket";
 
 /** HTTP methods used for RESTful requests. */
@@ -52,8 +53,11 @@ export class Rest {
 	 *
 	 * @param settings Configuration settings for the REST client.
 	 */
-	public constructor(settings: RestSettings & { baseURL?: string }) {
-		this.settings = { ...settings, baseURL: settings.baseURL || RouteBases.api };
+	public constructor(settings: { baseURL?: string } & RestSettings) {
+		this.settings = {
+			...settings,
+			baseURL: settings.baseURL || RouteBases.api
+		};
 		this.buckets = new Dictionary();
 	}
 
@@ -126,9 +130,8 @@ export class Rest {
 	public async request<Returns>(
 		method: RequestMethod,
 		route: string,
-		parameters: APIRequestParameters = {},
+		parameters: APIRequestParameters = {}
 	): Promise<Returns> {
-		// biome-ignore lint/style/useNamingConvention: Can't use `URL` as a variable name.
 		const url = new URL(`${this.settings.baseURL}${route}`);
 		const BUCKET = this.getBucket(route);
 
@@ -139,18 +142,21 @@ export class Rest {
 		const REQUEST_OPTIONS: RequestInit = {
 			method,
 			headers: this.buildHeaders(parameters.reason),
-			body: parameters.body ? JSON.stringify(parameters.body) : undefined,
+			body: parameters.body
+				? JSON.stringify(parameters.body)
+				: undefined
 		};
 
-		return new Promise((resolve) => {
-			BUCKET.add(async (_, reject) => {
+		return new Promise((resolve, reject) => {
+			BUCKET.add(async (_, rejectBucket) => {
 				try {
 					const RESPONSE = await fetch(url.toString(), REQUEST_OPTIONS);
 
 					if (!RESPONSE.ok) {
 						const PANIC = new Panic("Rest", `Request failed with status: ${RESPONSE.status}`);
 						PANIC.panic();
-						reject(PANIC.toError());
+						rejectBucket(PANIC.toError());
+						return;
 					}
 
 					BUCKET.limit = Number(RESPONSE.headers.get("X-RateLimit-Limit")) || 1;
@@ -161,9 +167,9 @@ export class Rest {
 				} catch (error) {
 					const PANIC = new Panic("Rest", "Failed to execute request", (error as Error).message);
 					PANIC.panic();
-					reject(PANIC.toError());
+					rejectBucket(PANIC.toError());
 				}
-			});
+			}).catch(reject);
 		});
 	}
 
@@ -180,7 +186,7 @@ export class Rest {
 			this.buckets.set(route, new Bucket());
 		}
 
-		return this.buckets.get(route) as Bucket;
+		return this.buckets.get(route)!;
 	}
 
 	/**
@@ -196,7 +202,7 @@ export class Rest {
 		const HEADERS: Record<string, string> = {
 			Authorization: `${this.settings.type || "Bot"} ${this.settings.token}`,
 			"User-Agent": this.settings.agent || "Kodkord (https://github.com/KodekoStudios)",
-			"Content-Type": "application/json",
+			"Content-Type": "application/json"
 		};
 
 		if (reason) {

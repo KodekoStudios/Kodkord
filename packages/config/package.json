@@ -1,0 +1,12 @@
+{
+    "name": "@kodkord/config",
+    "private": "true",
+    "type": "module",
+    "exports": {
+        "./eslint": "./eslint/base.js",
+        "./tsconfig": "./tsconfig/base.json"
+    },
+    "dependencies": {
+        "@marcrock22/eslint": "github:Chewawi/eslintcf"
+    }
+}

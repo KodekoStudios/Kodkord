@@ -1,19 +1,20 @@
-import { Entity } from "@entity";
 import {
-	type APIChannel,
-	type APIMessage,
+	type RESTPostAPIChannelMessageJSONBody,
 	type APIReaction,
 	type ChannelType,
+	type APIChannel,
+	type APIMessage,
 	MessageType,
-	type RESTPostAPIChannelMessageJSONBody,
-	Routes,
+	Routes
 } from "discord-api-types/v10";
 import { type APIRequestParameters, Warn } from "kodkord";
+import { Entity } from "@entity";
+
 import { Channel } from "./channel";
 import { User } from "./user";
 
 /** Represents a message within a Discord channel. */
-export class Message<Type extends MessageType> extends Entity<APIMessage & { type: Type }> {
+export class Message<Type extends MessageType> extends Entity<{ type: Type } & APIMessage> {
 	/**
 	 * Posts a reply to this message.
 	 *
@@ -23,7 +24,7 @@ export class Message<Type extends MessageType> extends Entity<APIMessage & { typ
 	 */
 	public async postReply(
 		body: RESTPostAPIChannelMessageJSONBody,
-		force = false,
+		force = false
 	): Promise<Message<MessageType> | undefined> {
 		try {
 			return new Message(
@@ -34,19 +35,19 @@ export class Message<Type extends MessageType> extends Entity<APIMessage & { typ
 						message_reference: {
 							message_id: this.raw.id,
 							channel_id: this.raw.channel_id,
-							fail_if_not_exists: force,
-						},
-					},
-				} as APIRequestParameters & { body: RESTPostAPIChannelMessageJSONBody }),
+							fail_if_not_exists: force
+						}
+					}
+				} as { body: RESTPostAPIChannelMessageJSONBody } & APIRequestParameters)
 			);
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to reply message with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
 
-			return;
+
 		}
 	}
 
@@ -59,16 +60,16 @@ export class Message<Type extends MessageType> extends Entity<APIMessage & { typ
 		try {
 			return new Channel(
 				this.rest,
-				await this.rest.get<APIChannel>(Routes.channel(this.raw.channel_id)),
+				await this.rest.get<APIChannel>(Routes.channel(this.raw.channel_id))
 			);
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to fetch channel with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
 
-			return;
+
 		}
 	}
 
@@ -93,15 +94,15 @@ export class Message<Type extends MessageType> extends Entity<APIMessage & { typ
 				Routes.channelMessageOwnReaction(
 					this.raw.channel_id,
 					this.raw.id,
-					encodeURIComponent(emoji),
-				),
+					encodeURIComponent(emoji)
+				)
 			);
 			return true;
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to add reaction ${emoji} to message with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
 			return false;
 		}
@@ -121,15 +122,15 @@ export class Message<Type extends MessageType> extends Entity<APIMessage & { typ
 					this.raw.channel_id,
 					this.raw.id,
 					encodeURIComponent(emoji),
-					ownerId,
-				),
+					ownerId
+				)
 			);
 			return true;
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to remove reaction ${emoji} by ${ownerId} from message with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
 			return false;
 		}
@@ -143,7 +144,7 @@ export class Message<Type extends MessageType> extends Entity<APIMessage & { typ
 	 */
 	public getReaction(reaction: string): APIReaction | undefined {
 		return this.raw.reactions?.find(
-			({ emoji: { id, name } }) => id === reaction || name === reaction,
+			({ emoji: { id, name } }) => id === reaction || name === reaction
 		);
 	}
 
@@ -155,9 +156,11 @@ export class Message<Type extends MessageType> extends Entity<APIMessage & { typ
 	 */
 	public getReactionCount(reaction: string): number {
 		const FOUND = this.raw.reactions?.find(
-			({ emoji: { id, name } }) => id === reaction || name === reaction,
+			({ emoji: { id, name } }) => id === reaction || name === reaction
 		);
-		return FOUND ? FOUND.count : 0;
+		return FOUND
+? FOUND.count
+: 0;
 	}
 
 	/**
@@ -174,7 +177,7 @@ export class Message<Type extends MessageType> extends Entity<APIMessage & { typ
 			new Warn(
 				"Rest",
 				`Failed to pin message with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
 
 			return false;
@@ -195,7 +198,7 @@ export class Message<Type extends MessageType> extends Entity<APIMessage & { typ
 			new Warn(
 				"Rest",
 				`Failed to unpin message with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
 
 			return false;

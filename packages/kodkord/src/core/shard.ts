@@ -1,5 +1,6 @@
-import { WebSocket, type WebSocketSettings } from "@api/ws";
+import { type WebSocketSettings, WebSocket } from "@api/ws";
 import { Panic, Trace, Warn } from "@common/log";
+
 import type { Client } from "./client";
 
 /** Shard configuration settings, based on partial WebSocket settings. */
@@ -46,7 +47,7 @@ export class Shard {
 			intents: client.settings.intents,
 			device: settings?.device ?? "kodkord",
 			os: settings?.os ?? "linux",
-			events: settings?.events ?? client.events,
+			events: settings?.events ?? client.events
 		});
 		this.client = client;
 		this.id = id;
@@ -71,7 +72,7 @@ export class Shard {
 			new Panic(
 				`Shard #${this.id}`,
 				"Failed to connect to the gateway.",
-				(error as Error).message,
+				(error as Error).message
 			).panic();
 		}
 	}
@@ -86,7 +87,7 @@ export class Shard {
 		if (!this.websocket.connected()) {
 			new Warn(
 				`Shard #${this.id}`,
-				"Attempted to disconnect from an already disconnected shard.",
+				"Attempted to disconnect from an already disconnected shard."
 			).trace();
 			return;
 		}
@@ -98,7 +99,7 @@ export class Shard {
 			new Panic(
 				`Shard #${this.id}`,
 				"Failed to disconnect from the gateway.",
-				(error as Error).message,
+				(error as Error).message
 			).panic();
 		}
 	}

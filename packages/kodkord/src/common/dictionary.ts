@@ -18,19 +18,21 @@ export class Dictionary<Key, Type> extends Map<Key, Type> {
 	 * @param name Name of the dictionary for identification. Defaults to "unknown".
 	 */
 	public constructor(iterable?: Iterable<readonly [Key, Type]>, limit?: number, name?: string) {
-		const EFFECTIVE_LIMIT = limit && limit > 0 ? Math.round(limit) : Number.POSITIVE_INFINITY;
+		const EFFECTIVE_LIMIT = limit && limit > 0
+			? Math.round(limit)
+			: Number.POSITIVE_INFINITY;
 
 		if (iterable && EFFECTIVE_LIMIT < Number.POSITIVE_INFINITY) {
 			let count = 0;
 			const LIMITED_ITERABLE: Iterable<readonly [Key, Type]> = {
-				[Symbol.iterator]: function* () {
+				*[Symbol.iterator]() {
 					for (const ITEM of iterable) {
 						if (count++ >= EFFECTIVE_LIMIT) {
 							break;
 						}
 						yield ITEM;
 					}
-				},
+				}
 			};
 			super(LIMITED_ITERABLE);
 		} else {
@@ -51,7 +53,7 @@ export class Dictionary<Key, Type> extends Map<Key, Type> {
 		return new Dictionary(
 			[...this].filter(([key, value]) => callback(value, key, this)),
 			this.limit,
-			this.name,
+			this.name
 		);
 	}
 
@@ -61,7 +63,7 @@ export class Dictionary<Key, Type> extends Map<Key, Type> {
 	 * @param callback A function to test each entry. Returns `true` for the desired entry.
 	 * @returns The first value that satisfies the callback, or `undefined` if none do.
 	 */
-	public find(callback: (value: Type, key: Key, dict: this) => boolean): Type | undefined {
+	public find(callback: (value: Type, key: Key, dict: this) => boolean): undefined | Type {
 		for (const [KEY, VALUE] of this) {
 			if (callback(VALUE, KEY, this)) {
 				return VALUE;
@@ -112,7 +114,7 @@ export class Dictionary<Key, Type> extends Map<Key, Type> {
 	 */
 	public reduce<T>(
 		callback: (accumulator: T, value: Type, key: Key, dict: this) => T,
-		initial: T,
+		initial: T
 	): T {
 		return [...this].reduce((acc, [key, value]) => callback(acc, value, key, this), initial);
 	}
@@ -127,7 +129,7 @@ export class Dictionary<Key, Type> extends Map<Key, Type> {
 		return new Dictionary(
 			[...this].map(([key, value]) => [key, callback(value, key, this)] as const),
 			this.limit,
-			this.name,
+			this.name
 		);
 	}
 
@@ -145,8 +147,8 @@ export class Dictionary<Key, Type> extends Map<Key, Type> {
 			console.warn(
 				new Warn(
 					`Dictionary > ${this.name}`,
-					`Reached its limit of ${this.limit} entries.`,
-				).format(),
+					`Reached its limit of ${this.limit} entries.`
+				).format()
 			);
 
 			return this;
@@ -160,7 +162,7 @@ export class Dictionary<Key, Type> extends Map<Key, Type> {
 	 *
 	 * @returns The first value, or `undefined` if the dictionary is empty.
 	 */
-	public first(): Type | undefined {
+	public first(): undefined | Type {
 		return this.values().next().value;
 	}
 
@@ -169,7 +171,7 @@ export class Dictionary<Key, Type> extends Map<Key, Type> {
 	 *
 	 * @returns The last value, or `undefined` if the dictionary is empty.
 	 */
-	public last(): Type | undefined {
+	public last(): undefined | Type {
 		return [...this.values()].at(-1);
 	}
 

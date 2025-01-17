@@ -1,5 +1,6 @@
-import { describe, it, expect } from "bun:test";
-import { Panic, Note, Trace, Warn } from "../src/common/log";
+import { describe, expect, it } from "bun:test";
+
+import { Panic, Trace, Note, Warn } from "../src/common/log";
 
 describe("Logs", () => {
 	it("Should log a note", () => {

@@ -1,14 +1,15 @@
-import { Entity } from "@entity";
 import {
-	CDNRoutes,
 	type DefaultUserAvatarAssets,
-	ImageFormat,
-	RouteBases,
 	type UserAvatarFormat,
 	type UserBannerFormat,
+	ImageFormat,
+	RouteBases,
+	CDNRoutes
 } from "discord-api-types/v10";
+import { Entity } from "@entity";
 
-export type Sizes = 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096;
+// eslint-disable-next-line perfectionist/sort-union-types
+export type Sizes = 16 | 32 | 64 | 128 | 256 | 512 | 1_024 | 2_048 | 4_096;
 
 /** Represents the raw data structure for an image entity. */
 export interface RawImage {
@@ -35,7 +36,10 @@ export abstract class HashImage<Raw extends RawImage> extends Entity<Raw> {
 	 * @param settings Optional settings to specify the image format and size.
 	 * @returns The URL of the image or `null` if the hash is not available.
 	 */
-	public abstract url(settings?: { format?: ImageFormat; size?: Sizes }): string | null;
+	public abstract url(settings?: {
+		format?: ImageFormat;
+		size?: Sizes;
+	}): string | null;
 
 	/**
 	 * Retrieves the default URL of the image if a default is provided by Discord.
@@ -43,7 +47,10 @@ export abstract class HashImage<Raw extends RawImage> extends Entity<Raw> {
 	 * @param settings Optional settings to specify the image format and size.
 	 * @returns The default image URL or `undefined` if not applicable.
 	 */
-	public abstract default(settings?: { format?: ImageFormat; size?: Sizes }): string | undefined;
+	public abstract default(settings?: {
+		format?: ImageFormat;
+		size?: Sizes;
+	}): undefined | string;
 
 	/**
 	 * Retrieves the most appropriate image URL.
@@ -54,7 +61,10 @@ export abstract class HashImage<Raw extends RawImage> extends Entity<Raw> {
 	 * @param settings Optional settings to specify the image format and size.
 	 * @returns The displayable URL of the image or an empty string.
 	 */
-	public display(settings?: { format?: ImageFormat; size?: Sizes }): string {
+	public display(settings?: {
+		format?: ImageFormat;
+		size?: Sizes;
+	}): string {
 		return this.url(settings) ?? this.default(settings) ?? ""; // Fallback to an empty string
 	}
 
@@ -83,7 +93,10 @@ export class Avatar extends HashImage<RawImage> {
 	 * @param settings Optional settings to specify the avatar format and size.
 	 * @returns The avatar URL or `null` if the user does not have a custom avatar.
 	 */
-	public override url(settings?: { format?: UserAvatarFormat; size?: Sizes }): string | null {
+	public override url(settings?: {
+		format?: UserAvatarFormat;
+		size?: Sizes;
+	}): string | null {
 		return this.raw.hash
 			? `${RouteBases.cdn}${CDNRoutes.userAvatar(this.raw.ownerId, this.raw.hash, settings?.format ?? ImageFormat.WebP)}`
 			: null;
@@ -97,7 +110,10 @@ export class Avatar extends HashImage<RawImage> {
 	 * @param settings Optional settings to specify the avatar size.
 	 * @returns The default avatar URL.
 	 */
-	public override default(settings?: { format?: ImageFormat; size?: Sizes }): string | undefined {
+	public override default(settings?: {
+		format?: ImageFormat;
+		size?: Sizes;
+	}): undefined | string {
 		const INDEX = Number((BigInt(this.raw.ownerId) >> 22n) % 6n) as DefaultUserAvatarAssets;
 		return `${RouteBases.cdn}${CDNRoutes.defaultUserAvatar(INDEX)}?size=${settings?.size ?? 512}` as const;
 	}
@@ -116,7 +132,10 @@ export class Banner extends HashImage<RawImage> {
 	 * @param settings Optional settings to specify the banner format and size.
 	 * @returns The banner URL or `null` if the user does not have a custom banner.
 	 */
-	public override url(settings?: { format?: UserBannerFormat; size?: Sizes }): string | null {
+	public override url(settings?: {
+		format?: UserBannerFormat;
+		size?: Sizes;
+	}): string | null {
 		return this.raw.hash
 			? `${RouteBases.cdn}${CDNRoutes.userBanner(this.raw.ownerId, this.raw.hash, settings?.format ?? ImageFormat.WebP)}`
 			: null;

@@ -1,14 +1,15 @@
-import { Entity } from "@entity";
 import {
+	type RESTPostAPIChannelMessageJSONBody,
+	type RESTPatchAPIChannelJSONBody,
+	type MessageType,
 	type APIChannel,
 	type APIMessage,
 	ChannelType,
-	type MessageType,
-	type RESTPatchAPIChannelJSONBody,
-	type RESTPostAPIChannelMessageJSONBody,
-	Routes,
+	Routes
 } from "discord-api-types/v10";
 import { type APIRequestParameters, Warn } from "kodkord";
+import { Entity } from "@entity";
+
 import { Message } from "./message";
 
 /**
@@ -16,41 +17,38 @@ import { Message } from "./message";
  *
  * @template Type The specific type of the channel.
  */
-export class Channel<Type extends ChannelType> extends Entity<APIChannel & { type: Type }> {
+export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & APIChannel> {
 	public async fetchMessage(id: string): Promise<Message<MessageType> | undefined> {
 		try {
 			return new Message(
 				this.rest,
-				await this.rest.get<APIMessage>(Routes.channelMessage(this.raw.id, id)),
+				await this.rest.get<APIMessage>(Routes.channelMessage(this.raw.id, id))
 			);
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to fetch message on channel with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
-			return;
 		}
 	}
 
 	public async postMessage(
-		body: RESTPostAPIChannelMessageJSONBody,
+		body: RESTPostAPIChannelMessageJSONBody
 	): Promise<Message<MessageType> | undefined> {
 		try {
 			return new Message(
 				this.rest,
 				await this.rest.post<APIMessage>(Routes.channelMessages(this.raw.id), {
-					body,
-				} as APIRequestParameters),
+					body
+				} as APIRequestParameters)
 			);
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to post message on channel with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
-
-			return;
 		}
 	}
 
@@ -62,9 +60,8 @@ export class Channel<Type extends ChannelType> extends Entity<APIChannel & { typ
 			new Warn(
 				"Rest",
 				`Failed to fetch channel with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
-			return;
 		}
 	}
 
@@ -72,14 +69,14 @@ export class Channel<Type extends ChannelType> extends Entity<APIChannel & { typ
 		try {
 			await this.rest.patch<APIChannel>(Routes.channel(this.raw.id), {
 				body,
-				reason,
+				reason
 			} as APIRequestParameters);
 			return true;
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to edit channel with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
 			return false;
 		}
@@ -93,7 +90,7 @@ export class Channel<Type extends ChannelType> extends Entity<APIChannel & { typ
 			new Warn(
 				"Rest",
 				`Failed to delete channel with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
 			return false;
 		}

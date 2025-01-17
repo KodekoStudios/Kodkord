@@ -10,8 +10,9 @@
     "bun"
   ],
   "scripts": {
-    "fix": "biome check --fix --unsafe src/",
-    "build": "biome check --fix src/ && unbuild"
+    "lint": "pnpx eslint",
+    "lint:fix": "pnpx eslint --fix",
+    "build": "pnpx eslint --fix ./src/ && unbuild"
   },
   "type": "module",
   "exports": {
@@ -30,6 +31,7 @@
     "ws": "8.18.0"
   },
   "devDependencies": {
+    "@kodkord/config": "workspace:*",
     "@types/ws": "8.5.13",
     "unbuild": "3.3.0"
   }

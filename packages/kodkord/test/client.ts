@@ -1,10 +1,11 @@
-import { type APIUser, GatewayIntentBits, GatewayDispatchEvents } from "discord-api-types/v10";
-import { Client, Note } from "../lib";
+import { GatewayDispatchEvents, GatewayIntentBits, type APIUser } from "discord-api-types/v10";
 import { inspect } from "node:util";
+
+import { Client, Note } from "../";
 
 const CLIENT = new Client({
 	intents: GatewayIntentBits.Guilds | GatewayIntentBits.GuildMessages,
-	token: process.env.DISCORD_TOKEN as string,
+	token: process.env.DISCORD_TOKEN!
 });
 
 CLIENT.shards.create(0);

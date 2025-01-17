@@ -1,6 +1,7 @@
-import { Trace, Warn } from "@common/log";
 import type { Events } from "@core/client";
-import { GatewayOpcodes, type GatewayReceivePayload, GatewayVersion } from "discord-api-types/v10";
+
+import { type GatewayReceivePayload, GatewayOpcodes, GatewayVersion } from "discord-api-types/v10";
+import { Trace, Warn } from "@common/log";
 import WS from "ws";
 
 /**
@@ -42,7 +43,7 @@ export class WebSocket {
 	 *
 	 * This ensures the connection stays alive.
 	 */
-	// biome-ignore lint/correctness/noUndeclaredVariables: Timer is a Bun type.
+	// Biome-ignore lint/correctness/noUndeclaredVariables: Timer is a Bun type.
 	private heartbeatInterval?: Timer;
 
 	/** The underlying WebSocket connection instance. */
@@ -76,6 +77,7 @@ export class WebSocket {
 		});
 
 		this.ws.on("message", (data) => {
+			// eslint-disable-next-line @typescript-eslint/no-base-to-string
 			const PAYLOAD = JSON.parse(data.toString()) as GatewayReceivePayload;
 
 			switch (PAYLOAD.op) {
@@ -99,8 +101,10 @@ export class WebSocket {
 
 				case GatewayOpcodes.Hello:
 					this.heartbeatInterval = setInterval(
-						() => this.heartbeat(),
-						PAYLOAD.d.heartbeat_interval,
+						() => {
+							this.heartbeat();
+						},
+						PAYLOAD.d.heartbeat_interval
 					);
 					break;
 
@@ -114,10 +118,10 @@ export class WebSocket {
 			new Warn(
 				"Web Socket",
 				"Connection to the Discord gateway was closed.",
-				"The connection will be attempted to be reestablished...",
+				"The connection will be attempted to be reestablished..."
 			).warn();
 
-			// TODO: Exponential backoff.
+			// !TODO: Exponential backoff.
 			this.disconnect();
 			this.connect();
 		});
@@ -162,10 +166,10 @@ export class WebSocket {
 					intents: this.settings.intents,
 					properties: {
 						$os: this.settings.os,
-						$device: this.settings.device,
-					},
-				},
-			}),
+						$device: this.settings.device
+					}
+				}
+			})
 		);
 	}
 
@@ -179,8 +183,8 @@ export class WebSocket {
 		this.ws?.send(
 			JSON.stringify({
 				op: 1,
-				d: Date.now(),
-			}),
+				d: Date.now()
+			})
 		);
 	}
 

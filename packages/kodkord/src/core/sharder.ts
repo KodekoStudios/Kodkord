@@ -1,7 +1,9 @@
 import { Dictionary } from "@common/dictionary";
 import { Panic } from "@common/log";
+
 import type { Client } from "./client";
-import { Shard, type ShardSettings } from "./shard";
+
+import { type ShardSettings, Shard } from "./shard";
 
 /**
  * The Sharder class manages multiple shards for connecting to Discord's Gateway.
@@ -37,7 +39,7 @@ export class Sharder extends Dictionary<number, Shard> {
 	public create(id: number, settings?: ShardSettings): Shard {
 		if (this.has(id)) {
 			new Panic("Sharder", `Shard #${id} already exists.`).panic();
-			return this.get(id) as Shard;
+			return this.get(id)!;
 		}
 
 		const SHARD = new Shard(this.client, id, settings);
@@ -58,7 +60,7 @@ export class Sharder extends Dictionary<number, Shard> {
 		if (shards < this.size) {
 			new Panic(
 				"Sharder",
-				`Cannot reshard to a lower shard count (${shards}) than the current count (${this.size})`,
+				`Cannot reshard to a lower shard count (${shards}) than the current count (${this.size})`
 			).panic();
 			return;
 		}
@@ -77,7 +79,9 @@ export class Sharder extends Dictionary<number, Shard> {
 	 * @param id The Id of the shard to force identification for.
 	 */
 	public forceIdentify(id: number): void {
-		const SHARD = this.has(id) ? (this.get(id) as Shard) : this.create(id);
+		const SHARD = this.has(id)
+			? (this.get(id)!)
+			: this.create(id);
 
 		if (SHARD.websocket.disconnected()) {
 			SHARD.connect();

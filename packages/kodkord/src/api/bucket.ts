@@ -72,7 +72,9 @@ export class Bucket {
 				if (NOW < this.reset) {
 					const WAIT_TIME = this.reset - NOW;
 					new Warn("Bucket", `Rate limit reached. Waiting ${WAIT_TIME}ms.`).warn();
-					await new Promise((resolve) => setTimeout(resolve, WAIT_TIME));
+					await new Promise((resolve) => {
+						setTimeout(resolve, WAIT_TIME);
+					});
 				}
 				this.resetState(); // Reset the state after the rate limit resets
 			}
@@ -95,14 +97,14 @@ export class Bucket {
 	 * @param task The task to add.
 	 * @param at Optional position to insert the task in the queue.
 	 */
-	public add<Type>(task: Task<Type>, at?: number): void {
-		if (at !== undefined) {
-			this.queue.splice(at, 0, task);
-		} else {
+	public async add<Type>(task: Task<Type>, at?: number): Promise<void> {
+		if (at === undefined) {
 			this.queue.push(task);
+		} else {
+			this.queue.splice(at, 0, task);
 		}
 
-		this.process();
+		await this.process();
 	}
 
 	/**
@@ -128,8 +130,8 @@ export class Bucket {
 	 *
 	 * Tasks in the queue will start processing again.
 	 */
-	public resume(): void {
+	public async resume(): Promise<void> {
 		this.paused = false;
-		this.process();
+		await this.process();
 	}
 }
