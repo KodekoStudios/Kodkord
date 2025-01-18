@@ -59,7 +59,7 @@ export class Bucket {
 			return;
 		}
 
-		if (this.processing && !override) {
+		if (this.processing && override) {
 			return;
 		}
 
