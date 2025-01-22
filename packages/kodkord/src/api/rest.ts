@@ -61,6 +61,12 @@ export class Rest {
 		this.buckets = new Dictionary();
 	}
 
+	public async latency(route = "/users/@me"): Promise<number> {
+		const START = Date.now();
+		await this.get(route);
+		return Date.now() - START;
+	}
+
 	/**
 	 * Sends a DELETE request to the specified API route.
 	 *
