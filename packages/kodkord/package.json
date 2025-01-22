@@ -13,7 +13,7 @@
     "lint": "pnpx eslint src/",
     "lint:fix": "pnpx eslint --fix src/",
     "build": "pnpx eslint --fix ./src/ && unbuild",
-    "prepare": "pnpm build"
+    "prepare": "unbuild"
   },
   "type": "module",
   "exports": {
