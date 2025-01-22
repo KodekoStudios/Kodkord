@@ -26,7 +26,7 @@ export interface RestSettings {
 /** Parameters for a REST API request. */
 export interface APIRequestParameters {
 	/** Request body as a JSON object. */
-	body?: Record<string, object>;
+	body?: unknown;
 
 	/** Query parameters to append to the request URL. */
 	query?: Record<string, string>;
@@ -159,9 +159,9 @@ export class Rest {
 						return;
 					}
 
-					BUCKET.limit = Number(RESPONSE.headers.get("X-RateLimit-Limit")) || 1;
-					BUCKET.remaining = Number(RESPONSE.headers.get("X-RateLimit-Remaining")) || 0;
-					BUCKET.reset = Number(RESPONSE.headers.get("X-RateLimit-Reset")) || 0;
+					BUCKET.remaining = Number(RESPONSE.headers.get("X-RateLimit-Remaining") ?? 1);
+					BUCKET.limit = Number(RESPONSE.headers.get("X-RateLimit-Limit") ?? 1);
+					BUCKET.reset = Number(RESPONSE.headers.get("X-RateLimit-Reset") ?? 1) | 0; // Evil Math.floor
 
 					resolve(await RESPONSE.json());
 				} catch (error) {
