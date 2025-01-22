@@ -1,6 +1,6 @@
 {
   "name": "kodkord",
-  "version": "1.0.2-dev-1.0",
+  "version": "1.0.2",
   "description": "Kodkord is a simple and lightweight Discord API wrapper for Bun.",
   "keywords": [
     "kodkord",
