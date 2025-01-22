@@ -32,12 +32,12 @@ jobs:
       - name: Install dependencies for kodkord
         run: |
           cd packages/kodkord
-          pnpm install --frozen-lockfile
+          pnpm install --no-frozen-lockfile
 
       - name: Install dependencies for @kodkord/classes
         run: |
           cd packages/classes
-          pnpm install --frozen-lockfile
+          pnpm install --no-frozen-lockfile
 
       - name: Publish dev packages
         env:
