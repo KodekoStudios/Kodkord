@@ -160,7 +160,7 @@ export class WebSocket {
 	public identify(): void {
 		this.ws?.send(
 			JSON.stringify({
-				op: 2,
+				op: GatewayOpcodes.Identify,
 				d: {
 					token: this.settings.token,
 					intents: this.settings.intents,
@@ -182,7 +182,7 @@ export class WebSocket {
 	private heartbeat(): void {
 		this.ws?.send(
 			JSON.stringify({
-				op: 1,
+				op: GatewayOpcodes.Heartbeat,
 				d: Date.now()
 			})
 		);
