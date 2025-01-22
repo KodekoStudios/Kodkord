@@ -26,18 +26,8 @@ jobs:
         with:
           version: 9.15.3
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Install dependencies for kodkord
-        run: |
-          cd packages/kodkord
-          pnpm install --no-frozen-lockfile
-
-      - name: Install dependencies for @kodkord/classes
-        run: |
-          cd packages/classes
-          pnpm install --no-frozen-lockfile
+      - name: Install dependencies for all packages
+        run: pnpm install -r --no-frozen-lockfile
 
       - name: Publish dev packages
         env:
