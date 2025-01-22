@@ -10,8 +10,8 @@
     "bun"
   ],
   "scripts": {
-    "lint": "pnpx eslint",
-    "lint:fix": "pnpx eslint --fix",
+    "lint": "pnpx eslint src/",
+    "lint:fix": "pnpx eslint --fix src/",
     "build": "pnpx eslint --fix ./src/ && unbuild"
   },
   "type": "module",
