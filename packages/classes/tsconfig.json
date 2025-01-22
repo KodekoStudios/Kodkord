@@ -5,7 +5,7 @@
     "build.config.ts"
   ],
   "compilerOptions": {
-    "rootDir": "src/",
+    "rootDir": ".",
     "outDir": "lib/",
     "paths": {
       "@entity": [
