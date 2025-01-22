@@ -2,6 +2,10 @@
   "name": "@kodkord/classes",
   "version": "0.0.1",
   "description": "Classes for Kodkord.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KodekoStudios/Kodkord"
+  },
   "scripts": {
     "lint": "pnpx eslint",
     "lint:fix": "pnpx eslint --fix src/",

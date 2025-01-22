@@ -9,6 +9,10 @@
     "wrapper",
     "bun"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KodekoStudios/Kodkord"
+  },
   "scripts": {
     "lint": "pnpx eslint src/",
     "lint:fix": "pnpx eslint --fix src/",
