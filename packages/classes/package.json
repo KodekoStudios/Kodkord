@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "pnpx eslint",
     "lint:fix": "pnpx eslint --fix src/",
-    "build": "lint:fix src/ && unbuild"
+    "build": "pnpm lint:fix && unbuild"
   },
   "type": "module",
   "exports": {

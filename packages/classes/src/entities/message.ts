@@ -4,6 +4,8 @@ import {
 	type ChannelType,
 	type APIChannel,
 	type APIMessage,
+	type APIPoll,
+	type APIUser,
 	MessageType,
 	Routes
 } from "discord-api-types/v10";
@@ -46,8 +48,6 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 				`Failed to reply message with id ${this.raw.id}`,
 				(error as Error).message
 			).warn();
-
-
 		}
 	}
 
@@ -68,8 +68,6 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 				`Failed to fetch channel with id ${this.raw.id}`,
 				(error as Error).message
 			).warn();
-
-
 		}
 	}
 
@@ -159,8 +157,8 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 			({ emoji: { id, name } }) => id === reaction || name === reaction
 		);
 		return FOUND
-? FOUND.count
-: 0;
+			? FOUND.count
+			: 0;
 	}
 
 	/**
@@ -202,6 +200,32 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 			).warn();
 
 			return false;
+		}
+	}
+
+	public async endPoll(): Promise<undefined | APIPoll> {
+		try {
+			return await this.rest.post<APIPoll>(Routes.expirePoll(this.raw.channel_id, this.raw.id));
+		} catch (error) {
+			new Warn(
+				"Rest",
+				`Failed to end poll for message with id ${this.raw.id}`,
+				(error as Error).message
+			).warn();
+		}
+	}
+
+	public async answerVoters(answerId: number): Promise<undefined | APIUser[]> {
+		try {
+			return await this.rest.get<APIUser[]>(
+				Routes.pollAnswerVoters(this.raw.channel_id, this.raw.id, answerId)
+			);
+		} catch (error) {
+			new Warn(
+				"Rest",
+				`Failed to fetch poll voters for message with id ${this.raw.id}`,
+				(error as Error).message
+			).warn();
 		}
 	}
 
