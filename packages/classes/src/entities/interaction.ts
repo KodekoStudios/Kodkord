@@ -143,8 +143,8 @@ export class Interaction<Type extends InteractionType> extends Entity<
 
 	public user(): User | null {
 		return this.raw.user
-? new User(this.rest, this.raw.user)
-: null;
+			? new User(this.rest, this.raw.user)
+			: null;
 	}
 
 	public isCompleted(): boolean {
@@ -163,9 +163,7 @@ export class Interaction<Type extends InteractionType> extends Entity<
 		return this.raw.type === InteractionType.MessageComponent;
 	}
 
-	public isApplicationCommandAutocomplete(): this is {
-		type: InteractionType.ApplicationCommandAutocomplete;
-	} & this {
+	public isApplicationCommandAutocomplete(): this is Interaction<InteractionType.ApplicationCommandAutocomplete> {
 		return this.raw.type === InteractionType.ApplicationCommandAutocomplete;
 	}
 
