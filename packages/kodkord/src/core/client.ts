@@ -15,7 +15,7 @@ import { Sharder } from "./sharder";
  * @template Event The event type to which the handler applies.
  */
 // @ts-expect-error
-export interface Events<Event extends GatewayDispatchEvents = GatewayDispatchEvents>
+export interface Events<Event extends GatewayDispatchEvents | "RAW" = GatewayDispatchEvents | "RAW">
 	extends Dictionary<Event, (data: GatewayDispatchPayload) => unknown> {
 	/**
 	 * Sets a callback function for a specific event.
@@ -26,7 +26,11 @@ export interface Events<Event extends GatewayDispatchEvents = GatewayDispatchEve
 	 */
 	set<E extends Event>(
 		event: E,
-		callback: (data: Extract<GatewayDispatchPayload, { t: E }>["d"]) => unknown,
+		callback: ((
+			data: E extends "RAW"
+				? GatewayDispatchPayload
+				: Extract<GatewayDispatchPayload, { t: E }>["d"]
+		) => unknown) | undefined,
 	): this;
 
 	/**
@@ -37,7 +41,11 @@ export interface Events<Event extends GatewayDispatchEvents = GatewayDispatchEve
 	 */
 	get<E extends Event>(
 		event: E,
-	): ((data: Extract<GatewayDispatchPayload, { t: E }>["d"]) => unknown) | undefined;
+	): ((
+		data: E extends "RAW"
+			? GatewayDispatchPayload
+			: Extract<GatewayDispatchPayload, { t: E }>["d"]
+	) => unknown) | undefined;
 }
 
 /**

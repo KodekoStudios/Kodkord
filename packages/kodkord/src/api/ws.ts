@@ -1,3 +1,4 @@
+import type { GatewayDispatchPayload } from "discord-api-types/v10";
 import type { Events } from "@core/client";
 
 import { type GatewayReceivePayload, GatewayOpcodes, GatewayVersion } from "discord-api-types/v10";
@@ -82,6 +83,7 @@ export class WebSocket {
 
 			switch (PAYLOAD.op) {
 				case GatewayOpcodes.Dispatch:
+					this.settings.events.get("RAW")?.(PAYLOAD.d as unknown as GatewayDispatchPayload);
 					this.settings.events.get(PAYLOAD.t)?.(PAYLOAD.d);
 					break;
 
