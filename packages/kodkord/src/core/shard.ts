@@ -110,9 +110,9 @@ export class Shard {
 	/**
 	 * Sends a message to the Discord gateway. Handles automatic reconnection if the shard is disconnected.
 	 *
-	 * - If the shard is connected, the message is sent directly. 
-	 * - Otherwise, it logs a warning and attempts reconnection if 
-	 *   the `force` parameter is set to `true`. 
+	 * - If the shard is connected, the message is sent directly.
+	 * - Otherwise, it logs a warning and attempts reconnection if
+	 *   the `force` parameter is set to `true`.
 	 * - If reconnection fails, it logs a warning with details of the failure.
 	 *
 	 * The token is masked in trace logs to ensure sensitive information is not exposed.

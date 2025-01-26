@@ -83,7 +83,7 @@ export class WebSocket {
 
 			switch (PAYLOAD.op) {
 				case GatewayOpcodes.Dispatch:
-					this.settings.events.get("RAW")?.(PAYLOAD.d as unknown as GatewayDispatchPayload);
+					this.settings.events.get("raw")?.(PAYLOAD.d as unknown as GatewayDispatchPayload);
 					this.settings.events.get(PAYLOAD.t)?.(PAYLOAD.d);
 					break;
 
@@ -174,12 +174,19 @@ export class WebSocket {
 		});
 	}
 
+	/**
+	 * Sends a message through the WebSocket connection.
+	 *
+	 * This method serializes the provided payload into a JSON string
+	 *
+	 * @param message The payload to send through the WebSocket.
+	 */
 	public send(message: GatewaySendPayload): void {
 		this.ws?.send(JSON.stringify(message));
 	}
 
 	/**
-	 * Checks if the WebSocket connection is disconnected.
+	 * Checks if the WebSocket connection is closed.
 	 *
 	 * @returns `true` if the WebSocket connection is closed, otherwise `false`.
 	 */
