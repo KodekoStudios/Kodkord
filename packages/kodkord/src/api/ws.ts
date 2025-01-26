@@ -1,4 +1,4 @@
-import type { GatewayDispatchPayload } from "discord-api-types/v10";
+import type { GatewayDispatchPayload, GatewaySendPayload } from "discord-api-types/v10";
 import type { Events } from "@core/client";
 
 import { type GatewayReceivePayload, GatewayOpcodes, GatewayVersion } from "discord-api-types/v10";
@@ -160,34 +160,22 @@ export class WebSocket {
 	 * to authenticate the connection and begin receiving events.
 	 */
 	public identify(): void {
-		this.ws?.send(
-			JSON.stringify({
-				op: GatewayOpcodes.Identify,
-				d: {
-					token: this.settings.token,
-					intents: this.settings.intents,
-					properties: {
-						$os: this.settings.os,
-						$device: this.settings.device
-					}
+		this.send({
+			op: GatewayOpcodes.Identify,
+			d: {
+				token: this.settings.token,
+				intents: this.settings.intents,
+				properties: {
+					os: this.settings.os,
+					device: this.settings.device,
+					browser: "Kodkord"
 				}
-			})
-		);
+			}
+		});
 	}
 
-	/**
-	 * Sends a heartbeat payload to the Discord Gateway.
-	 *
-	 * The heartbeat is sent to indicate the connection is still active. Discord requires
-	 * regular heartbeats to prevent the connection from being closed.
-	 */
-	private heartbeat(): void {
-		this.ws?.send(
-			JSON.stringify({
-				op: GatewayOpcodes.Heartbeat,
-				d: Date.now()
-			})
-		);
+	public send(message: GatewaySendPayload): void {
+		this.ws?.send(JSON.stringify(message));
 	}
 
 	/**
@@ -206,5 +194,18 @@ export class WebSocket {
 	 */
 	public connected(): boolean {
 		return this.ws?.readyState === WS.OPEN;
+	}
+
+	/**
+	 * Sends a heartbeat payload to the Discord Gateway.
+	 *
+	 * The heartbeat is sent to indicate the connection is still active. Discord requires
+	 * regular heartbeats to prevent the connection from being closed.
+	 */
+	private heartbeat(): void {
+		this.send({
+			op: GatewayOpcodes.Heartbeat,
+			d: Date.now()
+		});
 	}
 }
