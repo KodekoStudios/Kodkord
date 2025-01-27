@@ -26,7 +26,7 @@
   ],
   "dependencies": {
     "discord-api-types": "0.37.115",
-    "kodkord": "1.0.3-dev-12975763166.0"
+    "kodkord": "dev"
   },
   "devDependencies": {
     "unbuild": "3.3.1"
