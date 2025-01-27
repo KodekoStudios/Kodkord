@@ -1,3 +1,7 @@
+import type {
+	RESTPatchAPIChannelMessageJSONBody
+} from "discord-api-types/v10";
+
 import {
 	type RESTPostAPIChannelMessageJSONBody,
 	type APIReaction,
@@ -24,7 +28,7 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 	 * @param force Whether to throw an error if the referenced message does not exist.
 	 * @returns A promise resolving to the `Message` instance of the sent reply, or `undefined` if the operation fails.
 	 */
-	public async postReply(
+	public async reply(
 		body: RESTPostAPIChannelMessageJSONBody,
 		force = false
 	): Promise<Message<MessageType> | undefined> {
@@ -46,6 +50,24 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 			new Warn(
 				"Rest",
 				`Failed to reply message with id ${this.raw.id}`,
+				(error as Error).message
+			).warn();
+		}
+	}
+
+	public async modify(body: RESTPatchAPIChannelMessageJSONBody): Promise<Message<MessageType> | undefined> {
+		try {
+			return new Message(
+				this.rest,
+				await this.rest.patch<APIMessage>(
+					Routes.channelMessage(this.raw.channel_id, this.raw.id),
+					{ body }
+				)
+			);
+		} catch (error) {
+			new Warn(
+				"Rest",
+				`Failed to modify message with id ${this.raw.id}`,
 				(error as Error).message
 			).warn();
 		}
@@ -86,7 +108,7 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 	 * @param emoji The emoji to add as a reaction. This can be a Unicode emoji or a custom emoji in the format `name:id`.
 	 * @returns A promise resolving to `true` if the reaction was successfully added, or `false` if it failed.
 	 */
-	public async addReaction(emoji: string): Promise<boolean> {
+	public async react(emoji: string): Promise<boolean> {
 		try {
 			await this.rest.put(
 				Routes.channelMessageOwnReaction(
