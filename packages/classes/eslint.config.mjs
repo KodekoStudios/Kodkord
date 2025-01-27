@@ -1,3 +1,3 @@
-import config from "@kodkord/config/eslint";
+import config from "../config/eslint/base.js";
 
 export default [...config];

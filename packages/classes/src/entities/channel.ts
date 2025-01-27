@@ -7,8 +7,8 @@ import {
 	ChannelType,
 	Routes
 } from "discord-api-types/v10";
-import { type APIRequestParameters, Warn } from "kodkord";
 import { Entity } from "@entity";
+import { Warn } from "kodkord";
 
 import { Message } from "./message";
 
@@ -41,7 +41,7 @@ export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & A
 				this.rest,
 				await this.rest.post<APIMessage>(Routes.channelMessages(this.raw.id), {
 					body
-				} as APIRequestParameters)
+				})
 			);
 		} catch (error) {
 			new Warn(
@@ -65,17 +65,17 @@ export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & A
 		}
 	}
 
-	public async edit(body: RESTPatchAPIChannelJSONBody, reason?: string): Promise<boolean> {
+	public async modify(body: RESTPatchAPIChannelJSONBody, reason?: string): Promise<boolean> {
 		try {
 			await this.rest.patch<APIChannel>(Routes.channel(this.raw.id), {
 				body,
 				reason
-			} as APIRequestParameters);
+			});
 			return true;
 		} catch (error) {
 			new Warn(
 				"Rest",
-				`Failed to edit channel with id ${this.raw.id}`,
+				`Failed to modify channel with id ${this.raw.id}`,
 				(error as Error).message
 			).warn();
 			return false;

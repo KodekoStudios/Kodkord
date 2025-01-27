@@ -1,8 +1,11 @@
+import type {
+	RESTPostAPIInteractionCallbackWithResponseResult
+} from "discord-api-types/v10";
+
 import {
 	type APIInteractionResponse,
 	InteractionResponseType,
 	type APIInteraction,
-	type MessageFlags,
 	type ChannelType,
 	type APIChannel,
 	InteractionType,
@@ -42,31 +45,32 @@ export class Interaction<Type extends InteractionType> extends Entity<
 		}
 	}
 
-	public async editResponse(body: APIInteractionResponse): Promise<boolean> {
+	public async modifyResponse(body: APIInteractionResponse): Promise<boolean> {
 		try {
 			await this.rest.patch(
 				Routes.webhookMessage(this.raw.application_id, this.raw.token, "@original"),
-				{ body } as { body: APIInteractionResponse } & APIRequestParameters
+				{ body }
 			);
 			return true;
 		} catch (error) {
 			new Warn(
 				"Rest",
-				`Failed to edit response for interaction with id ${this.raw.id}`,
+				`Failed to modify response for interaction with id ${this.raw.id}`,
 				(error as Error).message
 			).warn();
 			return false;
 		}
 	}
 
-	public async defer(flags: MessageFlags): Promise<boolean> {
-		return this.respond({
-			type: InteractionResponseType.DeferredChannelMessageWithSource,
-			data: { flags }
-		});
-	}
+	// Fuck this use respond({ type: 5 }) you bastard.
+	// Public async defer(flags: MessageFlags): Promise<RESTPostAPIInteractionCallbackWithResponseResult | undefined> {
+	// 	Return this.respond({
+	// 		Type: InteractionResponseType.DeferredChannelMessageWithSource,
+	// 		Data: { flags }
+	// 	});
+	// }
 
-	public async pong(): Promise<boolean> {
+	public async pong(): Promise<RESTPostAPIInteractionCallbackWithResponseResult | undefined> {
 		if (this.isPing()) {
 			return this.respond({
 				type: InteractionResponseType.Pong
@@ -75,31 +79,33 @@ export class Interaction<Type extends InteractionType> extends Entity<
 
 		new Warn(
 			"Rest",
-			`Attempt to respond with pong to an interaction of type ${this.raw.type} with id ${this.raw.id}`
+			`Attempt to respond with pong to an interaction of type ${InteractionType[this.raw.type]} with id ${this.raw.id}`
 		).warn();
-
-		return false;
 	}
 
-	public async respond(body: APIInteractionResponse): Promise<boolean> {
+	public async respond(body: APIInteractionResponse): Promise<RESTPostAPIInteractionCallbackWithResponseResult | undefined> {
 		if (this.completed) {
 			new Warn("Rest", `The interaction with id ${this.raw.id} has already been completed`).warn();
-			return false;
+			return;
 		}
 
 		try {
-			await this.rest.post(Routes.interactionCallback(this.raw.id, this.raw.token), {
-				body
-			} as { body: APIInteractionResponse } & APIRequestParameters);
+			const RESPONSE = await this.rest.post<RESTPostAPIInteractionCallbackWithResponseResult>(Routes.interactionCallback(this.raw.id, this.raw.token), {
+				body,
+				query: {
+					// @ts-expect-error
+					with_response: true
+				}
+			});
+
 			this.completed = true;
-			return true;
+			return RESPONSE;
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to respond interaction with id ${this.raw.id}`,
 				(error as Error).message
 			).warn();
-			return false;
 		}
 	}
 

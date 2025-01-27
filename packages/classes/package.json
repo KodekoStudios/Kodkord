@@ -7,9 +7,10 @@
     "url": "https://github.com/KodekoStudios/Kodkord"
   },
   "scripts": {
-    "lint": "pnpx eslint",
+    "lint": "pnpx eslint src/",
     "lint:fix": "pnpx eslint --fix src/",
-    "build": "pnpm lint:fix && unbuild"
+    "build": "pnpx eslint --fix ./src/ && unbuild",
+    "prepare": "unbuild"
   },
   "type": "module",
   "exports": {
@@ -24,11 +25,10 @@
     "lib"
   ],
   "dependencies": {
-    "kodkord": "*",
-    "discord-api-types": "0.37.115"
+    "discord-api-types": "0.37.115",
+    "kodkord": "1.0.3-dev-12975763166.0"
   },
   "devDependencies": {
-    "@kodkord/config": "workspace:*",
     "unbuild": "3.3.1"
   }
 }

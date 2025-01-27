@@ -9,8 +9,8 @@ import {
 	MessageType,
 	Routes
 } from "discord-api-types/v10";
-import { type APIRequestParameters, Warn } from "kodkord";
 import { Entity } from "@entity";
+import { Warn } from "kodkord";
 
 import { Channel } from "./channel";
 import { User } from "./user";
@@ -40,7 +40,7 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 							fail_if_not_exists: force
 						}
 					}
-				} as { body: RESTPostAPIChannelMessageJSONBody } & APIRequestParameters)
+				})
 			);
 		} catch (error) {
 			new Warn(
@@ -113,7 +113,7 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 	 * @param ownerId The Id of the user whose reaction is being removed. Defaults to `@me`.
 	 * @returns A promise resolving to `true` if the reaction was successfully removed, or `false` if it failed.
 	 */
-	public async removeReaction(emoji: string, ownerId = "@me"): Promise<boolean> {
+	public async unreact(emoji: string, ownerId = "@me"): Promise<boolean> {
 		try {
 			await this.rest.delete(
 				Routes.channelMessageUserReaction(
@@ -140,7 +140,7 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 	 * @param reaction The emoji to search for, either as a Unicode or custom emoji.
 	 * @returns The `APIReaction` object for the emoji, or `undefined` if no reaction is found.
 	 */
-	public getReaction(reaction: string): APIReaction | undefined {
+	public reaction(reaction: string): APIReaction | undefined {
 		return this.raw.reactions?.find(
 			({ emoji: { id, name } }) => id === reaction || name === reaction
 		);
@@ -152,7 +152,7 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 	 * @param reaction The emoji to search for, either as a Unicode or custom emoji.
 	 * @returns The count of reactions for the emoji. Returns 0 if the emoji is not found.
 	 */
-	public getReactionCount(reaction: string): number {
+	public reactionCount(reaction: string): number {
 		const FOUND = this.raw.reactions?.find(
 			({ emoji: { id, name } }) => id === reaction || name === reaction
 		);
