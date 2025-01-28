@@ -17,7 +17,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           vercel-org-id: ${{ secrets.ORG_ID }}
           vercel-project-id: ${{ secrets.PROJECT_ID }}
-          working-directory: '~/apps/docs'
           alias-domains: |
             pr-{{PR_NUMBER}}.angular.vercel-action.amond.dev
       - name: preview-url
