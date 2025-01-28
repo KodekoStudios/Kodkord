@@ -1,19 +1,17 @@
-import type {
-	RESTPatchAPIChannelMessageJSONBody
-} from "discord-api-types/v10";
+import type { RESTPatchAPIChannelMessageJSONBody } from "discord-api-types/v10";
 
+import { Entity } from "@entity";
 import {
-	type RESTPostAPIChannelMessageJSONBody,
-	type APIReaction,
-	type ChannelType,
 	type APIChannel,
 	type APIMessage,
 	type APIPoll,
+	type APIReaction,
 	type APIUser,
+	type ChannelType,
 	MessageType,
-	Routes
+	type RESTPostAPIChannelMessageJSONBody,
+	Routes,
 } from "discord-api-types/v10";
-import { Entity } from "@entity";
 import { Warn } from "kodkord";
 
 import { Channel } from "./channel";
@@ -30,7 +28,7 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 	 */
 	public async reply(
 		body: RESTPostAPIChannelMessageJSONBody,
-		force = false
+		force = false,
 	): Promise<Message<MessageType> | undefined> {
 		try {
 			return new Message(
@@ -41,34 +39,35 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 						message_reference: {
 							message_id: this.raw.id,
 							channel_id: this.raw.channel_id,
-							fail_if_not_exists: force
-						}
-					}
-				})
+							fail_if_not_exists: force,
+						},
+					},
+				}),
 			);
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to reply message with id ${this.raw.id}`,
-				(error as Error).message
+				(error as Error).message,
 			).warn();
 		}
 	}
 
-	public async modify(body: RESTPatchAPIChannelMessageJSONBody): Promise<Message<MessageType> | undefined> {
+	public async modify(
+		body: RESTPatchAPIChannelMessageJSONBody,
+	): Promise<Message<MessageType> | undefined> {
 		try {
 			return new Message(
 				this.rest,
-				await this.rest.patch<APIMessage>(
-					Routes.channelMessage(this.raw.channel_id, this.raw.id),
-					{ body }
-				)
+				await this.rest.patch<APIMessage>(Routes.channelMessage(this.raw.channel_id, this.raw.id), {
+					body,
+				}),
 			);
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to modify message with id ${this.raw.id}`,
-				(error as Error).message
+				(error as Error).message,
 			).warn();
 		}
 	}
@@ -82,13 +81,13 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 		try {
 			return new Channel(
 				this.rest,
-				await this.rest.get<APIChannel>(Routes.channel(this.raw.channel_id))
+				await this.rest.get<APIChannel>(Routes.channel(this.raw.channel_id)),
 			);
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to fetch channel with id ${this.raw.id}`,
-				(error as Error).message
+				(error as Error).message,
 			).warn();
 		}
 	}
@@ -114,15 +113,15 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 				Routes.channelMessageOwnReaction(
 					this.raw.channel_id,
 					this.raw.id,
-					encodeURIComponent(emoji)
-				)
+					encodeURIComponent(emoji),
+				),
 			);
 			return true;
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to add reaction ${emoji} to message with id ${this.raw.id}`,
-				(error as Error).message
+				(error as Error).message,
 			).warn();
 			return false;
 		}
@@ -142,15 +141,15 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 					this.raw.channel_id,
 					this.raw.id,
 					encodeURIComponent(emoji),
-					ownerId
-				)
+					ownerId,
+				),
 			);
 			return true;
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to remove reaction ${emoji} by ${ownerId} from message with id ${this.raw.id}`,
-				(error as Error).message
+				(error as Error).message,
 			).warn();
 			return false;
 		}
@@ -164,7 +163,7 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 	 */
 	public reaction(reaction: string): APIReaction | undefined {
 		return this.raw.reactions?.find(
-			({ emoji: { id, name } }) => id === reaction || name === reaction
+			({ emoji: { id, name } }) => id === reaction || name === reaction,
 		);
 	}
 
@@ -176,11 +175,9 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 	 */
 	public reactionCount(reaction: string): number {
 		const FOUND = this.raw.reactions?.find(
-			({ emoji: { id, name } }) => id === reaction || name === reaction
+			({ emoji: { id, name } }) => id === reaction || name === reaction,
 		);
-		return FOUND
-			? FOUND.count
-			: 0;
+		return FOUND ? FOUND.count : 0;
 	}
 
 	/**
@@ -197,7 +194,7 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 			new Warn(
 				"Rest",
 				`Failed to pin message with id ${this.raw.id}`,
-				(error as Error).message
+				(error as Error).message,
 			).warn();
 
 			return false;
@@ -218,7 +215,7 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 			new Warn(
 				"Rest",
 				`Failed to unpin message with id ${this.raw.id}`,
-				(error as Error).message
+				(error as Error).message,
 			).warn();
 
 			return false;
@@ -232,7 +229,7 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 			new Warn(
 				"Rest",
 				`Failed to end poll for message with id ${this.raw.id}`,
-				(error as Error).message
+				(error as Error).message,
 			).warn();
 		}
 	}
@@ -240,13 +237,13 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 	public async answerVoters(answerId: number): Promise<undefined | APIUser[]> {
 		try {
 			return await this.rest.get<APIUser[]>(
-				Routes.pollAnswerVoters(this.raw.channel_id, this.raw.id, answerId)
+				Routes.pollAnswerVoters(this.raw.channel_id, this.raw.id, answerId),
 			);
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to fetch poll voters for message with id ${this.raw.id}`,
-				(error as Error).message
+				(error as Error).message,
 			).warn();
 		}
 	}
@@ -403,5 +400,25 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 
 	public isPollResult(): this is Message<MessageType.PollResult> {
 		return this.raw.type === MessageType.PollResult;
+	}
+
+	// * ------------------------------------------- * //
+	// * --------This code was made by Johan-------- * //
+	// * ---------shitty code disclaimer!----------- * //
+	// * ------------------------------------------- * //
+
+	public async destroy(): Promise<boolean> {
+		try {
+			await this.rest.delete(Routes.channelMessage(this.raw.channel_id, this.raw.id));
+			return true;
+		} catch (error) {
+			new Warn(
+				"Rest",
+				`Failed to delete message with id ${this.raw.id} in channel with id ${this.raw.channel_id}`,
+				(error as Error).message,
+			).warn();
+
+			return false;
+		}
 	}
 }

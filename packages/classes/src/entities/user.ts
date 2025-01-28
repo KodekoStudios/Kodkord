@@ -1,8 +1,8 @@
-import { type APIUser, Routes } from "discord-api-types/v10";
 import { Entity } from "@entity";
+import { type APIUser, Routes } from "discord-api-types/v10";
 import { Panic } from "kodkord";
 
-import { Avatar, Banner } from "./image";
+import { UserAvatar, UserBanner } from "./image";
 
 /**
  * Class representing a Discord user.
@@ -22,7 +22,7 @@ export class User extends Entity<APIUser> {
 			new Panic(
 				"Rest",
 				`Failed to fetch user with id ${this.raw.id}`,
-				(error as Error).message
+				(error as Error).message,
 			).panic();
 			throw error;
 		}
@@ -33,10 +33,10 @@ export class User extends Entity<APIUser> {
 	 *
 	 * @returns A `Banner` instance representing the user's banner.
 	 */
-	public banner(): Banner {
-		return new Banner(this.rest, {
+	public banner(): UserBanner {
+		return new UserBanner(this.rest, {
 			hash: this.raw.banner ?? null,
-			ownerId: this.raw.id
+			ownerId: this.raw.id,
 		});
 	}
 
@@ -45,10 +45,10 @@ export class User extends Entity<APIUser> {
 	 *
 	 * @returns An `Avatar` instance representing the user's avatar.
 	 */
-	public avatar(): Avatar {
-		return new Avatar(this.rest, {
+	public avatar(): UserAvatar {
+		return new UserAvatar(this.rest, {
 			hash: this.raw.avatar,
-			ownerId: this.raw.id
+			ownerId: this.raw.id,
 		});
 	}
 
@@ -57,7 +57,7 @@ export class User extends Entity<APIUser> {
 	 *
 	 * @returns A `Date` object representing when the user was created.
 	 */
-	public createdAt(): Date {
+	public created(): Date {
 		const TIMESTAMP = BigInt(this.raw.id) >> 22n;
 		return new Date(Number(TIMESTAMP) + 1_420_070_400_000); // Discord Epoch
 	}

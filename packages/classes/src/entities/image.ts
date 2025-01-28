@@ -1,12 +1,15 @@
+import { Entity } from "@entity";
 import {
+	CDNRoutes,
 	type DefaultUserAvatarAssets,
+	type GuildBannerFormat,
+	type GuildIconFormat,
+	ImageFormat,
+	type RoleIconFormat,
+	RouteBases,
 	type UserAvatarFormat,
 	type UserBannerFormat,
-	ImageFormat,
-	RouteBases,
-	CDNRoutes
 } from "discord-api-types/v10";
-import { Entity } from "@entity";
 
 // eslint-disable-next-line perfectionist/sort-union-types
 export type Sizes = 16 | 32 | 64 | 128 | 256 | 512 | 1_024 | 2_048 | 4_096;
@@ -19,6 +22,11 @@ export interface RawImage {
 	/** Id of the owner of the image. */
 	ownerId: string;
 }
+
+/** Represents the raw data structure of an image entity that has a guild identifier. */
+export type GuildRawImage = RawImage & {
+	/** Id of the guild of the image. */ guildId: string;
+};
 
 /**
  * Abstract class representing a hash-based image entity.
@@ -86,7 +94,7 @@ export abstract class HashImage<Raw extends RawImage> extends Entity<Raw> {
  * This class extends the `HashImage` abstract class and implements methods to
  * retrieve user avatar URLs, including support for default Discord avatars.
  */
-export class Avatar extends HashImage<RawImage> {
+export class UserAvatar extends HashImage<RawImage> {
 	/**
 	 * Retrieves the URL of the user's avatar.
 	 *
@@ -125,7 +133,7 @@ export class Avatar extends HashImage<RawImage> {
  * This class extends the `HashImage` abstract class and implements methods to
  * retrieve user banner URLs. Banners do not have default images.
  */
-export class Banner extends HashImage<RawImage> {
+export class UserBanner extends HashImage<RawImage> {
 	/**
 	 * Retrieves the URL of the user's banner.
 	 *
@@ -138,6 +146,172 @@ export class Banner extends HashImage<RawImage> {
 	}): string | null {
 		return this.raw.hash
 			? `${RouteBases.cdn}${CDNRoutes.userBanner(this.raw.ownerId, this.raw.hash, settings?.format ?? ImageFormat.WebP)}`
+			: null;
+	}
+
+	/**
+	 * Banners do not have a default URL.
+	 *
+	 * @returns `undefined` as there is no default banner image.
+	 */
+	public override default(): undefined {
+		return undefined;
+	}
+}
+
+// * ------------------------------------------- * //
+// * --After here, this code was made by Johan-- * //
+// * ---------shitty code disclaimer!----------- * //
+// * ------------------------------------------- * //
+
+/**
+ * Class representing a guild icon's image.
+ *
+ * This class extends the `HashImage` abstract class and implements methods to
+ * retrieve guild icon URLs. Guild icons do not have default images
+ */
+export class GuildIcon extends HashImage<RawImage> {
+	/**
+	 * Retrieves the URL of the user's banner.
+	 *
+	 * @param settings Optional settings to specify the banner format and size.
+	 * @returns The banner URL or `null` if the user does not have a custom banner.
+	 */
+	public override url(settings?: {
+		format?: GuildIconFormat;
+		size?: Sizes;
+	}): string | null {
+		return this.raw.hash
+			? `${RouteBases.cdn}${CDNRoutes.guildIcon(this.raw.ownerId, this.raw.hash, settings?.format ?? ImageFormat.WebP)}`
+			: null;
+	}
+
+	/**
+	 * Icons do not have a default URL.
+	 *
+	 * @returns `undefined` as there is no default banner image.
+	 */
+	public override default(): undefined {
+		return undefined;
+	}
+}
+
+/**
+ * Class representing a guild's banner image.
+ *
+ * This class extends the `HashImage` abstract class and implements methods to
+ * retrieve guild banner URLs. Banners do not have default images.
+ */
+
+export class GuildBanner extends HashImage<RawImage> {
+	/**
+	 * Retrieves the URL of the guild's banner.
+	 *
+	 * @param settings Optional settings to specify the banner format and size.
+	 * @returns The banner URL or `null` if the guild does not have a custom banner.
+	 */
+	public override url(settings?: {
+		format?: GuildBannerFormat;
+		size?: Sizes;
+	}): string | null {
+		return this.raw.hash
+			? `${RouteBases.cdn}${CDNRoutes.guildBanner(this.raw.ownerId, this.raw.hash, settings?.format ?? ImageFormat.WebP)}`
+			: null;
+	}
+
+	/**
+	 * Banners do not have a default URL.
+	 *
+	 * @returns `undefined` as there is no default banner image.
+	 */
+	public override default(): undefined {
+		return undefined;
+	}
+}
+
+/**
+ * Class representing a role icon's image.
+ *
+ * This class extends the `HashImage` abstract class and implements methods to
+ * retrieve role role icon URLs. Role icons do not have default images
+ */
+export class RoleIcon extends HashImage<RawImage> {
+	/**
+	 * Retrieves the URL of the role's icon.
+	 *
+	 * @param settings Optional settings to specify the icon format and size.
+	 * @returns The icon URL or `null` if the user does not have a custom icon.
+	 */
+	public override url(settings?: {
+		format?: RoleIconFormat;
+		size?: Sizes;
+	}): string | null {
+		return this.raw.hash
+			? `${RouteBases.cdn}${CDNRoutes.roleIcon(this.raw.ownerId, this.raw.hash, settings?.format ?? ImageFormat.WebP)}`
+			: null;
+	}
+
+	/**
+	 * Icons do not have a default URL.
+	 *
+	 * @returns `undefined` as there is no default icon image.
+	 */
+	public override default(): undefined {
+		return undefined;
+	}
+}
+
+/**
+ * Class representing a member's avatar image.
+ *
+ * This class extends the `HashImage` abstract class and implements methods to
+ * retrieve member avatar URLs, including support for default Discord avatars.
+ */
+export class MemberAvatar extends HashImage<GuildRawImage> {
+	/**
+	 * Retrieves the URL of the member's avatar.
+	 *
+	 * @param settings Optional settings to specify the avatar format and size.
+	 * @returns The avatar URL or `null` if the member does not have a custom avatar.
+	 */
+	public override url(settings?: {
+		format?: UserAvatarFormat;
+		size?: Sizes;
+	}): string | null {
+		return this.raw.hash
+			? `${RouteBases.cdn}${CDNRoutes.guildMemberAvatar(this.raw.guildId, this.raw.ownerId, this.raw.hash, settings?.format ?? ImageFormat.WebP)}`
+			: null;
+	}
+
+	/**
+	 * Member avatar's do not have a default URL.
+	 *
+	 * @returns `undefined` as there is no default banner image.
+	 */
+	public override default(): undefined {
+		return undefined;
+	}
+}
+
+/**
+ * Class representing a member's banner image.
+ *
+ * This class extends the `HashImage` abstract class and implements methods to
+ * retrieve member banner URLs. Banners do not have default images.
+ */
+export class MemberBanner extends HashImage<GuildRawImage> {
+	/**
+	 * Retrieves the URL of the member's banner.
+	 *
+	 * @param settings Optional settings to specify the banner format and size.
+	 * @returns The banner URL or `null` if the member does not have a custom banner.
+	 */
+	public override url(settings?: {
+		format?: UserBannerFormat;
+		size?: Sizes;
+	}): string | null {
+		return this.raw.hash
+			? `${RouteBases.cdn}${CDNRoutes.guildMemberBanner(this.raw.guildId, this.raw.ownerId, this.raw.hash, settings?.format ?? ImageFormat.WebP)}`
 			: null;
 	}
 
