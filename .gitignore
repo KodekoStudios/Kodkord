@@ -194,3 +194,4 @@ packages/*/node_modules/
 packages/*/.cache/
 
 .astro/
+.vercel
