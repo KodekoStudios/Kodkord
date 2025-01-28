@@ -19,7 +19,7 @@ import { Message } from "./message";
  * @template Type The specific type of the channel.
  */
 export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & APIChannel> {
-	// Here are functions endpoint-based for messages
+
 	public async fetchMessage(id: string): Promise<Message<MessageType> | undefined> {
 		try {
 			return new Message(
@@ -184,22 +184,6 @@ export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & A
 		return this.raw.type === ChannelType.GuildMedia;
 	}
 
-	// * ------------------------------------------- * //
-	// * --------This code was made by Johan-------- * //
-	// * ---------shitty code disclaimer!----------- * //
-	// * ------------------------------------------- * //
-	// I HATE ALL RELATIONED WITH THREADS
-	// Public async members(after?: Snowflake, limit?: number) {
-	//	//Only on thread channels
-	//	If (this.raw.type < 10 || this.raw.type > 12)
-	//		Return null;
-	//	Return await this.rest.get(Routes.threadMembers(this.raw.id), {
-	//		Query: {
-	//			"with_member": "true",
-	//
-	//		},
-	//	});
-	// }
 	public async bulkDelete(ids: Snowflake[]): Promise<boolean> {
 		try {
 			await this.rest.post(Routes.channelBulkDelete(this.raw.id), {
