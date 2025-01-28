@@ -1,8 +1,3 @@
-// * ------------------------------------------- * //
-// * --------This code was made by Johan-------- * //
-// * ---------shitty code disclaimer!----------- * //
-// * ------------------------------------------- * //
-
 import {
 	type RESTPatchAPIGuildMemberJSONBody,
 	type APIGuildMember,
@@ -73,8 +68,8 @@ export class Member extends Entity<APIGuildMember> {
 	 */
 	public premium(): Date | null {
 		return this.raw.premium_since
-? new Date(this.raw.premium_since)
-: null;
+			? new Date(this.raw.premium_since)
+			: null;
 	}
 
 	/**
@@ -122,41 +117,7 @@ export class Member extends Entity<APIGuildMember> {
 			).panic();
 			throw error;
 		}
+
+
 	}
-
-	// Democracy does not work unu
-	/**
-	 * Timeouts a member from a guild in the Discord API. A number is given which represents the timeout time in miliseconds (up to 28 days), if null is given, the timeout will be removed.
-	 *
-	 * @returns A promise of a Boolean that represents that it was a success.
-	 * @throws If the API request fails, an error is logged and re-thrown.
-	 */ /*
-		Public async timeout(time: number | null) {
-			try {
-				const API = await this.rest.patch<APIGuildMember>(
-					Routes.guildMember(this.guild.raw.id, this.raw.user.id),
-					{
-						body: {
-							communication_disabled_until: !time
-								? null
-								: new Date(Date.now() + time).toISOString(),
-						} as unknown as Record<string, object>,
-					},
-				);
-				return new Member(this.rest, API, this.guild.raw);
-			} catch (error) {
-				new Panic(
-					"Rest",
-					`Failed to timeout member with id ${this.raw.user.id} from guild with id ${this.guild.raw.id}`,
-					(error as Error).message,
-				).panic();
-				throw error;
-			}
-		} */
 }
-
-// * -------------------------------- * //
-// * -------------------------------- * //
-// * ---------Johan Was Here--------- * //
-// * -------------------------------- * //
-// * -------------------------------- * //

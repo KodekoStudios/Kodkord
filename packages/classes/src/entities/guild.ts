@@ -1,8 +1,3 @@
-// * ------------------------------------------- * //
-// * --------This code was made by Johan-------- * //
-// * ---------shitty code disclaimer!----------- * //
-// * ------------------------------------------- * //
-
 import {
 	type RESTPostAPIGuildChannelJSONBody,
 	type APIThreadChannel,
@@ -26,8 +21,6 @@ import { Member } from "./member";
 import { Role } from "./role";
 
 export class Guild extends Entity<APIGuild> {
-	// These are endpoint-based functions
-
 	/**
 	 * Fetches the latest data for the guild from the Discord API.
 	 *
@@ -344,8 +337,6 @@ export class Guild extends Entity<APIGuild> {
 			throw error;
 		}
 	}
-
-	// Here are functions based on `raw` properties
 
 	/**
 	 * Obtains a dictionary of roles in the Guild

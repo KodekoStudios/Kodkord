@@ -178,8 +178,8 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 			({ emoji: { id, name } }) => id === reaction || name === reaction
 		);
 		return FOUND
-? FOUND.count
-: 0;
+			? FOUND.count
+			: 0;
 	}
 
 	/**
@@ -403,11 +403,6 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 	public isPollResult(): this is Message<MessageType.PollResult> {
 		return this.raw.type === MessageType.PollResult;
 	}
-
-	// * ------------------------------------------- * //
-	// * --------This code was made by Johan-------- * //
-	// * ---------shitty code disclaimer!----------- * //
-	// * ------------------------------------------- * //
 
 	public async destroy(): Promise<boolean> {
 		try {

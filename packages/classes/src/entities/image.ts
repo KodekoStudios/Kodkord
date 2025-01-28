@@ -159,11 +159,6 @@ export class UserBanner extends HashImage<RawImage> {
 	}
 }
 
-// * ------------------------------------------- * //
-// * --After here, this code was made by Johan-- * //
-// * ---------shitty code disclaimer!----------- * //
-// * ------------------------------------------- * //
-
 /**
  * Class representing a guild icon's image.
  *

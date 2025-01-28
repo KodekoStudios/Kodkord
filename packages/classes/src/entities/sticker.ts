@@ -1,8 +1,3 @@
-// * ------------------------------------------- * //
-// * --------This code was made by Johan-------- * //
-// * ---------shitty code disclaimer!----------- * //
-// * ------------------------------------------- * //
-
 import {
 	type RESTPatchAPIGuildStickerJSONBody,
 	type StickerFormat,
