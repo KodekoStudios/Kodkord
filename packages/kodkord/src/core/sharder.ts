@@ -1,3 +1,4 @@
+import { type APIGatewayBotInfo, Routes } from "discord-api-types/v10";
 import { Dictionary } from "@common/dictionary";
 import { Panic } from "@common/log";
 
@@ -46,6 +47,18 @@ export class Sharder extends Dictionary<number, Shard> {
 		this.set(id, SHARD);
 
 		return SHARD;
+	}
+
+	/**
+	 * Calculates the shard Id for a given guild.
+	 *
+	 * @param guildId The Id of the guild to calculate the shard for.
+	 * @returns A Promise resolving the shard Id that is responsible for the given guild.
+	 */
+	public async calculateShardId(guildId: string): Promise<number> {
+		/* Ik is bad, this is a bit of a workaround */
+		const info = await this.client.rest.get<APIGatewayBotInfo>(Routes.gatewayBot());
+		return Shard.calculateId(guildId, info.shards);
 	}
 
 	/**

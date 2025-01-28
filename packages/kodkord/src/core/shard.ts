@@ -134,7 +134,7 @@ export class Shard {
 						});
 					}
 					return value;
-				})
+				}) || "No payload provided"
 			).trace();
 
 			this.websocket.send(message);
