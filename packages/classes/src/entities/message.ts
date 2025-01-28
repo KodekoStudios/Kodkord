@@ -1,6 +1,4 @@
-import type {
-	RESTPatchAPIChannelMessageJSONBody
-} from "discord-api-types/v10";
+import type { RESTPatchAPIChannelMessageJSONBody } from "discord-api-types/v10";
 
 import {
 	type RESTPostAPIChannelMessageJSONBody,
@@ -55,14 +53,15 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 		}
 	}
 
-	public async modify(body: RESTPatchAPIChannelMessageJSONBody): Promise<Message<MessageType> | undefined> {
+	public async modify(
+		body: RESTPatchAPIChannelMessageJSONBody
+	): Promise<Message<MessageType> | undefined> {
 		try {
 			return new Message(
 				this.rest,
-				await this.rest.patch<APIMessage>(
-					Routes.channelMessage(this.raw.channel_id, this.raw.id),
-					{ body }
-				)
+				await this.rest.patch<APIMessage>(Routes.channelMessage(this.raw.channel_id, this.raw.id), {
+					body
+				})
 			);
 		} catch (error) {
 			new Warn(
@@ -403,5 +402,20 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 
 	public isPollResult(): this is Message<MessageType.PollResult> {
 		return this.raw.type === MessageType.PollResult;
+	}
+
+	public async destroy(): Promise<boolean> {
+		try {
+			await this.rest.delete(Routes.channelMessage(this.raw.channel_id, this.raw.id));
+			return true;
+		} catch (error) {
+			new Warn(
+				"Rest",
+				`Failed to delete message with id ${this.raw.id} in channel with id ${this.raw.channel_id}`,
+				(error as Error).message
+			).warn();
+
+			return false;
+		}
 	}
 }

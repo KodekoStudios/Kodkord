@@ -1,6 +1,4 @@
-import type {
-	RESTPostAPIInteractionCallbackWithResponseResult
-} from "discord-api-types/v10";
+import type { RESTPostAPIInteractionCallbackWithResponseResult } from "discord-api-types/v10";
 
 import {
 	type APIInteractionResponse,
@@ -16,6 +14,7 @@ import { type APIRequestParameters, type Rest, Warn } from "kodkord";
 import { Entity } from "@entity";
 
 import { Channel } from "./channel";
+import { Member } from "./member";
 import { User } from "./user";
 
 export class Interaction<Type extends InteractionType> extends Entity<
@@ -83,20 +82,25 @@ export class Interaction<Type extends InteractionType> extends Entity<
 		).warn();
 	}
 
-	public async respond(body: APIInteractionResponse): Promise<RESTPostAPIInteractionCallbackWithResponseResult | undefined> {
+	public async respond(
+		body: APIInteractionResponse
+	): Promise<RESTPostAPIInteractionCallbackWithResponseResult | undefined> {
 		if (this.completed) {
 			new Warn("Rest", `The interaction with id ${this.raw.id} has already been completed`).warn();
 			return;
 		}
 
 		try {
-			const RESPONSE = await this.rest.post<RESTPostAPIInteractionCallbackWithResponseResult>(Routes.interactionCallback(this.raw.id, this.raw.token), {
-				body,
-				query: {
-					// @ts-expect-error
-					with_response: true
+			const RESPONSE = await this.rest.post<RESTPostAPIInteractionCallbackWithResponseResult>(
+				Routes.interactionCallback(this.raw.id, this.raw.token),
+				{
+					body,
+					query: {
+						// @ts-expect-error
+						with_response: true
+					}
 				}
-			});
+			);
 
 			this.completed = true;
 			return RESPONSE;
@@ -122,10 +126,8 @@ export class Interaction<Type extends InteractionType> extends Entity<
 					`Failed to fetch guild with id ${this.raw.id}`,
 					(error as Error).message
 				).warn();
-
 			}
 		}
-
 	}
 
 	public async channel(): Promise<Channel<ChannelType> | undefined> {
@@ -141,15 +143,23 @@ export class Interaction<Type extends InteractionType> extends Entity<
 					`Failed to fetch channel with id ${this.raw.id}`,
 					(error as Error).message
 				).warn();
-
 			}
 		}
-
 	}
 
 	public user(): User | null {
-		return this.raw.user
-			? new User(this.rest, this.raw.user)
+		const USER = this.raw.user ?? this.raw.member?.user;
+		return USER
+			? new User(this.rest, USER)
+			: null;
+	}
+
+	public async member(): Promise<Member | null> {
+		const GUILD = await this.rest
+			.get<APIGuild>(Routes.guild(this.raw.guild_id ?? ""))
+			.catch((_: unknown) => null);
+		return this.raw.member && GUILD
+			? new Member(this.rest, this.raw.member, GUILD)
 			: null;
 	}
 

@@ -4,6 +4,7 @@ import {
 	type MessageType,
 	type APIChannel,
 	type APIMessage,
+	type Snowflake,
 	ChannelType,
 	Routes
 } from "discord-api-types/v10";
@@ -18,6 +19,7 @@ import { Message } from "./message";
  * @template Type The specific type of the channel.
  */
 export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & APIChannel> {
+
 	public async fetchMessage(id: string): Promise<Message<MessageType> | undefined> {
 		try {
 			return new Message(
@@ -49,6 +51,21 @@ export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & A
 				`Failed to post message on channel with id ${this.raw.id}`,
 				(error as Error).message
 			).warn();
+		}
+	}
+
+	public async destroy(): Promise<boolean> {
+		try {
+			await this.rest.delete(Routes.channel(this.raw.id));
+			return true;
+		} catch (error) {
+			new Warn(
+				"Rest",
+				`Failed to delete channel with id ${this.raw.id}`,
+				(error as Error).message
+			).warn();
+
+			return false;
 		}
 	}
 
@@ -165,5 +182,23 @@ export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & A
 	/** Determines if this channel is a guild media channel. */
 	public isGuildMedia(): this is Channel<ChannelType.GuildMedia> {
 		return this.raw.type === ChannelType.GuildMedia;
+	}
+
+	public async bulkDelete(ids: Snowflake[]): Promise<boolean> {
+		try {
+			await this.rest.post(Routes.channelBulkDelete(this.raw.id), {
+				body: {
+					messages: ids
+				}
+			});
+			return true;
+		} catch (error) {
+			new Warn(
+				"Rest",
+				`Failed to delete channel with id ${this.raw.id}`,
+				(error as Error).message
+			).warn();
+			return false;
+		}
 	}
 }
