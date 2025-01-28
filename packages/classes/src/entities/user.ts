@@ -1,5 +1,5 @@
-import { Entity } from "@entity";
 import { type APIUser, Routes } from "discord-api-types/v10";
+import { Entity } from "@entity";
 import { Panic } from "kodkord";
 
 import { UserAvatar, UserBanner } from "./image";
@@ -22,7 +22,7 @@ export class User extends Entity<APIUser> {
 			new Panic(
 				"Rest",
 				`Failed to fetch user with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).panic();
 			throw error;
 		}
@@ -36,7 +36,7 @@ export class User extends Entity<APIUser> {
 	public banner(): UserBanner {
 		return new UserBanner(this.rest, {
 			hash: this.raw.banner ?? null,
-			ownerId: this.raw.id,
+			ownerId: this.raw.id
 		});
 	}
 
@@ -48,7 +48,7 @@ export class User extends Entity<APIUser> {
 	public avatar(): UserAvatar {
 		return new UserAvatar(this.rest, {
 			hash: this.raw.avatar,
-			ownerId: this.raw.id,
+			ownerId: this.raw.id
 		});
 	}
 

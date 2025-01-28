@@ -1,15 +1,15 @@
-import { Entity } from "@entity";
 import {
-	CDNRoutes,
 	type DefaultUserAvatarAssets,
 	type GuildBannerFormat,
-	type GuildIconFormat,
-	ImageFormat,
-	type RoleIconFormat,
-	RouteBases,
 	type UserAvatarFormat,
 	type UserBannerFormat,
+	type GuildIconFormat,
+	type RoleIconFormat,
+	ImageFormat,
+	RouteBases,
+	CDNRoutes
 } from "discord-api-types/v10";
+import { Entity } from "@entity";
 
 // eslint-disable-next-line perfectionist/sort-union-types
 export type Sizes = 16 | 32 | 64 | 128 | 256 | 512 | 1_024 | 2_048 | 4_096;
@@ -24,9 +24,9 @@ export interface RawImage {
 }
 
 /** Represents the raw data structure of an image entity that has a guild identifier. */
-export type GuildRawImage = RawImage & {
+export type GuildRawImage = {
 	/** Id of the guild of the image. */ guildId: string;
-};
+} & RawImage;
 
 /**
  * Abstract class representing a hash-based image entity.

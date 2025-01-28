@@ -3,21 +3,23 @@
 // * ---------shitty code disclaimer!----------- * //
 // * ------------------------------------------- * //
 
-import { Entity } from "@entity";
 import {
+	type RESTPatchAPIGuildRoleJSONBody,
 	type APIGuild,
 	type APIRole,
-	type RESTPatchAPIGuildRoleJSONBody,
-	Routes,
+	Routes
 } from "discord-api-types/v10";
-import { Panic, type Rest } from "kodkord";
-import { Guild } from "./guild";
+import { type Rest, Panic } from "kodkord";
+import { Entity } from "@entity";
+
 import { RoleIcon } from "./image";
+import { Guild } from "./guild";
 
 /** It represents a role within a Discord guild. */
 export class Role extends Entity<APIRole> {
 	/** The `Guild` instance in which Role belongs. */
 	readonly guild: Guild;
+
 	/**
 	 * Creates an instance of the Entity.
 	 *
@@ -36,7 +38,7 @@ export class Role extends Entity<APIRole> {
 	public icon() {
 		return new RoleIcon(this.rest, {
 			hash: this.raw.icon ?? null,
-			ownerId: this.raw.id,
+			ownerId: this.raw.id
 		});
 	}
 
@@ -54,7 +56,7 @@ export class Role extends Entity<APIRole> {
 			new Panic(
 				"Rest",
 				`Failed to fetch role with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).panic();
 			throw error;
 		}
@@ -78,29 +80,29 @@ export class Role extends Entity<APIRole> {
 	public async modify(
 		data: RESTPatchAPIGuildRoleJSONBody & {
 			position?: number;
-		},
+		}
 	): Promise<Role> {
 		if ("position" in data) {
 			await this.rest.patch(Routes.guildRoles(this.guild.raw.id), {
 				body: {
 					id: this.raw.id,
-					position: data.position,
-				} as unknown as Record<string, object>,
+					position: data.position
+				} as unknown as Record<string, object>
 			});
 		}
 		try {
 			return new Role(
 				this.rest,
 				await this.rest.patch(Routes.guildRole(this.guild.raw.id, this.raw.id), {
-					body: data as Record<string, object>,
+					body: data as Record<string, object>
 				}),
-				this.guild.raw,
+				this.guild.raw
 			);
 		} catch (error) {
 			new Panic(
 				"Rest",
 				`Failed to modify role with id ${this.raw.id} from guild with id ${this.guild.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).panic();
 			throw error;
 		}

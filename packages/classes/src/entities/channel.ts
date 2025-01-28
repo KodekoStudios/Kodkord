@@ -1,14 +1,14 @@
-import { Entity } from "@entity";
 import {
+	type RESTPostAPIChannelMessageJSONBody,
+	type RESTPatchAPIChannelJSONBody,
+	type MessageType,
 	type APIChannel,
 	type APIMessage,
-	ChannelType,
-	type MessageType,
-	type RESTPatchAPIChannelJSONBody,
-	type RESTPostAPIChannelMessageJSONBody,
-	Routes,
 	type Snowflake,
+	ChannelType,
+	Routes
 } from "discord-api-types/v10";
+import { Entity } from "@entity";
 import { Warn } from "kodkord";
 
 import { Message } from "./message";
@@ -24,32 +24,32 @@ export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & A
 		try {
 			return new Message(
 				this.rest,
-				await this.rest.get<APIMessage>(Routes.channelMessage(this.raw.id, id)),
+				await this.rest.get<APIMessage>(Routes.channelMessage(this.raw.id, id))
 			);
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to fetch message on channel with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
 		}
 	}
 
 	public async postMessage(
-		body: RESTPostAPIChannelMessageJSONBody,
+		body: RESTPostAPIChannelMessageJSONBody
 	): Promise<Message<MessageType> | undefined> {
 		try {
 			return new Message(
 				this.rest,
 				await this.rest.post<APIMessage>(Routes.channelMessages(this.raw.id), {
-					body,
-				}),
+					body
+				})
 			);
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to post message on channel with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
 		}
 	}
@@ -62,7 +62,7 @@ export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & A
 			new Warn(
 				"Rest",
 				`Failed to delete channel with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
 
 			return false;
@@ -77,7 +77,7 @@ export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & A
 			new Warn(
 				"Rest",
 				`Failed to fetch channel with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
 		}
 	}
@@ -86,14 +86,14 @@ export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & A
 		try {
 			await this.rest.patch<APIChannel>(Routes.channel(this.raw.id), {
 				body,
-				reason,
+				reason
 			});
 			return true;
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to modify channel with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
 			return false;
 		}
@@ -107,7 +107,7 @@ export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & A
 			new Warn(
 				"Rest",
 				`Failed to delete channel with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
 			return false;
 		}
@@ -189,30 +189,30 @@ export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & A
 	// * ---------shitty code disclaimer!----------- * //
 	// * ------------------------------------------- * //
 	// I HATE ALL RELATIONED WITH THREADS
-	//public async members(after?: Snowflake, limit?: number) {
+	// Public async members(after?: Snowflake, limit?: number) {
 	//	//Only on thread channels
-	//	if (this.raw.type < 10 || this.raw.type > 12)
-	//		return null;
-	//	return await this.rest.get(Routes.threadMembers(this.raw.id), {
-	//		query: {
+	//	If (this.raw.type < 10 || this.raw.type > 12)
+	//		Return null;
+	//	Return await this.rest.get(Routes.threadMembers(this.raw.id), {
+	//		Query: {
 	//			"with_member": "true",
 	//
 	//		},
 	//	});
-	//}
+	// }
 	public async bulkDelete(ids: Snowflake[]): Promise<boolean> {
 		try {
 			await this.rest.post(Routes.channelBulkDelete(this.raw.id), {
 				body: {
-					messages: ids,
-				},
+					messages: ids
+				}
 			});
 			return true;
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to delete channel with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
 			return false;
 		}

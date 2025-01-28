@@ -3,20 +3,22 @@
 // * ---------shitty code disclaimer!----------- * //
 // * ------------------------------------------- * //
 
-import { Entity } from "@entity";
 import {
+	type RESTPatchAPIGuildEmojiJSONBody,
+	type EmojiFormat,
 	type APIEmoji,
 	type APIGuild,
-	CDNRoutes,
-	type EmojiFormat,
 	ImageFormat,
-	type RESTPatchAPIGuildEmojiJSONBody,
 	RouteBases,
-	Routes,
+	CDNRoutes,
+	Routes
 } from "discord-api-types/v10";
-import { Panic, type Rest } from "kodkord";
-import { Guild } from "./guild";
+import { type Rest, Panic } from "kodkord";
+import { Entity } from "@entity";
+
 import type { Sizes } from "./image";
+
+import { Guild } from "./guild";
 
 /**
  * It represents an emoji within a Discord guild.
@@ -30,7 +32,7 @@ export class Emoji extends Entity<APIEmoji> {
 	 * @param raw The raw data from the API response.
 	 */
 
-	// biome-ignore lint/style/useNamingConvention:
+	// Biome-ignore lint/style/useNamingConvention:
 	constructor(rest: Rest, raw: APIEmoji, guild_raw: APIGuild) {
 		super(rest, raw);
 		this.guild = new Guild(rest, guild_raw);
@@ -45,14 +47,14 @@ export class Emoji extends Entity<APIEmoji> {
 	public async fetch(): Promise<Emoji> {
 		try {
 			const API = await this.rest.get<APIEmoji>(
-				Routes.guildEmoji(this.guild.raw.id, this.raw.id as string),
+				Routes.guildEmoji(this.guild.raw.id, this.raw.id as string)
 			);
 			return new Emoji(this.rest, API, this.guild.raw);
 		} catch (error) {
 			new Panic(
 				"Rest",
 				`Failed to fetch emoji with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).panic();
 			throw error;
 		}
@@ -72,6 +74,7 @@ export class Emoji extends Entity<APIEmoji> {
 			? `${RouteBases.cdn}${CDNRoutes.emoji(this.raw.id, settings?.format ?? ImageFormat.WebP)}`
 			: null;
 	}
+
 	/**
 	 * Converts the image to an ArrayBuffer for further processing or usage.
 	 *
@@ -79,7 +82,9 @@ export class Emoji extends Entity<APIEmoji> {
 	 */
 	public async buffer(): Promise<ArrayBuffer | null> {
 		const URL = this.url();
-		if (!URL) return null;
+		if (!URL) {
+ return null;
+}
 		const RESPONSE = await fetch(URL);
 		const BUFFER = await RESPONSE.arrayBuffer();
 		return BUFFER;
@@ -91,7 +96,9 @@ export class Emoji extends Entity<APIEmoji> {
 	 * @returns A string representing the emoji mention.
 	 */
 	public mention() {
-		return `<${this.raw.animated ? "a" : ""}:${this.raw.name}:${this.raw.id}>`;
+		return `<${this.raw.animated
+? "a"
+: ""}:${this.raw.name}:${this.raw.id}>`;
 	}
 
 	/**
@@ -105,15 +112,15 @@ export class Emoji extends Entity<APIEmoji> {
 			const API = await this.rest.patch<APIEmoji>(
 				Routes.guildEmoji(this.guild.raw.id, this.raw.id as string),
 				{
-					body: data as Record<string, object>,
-				},
+					body: data as Record<string, object>
+				}
 			);
 			return new Emoji(this.rest, API, this.guild.raw);
 		} catch (error) {
 			new Panic(
 				"Rest",
 				`Failed to modify emoji with id ${this.raw.id} from guild with id ${this.guild.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).panic();
 			throw error;
 		}
@@ -133,7 +140,7 @@ export class Emoji extends Entity<APIEmoji> {
 			new Panic(
 				"Rest",
 				`Failed to fetch emoji with id ${this.raw.id} from the guild with id ${this.guild.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).panic();
 			throw error;
 		}

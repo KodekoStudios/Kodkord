@@ -3,16 +3,17 @@
 // * ---------shitty code disclaimer!----------- * //
 // * ------------------------------------------- * //
 
-import { Entity } from "@entity";
 import {
-	type APIGuild,
-	type APIGuildMember,
 	type RESTPatchAPIGuildMemberJSONBody,
-	Routes,
+	type APIGuildMember,
+	type APIGuild,
+	Routes
 } from "discord-api-types/v10";
-import { Panic, type Rest } from "kodkord";
-import { Guild } from "./guild";
+import { type Rest, Panic } from "kodkord";
+import { Entity } from "@entity";
+
 import { MemberAvatar, MemberBanner } from "./image";
+import { Guild } from "./guild";
 
 /** It represents a member within a Discord guild. */
 export class Member extends Entity<APIGuildMember> {
@@ -24,7 +25,7 @@ export class Member extends Entity<APIGuildMember> {
 	 * @param raw The raw data from the API response.
 	 */
 
-	// biome-ignore lint/style/useNamingConvention:
+	// Biome-ignore lint/style/useNamingConvention:
 	constructor(rest: Rest, raw: APIGuildMember, guild_raw: APIGuild) {
 		super(rest, raw);
 		this.guild = new Guild(rest, guild_raw);
@@ -39,7 +40,7 @@ export class Member extends Entity<APIGuildMember> {
 		return new MemberBanner(this.rest, {
 			hash: this.raw.avatar ?? null,
 			ownerId: this.raw.user.id,
-			guildId: this.guild.raw.id,
+			guildId: this.guild.raw.id
 		});
 	}
 
@@ -52,7 +53,7 @@ export class Member extends Entity<APIGuildMember> {
 		return new MemberAvatar(this.rest, {
 			hash: this.raw.avatar ?? null,
 			ownerId: this.raw.user.id,
-			guildId: this.guild.raw.id,
+			guildId: this.guild.raw.id
 		});
 	}
 
@@ -71,7 +72,9 @@ export class Member extends Entity<APIGuildMember> {
 	 * @returns A `Date` object representing the date when the member started boosting the guild.
 	 */
 	public premium(): Date | null {
-		return this.raw.premium_since ? new Date(this.raw.premium_since) : null;
+		return this.raw.premium_since
+? new Date(this.raw.premium_since)
+: null;
 	}
 
 	/**
@@ -83,18 +86,19 @@ export class Member extends Entity<APIGuildMember> {
 	public async fetch(): Promise<Member> {
 		try {
 			const API = await this.rest.get<APIGuildMember>(
-				Routes.guildMember(this.guild.raw.id, this.raw.user.id),
+				Routes.guildMember(this.guild.raw.id, this.raw.user.id)
 			);
 			return new Member(this.rest, API, this.guild.raw);
 		} catch (error) {
 			new Panic(
 				"Rest",
 				`Failed to fetch member with id ${this.raw.user.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).panic();
 			throw error;
 		}
 	}
+
 	/**
 	 * Modifies a member's data in the Discord API.
 	 *
@@ -106,28 +110,28 @@ export class Member extends Entity<APIGuildMember> {
 			const API = await this.rest.patch<APIGuildMember>(
 				Routes.guildMember(this.guild.raw.id, this.raw.user.id),
 				{
-					body: data as Record<string, object>,
-				},
+					body: data as Record<string, object>
+				}
 			);
 			return new Member(this.rest, API, this.guild.raw);
 		} catch (error) {
 			new Panic(
 				"Rest",
 				`Failed to modify member with id ${this.raw.user.id} from guild with id ${this.guild.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).panic();
 			throw error;
 		}
 	}
 
-	//Democracy does not work unu
+	// Democracy does not work unu
 	/**
 	 * Timeouts a member from a guild in the Discord API. A number is given which represents the timeout time in miliseconds (up to 28 days), if null is given, the timeout will be removed.
 	 *
 	 * @returns A promise of a Boolean that represents that it was a success.
 	 * @throws If the API request fails, an error is logged and re-thrown.
 	 */ /*
-		public async timeout(time: number | null) {
+		Public async timeout(time: number | null) {
 			try {
 				const API = await this.rest.patch<APIGuildMember>(
 					Routes.guildMember(this.guild.raw.id, this.raw.user.id),

@@ -1,17 +1,17 @@
 import type { RESTPostAPIInteractionCallbackWithResponseResult } from "discord-api-types/v10";
 
-import { Entity } from "@entity";
 import {
-	type APIChannel,
-	type APIGuild,
-	type APIInteraction,
 	type APIInteractionResponse,
-	type ChannelType,
 	InteractionResponseType,
+	type APIInteraction,
+	type ChannelType,
+	type APIChannel,
 	InteractionType,
-	Routes,
+	type APIGuild,
+	Routes
 } from "discord-api-types/v10";
 import { type APIRequestParameters, type Rest, Warn } from "kodkord";
+import { Entity } from "@entity";
 
 import { Channel } from "./channel";
 import { Member } from "./member";
@@ -31,14 +31,14 @@ export class Interaction<Type extends InteractionType> extends Entity<
 		try {
 			await this.rest.delete(
 				Routes.webhookMessage(this.raw.application_id, this.raw.token, "@original"),
-				{ body } as { body: APIInteractionResponse } & APIRequestParameters,
+				{ body } as { body: APIInteractionResponse } & APIRequestParameters
 			);
 			return true;
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to delete response for interaction with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
 			return false;
 		}
@@ -48,14 +48,14 @@ export class Interaction<Type extends InteractionType> extends Entity<
 		try {
 			await this.rest.patch(
 				Routes.webhookMessage(this.raw.application_id, this.raw.token, "@original"),
-				{ body },
+				{ body }
 			);
 			return true;
 		} catch (error) {
 			new Warn(
 				"Rest",
 				`Failed to modify response for interaction with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
 			return false;
 		}
@@ -72,18 +72,18 @@ export class Interaction<Type extends InteractionType> extends Entity<
 	public async pong(): Promise<RESTPostAPIInteractionCallbackWithResponseResult | undefined> {
 		if (this.isPing()) {
 			return this.respond({
-				type: InteractionResponseType.Pong,
+				type: InteractionResponseType.Pong
 			});
 		}
 
 		new Warn(
 			"Rest",
-			`Attempt to respond with pong to an interaction of type ${InteractionType[this.raw.type]} with id ${this.raw.id}`,
+			`Attempt to respond with pong to an interaction of type ${InteractionType[this.raw.type]} with id ${this.raw.id}`
 		).warn();
 	}
 
 	public async respond(
-		body: APIInteractionResponse,
+		body: APIInteractionResponse
 	): Promise<RESTPostAPIInteractionCallbackWithResponseResult | undefined> {
 		if (this.completed) {
 			new Warn("Rest", `The interaction with id ${this.raw.id} has already been completed`).warn();
@@ -96,10 +96,10 @@ export class Interaction<Type extends InteractionType> extends Entity<
 				{
 					body,
 					query: {
-						//@ts-expect-error
-						with_response: true,
-					},
-				},
+						// @ts-expect-error
+						with_response: true
+					}
+				}
 			);
 
 			this.completed = true;
@@ -108,7 +108,7 @@ export class Interaction<Type extends InteractionType> extends Entity<
 			new Warn(
 				"Rest",
 				`Failed to respond interaction with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).warn();
 		}
 	}
@@ -118,13 +118,13 @@ export class Interaction<Type extends InteractionType> extends Entity<
 			try {
 				return new Entity(
 					this.rest,
-					await this.rest.get<APIGuild>(Routes.guild(this.raw.guild.id)),
+					await this.rest.get<APIGuild>(Routes.guild(this.raw.guild.id))
 				);
 			} catch (error) {
 				new Warn(
 					"Rest",
 					`Failed to fetch guild with id ${this.raw.id}`,
-					(error as Error).message,
+					(error as Error).message
 				).warn();
 			}
 		}
@@ -135,13 +135,13 @@ export class Interaction<Type extends InteractionType> extends Entity<
 			try {
 				return new Channel(
 					this.rest,
-					await this.rest.get<APIChannel>(Routes.channel(this.raw.channel.id)),
+					await this.rest.get<APIChannel>(Routes.channel(this.raw.channel.id))
 				);
 			} catch (error) {
 				new Warn(
 					"Rest",
 					`Failed to fetch channel with id ${this.raw.id}`,
-					(error as Error).message,
+					(error as Error).message
 				).warn();
 			}
 		}
@@ -149,14 +149,18 @@ export class Interaction<Type extends InteractionType> extends Entity<
 
 	public user(): User | null {
 		const USER = this.raw.user ?? this.raw.member?.user;
-		return USER ? new User(this.rest, USER) : null;
+		return USER
+			? new User(this.rest, USER)
+			: null;
 	}
 
 	public async member(): Promise<Member | null> {
 		const GUILD = await this.rest
 			.get<APIGuild>(Routes.guild(this.raw.guild_id ?? ""))
-			.catch((_) => null);
-		return this.raw.member && GUILD ? new Member(this.rest, this.raw.member, GUILD) : null;
+			.catch((_: unknown) => null);
+		return this.raw.member && GUILD
+			? new Member(this.rest, this.raw.member, GUILD)
+			: null;
 	}
 
 	public isCompleted(): boolean {

@@ -3,17 +3,18 @@
 // * ---------shitty code disclaimer!----------- * //
 // * ------------------------------------------- * //
 
-import { Entity } from "@entity";
 import {
-	type APISticker,
-	CDNRoutes,
-	ImageFormat,
 	type RESTPatchAPIGuildStickerJSONBody,
-	RouteBases,
-	Routes,
 	type StickerFormat,
+	type APISticker,
+	ImageFormat,
+	RouteBases,
+	CDNRoutes,
+	Routes
 } from "discord-api-types/v10";
+import { Entity } from "@entity";
 import { Panic } from "kodkord";
+
 import type { Sizes } from "./image";
 
 /** It represents a sticker within a Discord guild. */
@@ -32,7 +33,7 @@ export class Sticker extends Entity<APISticker> {
 			new Panic(
 				"Rest",
 				`Failed to fetch emoji with id ${this.raw.id}`,
-				(error as Error).message,
+				(error as Error).message
 			).panic();
 			throw error;
 		}
@@ -50,6 +51,7 @@ export class Sticker extends Entity<APISticker> {
 	}): string {
 		return `${RouteBases.cdn}${CDNRoutes.sticker(this.raw.id, settings?.format ?? ImageFormat.PNG)}`;
 	}
+
 	/**
 	 * Converts the image to an ArrayBuffer for further processing or usage.
 	 *
@@ -72,15 +74,15 @@ export class Sticker extends Entity<APISticker> {
 			const API = await this.rest.patch<APISticker>(
 				Routes.guildSticker(this.raw.guild_id as string, this.raw.id),
 				{
-					body: data as Record<string, object>,
-				},
+					body: data as Record<string, object>
+				}
 			);
 			return new Sticker(this.rest, API);
 		} catch (error) {
 			new Panic(
 				"Rest",
 				`Failed to modify sticker with id ${this.raw.id} from guild with id ${this.raw.guild_id}`,
-				(error as Error).message,
+				(error as Error).message
 			).panic();
 			throw error;
 		}
@@ -94,14 +96,14 @@ export class Sticker extends Entity<APISticker> {
 	public async delete() {
 		try {
 			await this.rest.delete<APISticker>(
-				Routes.guildSticker(this.raw.guild_id as string, this.raw.id),
+				Routes.guildSticker(this.raw.guild_id as string, this.raw.id)
 			);
 			return true;
 		} catch (error) {
 			new Panic(
 				"Rest",
 				`Failed to fetch sticker with id ${this.raw.id} from the guild with id ${this.raw.guild_id}`,
-				(error as Error).message,
+				(error as Error).message
 			).panic();
 			return false;
 		}
