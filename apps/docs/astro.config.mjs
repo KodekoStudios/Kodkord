@@ -36,9 +36,9 @@ export default defineConfig({
 					}
 				}),
 				kodkordTypeDoc({
-					entryPoints: ['./Kodcord/packages/kodkord/src/index.ts'],
+					entryPoints: ['../../packages/kodkord/src/index.ts'],
 					output: "api-kodkord",
-					tsconfig: './Kodcord/packages/kodkord/tsconfig.json',
+					tsconfig: '../../packages/kodkord/tsconfig.json',
 					sidebar: {
 						label: "Kodkord",
 						collapsed: true
@@ -51,9 +51,9 @@ export default defineConfig({
 					}
 				}),
 				classesTypeDoc({
-					entryPoints: ['./Kodcord/packages/classes/src/index.ts'],
+					entryPoints: ['../../packages/classes/src/index.ts'],
 					output: "api-classes",
-					tsconfig: './Kodcord/packages/classes/tsconfig.json',
+					tsconfig: '../../packages/classes/tsconfig.json',
 					sidebar: {
 						label: "Classes",
 					},
