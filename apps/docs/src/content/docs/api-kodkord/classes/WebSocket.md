@@ -1,0 +1,152 @@
+---
+editUrl: false
+next: false
+prev: false
+title: "WebSocket"
+---
+
+Defined in: [Kodcord/packages/kodkord/src/api/ws.ts:41](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/kodkord/src/api/ws.ts#L41)
+
+Manages the WebSocket connection to the Discord Gateway.
+
+The `WebSocket` class handles the low-level communication with the Discord Gateway,
+including sending the initial identify payload, responding to heartbeats, and
+processing incoming Gateway events. It ensures the connection remains active and
+will automatically attempt to reconnect in case of disconnections.
+
+## Constructors
+
+### new WebSocket()
+
+> **new WebSocket**(`settings`): [`WebSocket`](/api-kodkord/classes/websocket/)
+
+Defined in: [Kodcord/packages/kodkord/src/api/ws.ts:61](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/kodkord/src/api/ws.ts#L61)
+
+Creates a new `WebSocket` instance.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `settings` | [`WebSocketSettings`](/api-kodkord/interfaces/websocketsettings/) | The settings required to establish a WebSocket connection. |
+
+#### Returns
+
+[`WebSocket`](/api-kodkord/classes/websocket/)
+
+## Properties
+
+### settings
+
+> `readonly` **settings**: [`WebSocketSettings`](/api-kodkord/interfaces/websocketsettings/)
+
+Defined in: [Kodcord/packages/kodkord/src/api/ws.ts:54](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/kodkord/src/api/ws.ts#L54)
+
+Configuration settings for the WebSocket connection.
+
+## Methods
+
+### connect()
+
+> **connect**(): `void`
+
+Defined in: [Kodcord/packages/kodkord/src/api/ws.ts:72](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/kodkord/src/api/ws.ts#L72)
+
+Establishes a WebSocket connection to the Discord Gateway.
+
+- Sets up event listeners for handling incoming messages, connection lifecycle events, and errors.
+- Automatically sends the identify payload upon successful connection.
+- Begins sending periodic heartbeats upon receiving the "Hello" event from the Gateway.
+
+#### Returns
+
+`void`
+
+***
+
+### disconnect()
+
+> **disconnect**(): `void`
+
+Defined in: [Kodcord/packages/kodkord/src/api/ws.ts:143](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/kodkord/src/api/ws.ts#L143)
+
+Disconnects the WebSocket connection and clears resources.
+
+- Stops the heartbeat interval.
+- Removes all event listeners from the WebSocket instance.
+- Closes the WebSocket connection.
+
+#### Returns
+
+`void`
+
+***
+
+### identify()
+
+> **identify**(): `void`
+
+Defined in: [Kodcord/packages/kodkord/src/api/ws.ts:162](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/kodkord/src/api/ws.ts#L162)
+
+Sends the identify payload to the Discord Gateway.
+
+This payload contains the bot's token, intents, and client properties. It is required
+to authenticate the connection and begin receiving events.
+
+#### Returns
+
+`void`
+
+***
+
+### send()
+
+> **send**(`message`): `void`
+
+Defined in: [Kodcord/packages/kodkord/src/api/ws.ts:184](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/kodkord/src/api/ws.ts#L184)
+
+Sends a message through the WebSocket connection.
+
+This method serializes the provided payload into a JSON string
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `message` | `GatewaySendPayload` | The payload to send through the WebSocket. |
+
+#### Returns
+
+`void`
+
+***
+
+### disconnected()
+
+> **disconnected**(): `boolean`
+
+Defined in: [Kodcord/packages/kodkord/src/api/ws.ts:193](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/kodkord/src/api/ws.ts#L193)
+
+Checks if the WebSocket connection is closed.
+
+#### Returns
+
+`boolean`
+
+`true` if the WebSocket connection is closed, otherwise `false`.
+
+***
+
+### connected()
+
+> **connected**(): `boolean`
+
+Defined in: [Kodcord/packages/kodkord/src/api/ws.ts:202](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/kodkord/src/api/ws.ts#L202)
+
+Checks if the WebSocket connection is established.
+
+#### Returns
+
+`boolean`
+
+`true` if the WebSocket connection is open, otherwise `false`.

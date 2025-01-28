@@ -192,3 +192,5 @@ packages/*/node_modules/
 
 # Package-specific build files (if applicable)
 packages/*/.cache/
+
+.astro/
