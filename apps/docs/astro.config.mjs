@@ -6,13 +6,10 @@ import { ion } from "starlight-ion-theme";
 
 import { createStarlightTypeDocPlugin } from "starlight-typedoc";
 
-// biome-ignore lint/style/useNamingConvention:
 const [kodkordTypeDoc, kodkordTypeDocSidebarGroup] = createStarlightTypeDocPlugin();
-// biome-ignore lint/style/useNamingConvention:
 const [classesTypeDoc, classesTypeDocSidebarGroup] = createStarlightTypeDocPlugin();
 
 // https://astro.build/config
-// biome-ignore lint/style/noDefaultExport:
 export default defineConfig({
 	integrations: [
 		starlight({
