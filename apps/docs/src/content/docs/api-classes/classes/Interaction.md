@@ -5,7 +5,7 @@ prev: false
 title: "Interaction"
 ---
 
-Defined in: [entities/interaction.ts:21](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/interaction.ts#L21)
+Defined in: [entities/interaction.ts:20](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/interaction.ts#L20)
 
 Class that represents a base entity for API objects.
 
@@ -25,7 +25,7 @@ Class that represents a base entity for API objects.
 
 > **new Interaction**\<`Type`\>(`rest`, `raw`): [`Interaction`](/api-classes/classes/interaction/)\<`Type`\>
 
-Defined in: [entities/interaction.ts:26](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/interaction.ts#L26)
+Defined in: [entities/interaction.ts:25](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/interaction.ts#L25)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [entities/interaction.ts:26](https://github.com/KodekoStudios/Kodcor
 
 > `readonly` **rest**: `Rest`
 
-Defined in: [core/entity.ts:8](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/core/entity.ts#L8)
+Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L8)
 
 The `Rest` instance for interacting with the Discord API.
 
@@ -62,7 +62,7 @@ The `Rest` instance for interacting with the Discord API.
 
 > `readonly` **raw**: `APIInteraction` & `object`
 
-Defined in: [core/entity.ts:11](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/core/entity.ts#L11)
+Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L11)
 
 Raw data from the API response, read-only to prevent unnecessary mutations.
 
@@ -82,7 +82,7 @@ Raw data from the API response, read-only to prevent unnecessary mutations.
 
 > **deleteResponse**(`body`): `Promise`\<`boolean`\>
 
-Defined in: [entities/interaction.ts:31](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/interaction.ts#L31)
+Defined in: [entities/interaction.ts:30](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/interaction.ts#L30)
 
 #### Parameters
 
@@ -100,7 +100,7 @@ Defined in: [entities/interaction.ts:31](https://github.com/KodekoStudios/Kodcor
 
 > **modifyResponse**(`body`): `Promise`\<`boolean`\>
 
-Defined in: [entities/interaction.ts:48](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/interaction.ts#L48)
+Defined in: [entities/interaction.ts:47](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/interaction.ts#L47)
 
 #### Parameters
 
@@ -118,7 +118,7 @@ Defined in: [entities/interaction.ts:48](https://github.com/KodekoStudios/Kodcor
 
 > **pong**(): `Promise`\<`undefined` \| `RESTPostAPIInteractionCallbackWithResponseResult`\>
 
-Defined in: [entities/interaction.ts:73](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/interaction.ts#L73)
+Defined in: [entities/interaction.ts:72](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/interaction.ts#L72)
 
 #### Returns
 
@@ -130,7 +130,7 @@ Defined in: [entities/interaction.ts:73](https://github.com/KodekoStudios/Kodcor
 
 > **respond**(`body`): `Promise`\<`undefined` \| `RESTPostAPIInteractionCallbackWithResponseResult`\>
 
-Defined in: [entities/interaction.ts:86](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/interaction.ts#L86)
+Defined in: [entities/interaction.ts:85](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/interaction.ts#L85)
 
 #### Parameters
 
@@ -148,7 +148,7 @@ Defined in: [entities/interaction.ts:86](https://github.com/KodekoStudios/Kodcor
 
 > **guild**(): `Promise`\<`undefined` \| [`Entity`](/api-classes/classes/entity/)\<`APIGuild`\>\>
 
-Defined in: [entities/interaction.ts:112](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/interaction.ts#L112)
+Defined in: [entities/interaction.ts:116](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/interaction.ts#L116)
 
 #### Returns
 
@@ -160,7 +160,7 @@ Defined in: [entities/interaction.ts:112](https://github.com/KodekoStudios/Kodco
 
 > **channel**(): `Promise`\<`undefined` \| [`Channel`](/api-classes/classes/channel/)\<`ChannelType`\>\>
 
-Defined in: [entities/interaction.ts:131](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/interaction.ts#L131)
+Defined in: [entities/interaction.ts:133](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/interaction.ts#L133)
 
 #### Returns
 
@@ -172,7 +172,7 @@ Defined in: [entities/interaction.ts:131](https://github.com/KodekoStudios/Kodco
 
 > **user**(): `null` \| [`User`](/api-classes/classes/user/)
 
-Defined in: [entities/interaction.ts:150](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/interaction.ts#L150)
+Defined in: [entities/interaction.ts:150](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/interaction.ts#L150)
 
 #### Returns
 
@@ -180,11 +180,23 @@ Defined in: [entities/interaction.ts:150](https://github.com/KodekoStudios/Kodco
 
 ***
 
+### member()
+
+> **member**(): `Promise`\<`null` \| [`Member`](/api-classes/classes/member/)\>
+
+Defined in: [entities/interaction.ts:157](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/interaction.ts#L157)
+
+#### Returns
+
+`Promise`\<`null` \| [`Member`](/api-classes/classes/member/)\>
+
+***
+
 ### isCompleted()
 
 > **isCompleted**(): `boolean`
 
-Defined in: [entities/interaction.ts:156](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/interaction.ts#L156)
+Defined in: [entities/interaction.ts:166](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/interaction.ts#L166)
 
 #### Returns
 
@@ -196,7 +208,7 @@ Defined in: [entities/interaction.ts:156](https://github.com/KodekoStudios/Kodco
 
 > **isPing**(): `this is Interaction<Ping>`
 
-Defined in: [entities/interaction.ts:160](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/interaction.ts#L160)
+Defined in: [entities/interaction.ts:170](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/interaction.ts#L170)
 
 #### Returns
 
@@ -208,7 +220,7 @@ Defined in: [entities/interaction.ts:160](https://github.com/KodekoStudios/Kodco
 
 > **isApplicationCommand**(): `this is Interaction<ApplicationCommand>`
 
-Defined in: [entities/interaction.ts:164](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/interaction.ts#L164)
+Defined in: [entities/interaction.ts:174](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/interaction.ts#L174)
 
 #### Returns
 
@@ -220,7 +232,7 @@ Defined in: [entities/interaction.ts:164](https://github.com/KodekoStudios/Kodco
 
 > **isMessageComponent**(): `this is Interaction<MessageComponent>`
 
-Defined in: [entities/interaction.ts:168](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/interaction.ts#L168)
+Defined in: [entities/interaction.ts:178](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/interaction.ts#L178)
 
 #### Returns
 
@@ -232,7 +244,7 @@ Defined in: [entities/interaction.ts:168](https://github.com/KodekoStudios/Kodco
 
 > **isApplicationCommandAutocomplete**(): `this is Interaction<ApplicationCommandAutocomplete>`
 
-Defined in: [entities/interaction.ts:172](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/interaction.ts#L172)
+Defined in: [entities/interaction.ts:182](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/interaction.ts#L182)
 
 #### Returns
 
@@ -244,7 +256,7 @@ Defined in: [entities/interaction.ts:172](https://github.com/KodekoStudios/Kodco
 
 > **isModalSubmit**(): `this is Interaction<ModalSubmit>`
 
-Defined in: [entities/interaction.ts:176](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/interaction.ts#L176)
+Defined in: [entities/interaction.ts:186](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/interaction.ts#L186)
 
 #### Returns
 

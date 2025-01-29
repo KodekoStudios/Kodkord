@@ -5,7 +5,7 @@ prev: false
 title: "APIRequestParameters"
 ---
 
-Defined in: [Kodcord/packages/kodkord/src/api/rest.ts:27](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/kodkord/src/api/rest.ts#L27)
+Defined in: [packages/kodkord/src/api/rest.ts:27](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/api/rest.ts#L27)
 
 Parameters for a REST API request.
 
@@ -15,7 +15,7 @@ Parameters for a REST API request.
 
 > `optional` **body**: `unknown`
 
-Defined in: [Kodcord/packages/kodkord/src/api/rest.ts:29](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/kodkord/src/api/rest.ts#L29)
+Defined in: [packages/kodkord/src/api/rest.ts:29](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/api/rest.ts#L29)
 
 Request body as a JSON object.
 
@@ -25,7 +25,7 @@ Request body as a JSON object.
 
 > `optional` **query**: `Record`\<`string`, `string`\>
 
-Defined in: [Kodcord/packages/kodkord/src/api/rest.ts:32](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/kodkord/src/api/rest.ts#L32)
+Defined in: [packages/kodkord/src/api/rest.ts:32](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/api/rest.ts#L32)
 
 Query parameters to append to the request URL.
 
@@ -35,6 +35,6 @@ Query parameters to append to the request URL.
 
 > `optional` **reason**: `string`
 
-Defined in: [Kodcord/packages/kodkord/src/api/rest.ts:35](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/kodkord/src/api/rest.ts#L35)
+Defined in: [packages/kodkord/src/api/rest.ts:35](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/api/rest.ts#L35)
 
 Reason for the request, logged in Discord's audit log if applicable.

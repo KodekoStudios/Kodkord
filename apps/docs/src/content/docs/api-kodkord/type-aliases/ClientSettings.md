@@ -7,7 +7,7 @@ title: "ClientSettings"
 
 > **ClientSettings**: `object` & [`RestSettings`](/api-kodkord/interfaces/restsettings/)
 
-Defined in: [Kodcord/packages/kodkord/src/core/client.ts:57](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/kodkord/src/core/client.ts#L57)
+Defined in: [packages/kodkord/src/core/client.ts:57](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/core/client.ts#L57)
 
 Represents the settings required to initialize a client.
 

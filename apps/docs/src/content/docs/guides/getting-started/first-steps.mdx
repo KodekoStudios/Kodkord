@@ -1,0 +1,91 @@
+---
+title: First Steps
+---
+
+import {
+  Tabs, TabItem, Code, Aside, FileTree
+} from '@astrojs/starlight/components';
+import JSIndex from "/src/assets/examples/index.js?raw"
+
+<Aside>To start, we recommend you to have a folder called `src`, that is where you will put all your code.</Aside>
+
+## Creating the main file
+<Tabs syncKey="index-file">
+  <TabItem label="TypeScript" icon="seti:typescript">
+  ```ts title="src/index.ts" copy wrap twoslash {"Non-Null Assertion":9-10}
+import { inspect } from "node:util";
+import {
+  type APIUser, GatewayDispatchEvents, GatewayIntentBits
+} from "discord-api-types/v10";
+import { Client, Note } from "kodkord";
+
+const CLIENT = new Client({
+	intents: GatewayIntentBits.Guilds | GatewayIntentBits.GuildMessages,
+
+	token: process.env.DISCORD_TOKEN!,
+});
+
+CLIENT.shards.create(0);
+
+const USER = await CLIENT.rest.get<APIUser>("/users/@me");
+new Note("Client > User", inspect(USER, { depth: null })).note();
+
+CLIENT.events.set(GatewayDispatchEvents.MessageCreate, (data) => {
+	new Note("Client > MessageCreate", inspect(data, { depth: null })).note();
+});
+
+CLIENT.connect();
+  ```
+<Aside type="tip">
+We recommend you to add everything important like your bot token in a `.env` file, visit [Environment variables](/guides/tips/env-variables) for more information.
+
+The use of Non-Null Assertion is because DISCORD_TOKEN is a string or undefined, to correct that we can use the same Non-Null Assertion, write `as string` or add the DISCORD_TOKEN to the type of ProcessEnv
+</Aside>
+  </TabItem>
+  <TabItem label="JavaScript" icon="seti:javascript">
+```js title="src/index.js" copy wrap twoslash
+const { inspect } = require("node:util");
+const { GatewayDispatchEvents, GatewayIntentBits } = require("discord-api-types/v10");
+const { Client, Note } = require("kodkord");
+
+const CLIENT = new Client({
+	intents: GatewayIntentBits.Guilds | GatewayIntentBits.GuildMessages,
+	token: process.env.DISCORD_TOKEN,
+});
+
+CLIENT.shards.create(0);
+
+const USER = await CLIENT.rest.get("/users/@me");
+new Note("Client > User", inspect(USER, { depth: null })).note();
+
+CLIENT.events.set(GatewayDispatchEvents.MessageCreate, (data) => {
+	new Note("Client > MessageCreate", inspect(data, { depth: null })).note();
+});
+
+CLIENT.connect();
+```
+<Aside type="tip">We recommend you to add everything important like your bot token in a `.env` file, visit [Environment variables](/guides/tips/env-variables) for more information.</Aside>
+  </TabItem>
+</Tabs>
+
+## Let's see how it's going
+Your project should look like this: (Remember to choose the example based on whether you are using JavaScript or TypeScript)
+<Tabs>
+  <TabItem label="TypeScript" icon="seti:typescript">
+<FileTree>
+- package.json
+- tsconfig.json
+- src
+  - index.ts
+  - ...
+</FileTree>
+  </TabItem>
+  <TabItem label="JavaScript" icon="seti:javascript">
+<FileTree>
+- package.json
+- src
+  - index.js
+  - ...
+</FileTree>
+  </TabItem>
+</Tabs>

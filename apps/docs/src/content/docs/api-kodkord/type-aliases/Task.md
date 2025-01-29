@@ -7,7 +7,7 @@ title: "Task"
 
 > **Task**\<`Type`\>: (`resolve`, `reject`) => `void`
 
-Defined in: [Kodcord/packages/kodkord/src/api/bucket.ts:4](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/kodkord/src/api/bucket.ts#L4)
+Defined in: [packages/kodkord/src/api/bucket.ts:4](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/api/bucket.ts#L4)
 
 A task to be processed by the bucket.
 

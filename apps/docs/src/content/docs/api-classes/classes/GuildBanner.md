@@ -2,15 +2,15 @@
 editUrl: false
 next: false
 prev: false
-title: "Banner"
+title: "GuildBanner"
 ---
 
-Defined in: [entities/image.ts:128](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/image.ts#L128)
+Defined in: [entities/image.ts:201](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/image.ts#L201)
 
-Class representing a user's banner image.
+Class representing a guild's banner image.
 
 This class extends the `HashImage` abstract class and implements methods to
-retrieve user banner URLs. Banners do not have default images.
+retrieve guild banner URLs. Banners do not have default images.
 
 ## Extends
 
@@ -18,11 +18,11 @@ retrieve user banner URLs. Banners do not have default images.
 
 ## Constructors
 
-### new Banner()
+### new GuildBanner()
 
-> **new Banner**(`rest`, `raw`): [`Banner`](/api-classes/classes/banner/)
+> **new GuildBanner**(`rest`, `raw`): [`GuildBanner`](/api-classes/classes/guildbanner/)
 
-Defined in: [core/entity.ts:18](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/core/entity.ts#L18)
+Defined in: [core/entity.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L18)
 
 Creates an instance of the Entity.
 
@@ -35,7 +35,7 @@ Creates an instance of the Entity.
 
 #### Returns
 
-[`Banner`](/api-classes/classes/banner/)
+[`GuildBanner`](/api-classes/classes/guildbanner/)
 
 #### Inherited from
 
@@ -47,7 +47,7 @@ Creates an instance of the Entity.
 
 > `readonly` **rest**: `Rest`
 
-Defined in: [core/entity.ts:8](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/core/entity.ts#L8)
+Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L8)
 
 The `Rest` instance for interacting with the Discord API.
 
@@ -61,7 +61,7 @@ The `Rest` instance for interacting with the Discord API.
 
 > `readonly` **raw**: [`RawImage`](/api-classes/interfaces/rawimage/)
 
-Defined in: [core/entity.ts:11](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/core/entity.ts#L11)
+Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L11)
 
 Raw data from the API response, read-only to prevent unnecessary mutations.
 
@@ -75,7 +75,7 @@ Raw data from the API response, read-only to prevent unnecessary mutations.
 
 > **display**(`settings`?): `string`
 
-Defined in: [entities/image.ts:64](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/image.ts#L64)
+Defined in: [entities/image.ts:72](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/image.ts#L72)
 
 Retrieves the most appropriate image URL.
 
@@ -106,7 +106,7 @@ The displayable URL of the image or an empty string.
 
 > **buffer**(): `Promise`\<`ArrayBuffer`\>
 
-Defined in: [entities/image.ts:76](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/image.ts#L76)
+Defined in: [entities/image.ts:84](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/image.ts#L84)
 
 Converts the image to an ArrayBuffer for further processing or usage.
 
@@ -126,23 +126,23 @@ A promise resolving to an ArrayBuffer representing the image data.
 
 > **url**(`settings`?): `null` \| `string`
 
-Defined in: [entities/image.ts:135](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/image.ts#L135)
+Defined in: [entities/image.ts:208](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/image.ts#L208)
 
-Retrieves the URL of the user's banner.
+Retrieves the URL of the guild's banner.
 
 #### Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `settings`? | \{ `format`: `UserBannerFormat`; `size`: [`Sizes`](/api-classes/type-aliases/sizes/); \} | Optional settings to specify the banner format and size. |
-| `settings.format`? | `UserBannerFormat` | - |
+| `settings`? | \{ `format`: `GuildBannerFormat`; `size`: [`Sizes`](/api-classes/type-aliases/sizes/); \} | Optional settings to specify the banner format and size. |
+| `settings.format`? | `GuildBannerFormat` | - |
 | `settings.size`? | [`Sizes`](/api-classes/type-aliases/sizes/) | - |
 
 #### Returns
 
 `null` \| `string`
 
-The banner URL or `null` if the user does not have a custom banner.
+The banner URL or `null` if the guild does not have a custom banner.
 
 #### Overrides
 
@@ -154,7 +154,7 @@ The banner URL or `null` if the user does not have a custom banner.
 
 > **default**(): `undefined`
 
-Defined in: [entities/image.ts:149](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/image.ts#L149)
+Defined in: [entities/image.ts:222](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/image.ts#L222)
 
 Banners do not have a default URL.
 
