@@ -22,11 +22,16 @@ export interface RestSettings {
 	/** User-Agent header to identify the client. */
 	agent?: string;
 }
+/** Represents possible values in a JSON */
+export type JSONValues = string | number | boolean | null | JSONValues[] | JSONObject;
+
+/** Represents a JSON */
+export type JSONObject = { [k: string]: JSONValues; };
 
 /** Parameters for a REST API request. */
 export interface APIRequestParameters {
 	/** Request body as a JSON object. */
-	body?: unknown;
+	body?: JSONObject;
 
 	/** Query parameters to append to the request URL. */
 	query?: Record<string, string>;
