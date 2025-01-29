@@ -5,7 +5,7 @@ prev: false
 title: "HashImage"
 ---
 
-Defined in: [entities/image.ts:32](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/image.ts#L32)
+Defined in: [entities/image.ts:40](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L40)
 
 Abstract class representing a hash-based image entity.
 
@@ -19,8 +19,13 @@ It extends the `Entity` class, allowing interaction with raw API data.
 
 ## Extended by
 
-- [`Avatar`](/api-classes/classes/avatar/)
-- [`Banner`](/api-classes/classes/banner/)
+- [`UserAvatar`](/api-classes/classes/useravatar/)
+- [`UserBanner`](/api-classes/classes/userbanner/)
+- [`GuildIcon`](/api-classes/classes/guildicon/)
+- [`GuildBanner`](/api-classes/classes/guildbanner/)
+- [`RoleIcon`](/api-classes/classes/roleicon/)
+- [`MemberAvatar`](/api-classes/classes/memberavatar/)
+- [`MemberBanner`](/api-classes/classes/memberbanner/)
 
 ## Type Parameters
 
@@ -34,7 +39,7 @@ It extends the `Entity` class, allowing interaction with raw API data.
 
 > **new HashImage**\<`Raw`\>(`rest`, `raw`): [`HashImage`](/api-classes/classes/hashimage/)\<`Raw`\>
 
-Defined in: [core/entity.ts:18](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/core/entity.ts#L18)
+Defined in: [core/entity.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L18)
 
 Creates an instance of the Entity.
 
@@ -59,7 +64,7 @@ Creates an instance of the Entity.
 
 > `readonly` **rest**: `Rest`
 
-Defined in: [core/entity.ts:8](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/core/entity.ts#L8)
+Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L8)
 
 The `Rest` instance for interacting with the Discord API.
 
@@ -73,7 +78,7 @@ The `Rest` instance for interacting with the Discord API.
 
 > `readonly` **raw**: `Raw`
 
-Defined in: [core/entity.ts:11](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/core/entity.ts#L11)
+Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L11)
 
 Raw data from the API response, read-only to prevent unnecessary mutations.
 
@@ -87,7 +92,7 @@ Raw data from the API response, read-only to prevent unnecessary mutations.
 
 > `abstract` **url**(`settings`?): `null` \| `string`
 
-Defined in: [entities/image.ts:39](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/image.ts#L39)
+Defined in: [entities/image.ts:47](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L47)
 
 Retrieves the URL of the image based on the hash and settings provided.
 
@@ -111,7 +116,7 @@ The URL of the image or `null` if the hash is not available.
 
 > `abstract` **default**(`settings`?): `undefined` \| `string`
 
-Defined in: [entities/image.ts:50](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/image.ts#L50)
+Defined in: [entities/image.ts:58](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L58)
 
 Retrieves the default URL of the image if a default is provided by Discord.
 
@@ -135,7 +140,7 @@ The default image URL or `undefined` if not applicable.
 
 > **display**(`settings`?): `string`
 
-Defined in: [entities/image.ts:64](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/image.ts#L64)
+Defined in: [entities/image.ts:72](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L72)
 
 Retrieves the most appropriate image URL.
 
@@ -162,7 +167,7 @@ The displayable URL of the image or an empty string.
 
 > **buffer**(): `Promise`\<`ArrayBuffer`\>
 
-Defined in: [entities/image.ts:76](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/image.ts#L76)
+Defined in: [entities/image.ts:84](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L84)
 
 Converts the image to an ArrayBuffer for further processing or usage.
 

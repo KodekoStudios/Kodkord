@@ -2,15 +2,15 @@
 editUrl: false
 next: false
 prev: false
-title: "Avatar"
+title: "RoleIcon"
 ---
 
-Defined in: [entities/image.ts:89](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/image.ts#L89)
+Defined in: [entities/image.ts:233](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L233)
 
-Class representing a user's avatar image.
+Class representing a role icon's image.
 
 This class extends the `HashImage` abstract class and implements methods to
-retrieve user avatar URLs, including support for default Discord avatars.
+retrieve role role icon URLs. Role icons do not have default images
 
 ## Extends
 
@@ -18,11 +18,11 @@ retrieve user avatar URLs, including support for default Discord avatars.
 
 ## Constructors
 
-### new Avatar()
+### new RoleIcon()
 
-> **new Avatar**(`rest`, `raw`): [`Avatar`](/api-classes/classes/avatar/)
+> **new RoleIcon**(`rest`, `raw`): [`RoleIcon`](/api-classes/classes/roleicon/)
 
-Defined in: [core/entity.ts:18](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/core/entity.ts#L18)
+Defined in: [core/entity.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L18)
 
 Creates an instance of the Entity.
 
@@ -35,7 +35,7 @@ Creates an instance of the Entity.
 
 #### Returns
 
-[`Avatar`](/api-classes/classes/avatar/)
+[`RoleIcon`](/api-classes/classes/roleicon/)
 
 #### Inherited from
 
@@ -47,7 +47,7 @@ Creates an instance of the Entity.
 
 > `readonly` **rest**: `Rest`
 
-Defined in: [core/entity.ts:8](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/core/entity.ts#L8)
+Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L8)
 
 The `Rest` instance for interacting with the Discord API.
 
@@ -61,7 +61,7 @@ The `Rest` instance for interacting with the Discord API.
 
 > `readonly` **raw**: [`RawImage`](/api-classes/interfaces/rawimage/)
 
-Defined in: [core/entity.ts:11](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/core/entity.ts#L11)
+Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L11)
 
 Raw data from the API response, read-only to prevent unnecessary mutations.
 
@@ -75,7 +75,7 @@ Raw data from the API response, read-only to prevent unnecessary mutations.
 
 > **display**(`settings`?): `string`
 
-Defined in: [entities/image.ts:64](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/image.ts#L64)
+Defined in: [entities/image.ts:72](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L72)
 
 Retrieves the most appropriate image URL.
 
@@ -106,7 +106,7 @@ The displayable URL of the image or an empty string.
 
 > **buffer**(): `Promise`\<`ArrayBuffer`\>
 
-Defined in: [entities/image.ts:76](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/image.ts#L76)
+Defined in: [entities/image.ts:84](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L84)
 
 Converts the image to an ArrayBuffer for further processing or usage.
 
@@ -126,23 +126,23 @@ A promise resolving to an ArrayBuffer representing the image data.
 
 > **url**(`settings`?): `null` \| `string`
 
-Defined in: [entities/image.ts:96](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/image.ts#L96)
+Defined in: [entities/image.ts:240](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L240)
 
-Retrieves the URL of the user's avatar.
+Retrieves the URL of the role's icon.
 
 #### Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `settings`? | \{ `format`: `UserAvatarFormat`; `size`: [`Sizes`](/api-classes/type-aliases/sizes/); \} | Optional settings to specify the avatar format and size. |
-| `settings.format`? | `UserAvatarFormat` | - |
+| `settings`? | \{ `format`: `RoleIconFormat`; `size`: [`Sizes`](/api-classes/type-aliases/sizes/); \} | Optional settings to specify the icon format and size. |
+| `settings.format`? | `RoleIconFormat` | - |
 | `settings.size`? | [`Sizes`](/api-classes/type-aliases/sizes/) | - |
 
 #### Returns
 
 `null` \| `string`
 
-The avatar URL or `null` if the user does not have a custom avatar.
+The icon URL or `null` if the user does not have a custom icon.
 
 #### Overrides
 
@@ -152,27 +152,17 @@ The avatar URL or `null` if the user does not have a custom avatar.
 
 ### default()
 
-> **default**(`settings`?): `undefined` \| `string`
+> **default**(): `undefined`
 
-Defined in: [entities/image.ts:113](https://github.com/KodekoStudios/Kodcord/blob/6ab19d75069161c7cd299514170ea69cc40eca30/packages/classes/src/entities/image.ts#L113)
+Defined in: [entities/image.ts:254](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L254)
 
-Retrieves the default URL of the user's avatar.
-
-The default avatar is determined based on the user's Id.
-
-#### Parameters
-
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `settings`? | \{ `format`: `ImageFormat`; `size`: [`Sizes`](/api-classes/type-aliases/sizes/); \} | Optional settings to specify the avatar size. |
-| `settings.format`? | `ImageFormat` | - |
-| `settings.size`? | [`Sizes`](/api-classes/type-aliases/sizes/) | - |
+Icons do not have a default URL.
 
 #### Returns
 
-`undefined` \| `string`
+`undefined`
 
-The default avatar URL.
+`undefined` as there is no default icon image.
 
 #### Overrides
 

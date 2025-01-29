@@ -1,94 +1,123 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
-import starlight from '@astrojs/starlight';
+import { defineConfig } from "astro/config";
+import starlight from "@astrojs/starlight";
 
 import { ion } from "starlight-ion-theme";
 
-import { createStarlightTypeDocPlugin } from 'starlight-typedoc'
+import { createStarlightTypeDocPlugin } from "starlight-typedoc";
 
-const [kodkordTypeDoc, kodkordTypeDocSidebarGroup] = createStarlightTypeDocPlugin()
-const [classesTypeDoc, classesTypeDocSidebarGroup] = createStarlightTypeDocPlugin()
+// biome-ignore lint/style/useNamingConvention:
+const [kodkordTypeDoc, kodkordTypeDocSidebarGroup] = createStarlightTypeDocPlugin();
+// biome-ignore lint/style/useNamingConvention:
+const [classesTypeDoc, classesTypeDocSidebarGroup] = createStarlightTypeDocPlugin();
 
 // https://astro.build/config
+// biome-ignore lint/style/noDefaultExport:
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: 'My Docs',
+			title: "Kodkord",
 			social: {
-				github: 'https://github.com/withastro/starlight',
+				github: "https://github.com/KodekoStudios/Kodkord",
+				discord: "https://discord.gg/RemnzgFN5a",
 			},
+			customCss: ["./src/styles.css"],
 			plugins: [
 				ion({
-					icons: { iconDir: './src/assets/icons' },
+					icons: { iconDir: "./src/assets/icons" },
 					overrides: {
-						Sidebar: false
+						Sidebar: false,
 					},
 					footer: {
-						text: '©️ Kodeko Studios 2025',
-						links: [{
-							text: 'Homepage',
-							href: 'https://kodkord.dev',
-						}],
-						icons: [{
-							name: 'github',
-							href: 'https://github.com/KodekoStudios/Kodkord'
-						}]
-					}
+						text: "©️ Kodeko Studios 2025",
+						links: [
+							{
+								text: "Homepage",
+								href: "/",
+							},
+						],
+						icons: [
+							{
+								name: "github",
+								href: "https://github.com/KodekoStudios/Kodkord",
+							},
+						],
+					},
 				}),
 				kodkordTypeDoc({
-					entryPoints: ['../../packages/kodkord/src/index.ts'],
+					entryPoints: ["../../packages/kodkord/src/index.ts"],
 					output: "api-kodkord",
-					tsconfig: '../../packages/kodkord/tsconfig.json',
+					tsconfig: "../../packages/kodkord/tsconfig.json",
 					sidebar: {
 						label: "Kodkord",
-						collapsed: true
+						collapsed: true,
 					},
 					typeDoc: {
 						sort: ["enum-value-ascending", "source-order"],
 						parametersFormat: "table",
 						enumMembersFormat: "table",
 						skipErrorChecking: true,
-					}
+					},
 				}),
 				classesTypeDoc({
-					entryPoints: ['../../packages/classes/src/index.ts'],
+					entryPoints: ["../../packages/classes/src/index.ts"],
 					output: "api-classes",
-					tsconfig: '../../packages/classes/tsconfig.json',
+					tsconfig: "../../packages/classes/tsconfig.json",
 					sidebar: {
 						label: "Classes",
+						collapsed: true,
 					},
 					typeDoc: {
 						sort: ["enum-value-ascending", "source-order"],
 						parametersFormat: "table",
 						enumMembersFormat: "table",
 						skipErrorChecking: true,
-					}
+					},
 				}),
 			],
 			sidebar: [
 				{
 					// label: '[home] Home',
-					label: 'Home',
-					link: '/'
+					label: "Home",
+					link: "/",
 				},
 				{
-					label: 'Guides',
+					label: "Guides",
 					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
+						{ label: "Introduction", slug: "guides/introduction" },
+						{
+							label: "Getting Started",
+							items: [
+								{
+									label: "First Steps",
+									slug: "guides/getting-started/first-steps",
+								},
+							],
+						},
+						{
+							label: "Tips",
+							items: [
+								{
+									label: "TSConfig.json",
+									slug: "guides/tips/tsconfig",
+								},
+								{
+									label: "Env Variables",
+									slug: "guides/tips/env-variables",
+								},
+							],
+						},
 					],
+					collapsed: true,
 				},
 				{
 					// label: '[book] Reference',
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
+					label: "Reference",
+					autogenerate: { directory: "reference" },
 				},
 				{
-					label: 'API',
-					items: [
-						kodkordTypeDocSidebarGroup,
-						classesTypeDocSidebarGroup,
-					],
+					label: "API",
+					items: [kodkordTypeDocSidebarGroup, classesTypeDocSidebarGroup],
 				},
 			],
 		}),
