@@ -5,7 +5,7 @@ prev: false
 title: "Emoji"
 ---
 
-Defined in: [entities/emoji.ts:26](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/emoji.ts#L26)
+Defined in: [entities/emoji.ts:26](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/emoji.ts#L26)
 
 It represents an emoji within a Discord guild.
 
@@ -19,7 +19,7 @@ It represents an emoji within a Discord guild.
 
 > **new Emoji**(`rest`, `raw`, `guild_raw`): [`Emoji`](/api-classes/classes/emoji/)
 
-Defined in: [entities/emoji.ts:36](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/emoji.ts#L36)
+Defined in: [entities/emoji.ts:36](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/emoji.ts#L36)
 
 Creates an instance of the Entity.
 
@@ -45,7 +45,7 @@ Creates an instance of the Entity.
 
 > `readonly` **rest**: `Rest`
 
-Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L8)
+Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L8)
 
 The `Rest` instance for interacting with the Discord API.
 
@@ -59,7 +59,7 @@ The `Rest` instance for interacting with the Discord API.
 
 > `readonly` **raw**: `APIEmoji`
 
-Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L11)
+Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L11)
 
 Raw data from the API response, read-only to prevent unnecessary mutations.
 
@@ -73,7 +73,7 @@ Raw data from the API response, read-only to prevent unnecessary mutations.
 
 > `readonly` **guild**: [`Guild`](/api-classes/classes/guild/)
 
-Defined in: [entities/emoji.ts:28](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/emoji.ts#L28)
+Defined in: [entities/emoji.ts:28](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/emoji.ts#L28)
 
 The `Guild` instance in which Emoji belongs.
 
@@ -83,7 +83,7 @@ The `Guild` instance in which Emoji belongs.
 
 > **fetch**(): `Promise`\<[`Emoji`](/api-classes/classes/emoji/)\>
 
-Defined in: [entities/emoji.ts:47](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/emoji.ts#L47)
+Defined in: [entities/emoji.ts:47](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/emoji.ts#L47)
 
 Fetches the latest data for the emoji from the Discord API.
 
@@ -103,7 +103,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **url**(`settings`?): `null` \| `string`
 
-Defined in: [entities/emoji.ts:69](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/emoji.ts#L69)
+Defined in: [entities/emoji.ts:69](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/emoji.ts#L69)
 
 Retrieves the URL of the emoji.
 
@@ -127,7 +127,7 @@ The URL of the emoji or `null` if the emoji does not have an id.
 
 > **buffer**(): `Promise`\<`null` \| `ArrayBuffer`\>
 
-Defined in: [entities/emoji.ts:83](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/emoji.ts#L83)
+Defined in: [entities/emoji.ts:83](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/emoji.ts#L83)
 
 Converts the image to an ArrayBuffer for further processing or usage.
 
@@ -143,7 +143,7 @@ A promise that resolves an ArrayBuffer representing the image data or `null` if 
 
 > **mention**(): `string`
 
-Defined in: [entities/emoji.ts:98](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/emoji.ts#L98)
+Defined in: [entities/emoji.ts:98](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/emoji.ts#L98)
 
 Returns a string to mention the emoji in Discord.
 
@@ -159,7 +159,7 @@ A string representing the emoji mention.
 
 > **modify**(`data`): `Promise`\<[`Emoji`](/api-classes/classes/emoji/)\>
 
-Defined in: [entities/emoji.ts:110](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/emoji.ts#L110)
+Defined in: [entities/emoji.ts:110](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/emoji.ts#L110)
 
 Modifies a emoji's data in the Discord API.
 
@@ -185,7 +185,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **delete**(): `Promise`\<`boolean`\>
 
-Defined in: [entities/emoji.ts:135](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/emoji.ts#L135)
+Defined in: [entities/emoji.ts:135](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/emoji.ts#L135)
 
 Deletes the emoji in the Discord API.
 

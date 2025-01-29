@@ -7,7 +7,7 @@ title: "stylize"
 
 > **stylize**(`input`, ...`codes`): `string`
 
-Defined in: [packages/kodkord/src/common/log.ts:183](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/log.ts#L183)
+Defined in: [packages/kodkord/src/common/log.ts:183](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/log.ts#L183)
 
 Stylizes the given string by applying the specified ANSI codes.
 

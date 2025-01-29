@@ -5,7 +5,7 @@ prev: false
 title: "Sharder"
 ---
 
-Defined in: [packages/kodkord/src/core/sharder.ts:16](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/core/sharder.ts#L16)
+Defined in: [packages/kodkord/src/core/sharder.ts:16](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/core/sharder.ts#L16)
 
 The Sharder class manages multiple shards for connecting to Discord's Gateway.
 
@@ -23,7 +23,7 @@ efficient sharding for large bots.
 
 > **new Sharder**(`client`): [`Sharder`](/api-kodkord/classes/sharder/)
 
-Defined in: [packages/kodkord/src/core/sharder.ts:25](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/core/sharder.ts#L25)
+Defined in: [packages/kodkord/src/core/sharder.ts:25](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/core/sharder.ts#L25)
 
 Creates a new Sharder instance.
 
@@ -87,7 +87,7 @@ Defined in: apps/docs/node\_modules/.pnpm/typescript@5.7.3/node\_modules/typescr
 
 > `readonly` **name**: `string`
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:6](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L6)
+Defined in: [packages/kodkord/src/common/dictionary.ts:6](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L6)
 
 The name of the dictionary, used for identification.
 
@@ -101,7 +101,7 @@ The name of the dictionary, used for identification.
 
 > `readonly` **limit**: `number`
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:9](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L9)
+Defined in: [packages/kodkord/src/common/dictionary.ts:9](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L9)
 
 The maximum number of entries allowed in the dictionary.
 
@@ -115,7 +115,7 @@ The maximum number of entries allowed in the dictionary.
 
 > `readonly` **client**: [`Client`](/api-kodkord/classes/client/)
 
-Defined in: [packages/kodkord/src/core/sharder.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/core/sharder.ts#L18)
+Defined in: [packages/kodkord/src/core/sharder.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/core/sharder.ts#L18)
 
 The client instance that owns this sharder.
 
@@ -344,7 +344,7 @@ Groups members of an iterable according to the return value of the passed callba
 
 > **filter**(`callback`): [`Dictionary`](/api-kodkord/classes/dictionary/)\<`number`, [`Shard`](/api-kodkord/classes/shard/)\>
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:52](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L52)
+Defined in: [packages/kodkord/src/common/dictionary.ts:52](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L52)
 
 Filters the entries of the dictionary based on the provided callback.
 
@@ -370,7 +370,7 @@ A new `Dictionary` with the filtered entries.
 
 > **find**(`callback`): `undefined` \| [`Shard`](/api-kodkord/classes/shard/)
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:66](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L66)
+Defined in: [packages/kodkord/src/common/dictionary.ts:66](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L66)
 
 Finds the first value in the dictionary that satisfies the provided callback.
 
@@ -396,7 +396,7 @@ The first value that satisfies the callback, or `undefined` if none do.
 
 > **every**(`callback`): `boolean`
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:82](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L82)
+Defined in: [packages/kodkord/src/common/dictionary.ts:82](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L82)
 
 Tests whether all entries in the dictionary pass the provided callback.
 
@@ -422,7 +422,7 @@ Tests whether all entries in the dictionary pass the provided callback.
 
 > **some**(`callback`): `boolean`
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:98](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L98)
+Defined in: [packages/kodkord/src/common/dictionary.ts:98](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L98)
 
 Tests whether at least one entry in the dictionary passes the provided callback.
 
@@ -448,7 +448,7 @@ Tests whether at least one entry in the dictionary passes the provided callback.
 
 > **reduce**\<`T`\>(`callback`, `initial`): `T`
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:115](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L115)
+Defined in: [packages/kodkord/src/common/dictionary.ts:115](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L115)
 
 Reduces the dictionary's entries to a single value using the provided callback.
 
@@ -481,7 +481,7 @@ The result of the reduction.
 
 > **map**\<`T`\>(`callback`): [`Dictionary`](/api-kodkord/classes/dictionary/)\<`number`, `T`\>
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:128](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L128)
+Defined in: [packages/kodkord/src/common/dictionary.ts:128](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L128)
 
 Maps the dictionary's entries to a new `Dictionary` with transformed values.
 
@@ -513,7 +513,7 @@ A new `Dictionary` with the mapped values.
 
 > **set**(`key`, `value`): `this`
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:145](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L145)
+Defined in: [packages/kodkord/src/common/dictionary.ts:145](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L145)
 
 Adds or updates an entry in the dictionary.
 
@@ -542,7 +542,7 @@ The current dictionary instance.
 
 > **first**(): `undefined` \| [`Shard`](/api-kodkord/classes/shard/)
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:165](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L165)
+Defined in: [packages/kodkord/src/common/dictionary.ts:165](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L165)
 
 Retrieves the first value in the dictionary.
 
@@ -562,7 +562,7 @@ The first value, or `undefined` if the dictionary is empty.
 
 > **last**(): `undefined` \| [`Shard`](/api-kodkord/classes/shard/)
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:174](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L174)
+Defined in: [packages/kodkord/src/common/dictionary.ts:174](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L174)
 
 Retrieves the last value in the dictionary.
 
@@ -582,7 +582,7 @@ The last value, or `undefined` if the dictionary is empty.
 
 > **clone**(): [`Dictionary`](/api-kodkord/classes/dictionary/)\<`number`, [`Shard`](/api-kodkord/classes/shard/)\>
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:183](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L183)
+Defined in: [packages/kodkord/src/common/dictionary.ts:183](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L183)
 
 Creates a shallow copy of the dictionary.
 
@@ -602,7 +602,7 @@ A new `Dictionary` instance with the same entries, limit, and name.
 
 > **remaining**(): `number`
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:192](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L192)
+Defined in: [packages/kodkord/src/common/dictionary.ts:192](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L192)
 
 Calculates the number of additional entries that can be added to the dictionary.
 
@@ -622,7 +622,7 @@ The number of remaining entries before reaching the limit.
 
 > **create**(`id`, `settings`?): [`Shard`](/api-kodkord/classes/shard/)
 
-Defined in: [packages/kodkord/src/core/sharder.ts:40](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/core/sharder.ts#L40)
+Defined in: [packages/kodkord/src/core/sharder.ts:40](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/core/sharder.ts#L40)
 
 Creates a new shard with the given Id.
 
@@ -648,7 +648,7 @@ The newly created or existing shard.
 
 > **guildShardId**(`guildId`): `Promise`\<`number`\>
 
-Defined in: [packages/kodkord/src/core/sharder.ts:58](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/core/sharder.ts#L58)
+Defined in: [packages/kodkord/src/core/sharder.ts:58](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/core/sharder.ts#L58)
 
 Calculates the shard ID responsible for a specific guild.
 
@@ -670,7 +670,7 @@ A Promise resolving to the shard ID.
 
 > **reashard**(`shards`): `void`
 
-Defined in: [packages/kodkord/src/core/sharder.ts:72](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/core/sharder.ts#L72)
+Defined in: [packages/kodkord/src/core/sharder.ts:72](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/core/sharder.ts#L72)
 
 Adjusts the number of shards dynamically.
 
@@ -693,7 +693,7 @@ Adjusts the number of shards dynamically.
 
 > **forceIdentify**(`id`): `void`
 
-Defined in: [packages/kodkord/src/core/sharder.ts:94](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/core/sharder.ts#L94)
+Defined in: [packages/kodkord/src/core/sharder.ts:94](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/core/sharder.ts#L94)
 
 Forces a specific shard to identify and reconnect to the Gateway.
 
@@ -716,7 +716,7 @@ Forces a specific shard to identify and reconnect to the Gateway.
 
 > **connect**(): `void`
 
-Defined in: [packages/kodkord/src/core/sharder.ts:111](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/core/sharder.ts#L111)
+Defined in: [packages/kodkord/src/core/sharder.ts:111](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/core/sharder.ts#L111)
 
 Connects all shards to Discord's Gateway.
 
@@ -732,7 +732,7 @@ Iterates over all stored shards and invokes their `connect` method.
 
 > **reconnet**(): `void`
 
-Defined in: [packages/kodkord/src/core/sharder.ts:123](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/core/sharder.ts#L123)
+Defined in: [packages/kodkord/src/core/sharder.ts:123](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/core/sharder.ts#L123)
 
 Reconnects all shards to Discord's Gateway.
 
@@ -749,7 +749,7 @@ Reconnects all shards to Discord's Gateway.
 
 > **disconnect**(): `void`
 
-Defined in: [packages/kodkord/src/core/sharder.ts:135](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/core/sharder.ts#L135)
+Defined in: [packages/kodkord/src/core/sharder.ts:135](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/core/sharder.ts#L135)
 
 Disconnects all shards from Discord's Gateway.
 

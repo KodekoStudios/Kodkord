@@ -5,7 +5,7 @@ prev: false
 title: "Events"
 ---
 
-Defined in: [packages/kodkord/src/core/client.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/core/client.ts#L18)
+Defined in: [packages/kodkord/src/core/client.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/core/client.ts#L18)
 
 Represents a mapping of event types to their corresponding callback functions.
 
@@ -57,7 +57,7 @@ Defined in: apps/docs/node\_modules/.pnpm/typescript@5.7.3/node\_modules/typescr
 
 > `readonly` **name**: `string`
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:6](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L6)
+Defined in: [packages/kodkord/src/common/dictionary.ts:6](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L6)
 
 The name of the dictionary, used for identification.
 
@@ -71,7 +71,7 @@ The name of the dictionary, used for identification.
 
 > `readonly` **limit**: `number`
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:9](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L9)
+Defined in: [packages/kodkord/src/common/dictionary.ts:9](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L9)
 
 The maximum number of entries allowed in the dictionary.
 
@@ -246,7 +246,7 @@ Returns an iterable of values in the map
 
 > **filter**(`callback`): [`Dictionary`](/api-kodkord/classes/dictionary/)\<`Event`, (`data`) => `unknown`\>
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:52](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L52)
+Defined in: [packages/kodkord/src/common/dictionary.ts:52](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L52)
 
 Filters the entries of the dictionary based on the provided callback.
 
@@ -272,7 +272,7 @@ A new `Dictionary` with the filtered entries.
 
 > **find**(`callback`): `undefined` \| (`data`) => `unknown`
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:66](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L66)
+Defined in: [packages/kodkord/src/common/dictionary.ts:66](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L66)
 
 Finds the first value in the dictionary that satisfies the provided callback.
 
@@ -298,7 +298,7 @@ The first value that satisfies the callback, or `undefined` if none do.
 
 > **every**(`callback`): `boolean`
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:82](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L82)
+Defined in: [packages/kodkord/src/common/dictionary.ts:82](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L82)
 
 Tests whether all entries in the dictionary pass the provided callback.
 
@@ -324,7 +324,7 @@ Tests whether all entries in the dictionary pass the provided callback.
 
 > **some**(`callback`): `boolean`
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:98](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L98)
+Defined in: [packages/kodkord/src/common/dictionary.ts:98](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L98)
 
 Tests whether at least one entry in the dictionary passes the provided callback.
 
@@ -350,7 +350,7 @@ Tests whether at least one entry in the dictionary passes the provided callback.
 
 > **reduce**\<`T`\>(`callback`, `initial`): `T`
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:115](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L115)
+Defined in: [packages/kodkord/src/common/dictionary.ts:115](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L115)
 
 Reduces the dictionary's entries to a single value using the provided callback.
 
@@ -383,7 +383,7 @@ The result of the reduction.
 
 > **map**\<`T`\>(`callback`): [`Dictionary`](/api-kodkord/classes/dictionary/)\<`Event`, `T`\>
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:128](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L128)
+Defined in: [packages/kodkord/src/common/dictionary.ts:128](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L128)
 
 Maps the dictionary's entries to a new `Dictionary` with transformed values.
 
@@ -415,7 +415,7 @@ A new `Dictionary` with the mapped values.
 
 > **first**(): `undefined` \| (`data`) => `unknown`
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:165](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L165)
+Defined in: [packages/kodkord/src/common/dictionary.ts:165](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L165)
 
 Retrieves the first value in the dictionary.
 
@@ -435,7 +435,7 @@ The first value, or `undefined` if the dictionary is empty.
 
 > **last**(): `undefined` \| (`data`) => `unknown`
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:174](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L174)
+Defined in: [packages/kodkord/src/common/dictionary.ts:174](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L174)
 
 Retrieves the last value in the dictionary.
 
@@ -455,7 +455,7 @@ The last value, or `undefined` if the dictionary is empty.
 
 > **clone**(): [`Dictionary`](/api-kodkord/classes/dictionary/)\<`Event`, (`data`) => `unknown`\>
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:183](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L183)
+Defined in: [packages/kodkord/src/common/dictionary.ts:183](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L183)
 
 Creates a shallow copy of the dictionary.
 
@@ -475,7 +475,7 @@ A new `Dictionary` instance with the same entries, limit, and name.
 
 > **remaining**(): `number`
 
-Defined in: [packages/kodkord/src/common/dictionary.ts:192](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/dictionary.ts#L192)
+Defined in: [packages/kodkord/src/common/dictionary.ts:192](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/dictionary.ts#L192)
 
 Calculates the number of additional entries that can be added to the dictionary.
 
@@ -495,7 +495,7 @@ The number of remaining entries before reaching the limit.
 
 > **set**\<`E`\>(`event`, `callback`): `this`
 
-Defined in: [packages/kodkord/src/core/client.ts:27](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/core/client.ts#L27)
+Defined in: [packages/kodkord/src/core/client.ts:27](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/core/client.ts#L27)
 
 Sets a callback function for a specific event.
 
@@ -528,7 +528,7 @@ The instance of the `Events` interface, allowing method chaining.
 
 > **get**\<`E`\>(`event`): `undefined` \| (`data`) => `unknown`
 
-Defined in: [packages/kodkord/src/core/client.ts:42](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/core/client.ts#L42)
+Defined in: [packages/kodkord/src/core/client.ts:42](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/core/client.ts#L42)
 
 Gets the callback function associated with a specific event.
 

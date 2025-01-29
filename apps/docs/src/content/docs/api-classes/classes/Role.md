@@ -5,7 +5,7 @@ prev: false
 title: "Role"
 ---
 
-Defined in: [entities/role.ts:14](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/role.ts#L14)
+Defined in: [entities/role.ts:14](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/role.ts#L14)
 
 It represents a role within a Discord guild.
 
@@ -19,7 +19,7 @@ It represents a role within a Discord guild.
 
 > **new Role**(`rest`, `raw`, `guildRaw`): [`Role`](/api-classes/classes/role/)
 
-Defined in: [entities/role.ts:23](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/role.ts#L23)
+Defined in: [entities/role.ts:23](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/role.ts#L23)
 
 Creates an instance of the Entity.
 
@@ -45,7 +45,7 @@ Creates an instance of the Entity.
 
 > `readonly` **rest**: `Rest`
 
-Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L8)
+Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L8)
 
 The `Rest` instance for interacting with the Discord API.
 
@@ -59,7 +59,7 @@ The `Rest` instance for interacting with the Discord API.
 
 > `readonly` **raw**: `APIRole`
 
-Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L11)
+Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L11)
 
 Raw data from the API response, read-only to prevent unnecessary mutations.
 
@@ -73,7 +73,7 @@ Raw data from the API response, read-only to prevent unnecessary mutations.
 
 > `readonly` **guild**: [`Guild`](/api-classes/classes/guild/)
 
-Defined in: [entities/role.ts:16](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/role.ts#L16)
+Defined in: [entities/role.ts:16](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/role.ts#L16)
 
 The `Guild` instance in which Role belongs.
 
@@ -83,7 +83,7 @@ The `Guild` instance in which Role belongs.
 
 > **icon**(): [`RoleIcon`](/api-classes/classes/roleicon/)
 
-Defined in: [entities/role.ts:33](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/role.ts#L33)
+Defined in: [entities/role.ts:33](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/role.ts#L33)
 
 Retrieves the roles's icon.
 
@@ -99,7 +99,7 @@ A `RoleIcon` instance representing the role's icon.
 
 > **fetch**(): `Promise`\<[`Role`](/api-classes/classes/role/)\>
 
-Defined in: [entities/role.ts:46](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/role.ts#L46)
+Defined in: [entities/role.ts:46](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/role.ts#L46)
 
 Fetches the latest data for the role from the Discord API.
 
@@ -119,7 +119,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **mention**(): `string`
 
-Defined in: [entities/role.ts:65](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/role.ts#L65)
+Defined in: [entities/role.ts:65](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/role.ts#L65)
 
 Returns a string to mention the emoji in Discord.
 
@@ -135,7 +135,7 @@ A string representing the emoji mention.
 
 > **modify**(`data`): `Promise`\<[`Role`](/api-classes/classes/role/)\>
 
-Defined in: [entities/role.ts:75](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/role.ts#L75)
+Defined in: [entities/role.ts:75](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/role.ts#L75)
 
 Modifies a role's data in the Discord API.
 

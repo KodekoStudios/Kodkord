@@ -5,7 +5,7 @@ prev: false
 title: "UserBanner"
 ---
 
-Defined in: [entities/image.ts:136](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L136)
+Defined in: [entities/image.ts:136](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/image.ts#L136)
 
 Class representing a user's banner image.
 
@@ -22,7 +22,7 @@ retrieve user banner URLs. Banners do not have default images.
 
 > **new UserBanner**(`rest`, `raw`): [`UserBanner`](/api-classes/classes/userbanner/)
 
-Defined in: [core/entity.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L18)
+Defined in: [core/entity.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L18)
 
 Creates an instance of the Entity.
 
@@ -47,7 +47,7 @@ Creates an instance of the Entity.
 
 > `readonly` **rest**: `Rest`
 
-Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L8)
+Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L8)
 
 The `Rest` instance for interacting with the Discord API.
 
@@ -61,7 +61,7 @@ The `Rest` instance for interacting with the Discord API.
 
 > `readonly` **raw**: [`RawImage`](/api-classes/interfaces/rawimage/)
 
-Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L11)
+Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L11)
 
 Raw data from the API response, read-only to prevent unnecessary mutations.
 
@@ -75,7 +75,7 @@ Raw data from the API response, read-only to prevent unnecessary mutations.
 
 > **display**(`settings`?): `string`
 
-Defined in: [entities/image.ts:72](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L72)
+Defined in: [entities/image.ts:72](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/image.ts#L72)
 
 Retrieves the most appropriate image URL.
 
@@ -106,7 +106,7 @@ The displayable URL of the image or an empty string.
 
 > **buffer**(): `Promise`\<`ArrayBuffer`\>
 
-Defined in: [entities/image.ts:84](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L84)
+Defined in: [entities/image.ts:84](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/image.ts#L84)
 
 Converts the image to an ArrayBuffer for further processing or usage.
 
@@ -126,7 +126,7 @@ A promise resolving to an ArrayBuffer representing the image data.
 
 > **url**(`settings`?): `null` \| `string`
 
-Defined in: [entities/image.ts:143](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L143)
+Defined in: [entities/image.ts:143](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/image.ts#L143)
 
 Retrieves the URL of the user's banner.
 
@@ -154,7 +154,7 @@ The banner URL or `null` if the user does not have a custom banner.
 
 > **default**(): `undefined`
 
-Defined in: [entities/image.ts:157](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L157)
+Defined in: [entities/image.ts:157](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/image.ts#L157)
 
 Banners do not have a default URL.
 

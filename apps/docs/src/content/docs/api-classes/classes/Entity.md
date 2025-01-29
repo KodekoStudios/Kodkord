@@ -5,7 +5,7 @@ prev: false
 title: "Entity"
 ---
 
-Defined in: [core/entity.ts:6](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L6)
+Defined in: [core/entity.ts:6](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L6)
 
 Class that represents a base entity for API objects.
 
@@ -34,7 +34,7 @@ Class that represents a base entity for API objects.
 
 > **new Entity**\<`Raw`\>(`rest`, `raw`): [`Entity`](/api-classes/classes/entity/)\<`Raw`\>
 
-Defined in: [core/entity.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L18)
+Defined in: [core/entity.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L18)
 
 Creates an instance of the Entity.
 
@@ -55,7 +55,7 @@ Creates an instance of the Entity.
 
 > `readonly` **rest**: `Rest`
 
-Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L8)
+Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L8)
 
 The `Rest` instance for interacting with the Discord API.
 
@@ -65,6 +65,6 @@ The `Rest` instance for interacting with the Discord API.
 
 > `readonly` **raw**: `Raw`
 
-Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L11)
+Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L11)
 
 Raw data from the API response, read-only to prevent unnecessary mutations.

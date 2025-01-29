@@ -7,7 +7,7 @@ title: "GuildRawImage"
 
 > **GuildRawImage**: `object` & [`RawImage`](/api-classes/interfaces/rawimage/)
 
-Defined in: [entities/image.ts:27](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L27)
+Defined in: [entities/image.ts:27](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/image.ts#L27)
 
 Represents the raw data structure of an image entity that has a guild identifier.
 

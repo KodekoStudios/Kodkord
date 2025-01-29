@@ -5,7 +5,7 @@ prev: false
 title: "MemberAvatar"
 ---
 
-Defined in: [entities/image.ts:265](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L265)
+Defined in: [entities/image.ts:265](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/image.ts#L265)
 
 Class representing a member's avatar image.
 
@@ -22,7 +22,7 @@ retrieve member avatar URLs, including support for default Discord avatars.
 
 > **new MemberAvatar**(`rest`, `raw`): [`MemberAvatar`](/api-classes/classes/memberavatar/)
 
-Defined in: [core/entity.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L18)
+Defined in: [core/entity.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L18)
 
 Creates an instance of the Entity.
 
@@ -47,7 +47,7 @@ Creates an instance of the Entity.
 
 > `readonly` **rest**: `Rest`
 
-Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L8)
+Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L8)
 
 The `Rest` instance for interacting with the Discord API.
 
@@ -61,7 +61,7 @@ The `Rest` instance for interacting with the Discord API.
 
 > `readonly` **raw**: [`GuildRawImage`](/api-classes/type-aliases/guildrawimage/)
 
-Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L11)
+Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L11)
 
 Raw data from the API response, read-only to prevent unnecessary mutations.
 
@@ -75,7 +75,7 @@ Raw data from the API response, read-only to prevent unnecessary mutations.
 
 > **display**(`settings`?): `string`
 
-Defined in: [entities/image.ts:72](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L72)
+Defined in: [entities/image.ts:72](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/image.ts#L72)
 
 Retrieves the most appropriate image URL.
 
@@ -106,7 +106,7 @@ The displayable URL of the image or an empty string.
 
 > **buffer**(): `Promise`\<`ArrayBuffer`\>
 
-Defined in: [entities/image.ts:84](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L84)
+Defined in: [entities/image.ts:84](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/image.ts#L84)
 
 Converts the image to an ArrayBuffer for further processing or usage.
 
@@ -126,7 +126,7 @@ A promise resolving to an ArrayBuffer representing the image data.
 
 > **url**(`settings`?): `null` \| `string`
 
-Defined in: [entities/image.ts:272](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L272)
+Defined in: [entities/image.ts:272](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/image.ts#L272)
 
 Retrieves the URL of the member's avatar.
 
@@ -154,7 +154,7 @@ The avatar URL or `null` if the member does not have a custom avatar.
 
 > **default**(): `undefined`
 
-Defined in: [entities/image.ts:286](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/image.ts#L286)
+Defined in: [entities/image.ts:286](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/image.ts#L286)
 
 Member avatar's do not have a default URL.
 

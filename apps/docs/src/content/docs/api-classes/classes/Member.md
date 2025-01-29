@@ -5,7 +5,7 @@ prev: false
 title: "Member"
 ---
 
-Defined in: [entities/member.ts:14](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/member.ts#L14)
+Defined in: [entities/member.ts:14](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/member.ts#L14)
 
 It represents a member within a Discord guild.
 
@@ -19,7 +19,7 @@ It represents a member within a Discord guild.
 
 > **new Member**(`rest`, `raw`, `guild_raw`): [`Member`](/api-classes/classes/member/)
 
-Defined in: [entities/member.ts:24](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/member.ts#L24)
+Defined in: [entities/member.ts:24](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/member.ts#L24)
 
 Creates an instance of the Entity.
 
@@ -45,7 +45,7 @@ Creates an instance of the Entity.
 
 > `readonly` **rest**: `Rest`
 
-Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L8)
+Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L8)
 
 The `Rest` instance for interacting with the Discord API.
 
@@ -59,7 +59,7 @@ The `Rest` instance for interacting with the Discord API.
 
 > `readonly` **raw**: `APIGuildMember`
 
-Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L11)
+Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L11)
 
 Raw data from the API response, read-only to prevent unnecessary mutations.
 
@@ -73,7 +73,7 @@ Raw data from the API response, read-only to prevent unnecessary mutations.
 
 > `readonly` **guild**: [`Guild`](/api-classes/classes/guild/)
 
-Defined in: [entities/member.ts:16](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/member.ts#L16)
+Defined in: [entities/member.ts:16](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/member.ts#L16)
 
 The `Guild` instance in which Member belongs.
 
@@ -83,7 +83,7 @@ The `Guild` instance in which Member belongs.
 
 > **banner**(): [`MemberBanner`](/api-classes/classes/memberbanner/)
 
-Defined in: [entities/member.ts:34](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/member.ts#L34)
+Defined in: [entities/member.ts:34](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/member.ts#L34)
 
 Retrieves the member's banner.
 
@@ -99,7 +99,7 @@ A `MemberBanner` instance representing the member's banner.
 
 > **avatar**(): [`MemberAvatar`](/api-classes/classes/memberavatar/)
 
-Defined in: [entities/member.ts:47](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/member.ts#L47)
+Defined in: [entities/member.ts:47](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/member.ts#L47)
 
 Retrieves the member's avatar.
 
@@ -115,7 +115,7 @@ An `MemberAvatar` instance representing the member's avatar.
 
 > **joined**(): `Date`
 
-Defined in: [entities/member.ts:60](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/member.ts#L60)
+Defined in: [entities/member.ts:60](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/member.ts#L60)
 
 Returns the joining date of the member.
 
@@ -131,7 +131,7 @@ A `Date` object representing the member's joining date.
 
 > **premium**(): `null` \| `Date`
 
-Defined in: [entities/member.ts:69](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/member.ts#L69)
+Defined in: [entities/member.ts:69](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/member.ts#L69)
 
 Returns the date when the member started boosting the guild.
 
@@ -147,7 +147,7 @@ A `Date` object representing the date when the member started boosting the guild
 
 > **fetch**(): `Promise`\<[`Member`](/api-classes/classes/member/)\>
 
-Defined in: [entities/member.ts:81](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/member.ts#L81)
+Defined in: [entities/member.ts:81](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/member.ts#L81)
 
 Fetches the latest data for the member from the Discord API.
 
@@ -167,7 +167,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **modify**(`data`): `Promise`\<[`Member`](/api-classes/classes/member/)\>
 
-Defined in: [entities/member.ts:103](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/member.ts#L103)
+Defined in: [entities/member.ts:103](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/member.ts#L103)
 
 Modifies a member's data in the Discord API.
 

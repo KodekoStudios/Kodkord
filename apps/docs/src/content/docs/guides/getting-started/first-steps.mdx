@@ -36,6 +36,11 @@ CLIENT.events.set(GatewayDispatchEvents.MessageCreate, (data) => {
 
 CLIENT.connect();
   ```
+<Aside type="tip">
+We recommend you to add everything important like your bot token in a `.env` file, visit [Environment variables](/guides/tips/env-variables) for more information.
+
+The use of Non-Null Assertion is because DISCORD_TOKEN is a string or undefined, to correct that we can use the same Non-Null Assertion, write `as string` or add the DISCORD_TOKEN to the type of ProcessEnv
+</Aside>
   </TabItem>
   <TabItem label="JavaScript" icon="seti:javascript">
 ```js title="src/index.js" copy wrap twoslash
@@ -59,10 +64,9 @@ CLIENT.events.set(GatewayDispatchEvents.MessageCreate, (data) => {
 
 CLIENT.connect();
 ```
+<Aside type="tip">We recommend you to add everything important like your bot token in a `.env` file, visit [Environment variables](/guides/tips/env-variables) for more information.</Aside>
   </TabItem>
 </Tabs>
-
-<Aside type="tip">We recommend you to add everything important like your bot token in a `.env` file, visit [Environment variables](/guides/tips/env-variables) for more information.</Aside>
 
 ## Let's see how it's going
 Your project should look like this: (Remember to choose the example based on whether you are using JavaScript or TypeScript)

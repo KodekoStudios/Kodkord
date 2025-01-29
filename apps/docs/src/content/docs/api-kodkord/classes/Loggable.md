@@ -5,7 +5,7 @@ prev: false
 title: "Loggable"
 ---
 
-Defined in: [packages/kodkord/src/common/log.ts:14](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/log.ts#L14)
+Defined in: [packages/kodkord/src/common/log.ts:14](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/log.ts#L14)
 
 Provides a lightweight, extensible logging mechanism with customizable formatting.
 
@@ -26,7 +26,7 @@ when needed and goes out of scope once used, improving performance.
 
 > **new Loggable**(`level`, `header`, ...`messages`): [`Loggable`](/api-kodkord/classes/loggable/)
 
-Defined in: [packages/kodkord/src/common/log.ts:34](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/log.ts#L34)
+Defined in: [packages/kodkord/src/common/log.ts:34](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/log.ts#L34)
 
 Creates a new `Loggable` instance.
 
@@ -48,7 +48,7 @@ Creates a new `Loggable` instance.
 
 > **note**(): `void`
 
-Defined in: [packages/kodkord/src/common/log.ts:44](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/log.ts#L44)
+Defined in: [packages/kodkord/src/common/log.ts:44](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/log.ts#L44)
 
 Logs the message to the console as a standard note.
 
@@ -62,7 +62,7 @@ Logs the message to the console as a standard note.
 
 > **trace**(): `void`
 
-Defined in: [packages/kodkord/src/common/log.ts:49](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/log.ts#L49)
+Defined in: [packages/kodkord/src/common/log.ts:49](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/log.ts#L49)
 
 Logs the message to the console with a debug level.
 
@@ -76,7 +76,7 @@ Logs the message to the console with a debug level.
 
 > **warn**(): `void`
 
-Defined in: [packages/kodkord/src/common/log.ts:54](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/log.ts#L54)
+Defined in: [packages/kodkord/src/common/log.ts:54](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/log.ts#L54)
 
 Logs the message to the console as a warning.
 
@@ -90,7 +90,7 @@ Logs the message to the console as a warning.
 
 > **panic**(): `void`
 
-Defined in: [packages/kodkord/src/common/log.ts:59](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/log.ts#L59)
+Defined in: [packages/kodkord/src/common/log.ts:59](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/log.ts#L59)
 
 Logs the message to the console as an error.
 
@@ -104,7 +104,7 @@ Logs the message to the console as an error.
 
 > **format**(): `string`
 
-Defined in: [packages/kodkord/src/common/log.ts:69](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/log.ts#L69)
+Defined in: [packages/kodkord/src/common/log.ts:69](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/log.ts#L69)
 
 Formats the log into a styled string suitable for console output.
 
@@ -122,7 +122,7 @@ A formatted log string
 
 > **formatLines**(): `string`
 
-Defined in: [packages/kodkord/src/common/log.ts:86](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/common/log.ts#L86)
+Defined in: [packages/kodkord/src/common/log.ts:86](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/common/log.ts#L86)
 
 Formats the individual lines of the log with a consistent style.
 

@@ -5,7 +5,7 @@ prev: false
 title: "Guild"
 ---
 
-Defined in: [entities/guild.ts:23](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/guild.ts#L23)
+Defined in: [entities/guild.ts:23](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/guild.ts#L23)
 
 Class that represents a base entity for API objects.
 
@@ -19,7 +19,7 @@ Class that represents a base entity for API objects.
 
 > **new Guild**(`rest`, `raw`): [`Guild`](/api-classes/classes/guild/)
 
-Defined in: [core/entity.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L18)
+Defined in: [core/entity.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L18)
 
 Creates an instance of the Entity.
 
@@ -44,7 +44,7 @@ Creates an instance of the Entity.
 
 > `readonly` **rest**: `Rest`
 
-Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L8)
+Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L8)
 
 The `Rest` instance for interacting with the Discord API.
 
@@ -58,7 +58,7 @@ The `Rest` instance for interacting with the Discord API.
 
 > `readonly` **raw**: `APIGuild`
 
-Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L11)
+Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L11)
 
 Raw data from the API response, read-only to prevent unnecessary mutations.
 
@@ -72,7 +72,7 @@ Raw data from the API response, read-only to prevent unnecessary mutations.
 
 > **fetch**(): `Promise`\<[`Guild`](/api-classes/classes/guild/)\>
 
-Defined in: [entities/guild.ts:30](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/guild.ts#L30)
+Defined in: [entities/guild.ts:30](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/guild.ts#L30)
 
 Fetches the latest data for the guild from the Discord API.
 
@@ -92,7 +92,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **icon**(): [`GuildIcon`](/api-classes/classes/guildicon/)
 
-Defined in: [entities/guild.ts:49](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/guild.ts#L49)
+Defined in: [entities/guild.ts:49](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/guild.ts#L49)
 
 Retrieves the guild's icon.
 
@@ -108,7 +108,7 @@ A `GuildIcon` instance representing the guild's icon.
 
 > **banner**(): [`GuildBanner`](/api-classes/classes/guildbanner/)
 
-Defined in: [entities/guild.ts:61](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/guild.ts#L61)
+Defined in: [entities/guild.ts:61](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/guild.ts#L61)
 
 Retrieves the guild's banner.
 
@@ -124,7 +124,7 @@ A `GuildBanner` instance representing the guild's banner.
 
 > **preview**(): `Promise`\<`APIGuildPreview`\>
 
-Defined in: [entities/guild.ts:74](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/guild.ts#L74)
+Defined in: [entities/guild.ts:74](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/guild.ts#L74)
 
 Fetches the latest data for the guild preview from the Discord API.
 
@@ -144,7 +144,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **modify**(`data`): `Promise`\<[`Guild`](/api-classes/classes/guild/)\>
 
-Defined in: [entities/guild.ts:93](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/guild.ts#L93)
+Defined in: [entities/guild.ts:93](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/guild.ts#L93)
 
 Modifies a guild's data in the Discord API.
 
@@ -170,7 +170,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **channels**(): `Promise`\<`Dictionary`\<`string`[], [`Channel`](/api-classes/classes/channel/)\<`GuildText` \| `DM` \| `GuildVoice` \| `GroupDM` \| `GuildCategory` \| `GuildAnnouncement` \| `GuildStageVoice` \| `GuildForum` \| `GuildMedia` \| `ThreadChannelType`\>\>\>
 
-Defined in: [entities/guild.ts:117](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/guild.ts#L117)
+Defined in: [entities/guild.ts:117](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/guild.ts#L117)
 
 Fetches the channel list of the guild from the Discord API.
 
@@ -192,7 +192,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **threads**(): `Promise`\<`Dictionary`\<`string`[], [`Channel`](/api-classes/classes/channel/)\<`ThreadChannelType`\>\>\>
 
-Defined in: [entities/guild.ts:139](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/guild.ts#L139)
+Defined in: [entities/guild.ts:139](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/guild.ts#L139)
 
 Fetches the thread list of the guild from the Discord API.
 
@@ -212,7 +212,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **createChannel**(`data`): `Promise`\<[`Channel`](/api-classes/classes/channel/)\<`GuildText` \| `DM` \| `GuildVoice` \| `GroupDM` \| `GuildCategory` \| `GuildAnnouncement` \| `GuildStageVoice` \| `GuildForum` \| `GuildMedia` \| `ThreadChannelType`\>\>
 
-Defined in: [entities/guild.ts:161](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/guild.ts#L161)
+Defined in: [entities/guild.ts:161](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/guild.ts#L161)
 
 Create a channel in the guild
 
@@ -238,7 +238,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **members**(): `Promise`\<`Dictionary`\<`string`[], [`Member`](/api-classes/classes/member/)\>\>
 
-Defined in: [entities/guild.ts:183](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/guild.ts#L183)
+Defined in: [entities/guild.ts:183](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/guild.ts#L183)
 
 Fetches the member list of the guild from the Discord API.
 
@@ -256,7 +256,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **kick**(`id`): `Promise`\<`boolean`\>
 
-Defined in: [entities/guild.ts:203](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/guild.ts#L203)
+Defined in: [entities/guild.ts:203](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/guild.ts#L203)
 
 Removes a member from a guild in the Discord API.
 
@@ -282,7 +282,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **ban**(`id`, `seconds`?): `Promise`\<`boolean`\>
 
-Defined in: [entities/guild.ts:225](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/guild.ts#L225)
+Defined in: [entities/guild.ts:225](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/guild.ts#L225)
 
 Bans a member from a guild in the Discord API.
 
@@ -311,7 +311,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **bulkBan**(`ids`, `seconds`?): `Promise`\<`boolean`\>
 
-Defined in: [entities/guild.ts:252](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/guild.ts#L252)
+Defined in: [entities/guild.ts:252](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/guild.ts#L252)
 
 Do a bulk ban of members in a guild in the Discord API.
 
@@ -340,7 +340,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **unban**(`id`): `Promise`\<`boolean`\>
 
-Defined in: [entities/guild.ts:277](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/guild.ts#L277)
+Defined in: [entities/guild.ts:277](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/guild.ts#L277)
 
 Unbans a member from a guild in the Discord API.
 
@@ -366,7 +366,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **bans**(`limit`?, `before`?, `after`?): `Promise`\<`APIBan`[]\>
 
-Defined in: [entities/guild.ts:299](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/guild.ts#L299)
+Defined in: [entities/guild.ts:299](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/guild.ts#L299)
 
 Get all bans on a guild in the Discord API.
 
@@ -396,7 +396,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **getBan**(`id`): `Promise`\<`APIBan`\>
 
-Defined in: [entities/guild.ts:328](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/guild.ts#L328)
+Defined in: [entities/guild.ts:328](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/guild.ts#L328)
 
 Get an especific ban data on a guild in the Discord API.
 
@@ -422,7 +422,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **roles**(): `Dictionary`\<`string`, [`Role`](/api-classes/classes/role/)\>
 
-Defined in: [entities/guild.ts:346](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/guild.ts#L346)
+Defined in: [entities/guild.ts:346](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/guild.ts#L346)
 
 Obtains a dictionary of roles in the Guild
 

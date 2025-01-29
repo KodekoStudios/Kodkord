@@ -5,7 +5,7 @@ prev: false
 title: "Sticker"
 ---
 
-Defined in: [entities/sticker.ts:16](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/sticker.ts#L16)
+Defined in: [entities/sticker.ts:16](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/sticker.ts#L16)
 
 It represents a sticker within a Discord guild.
 
@@ -19,7 +19,7 @@ It represents a sticker within a Discord guild.
 
 > **new Sticker**(`rest`, `raw`): [`Sticker`](/api-classes/classes/sticker/)
 
-Defined in: [core/entity.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L18)
+Defined in: [core/entity.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L18)
 
 Creates an instance of the Entity.
 
@@ -44,7 +44,7 @@ Creates an instance of the Entity.
 
 > `readonly` **rest**: `Rest`
 
-Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L8)
+Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L8)
 
 The `Rest` instance for interacting with the Discord API.
 
@@ -58,7 +58,7 @@ The `Rest` instance for interacting with the Discord API.
 
 > `readonly` **raw**: `APISticker`
 
-Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/core/entity.ts#L11)
+Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/core/entity.ts#L11)
 
 Raw data from the API response, read-only to prevent unnecessary mutations.
 
@@ -72,7 +72,7 @@ Raw data from the API response, read-only to prevent unnecessary mutations.
 
 > **fetch**(): `Promise`\<[`Sticker`](/api-classes/classes/sticker/)\>
 
-Defined in: [entities/sticker.ts:23](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/sticker.ts#L23)
+Defined in: [entities/sticker.ts:23](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/sticker.ts#L23)
 
 Fetches the latest data for the emoji from the Discord API.
 
@@ -92,7 +92,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **url**(`settings`?): `string`
 
-Defined in: [entities/sticker.ts:43](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/sticker.ts#L43)
+Defined in: [entities/sticker.ts:43](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/sticker.ts#L43)
 
 Retrieves the URL of the sticker.
 
@@ -116,7 +116,7 @@ The URL of the sticker.
 
 > **buffer**(): `Promise`\<`ArrayBuffer`\>
 
-Defined in: [entities/sticker.ts:55](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/sticker.ts#L55)
+Defined in: [entities/sticker.ts:55](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/sticker.ts#L55)
 
 Converts the image to an ArrayBuffer for further processing or usage.
 
@@ -132,7 +132,7 @@ A promise that resolves an ArrayBuffer representing the image data.
 
 > **modify**(`data`): `Promise`\<[`Sticker`](/api-classes/classes/sticker/)\>
 
-Defined in: [entities/sticker.ts:67](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/sticker.ts#L67)
+Defined in: [entities/sticker.ts:67](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/sticker.ts#L67)
 
 Modifies a emoji's data in the Discord API.
 
@@ -158,7 +158,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **delete**(): `Promise`\<`boolean`\>
 
-Defined in: [entities/sticker.ts:91](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/classes/src/entities/sticker.ts#L91)
+Defined in: [entities/sticker.ts:91](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/classes/src/entities/sticker.ts#L91)
 
 Deletes the sticker in the Discord API.
 

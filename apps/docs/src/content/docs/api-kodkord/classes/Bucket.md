@@ -5,7 +5,7 @@ prev: false
 title: "Bucket"
 ---
 
-Defined in: [packages/kodkord/src/api/bucket.ts:14](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/api/bucket.ts#L14)
+Defined in: [packages/kodkord/src/api/bucket.ts:14](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/api/bucket.ts#L14)
 
 A rate-limit-aware task processor.
 
@@ -17,7 +17,7 @@ Processes tasks in order while respecting a specific rate limit. Used primarily 
 
 > **new Bucket**(`limit`, `reset`): [`Bucket`](/api-kodkord/classes/bucket/)
 
-Defined in: [packages/kodkord/src/api/bucket.ts:36](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/api/bucket.ts#L36)
+Defined in: [packages/kodkord/src/api/bucket.ts:36](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/api/bucket.ts#L36)
 
 Creates a new `Bucket` instance.
 
@@ -38,7 +38,7 @@ Creates a new `Bucket` instance.
 
 > **remaining**: `number`
 
-Defined in: [packages/kodkord/src/api/bucket.ts:22](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/api/bucket.ts#L22)
+Defined in: [packages/kodkord/src/api/bucket.ts:22](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/api/bucket.ts#L22)
 
 Remaining requests in the current rate limit window.
 
@@ -48,7 +48,7 @@ Remaining requests in the current rate limit window.
 
 > **limit**: `number`
 
-Defined in: [packages/kodkord/src/api/bucket.ts:25](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/api/bucket.ts#L25)
+Defined in: [packages/kodkord/src/api/bucket.ts:25](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/api/bucket.ts#L25)
 
 Maximum number of requests allowed per rate limit window.
 
@@ -58,7 +58,7 @@ Maximum number of requests allowed per rate limit window.
 
 > **reset**: `number`
 
-Defined in: [packages/kodkord/src/api/bucket.ts:28](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/api/bucket.ts#L28)
+Defined in: [packages/kodkord/src/api/bucket.ts:28](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/api/bucket.ts#L28)
 
 Timestamp when the current rate limit window resets.
 
@@ -68,7 +68,7 @@ Timestamp when the current rate limit window resets.
 
 > **process**(): `Promise`\<`void`\>
 
-Defined in: [packages/kodkord/src/api/bucket.ts:52](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/api/bucket.ts#L52)
+Defined in: [packages/kodkord/src/api/bucket.ts:52](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/api/bucket.ts#L52)
 
 Processes tasks in the queue while respecting the rate limit.
 
@@ -86,7 +86,7 @@ Resolves when all tasks in the queue are processed.
 
 > **add**\<`Type`\>(`task`, `at`?): `Promise`\<`void`\>
 
-Defined in: [packages/kodkord/src/api/bucket.ts:88](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/api/bucket.ts#L88)
+Defined in: [packages/kodkord/src/api/bucket.ts:88](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/api/bucket.ts#L88)
 
 Adds a new task to the queue.
 
@@ -115,7 +115,7 @@ If a position is provided, the task will be inserted at that position in the que
 
 > **resetState**(): `void`
 
-Defined in: [packages/kodkord/src/api/bucket.ts:103](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/api/bucket.ts#L103)
+Defined in: [packages/kodkord/src/api/bucket.ts:103](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/api/bucket.ts#L103)
 
 Resets the state of the bucket.
 
@@ -131,7 +131,7 @@ Clears the task queue, resets rate-limit counters, and marks the bucket as ready
 
 > **pause**(): `void`
 
-Defined in: [packages/kodkord/src/api/bucket.ts:111](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/api/bucket.ts#L111)
+Defined in: [packages/kodkord/src/api/bucket.ts:111](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/api/bucket.ts#L111)
 
 Pauses task processing.
 
@@ -145,7 +145,7 @@ Pauses task processing.
 
 > **resume**(): `Promise`\<`void`\>
 
-Defined in: [packages/kodkord/src/api/bucket.ts:120](https://github.com/KingsBeCattz/Kodkord/blob/5983eab654eb4f3b9082e138abddc2d7f9dac808/packages/kodkord/src/api/bucket.ts#L120)
+Defined in: [packages/kodkord/src/api/bucket.ts:120](https://github.com/KingsBeCattz/Kodkord/blob/d60ae5f731db3a8ab6bde538c1e575cda7085372/packages/kodkord/src/api/bucket.ts#L120)
 
 Resumes task processing if paused.
 
