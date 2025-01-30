@@ -4,7 +4,8 @@
   "description": "Monorepo for Kodkord.",
   "private": true,
   "scripts": {
-    "build": ""
+    "build": "",
+    "prepare": "husky"
   },
   "license": "MIT",
   "author": {
@@ -20,9 +21,12 @@
   ],
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
     "@types/bun": "1.1.16",
     "@types/node": "22.10.5",
     "eslint": "^9.18.0",
+    "husky": "^9.1.7",
     "pnpm": "9.15.3",
     "turbo": "^2.3.3",
     "unbuild": "3.3.0"
