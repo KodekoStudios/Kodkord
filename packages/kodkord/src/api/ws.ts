@@ -1,4 +1,4 @@
-import type { GatewayDispatchPayload, GatewaySendPayload } from "discord-api-types/v10";
+import type { GatewaySendPayload } from "discord-api-types/v10";
 import type { Events } from "@core/client";
 
 import { type GatewayReceivePayload, GatewayOpcodes, GatewayVersion } from "discord-api-types/v10";
@@ -81,9 +81,10 @@ export class WebSocket {
 			// eslint-disable-next-line @typescript-eslint/no-base-to-string
 			const PAYLOAD = JSON.parse(data.toString()) as GatewayReceivePayload;
 
+			this.settings.events.get("raw")?.(PAYLOAD);
+
 			switch (PAYLOAD.op) {
 				case GatewayOpcodes.Dispatch:
-					this.settings.events.get("raw")?.(PAYLOAD.d as unknown as GatewayDispatchPayload);
 					this.settings.events.get(PAYLOAD.t)?.(PAYLOAD.d);
 					break;
 

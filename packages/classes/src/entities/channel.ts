@@ -20,6 +20,12 @@ import { Message } from "./message";
  */
 export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & APIChannel> {
 
+	/**
+	 * Fetches a specific message from the channel.
+	 *
+	 * @param id The ID of the message to fetch.
+	 * @returns A promise resolving to a {@link Message} instance, or `undefined` if the operation fails.
+	 */
 	public async fetchMessage(id: string): Promise<Message<MessageType> | undefined> {
 		try {
 			return new Message(
@@ -35,6 +41,12 @@ export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & A
 		}
 	}
 
+	/**
+	 * Posts a message in the channel.
+	 *
+	 * @param body The message payload to send.
+	 * @returns A promise resolving to a {@link Message} instance, or `undefined` if the operation fails.
+	 */
 	public async postMessage(
 		body: RESTPostAPIChannelMessageJSONBody
 	): Promise<Message<MessageType> | undefined> {
@@ -54,21 +66,11 @@ export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & A
 		}
 	}
 
-	public async destroy(): Promise<boolean> {
-		try {
-			await this.rest.delete(Routes.channel(this.raw.id));
-			return true;
-		} catch (error) {
-			new Warn(
-				"Rest",
-				`Failed to delete channel with id ${this.raw.id}`,
-				(error as Error).message
-			).warn();
-
-			return false;
-		}
-	}
-
+	/**
+	 * Fetches the latest data for the channel from the Discord API.
+	 *
+	 * @returns A promise resolving to an updated {@link Channel} instance, or `undefined` if the operation fails.
+	 */
 	public async fetch(): Promise<Channel<Type> | undefined> {
 		try {
 			const API_CHANNEL = await this.rest.get<APIChannel>(Routes.channel(this.raw.id));
@@ -82,6 +84,13 @@ export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & A
 		}
 	}
 
+	/**
+	 * Modifies the channel's data in the Discord API.
+	 *
+	 * @param body The data to update for the channel.
+	 * @param reason The reason for modifying the channel (optional).
+	 * @returns A promise resolving to `true` if the channel was successfully modified, or `false` if it failed.
+	 */
 	public async modify(body: RESTPatchAPIChannelJSONBody, reason?: string): Promise<boolean> {
 		try {
 			await this.rest.patch<APIChannel>(Routes.channel(this.raw.id), {
@@ -99,6 +108,11 @@ export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & A
 		}
 	}
 
+	/**
+	 * Deletes the channel.
+	 *
+	 * @returns A promise resolving to `true` if the channel was successfully deleted, or `false` if it failed.
+	 */
 	public async delete(): Promise<boolean> {
 		try {
 			await this.rest.delete<APIChannel>(Routes.channel(this.raw.id));
@@ -122,7 +136,30 @@ export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & A
 		return `<#!${this.raw.id}>`;
 	}
 
-	// Type Guards
+
+	/**
+	 * Deletes multiple messages in bulk from the channel.
+	 *
+	 * @param ids An array of message IDs to delete.
+	 * @returns A promise resolving to `true` if the messages were successfully deleted, or `false` if it failed.
+	 */
+	public async bulkDelete(ids: Snowflake[]): Promise<boolean> {
+		try {
+			await this.rest.post(Routes.channelBulkDelete(this.raw.id), {
+				body: {
+					messages: ids
+				}
+			});
+			return true;
+		} catch (error) {
+			new Warn(
+				"Rest",
+				`Failed to delete messages in bulk on channel with id ${this.raw.id}`,
+				(error as Error).message
+			).warn();
+			return false;
+		}
+	}
 
 	/** Determines if this channel is a guild text channel. */
 	public isGuildText(): this is Channel<ChannelType.GuildText> {
@@ -182,23 +219,5 @@ export class Channel<Type extends ChannelType> extends Entity<{ type: Type } & A
 	/** Determines if this channel is a guild media channel. */
 	public isGuildMedia(): this is Channel<ChannelType.GuildMedia> {
 		return this.raw.type === ChannelType.GuildMedia;
-	}
-
-	public async bulkDelete(ids: Snowflake[]): Promise<boolean> {
-		try {
-			await this.rest.post(Routes.channelBulkDelete(this.raw.id), {
-				body: {
-					messages: ids
-				}
-			});
-			return true;
-		} catch (error) {
-			new Warn(
-				"Rest",
-				`Failed to delete channel with id ${this.raw.id}`,
-				(error as Error).message
-			).warn();
-			return false;
-		}
 	}
 }

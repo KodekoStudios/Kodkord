@@ -1,4 +1,4 @@
-import type { RESTPatchAPIChannelMessageJSONBody } from "discord-api-types/v10";
+import type { RESTPatchAPIChannelMessageJSONBody, GatewayMessageCreateDispatchData, APIGuild } from "discord-api-types/v10";
 
 import {
 	type RESTPostAPIChannelMessageJSONBody,
@@ -15,16 +15,29 @@ import { Entity } from "@entity";
 import { Warn } from "kodkord";
 
 import { Channel } from "./channel";
+import { Guild } from "./guild";
 import { User } from "./user";
 
+export type MessageData = GatewayMessageCreateDispatchData | APIMessage;
+
 /** Represents a message within a Discord channel. */
-export class Message<Type extends MessageType> extends Entity<{ type: Type } & APIMessage> {
+export class Message<Type extends MessageType> extends Entity<{ type: Type } & MessageData> {
+
+	/**
+	 * Gets the author of this message.
+	 *
+	 * @returns A {@link User} instance representing the message author.
+	 */
+	public author(): User {
+		return new User(this.rest, this.raw.author);
+	}
+
 	/**
 	 * Posts a reply to this message.
 	 *
 	 * @param body The message payload to send as a reply.
 	 * @param force Whether to throw an error if the referenced message does not exist.
-	 * @returns A promise resolving to the `Message` instance of the sent reply, or `undefined` if the operation fails.
+	 * @returns A promise resolving to the {@link Message} instance of the sent reply, or `undefined` if the operation fails.
 	 */
 	public async reply(
 		body: RESTPostAPIChannelMessageJSONBody,
@@ -53,6 +66,12 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 		}
 	}
 
+	/**
+	 * Modifies this message.
+	 *
+	 * @param body The new body for the message.
+	 * @returns A promise resolving to the modified {@link Message} instance, or `undefined` if the operation fails.
+	 */
 	public async modify(
 		body: RESTPatchAPIChannelMessageJSONBody
 	): Promise<Message<MessageType> | undefined> {
@@ -73,9 +92,28 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 	}
 
 	/**
+	 * Deletes this message.
+	 *
+	 * @returns A promise resolving to `true` if the message was successfully deleted, or `false` if it failed.
+	 */
+	public async destroy(): Promise<boolean> {
+		try {
+			await this.rest.delete(Routes.channelMessage(this.raw.channel_id, this.raw.id));
+			return true;
+		} catch (error) {
+			new Warn(
+				"Rest",
+				`Failed to delete message with id ${this.raw.id} in channel with id ${this.raw.channel_id}`,
+				(error as Error).message
+			).warn();
+			return false;
+		}
+	}
+
+	/**
 	 * Fetches the channel this message belongs to.
 	 *
-	 * @returns A promise resolving to the `Channel` instance of the channel, or `undefined` if the operation fails.
+	 * @returns A promise resolving to the {@link Channel} instance of the channel, or `undefined` if the operation fails.
 	 */
 	public async channel(): Promise<Channel<ChannelType> | undefined> {
 		try {
@@ -92,13 +130,27 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 		}
 	}
 
+
 	/**
-	 * Gets the author of this message.
+	 * Fetches the guild this message belongs to, if applicable.
 	 *
-	 * @returns A `User` instance representing the message author.
+	 * @returns A promise resolving to the {@link Guild} instance, or `undefined` if the message is not in a guild or the operation fails.
 	 */
-	public author(): User {
-		return new User(this.rest, this.raw.author);
+	public async guild(): Promise<undefined | Guild> {
+		if ('guild_id' in this.raw && this.raw.guild_id) {
+			try {
+				return new Guild(
+					this.rest,
+					await this.rest.get<APIGuild>(Routes.guild(this.raw.guild_id))
+				);
+			} catch (error) {
+				new Warn(
+					"Rest",
+					`Failed to fetch guild with id ${this.raw.guild_id}`,
+					(error as Error).message
+				).warn();
+			}
+		}
 	}
 
 	/**
@@ -156,10 +208,10 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 	}
 
 	/**
-	 * Retrieves reaction data for a specific emoji on this message.Retrieves reaction data for a specific emoji on this message.
+	 * Retrieves reaction data for a specific emoji on this message.
 	 *
 	 * @param reaction The emoji to search for, either as a Unicode or custom emoji.
-	 * @returns The `APIReaction` object for the emoji, or `undefined` if no reaction is found.
+	 * @returns The {@link APIReaction} object for the emoji, or `undefined` if no reaction is found.
 	 */
 	public reaction(reaction: string): APIReaction | undefined {
 		return this.raw.reactions?.find(
@@ -190,7 +242,6 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 	public async pin(): Promise<boolean> {
 		try {
 			await this.rest.put(Routes.channelPin(this.raw.channel_id, this.raw.id));
-
 			return true;
 		} catch (error) {
 			new Warn(
@@ -198,7 +249,6 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 				`Failed to pin message with id ${this.raw.id}`,
 				(error as Error).message
 			).warn();
-
 			return false;
 		}
 	}
@@ -211,7 +261,6 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 	public async unpin(): Promise<boolean> {
 		try {
 			await this.rest.delete(Routes.channelPin(this.raw.channel_id, this.raw.id));
-
 			return true;
 		} catch (error) {
 			new Warn(
@@ -219,11 +268,15 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 				`Failed to unpin message with id ${this.raw.id}`,
 				(error as Error).message
 			).warn();
-
 			return false;
 		}
 	}
 
+	/**
+	 * Ends a poll associated with this message.
+	 *
+	 * @returns A promise resolving to the {@link APIPoll} object representing the ended poll, or `undefined` if the operation fails.
+	 */
 	public async endPoll(): Promise<undefined | APIPoll> {
 		try {
 			return await this.rest.post<APIPoll>(Routes.expirePoll(this.raw.channel_id, this.raw.id));
@@ -236,6 +289,12 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 		}
 	}
 
+	/**
+	 * Fetches the voters for a specific answer in a poll associated with this message.
+	 *
+	 * @param answerId The ID of the poll answer.
+	 * @returns A promise resolving to an array of {@link APIUser} objects representing the voters, or `undefined` if the operation fails.
+	 */
 	public async answerVoters(answerId: number): Promise<undefined | APIUser[]> {
 		try {
 			return await this.rest.get<APIUser[]>(
@@ -249,8 +308,6 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 			).warn();
 		}
 	}
-
-	// Type Guards
 
 	public isDefault(): this is Message<MessageType.Default> {
 		return this.raw.type === MessageType.Default;
@@ -402,20 +459,5 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 
 	public isPollResult(): this is Message<MessageType.PollResult> {
 		return this.raw.type === MessageType.PollResult;
-	}
-
-	public async destroy(): Promise<boolean> {
-		try {
-			await this.rest.delete(Routes.channelMessage(this.raw.channel_id, this.raw.id));
-			return true;
-		} catch (error) {
-			new Warn(
-				"Rest",
-				`Failed to delete message with id ${this.raw.id} in channel with id ${this.raw.channel_id}`,
-				(error as Error).message
-			).warn();
-
-			return false;
-		}
 	}
 }
