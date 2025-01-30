@@ -1,4 +1,4 @@
-import type { GatewayDispatchPayload, GatewayDispatchEvents } from "discord-api-types/v10";
+import type { GatewayDispatchPayload, GatewayDispatchEvents, GatewayReceivePayload } from "discord-api-types/v10";
 
 import { type RestSettings, Rest } from "@api/rest";
 import { Dictionary } from "@common/dictionary";
@@ -28,7 +28,7 @@ export interface Events<Event extends GatewayDispatchEvents | "raw" = GatewayDis
 		event: E,
 		callback: ((
 			data: E extends "raw"
-				? GatewayDispatchPayload
+				? GatewayReceivePayload
 				: Extract<GatewayDispatchPayload, { t: E }>["d"]
 		) => unknown) | undefined,
 	): this;
@@ -43,7 +43,7 @@ export interface Events<Event extends GatewayDispatchEvents | "raw" = GatewayDis
 		event: E,
 	): ((
 		data: E extends "raw"
-			? GatewayDispatchPayload
+			? GatewayReceivePayload
 			: Extract<GatewayDispatchPayload, { t: E }>["d"]
 	) => unknown) | undefined;
 }
