@@ -1,1 +1,0 @@
-pnpx --no-install commitlint --edit "$1"
