@@ -1,4 +1,4 @@
-import type { RESTPatchAPIChannelMessageJSONBody, GatewayMessageCreateDispatchData } from "discord-api-types/v10";
+import type { RESTPatchAPIChannelMessageJSONBody, GatewayMessageCreateDispatchData, APIGuild } from "discord-api-types/v10";
 
 import {
 	type RESTPostAPIChannelMessageJSONBody,
@@ -15,6 +15,7 @@ import { Entity } from "@entity";
 import { Warn } from "kodkord";
 
 import { Channel } from "./channel";
+import { Guild } from "./guild";
 import { User } from "./user";
 
 export type MessageData = GatewayMessageCreateDispatchData | APIMessage;
@@ -25,7 +26,7 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & M
 	/**
 	 * Gets the author of this message.
 	 *
-	 * @returns A `User` instance representing the message author.
+	 * @returns A {@link User} instance representing the message author.
 	 */
 	public author(): User {
 		return new User(this.rest, this.raw.author);
@@ -36,7 +37,7 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & M
 	 *
 	 * @param body The message payload to send as a reply.
 	 * @param force Whether to throw an error if the referenced message does not exist.
-	 * @returns A promise resolving to the `Message` instance of the sent reply, or `undefined` if the operation fails.
+	 * @returns A promise resolving to the {@link Message} instance of the sent reply, or `undefined` if the operation fails.
 	 */
 	public async reply(
 		body: RESTPostAPIChannelMessageJSONBody,
@@ -69,7 +70,7 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & M
 	 * Modifies this message.
 	 *
 	 * @param body The new body for the message.
-	 * @returns A promise resolving to the modified `Message` instance, or `undefined` if the operation fails.
+	 * @returns A promise resolving to the modified {@link Message} instance, or `undefined` if the operation fails.
 	 */
 	public async modify(
 		body: RESTPatchAPIChannelMessageJSONBody
@@ -126,6 +127,29 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & M
 				`Failed to fetch channel with id ${this.raw.id}`,
 				(error as Error).message
 			).warn();
+		}
+	}
+
+
+	/**
+	 * Fetches the guild this message belongs to, if applicable.
+	 *
+	 * @returns A promise resolving to the {@link Guild} instance, or `undefined` if the message is not in a guild or the operation fails.
+	 */
+	public async guild(): Promise<undefined | Guild> {
+		if ('guild_id' in this.raw && this.raw.guild_id) {
+			try {
+				return new Guild(
+					this.rest,
+					await this.rest.get<APIGuild>(Routes.guild(this.raw.guild_id))
+				);
+			} catch (error) {
+				new Warn(
+					"Rest",
+					`Failed to fetch guild with id ${this.raw.guild_id}`,
+					(error as Error).message
+				).warn();
+			}
 		}
 	}
 
@@ -187,7 +211,7 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & M
 	 * Retrieves reaction data for a specific emoji on this message.
 	 *
 	 * @param reaction The emoji to search for, either as a Unicode or custom emoji.
-	 * @returns The `APIReaction` object for the emoji, or `undefined` if no reaction is found.
+	 * @returns The {@link APIReaction} object for the emoji, or `undefined` if no reaction is found.
 	 */
 	public reaction(reaction: string): APIReaction | undefined {
 		return this.raw.reactions?.find(
