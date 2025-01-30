@@ -1,4 +1,4 @@
-import type { RESTPatchAPIChannelMessageJSONBody } from "discord-api-types/v10";
+import type { RESTPatchAPIChannelMessageJSONBody, GatewayMessageCreateDispatchData } from "discord-api-types/v10";
 
 import {
 	type RESTPostAPIChannelMessageJSONBody,
@@ -17,8 +17,20 @@ import { Warn } from "kodkord";
 import { Channel } from "./channel";
 import { User } from "./user";
 
+export type MessageData = GatewayMessageCreateDispatchData | APIMessage;
+
 /** Represents a message within a Discord channel. */
-export class Message<Type extends MessageType> extends Entity<{ type: Type } & APIMessage> {
+export class Message<Type extends MessageType> extends Entity<{ type: Type } & MessageData> {
+
+	/**
+	 * Gets the author of this message.
+	 *
+	 * @returns A `User` instance representing the message author.
+	 */
+	public author(): User {
+		return new User(this.rest, this.raw.author);
+	}
+
 	/**
 	 * Posts a reply to this message.
 	 *
@@ -53,6 +65,12 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 		}
 	}
 
+	/**
+	 * Modifies this message.
+	 *
+	 * @param body The new body for the message.
+	 * @returns A promise resolving to the modified `Message` instance, or `undefined` if the operation fails.
+	 */
 	public async modify(
 		body: RESTPatchAPIChannelMessageJSONBody
 	): Promise<Message<MessageType> | undefined> {
@@ -73,9 +91,28 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 	}
 
 	/**
+	 * Deletes this message.
+	 *
+	 * @returns A promise resolving to `true` if the message was successfully deleted, or `false` if it failed.
+	 */
+	public async destroy(): Promise<boolean> {
+		try {
+			await this.rest.delete(Routes.channelMessage(this.raw.channel_id, this.raw.id));
+			return true;
+		} catch (error) {
+			new Warn(
+				"Rest",
+				`Failed to delete message with id ${this.raw.id} in channel with id ${this.raw.channel_id}`,
+				(error as Error).message
+			).warn();
+			return false;
+		}
+	}
+
+	/**
 	 * Fetches the channel this message belongs to.
 	 *
-	 * @returns A promise resolving to the `Channel` instance of the channel, or `undefined` if the operation fails.
+	 * @returns A promise resolving to the {@link Channel} instance of the channel, or `undefined` if the operation fails.
 	 */
 	public async channel(): Promise<Channel<ChannelType> | undefined> {
 		try {
@@ -90,15 +127,6 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 				(error as Error).message
 			).warn();
 		}
-	}
-
-	/**
-	 * Gets the author of this message.
-	 *
-	 * @returns A `User` instance representing the message author.
-	 */
-	public author(): User {
-		return new User(this.rest, this.raw.author);
 	}
 
 	/**
@@ -156,7 +184,7 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 	}
 
 	/**
-	 * Retrieves reaction data for a specific emoji on this message.Retrieves reaction data for a specific emoji on this message.
+	 * Retrieves reaction data for a specific emoji on this message.
 	 *
 	 * @param reaction The emoji to search for, either as a Unicode or custom emoji.
 	 * @returns The `APIReaction` object for the emoji, or `undefined` if no reaction is found.
@@ -190,7 +218,6 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 	public async pin(): Promise<boolean> {
 		try {
 			await this.rest.put(Routes.channelPin(this.raw.channel_id, this.raw.id));
-
 			return true;
 		} catch (error) {
 			new Warn(
@@ -198,7 +225,6 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 				`Failed to pin message with id ${this.raw.id}`,
 				(error as Error).message
 			).warn();
-
 			return false;
 		}
 	}
@@ -211,7 +237,6 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 	public async unpin(): Promise<boolean> {
 		try {
 			await this.rest.delete(Routes.channelPin(this.raw.channel_id, this.raw.id));
-
 			return true;
 		} catch (error) {
 			new Warn(
@@ -219,11 +244,15 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 				`Failed to unpin message with id ${this.raw.id}`,
 				(error as Error).message
 			).warn();
-
 			return false;
 		}
 	}
 
+	/**
+	 * Ends a poll associated with this message.
+	 *
+	 * @returns A promise resolving to the {@link APIPoll} object representing the ended poll, or `undefined` if the operation fails.
+	 */
 	public async endPoll(): Promise<undefined | APIPoll> {
 		try {
 			return await this.rest.post<APIPoll>(Routes.expirePoll(this.raw.channel_id, this.raw.id));
@@ -236,6 +265,12 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 		}
 	}
 
+	/**
+	 * Fetches the voters for a specific answer in a poll associated with this message.
+	 *
+	 * @param answerId The ID of the poll answer.
+	 * @returns A promise resolving to an array of {@link APIUser} objects representing the voters, or `undefined` if the operation fails.
+	 */
 	public async answerVoters(answerId: number): Promise<undefined | APIUser[]> {
 		try {
 			return await this.rest.get<APIUser[]>(
@@ -249,8 +284,6 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 			).warn();
 		}
 	}
-
-	// Type Guards
 
 	public isDefault(): this is Message<MessageType.Default> {
 		return this.raw.type === MessageType.Default;
@@ -402,20 +435,5 @@ export class Message<Type extends MessageType> extends Entity<{ type: Type } & A
 
 	public isPollResult(): this is Message<MessageType.PollResult> {
 		return this.raw.type === MessageType.PollResult;
-	}
-
-	public async destroy(): Promise<boolean> {
-		try {
-			await this.rest.delete(Routes.channelMessage(this.raw.channel_id, this.raw.id));
-			return true;
-		} catch (error) {
-			new Warn(
-				"Rest",
-				`Failed to delete message with id ${this.raw.id} in channel with id ${this.raw.channel_id}`,
-				(error as Error).message
-			).warn();
-
-			return false;
-		}
 	}
 }

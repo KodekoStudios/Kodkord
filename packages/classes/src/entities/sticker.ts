@@ -12,12 +12,13 @@ import { Panic } from "kodkord";
 
 import type { Sizes } from "./image";
 
-/** It represents a sticker within a Discord guild. */
+/** Represents a sticker within a Discord guild. */
 export class Sticker extends Entity<APISticker> {
+
 	/**
-	 * Fetches the latest data for the emoji from the Discord API.
+	 * Fetches the latest data for the sticker from the Discord API.
 	 *
-	 * @returns A promise that resolves to an updated `Emoji` instance.
+	 * @returns A promise that resolves to an updated {@link Sticker} instance.
 	 * @throws If the API request fails, an error is logged and re-thrown.
 	 */
 	public async fetch(): Promise<Sticker> {
@@ -27,7 +28,33 @@ export class Sticker extends Entity<APISticker> {
 		} catch (error) {
 			new Panic(
 				"Rest",
-				`Failed to fetch emoji with id ${this.raw.id}`,
+				`Failed to fetch sticker with id ${this.raw.id}`,
+				(error as Error).message
+			).panic();
+			throw error;
+		}
+	}
+
+	/**
+	 * Modifies the sticker's data in the Discord API.
+	 *
+	 * @param data The data to update for the sticker.
+	 * @returns A promise that resolves to an updated {@link Sticker} instance.
+	 * @throws If the API request fails, an error is logged and re-thrown.
+	 */
+	public async modify(data: RESTPatchAPIGuildStickerJSONBody): Promise<Sticker> {
+		try {
+			const API = await this.rest.patch<APISticker>(
+				Routes.guildSticker(this.raw.guild_id as string, this.raw.id),
+				{
+					body: data as Record<string, object>
+				}
+			);
+			return new Sticker(this.rest, API);
+		} catch (error) {
+			new Panic(
+				"Rest",
+				`Failed to modify sticker with id ${this.raw.id} from guild with id ${this.raw.guild_id}`,
 				(error as Error).message
 			).panic();
 			throw error;
@@ -48,9 +75,9 @@ export class Sticker extends Entity<APISticker> {
 	}
 
 	/**
-	 * Converts the image to an ArrayBuffer for further processing or usage.
+	 * Converts the sticker image to an ArrayBuffer for further processing or usage.
 	 *
-	 * @returns A promise that resolves an ArrayBuffer representing the image data.
+	 * @returns A promise that resolves to an `ArrayBuffer` representing the image data.
 	 */
 	public async buffer(): Promise<ArrayBuffer> {
 		const RESPONSE = await fetch(this.url());
@@ -59,36 +86,11 @@ export class Sticker extends Entity<APISticker> {
 	}
 
 	/**
-	 * Modifies a emoji's data in the Discord API.
+	 * Deletes the sticker from the Discord API.
 	 *
-	 * @returns A promise that resolves to an updated `Emoji` instance.
-	 * @throws If the API request fails, an error is logged and re-thrown.
+	 * @returns A promise resolving to `true` if the sticker was successfully deleted, or `false` if it failed.
 	 */
-	public async modify(data: RESTPatchAPIGuildStickerJSONBody) {
-		try {
-			const API = await this.rest.patch<APISticker>(
-				Routes.guildSticker(this.raw.guild_id as string, this.raw.id),
-				{
-					body: data as Record<string, object>
-				}
-			);
-			return new Sticker(this.rest, API);
-		} catch (error) {
-			new Panic(
-				"Rest",
-				`Failed to modify sticker with id ${this.raw.id} from guild with id ${this.raw.guild_id}`,
-				(error as Error).message
-			).panic();
-			throw error;
-		}
-	}
-
-	/**
-	 * Deletes the sticker in the Discord API.
-	 *
-	 * @returns A promise of a Boolean that represents that it was a success.
-	 */
-	public async delete() {
+	public async delete(): Promise<boolean> {
 		try {
 			await this.rest.delete<APISticker>(
 				Routes.guildSticker(this.raw.guild_id as string, this.raw.id)
@@ -97,7 +99,7 @@ export class Sticker extends Entity<APISticker> {
 		} catch (error) {
 			new Panic(
 				"Rest",
-				`Failed to fetch sticker with id ${this.raw.id} from the guild with id ${this.raw.guild_id}`,
+				`Failed to delete sticker with id ${this.raw.id} from the guild with id ${this.raw.guild_id}`,
 				(error as Error).message
 			).panic();
 			return false;

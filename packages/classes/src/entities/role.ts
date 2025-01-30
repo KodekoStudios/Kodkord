@@ -10,15 +10,17 @@ import { Entity } from "@entity";
 import { RoleIcon } from "./image";
 import { Guild } from "./guild";
 
-/** It represents a role within a Discord guild. */
+/** Represents a role within a Discord guild. */
 export class Role extends Entity<APIRole> {
-	/** The `Guild` instance in which Role belongs. */
+	/** The {@link Guild} instance in which the role belongs. */
 	readonly guild: Guild;
 
 	/**
 	 * Creates an instance of the Entity.
 	 *
+	 * @param rest The REST manager for making API requests.
 	 * @param raw The raw data from the API response.
+	 * @param guildRaw The raw data of the guild to which the role belongs.
 	 */
 	constructor(rest: Rest, raw: APIRole, guildRaw: APIGuild) {
 		super(rest, raw);
@@ -26,11 +28,11 @@ export class Role extends Entity<APIRole> {
 	}
 
 	/**
-	 * Retrieves the roles's icon.
+	 * Retrieves the role's icon.
 	 *
-	 * @returns A `RoleIcon` instance representing the role's icon.
+	 * @returns A {@link RoleIcon} instance representing the role's icon.
 	 */
-	public icon() {
+	public icon(): RoleIcon {
 		return new RoleIcon(this.rest, {
 			hash: this.raw.icon ?? null,
 			ownerId: this.raw.id
@@ -40,7 +42,7 @@ export class Role extends Entity<APIRole> {
 	/**
 	 * Fetches the latest data for the role from the Discord API.
 	 *
-	 * @returns A promise that resolves to an updated `Role` instance.
+	 * @returns A promise that resolves to an updated {@link Role} instance.
 	 * @throws If the API request fails, an error is logged and re-thrown.
 	 */
 	public async fetch(): Promise<Role> {
@@ -58,18 +60,10 @@ export class Role extends Entity<APIRole> {
 	}
 
 	/**
-	 * Returns a string to mention the emoji in Discord.
+	 * Modifies the role's data in the Discord API.
 	 *
-	 * @returns A string representing the emoji mention.
-	 */
-	public mention(): string {
-		return `<@&${this.raw.id}>`;
-	}
-
-	/**
-	 * Modifies a role's data in the Discord API.
-	 *
-	 * @returns A promise that resolves to an updated `Role` instance.
+	 * @param data The data to update for the role, including an optional `position` field.
+	 * @returns A promise that resolves to an updated {@link Role} instance.
 	 * @throws If the API request fails, an error is logged and re-thrown.
 	 */
 	public async modify(
@@ -77,6 +71,7 @@ export class Role extends Entity<APIRole> {
 			position?: number;
 		}
 	): Promise<Role> {
+		// Handle role position updates separately
 		if ("position" in data) {
 			await this.rest.patch(Routes.guildRoles(this.guild.raw.id), {
 				body: {
@@ -85,6 +80,7 @@ export class Role extends Entity<APIRole> {
 				} as unknown as Record<string, object>
 			});
 		}
+
 		try {
 			return new Role(
 				this.rest,
@@ -101,5 +97,14 @@ export class Role extends Entity<APIRole> {
 			).panic();
 			throw error;
 		}
+	}
+
+	/**
+	 * Returns a string to mention the role in Discord.
+	 *
+	 * @returns A string representing the role mention.
+	 */
+	public mention(): string {
+		return `<@&${this.raw.id}>`;
 	}
 }
