@@ -1,5 +1,5 @@
 {
-  "name": "kodkord",
+  "name": "monorepo",
   "version": "1.0.0",
   "description": "Monorepo for Kodkord.",
   "private": true,
