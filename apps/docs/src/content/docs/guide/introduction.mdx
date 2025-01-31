@@ -1,0 +1,51 @@
+---
+title: Introduction
+description: Enter into a light experience
+---
+
+import {
+  Steps, Tabs, TabItem, Code, Aside, Icon, Badge
+} from '@astrojs/starlight/components';
+
+Kodkord is a robust and lightweight, low dependency and high performance library for interacting with the Discord API.
+
+<Aside type="caution">Kodkord is not recommended for beginners</Aside>
+
+### Before Installation <Badge text="IMPORTANT" size="small" variant="caution" style={{ fontWeight: "bolder", textDecoration: "underline" }} />
+We recommend first of all to have installed:
+<div class="div-before-installation">
+  <Icon name="right-caret" label=">" class="display-inline" />[<Icon name="node" class="display-inline" /> NodeJS](https://nodejs.org/) (v18 or higher)
+</div>
+<div class="div-before-installation">
+  <Icon name="right-caret" label=">" class="display-inline" />[<Icon name="seti:typescript" class="display-inline" /> TypeScript](https://www.typescriptlang.org/) (v4.3 or higher) <Badge variant="tip" text="OPTIONAL USE"/>
+</div>
+<div class="div-before-installation">
+  <Icon name="right-caret" label=">" class="display-inline" /> Any package manager, below are some examples
+</div>
+
+<Aside type="note">
+- TypeScript is not required to use kodkord <tr/>
+- Kodkord was recently released, that means there may be bugs. Also, backwards compatibility with node and typescript has not been tested. So we would appreciate it if you could contribute by testing :3.
+</Aside>
+
+### Installation
+
+<Tabs syncKey="pkg">
+  <TabItem label="Bun" icon="bun">
+    <Code code=" bun i kodkord" lang="sh" frame="terminal" class="JetBrains-Mono-Semibold" />
+  </TabItem>
+
+  <TabItem label="npm" icon="seti:npm">
+    <Code code=" npm i kodkord" lang="sh" frame="terminal" class="JetBrains-Mono-Semibold" />
+  </TabItem>
+
+  <TabItem label="pnpm" icon="pnpm">
+    <Code code="pnpm i kodkord" lang="sh" frame="terminal" class="JetBrains-Mono-Semibold" />
+  </TabItem>
+
+  <TabItem label="Yarn" icon="seti:yarn">
+    <Code code="yarn add kodkord" lang="sh" frame="terminal" class="JetBrains-Mono-Semibold" />
+  </TabItem>
+</Tabs>
+
+<Aside type="note">You may also want to install the github mirror version for the latest changes, in that case install `kodkord@dev` instead of `kodkord`.</Aside>

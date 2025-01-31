@@ -1,1 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><path fill-rule="evenodd" d="M81 36 64 0 47 36l-1 2-9-10a6 6 0 0 0-9 9l10 10h-2L0 64l36 17h2L28 91a6 6 0 1 0 9 9l9-10 1 2 17 36 17-36v-2l9 10a6 6 0 1 0 9-9l-9-9 2-1 36-17-36-17-2-1 9-9a6 6 0 1 0-9-9l-9 10v-2Zm-17 2-2 5c-4 8-11 15-19 19l-5 2 5 2c8 4 15 11 19 19l2 5 2-5c4-8 11-15 19-19l5-2-5-2c-8-4-15-11-19-19l-2-5Z" clip-rule="evenodd"/><path d="M118 19a6 6 0 0 0-9-9l-3 3a6 6 0 1 0 9 9l3-3Zm-96 4c-2 2-6 2-9 0l-3-3a6 6 0 1 1 9-9l3 3c3 2 3 6 0 9Zm0 82c-2-2-6-2-9 0l-3 3a6 6 0 1 0 9 9l3-3c3-2 3-6 0-9Zm96 4a6 6 0 0 1-9 9l-3-3a6 6 0 1 1 9-9l3 3Z"/><style>path{fill:#000}@media (prefers-color-scheme:dark){path{fill:#fff}}</style></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="512" width="512">
+  <g style="font-style:oblique;font-weight:300;font-size:32px;line-height:1;font-family:Lato;font-variant-ligatures:none;text-align:center"/>
+  <g style="font-style:normal;font-weight:800;font-size:90px;line-height:1;font-family:&quot;Montserrat ExtraBold Alt1&quot;;font-variant-ligatures:none;text-align:center;align-items:center" stroke-width="0" stroke-miterlimit="2">
+    <!-- Ajusta las transformaciones para centrar el contenido -->
+    <g transform="translate(-3696, 506) scale(10)">
+      <path d="M384.832-50.4H37.336zm14.616 22.32L420.04-50.4h-15.696l-19.512 20.952-14.112 15.192V0h14.112v-12.6l5.328-5.688L404.56 0h16.56z" fill="#F6F5F2"/>
+      <path d="M384.832-50.4H370.72v21.456l14.112-15.336z" fill="#E8545A"/>
+    </g>
+  </g>
+</svg>
