@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,600;1,600');
+
+*.display-inline {
+	display: inline !important;
+	margin: 0 !important;
+}
+
+*.div-before-installation {
+	margin: 0 !important;
+}
+*.div-before-installation p a {
+	text-decoration: none;
+}
+
+*.no-margin {
+	margin: 0 !important;
+}
+
