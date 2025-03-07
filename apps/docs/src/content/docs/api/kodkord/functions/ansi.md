@@ -7,7 +7,7 @@ title: "ansi"
 
 > **ansi**(...`codes`): `` `[${string}m` ``
 
-Defined in: [packages/kodkord/src/common/log.ts:218](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/common/log.ts#L218)
+Defined in: [packages/kodkord/src/common/log.ts:218](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/common/log.ts#L218)
 
 Generates an ANSI escape sequence for the provided ANSI codes.
 

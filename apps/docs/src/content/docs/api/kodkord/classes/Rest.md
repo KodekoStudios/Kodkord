@@ -5,7 +5,7 @@ prev: false
 title: "Rest"
 ---
 
-Defined in: [packages/kodkord/src/api/rest.ts:49](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/rest.ts#L49)
+Defined in: [packages/kodkord/src/api/rest.ts:49](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/rest.ts#L49)
 
 A class for managing RESTful interactions with the Discord API.
 
@@ -18,7 +18,7 @@ It ensures proper rate-limiting using buckets and handles request retries when n
 
 > **new Rest**(`settings`): [`Rest`](/api/kodkord/classes/rest/)
 
-Defined in: [packages/kodkord/src/api/rest.ts:61](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/rest.ts#L61)
+Defined in: [packages/kodkord/src/api/rest.ts:61](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/rest.ts#L61)
 
 Creates a new `Rest` instance.
 
@@ -38,7 +38,7 @@ Creates a new `Rest` instance.
 
 > **latency**(`route`): `Promise`\<`number`\>
 
-Defined in: [packages/kodkord/src/api/rest.ts:69](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/rest.ts#L69)
+Defined in: [packages/kodkord/src/api/rest.ts:69](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/rest.ts#L69)
 
 #### Parameters
 
@@ -56,7 +56,7 @@ Defined in: [packages/kodkord/src/api/rest.ts:69](https://github.com/KingsBeCatt
 
 > **delete**\<`Returns`\>(`route`, `parameters`?): `Promise`\<`Returns`\>
 
-Defined in: [packages/kodkord/src/api/rest.ts:82](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/rest.ts#L82)
+Defined in: [packages/kodkord/src/api/rest.ts:82](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/rest.ts#L82)
 
 Sends a DELETE request to the specified API route.
 
@@ -85,7 +85,7 @@ A promise resolving to the response of the request.
 
 > **patch**\<`Returns`\>(`route`, `parameters`?): `Promise`\<`Returns`\>
 
-Defined in: [packages/kodkord/src/api/rest.ts:93](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/rest.ts#L93)
+Defined in: [packages/kodkord/src/api/rest.ts:93](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/rest.ts#L93)
 
 Sends a PATCH request to the specified API route.
 
@@ -114,7 +114,7 @@ A promise resolving to the response of the request.
 
 > **post**\<`Returns`\>(`route`, `parameters`?): `Promise`\<`Returns`\>
 
-Defined in: [packages/kodkord/src/api/rest.ts:104](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/rest.ts#L104)
+Defined in: [packages/kodkord/src/api/rest.ts:104](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/rest.ts#L104)
 
 Sends a POST request to the specified API route.
 
@@ -143,7 +143,7 @@ A promise resolving to the response of the request.
 
 > **put**\<`Returns`\>(`route`, `parameters`?): `Promise`\<`Returns`\>
 
-Defined in: [packages/kodkord/src/api/rest.ts:115](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/rest.ts#L115)
+Defined in: [packages/kodkord/src/api/rest.ts:115](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/rest.ts#L115)
 
 Sends a PUT request to the specified API route.
 
@@ -172,7 +172,7 @@ A promise resolving to the response of the request.
 
 > **get**\<`Returns`\>(`route`, `parameters`?): `Promise`\<`Returns`\>
 
-Defined in: [packages/kodkord/src/api/rest.ts:126](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/rest.ts#L126)
+Defined in: [packages/kodkord/src/api/rest.ts:126](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/rest.ts#L126)
 
 Sends a GET request to the specified API route.
 
@@ -201,7 +201,7 @@ A promise resolving to the response of the request.
 
 > **request**\<`Returns`\>(`method`, `route`, `parameters`): `Promise`\<`Returns`\>
 
-Defined in: [packages/kodkord/src/api/rest.ts:141](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/rest.ts#L141)
+Defined in: [packages/kodkord/src/api/rest.ts:141](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/rest.ts#L141)
 
 Sends a request to the Discord API.
 
@@ -234,7 +234,7 @@ A promise resolving to the response of the request.
 
 > **getBucket**(`route`): [`Bucket`](/api/kodkord/classes/bucket/)
 
-Defined in: [packages/kodkord/src/api/rest.ts:195](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/rest.ts#L195)
+Defined in: [packages/kodkord/src/api/rest.ts:195](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/rest.ts#L195)
 
 Retrieves the rate-limiting bucket for the specified route.
 

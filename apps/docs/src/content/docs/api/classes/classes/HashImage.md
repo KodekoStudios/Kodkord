@@ -5,7 +5,7 @@ prev: false
 title: "HashImage"
 ---
 
-Defined in: [entities/image.ts:40](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/image.ts#L40)
+Defined in: [entities/image.ts:40](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/image.ts#L40)
 
 Abstract class representing a hash-based image entity.
 
@@ -39,7 +39,7 @@ It extends the `Entity` class, allowing interaction with raw API data.
 
 > **new HashImage**\<`Raw`\>(`rest`, `raw`): [`HashImage`](/api/classes/classes/hashimage/)\<`Raw`\>
 
-Defined in: [core/entity.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/core/entity.ts#L18)
+Defined in: [core/entity.ts:18](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/core/entity.ts#L18)
 
 Creates an instance of the Entity.
 
@@ -64,7 +64,7 @@ Creates an instance of the Entity.
 
 > `readonly` **rest**: `Rest`
 
-Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/core/entity.ts#L8)
+Defined in: [core/entity.ts:8](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/core/entity.ts#L8)
 
 The `Rest` instance for interacting with the Discord API.
 
@@ -78,7 +78,7 @@ The `Rest` instance for interacting with the Discord API.
 
 > `readonly` **raw**: `Raw`
 
-Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/core/entity.ts#L11)
+Defined in: [core/entity.ts:11](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/core/entity.ts#L11)
 
 Raw data from the API response, read-only to prevent unnecessary mutations.
 
@@ -92,7 +92,7 @@ Raw data from the API response, read-only to prevent unnecessary mutations.
 
 > `abstract` **url**(`settings`?): `null` \| `string`
 
-Defined in: [entities/image.ts:47](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/image.ts#L47)
+Defined in: [entities/image.ts:47](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/image.ts#L47)
 
 Retrieves the URL of the image based on the hash and settings provided.
 
@@ -100,8 +100,8 @@ Retrieves the URL of the image based on the hash and settings provided.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `settings`? | \{ `format`: `ImageFormat`; `size`: [`Sizes`](/api/classes/type-aliases/sizes/); \} | Optional settings to specify the image format and size. |
-| `settings.format`? | `ImageFormat` | - |
+| `settings`? | \{ `format`: `any`; `size`: [`Sizes`](/api/classes/type-aliases/sizes/); \} | Optional settings to specify the image format and size. |
+| `settings.format`? | `any` | - |
 | `settings.size`? | [`Sizes`](/api/classes/type-aliases/sizes/) | - |
 
 #### Returns
@@ -116,7 +116,7 @@ The URL of the image or `null` if the hash is not available.
 
 > `abstract` **default**(`settings`?): `undefined` \| `string`
 
-Defined in: [entities/image.ts:58](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/image.ts#L58)
+Defined in: [entities/image.ts:58](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/image.ts#L58)
 
 Retrieves the default URL of the image if a default is provided by Discord.
 
@@ -124,8 +124,8 @@ Retrieves the default URL of the image if a default is provided by Discord.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `settings`? | \{ `format`: `ImageFormat`; `size`: [`Sizes`](/api/classes/type-aliases/sizes/); \} | Optional settings to specify the image format and size. |
-| `settings.format`? | `ImageFormat` | - |
+| `settings`? | \{ `format`: `any`; `size`: [`Sizes`](/api/classes/type-aliases/sizes/); \} | Optional settings to specify the image format and size. |
+| `settings.format`? | `any` | - |
 | `settings.size`? | [`Sizes`](/api/classes/type-aliases/sizes/) | - |
 
 #### Returns
@@ -140,7 +140,7 @@ The default image URL or `undefined` if not applicable.
 
 > **display**(`settings`?): `string`
 
-Defined in: [entities/image.ts:72](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/image.ts#L72)
+Defined in: [entities/image.ts:72](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/image.ts#L72)
 
 Retrieves the most appropriate image URL.
 
@@ -151,8 +151,8 @@ URL if available. If neither is available, it returns an empty string.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `settings`? | \{ `format`: `ImageFormat`; `size`: [`Sizes`](/api/classes/type-aliases/sizes/); \} | Optional settings to specify the image format and size. |
-| `settings.format`? | `ImageFormat` | - |
+| `settings`? | \{ `format`: `any`; `size`: [`Sizes`](/api/classes/type-aliases/sizes/); \} | Optional settings to specify the image format and size. |
+| `settings.format`? | `any` | - |
 | `settings.size`? | [`Sizes`](/api/classes/type-aliases/sizes/) | - |
 
 #### Returns
@@ -167,7 +167,7 @@ The displayable URL of the image or an empty string.
 
 > **buffer**(): `Promise`\<`ArrayBuffer`\>
 
-Defined in: [entities/image.ts:84](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/image.ts#L84)
+Defined in: [entities/image.ts:84](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/image.ts#L84)
 
 Converts the image to an ArrayBuffer for further processing or usage.
 

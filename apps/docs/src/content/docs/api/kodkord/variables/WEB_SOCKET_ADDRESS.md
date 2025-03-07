@@ -5,8 +5,8 @@ prev: false
 title: "WEB_SOCKET_ADDRESS"
 ---
 
-> `const` **WEB\_SOCKET\_ADDRESS**: `"wss://gateway.discord.gg/?v=10&encoding=json"`
+> `const` **WEB\_SOCKET\_ADDRESS**: `string`
 
-Defined in: [packages/kodkord/src/api/ws.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/ws.ts#L11)
+Defined in: [packages/kodkord/src/api/ws.ts:11](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/ws.ts#L11)
 
 The WebSocket address for connecting to the Discord Gateway.

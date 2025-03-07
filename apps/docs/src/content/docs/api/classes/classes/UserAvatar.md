@@ -5,7 +5,7 @@ prev: false
 title: "UserAvatar"
 ---
 
-Defined in: [entities/image.ts:97](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/image.ts#L97)
+Defined in: [entities/image.ts:97](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/image.ts#L97)
 
 Class representing a user's avatar image.
 
@@ -22,7 +22,7 @@ retrieve user avatar URLs, including support for default Discord avatars.
 
 > **new UserAvatar**(`rest`, `raw`): [`UserAvatar`](/api/classes/classes/useravatar/)
 
-Defined in: [core/entity.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/core/entity.ts#L18)
+Defined in: [core/entity.ts:18](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/core/entity.ts#L18)
 
 Creates an instance of the Entity.
 
@@ -47,7 +47,7 @@ Creates an instance of the Entity.
 
 > `readonly` **rest**: `Rest`
 
-Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/core/entity.ts#L8)
+Defined in: [core/entity.ts:8](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/core/entity.ts#L8)
 
 The `Rest` instance for interacting with the Discord API.
 
@@ -61,7 +61,7 @@ The `Rest` instance for interacting with the Discord API.
 
 > `readonly` **raw**: [`RawImage`](/api/classes/interfaces/rawimage/)
 
-Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/core/entity.ts#L11)
+Defined in: [core/entity.ts:11](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/core/entity.ts#L11)
 
 Raw data from the API response, read-only to prevent unnecessary mutations.
 
@@ -75,7 +75,7 @@ Raw data from the API response, read-only to prevent unnecessary mutations.
 
 > **display**(`settings`?): `string`
 
-Defined in: [entities/image.ts:72](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/image.ts#L72)
+Defined in: [entities/image.ts:72](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/image.ts#L72)
 
 Retrieves the most appropriate image URL.
 
@@ -86,8 +86,8 @@ URL if available. If neither is available, it returns an empty string.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `settings`? | \{ `format`: `ImageFormat`; `size`: [`Sizes`](/api/classes/type-aliases/sizes/); \} | Optional settings to specify the image format and size. |
-| `settings.format`? | `ImageFormat` | - |
+| `settings`? | \{ `format`: `any`; `size`: [`Sizes`](/api/classes/type-aliases/sizes/); \} | Optional settings to specify the image format and size. |
+| `settings.format`? | `any` | - |
 | `settings.size`? | [`Sizes`](/api/classes/type-aliases/sizes/) | - |
 
 #### Returns
@@ -106,7 +106,7 @@ The displayable URL of the image or an empty string.
 
 > **buffer**(): `Promise`\<`ArrayBuffer`\>
 
-Defined in: [entities/image.ts:84](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/image.ts#L84)
+Defined in: [entities/image.ts:84](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/image.ts#L84)
 
 Converts the image to an ArrayBuffer for further processing or usage.
 
@@ -126,7 +126,7 @@ A promise resolving to an ArrayBuffer representing the image data.
 
 > **url**(`settings`?): `null` \| `string`
 
-Defined in: [entities/image.ts:104](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/image.ts#L104)
+Defined in: [entities/image.ts:104](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/image.ts#L104)
 
 Retrieves the URL of the user's avatar.
 
@@ -134,8 +134,8 @@ Retrieves the URL of the user's avatar.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `settings`? | \{ `format`: `UserAvatarFormat`; `size`: [`Sizes`](/api/classes/type-aliases/sizes/); \} | Optional settings to specify the avatar format and size. |
-| `settings.format`? | `UserAvatarFormat` | - |
+| `settings`? | \{ `format`: `any`; `size`: [`Sizes`](/api/classes/type-aliases/sizes/); \} | Optional settings to specify the avatar format and size. |
+| `settings.format`? | `any` | - |
 | `settings.size`? | [`Sizes`](/api/classes/type-aliases/sizes/) | - |
 
 #### Returns
@@ -154,7 +154,7 @@ The avatar URL or `null` if the user does not have a custom avatar.
 
 > **default**(`settings`?): `undefined` \| `string`
 
-Defined in: [entities/image.ts:121](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/image.ts#L121)
+Defined in: [entities/image.ts:121](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/image.ts#L121)
 
 Retrieves the default URL of the user's avatar.
 
@@ -164,8 +164,8 @@ The default avatar is determined based on the user's Id.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `settings`? | \{ `format`: `ImageFormat`; `size`: [`Sizes`](/api/classes/type-aliases/sizes/); \} | Optional settings to specify the avatar size. |
-| `settings.format`? | `ImageFormat` | - |
+| `settings`? | \{ `format`: `any`; `size`: [`Sizes`](/api/classes/type-aliases/sizes/); \} | Optional settings to specify the avatar size. |
+| `settings.format`? | `any` | - |
 | `settings.size`? | [`Sizes`](/api/classes/type-aliases/sizes/) | - |
 
 #### Returns

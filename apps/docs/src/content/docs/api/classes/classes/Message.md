@@ -5,7 +5,7 @@ prev: false
 title: "Message"
 ---
 
-Defined in: [entities/message.ts:24](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L24)
+Defined in: [entities/message.ts:24](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L24)
 
 Represents a message within a Discord channel.
 
@@ -25,7 +25,7 @@ Represents a message within a Discord channel.
 
 > **new Message**\<`Type`\>(`rest`, `raw`): [`Message`](/api/classes/classes/message/)\<`Type`\>
 
-Defined in: [core/entity.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/core/entity.ts#L18)
+Defined in: [core/entity.ts:18](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/core/entity.ts#L18)
 
 Creates an instance of the Entity.
 
@@ -34,7 +34,7 @@ Creates an instance of the Entity.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `rest` | `Rest` | - |
-| `raw` | `object` & [`MessageData`](/api/classes/type-aliases/messagedata/) | The raw data from the API response. |
+| `raw` | `any` | The raw data from the API response. |
 
 #### Returns
 
@@ -50,7 +50,7 @@ Creates an instance of the Entity.
 
 > `readonly` **rest**: `Rest`
 
-Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/core/entity.ts#L8)
+Defined in: [core/entity.ts:8](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/core/entity.ts#L8)
 
 The `Rest` instance for interacting with the Discord API.
 
@@ -62,17 +62,11 @@ The `Rest` instance for interacting with the Discord API.
 
 ### raw
 
-> `readonly` **raw**: `object` & [`MessageData`](/api/classes/type-aliases/messagedata/)
+> `readonly` **raw**: `any`
 
-Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/core/entity.ts#L11)
+Defined in: [core/entity.ts:11](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/core/entity.ts#L11)
 
 Raw data from the API response, read-only to prevent unnecessary mutations.
-
-#### Type declaration
-
-##### type
-
-> **type**: `Type`
 
 #### Inherited from
 
@@ -84,7 +78,7 @@ Raw data from the API response, read-only to prevent unnecessary mutations.
 
 > **author**(): [`User`](/api/classes/classes/user/)
 
-Defined in: [entities/message.ts:31](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L31)
+Defined in: [entities/message.ts:31](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L31)
 
 Gets the author of this message.
 
@@ -100,7 +94,7 @@ A [User](/api/classes/api/classes/classes/user/) instance representing the messa
 
 > **reply**(`body`, `force`): `Promise`\<`undefined` \| [`Message`](/api/classes/classes/message/)\<`MessageType`\>\>
 
-Defined in: [entities/message.ts:42](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L42)
+Defined in: [entities/message.ts:42](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L42)
 
 Posts a reply to this message.
 
@@ -123,7 +117,7 @@ A promise resolving to the [Message](/api/classes/api/classes/classes/message/) 
 
 > **modify**(`body`): `Promise`\<`undefined` \| [`Message`](/api/classes/classes/message/)\<`MessageType`\>\>
 
-Defined in: [entities/message.ts:75](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L75)
+Defined in: [entities/message.ts:75](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L75)
 
 Modifies this message.
 
@@ -145,7 +139,7 @@ A promise resolving to the modified [Message](/api/classes/api/classes/classes/m
 
 > **destroy**(): `Promise`\<`boolean`\>
 
-Defined in: [entities/message.ts:99](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L99)
+Defined in: [entities/message.ts:99](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L99)
 
 Deletes this message.
 
@@ -161,7 +155,7 @@ A promise resolving to `true` if the message was successfully deleted, or `false
 
 > **channel**(): `Promise`\<`undefined` \| [`Channel`](/api/classes/classes/channel/)\<`ChannelType`\>\>
 
-Defined in: [entities/message.ts:118](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L118)
+Defined in: [entities/message.ts:118](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L118)
 
 Fetches the channel this message belongs to.
 
@@ -177,7 +171,7 @@ A promise resolving to the [Channel](/api/classes/api/classes/classes/channel/) 
 
 > **guild**(): `Promise`\<`undefined` \| [`Guild`](/api/classes/classes/guild/)\>
 
-Defined in: [entities/message.ts:139](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L139)
+Defined in: [entities/message.ts:139](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L139)
 
 Fetches the guild this message belongs to, if applicable.
 
@@ -193,7 +187,7 @@ A promise resolving to the [Guild](/api/classes/api/classes/classes/guild/) inst
 
 > **react**(`emoji`): `Promise`\<`boolean`\>
 
-Defined in: [entities/message.ts:162](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L162)
+Defined in: [entities/message.ts:162](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L162)
 
 Adds a reaction to this message.
 
@@ -215,7 +209,7 @@ A promise resolving to `true` if the reaction was successfully added, or `false`
 
 > **unreact**(`emoji`, `ownerId`): `Promise`\<`boolean`\>
 
-Defined in: [entities/message.ts:189](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L189)
+Defined in: [entities/message.ts:189](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L189)
 
 Removes a reaction from this message.
 
@@ -236,9 +230,9 @@ A promise resolving to `true` if the reaction was successfully removed, or `fals
 
 ### reaction()
 
-> **reaction**(`reaction`): `undefined` \| `APIReaction`
+> **reaction**(`reaction`): `any`
 
-Defined in: [entities/message.ts:216](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L216)
+Defined in: [entities/message.ts:216](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L216)
 
 Retrieves reaction data for a specific emoji on this message.
 
@@ -250,7 +244,7 @@ Retrieves reaction data for a specific emoji on this message.
 
 #### Returns
 
-`undefined` \| `APIReaction`
+`any`
 
 The APIReaction object for the emoji, or `undefined` if no reaction is found.
 
@@ -260,7 +254,7 @@ The APIReaction object for the emoji, or `undefined` if no reaction is found.
 
 > **reactionCount**(`reaction`): `number`
 
-Defined in: [entities/message.ts:228](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L228)
+Defined in: [entities/message.ts:228](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L228)
 
 Retrieves the count of a specific reaction on this message.
 
@@ -282,7 +276,7 @@ The count of reactions for the emoji. Returns 0 if the emoji is not found.
 
 > **pin**(): `Promise`\<`boolean`\>
 
-Defined in: [entities/message.ts:242](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L242)
+Defined in: [entities/message.ts:242](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L242)
 
 Pins this message in its channel.
 
@@ -298,7 +292,7 @@ A promise resolving to `true` if the message was successfully pinned, or `false`
 
 > **unpin**(): `Promise`\<`boolean`\>
 
-Defined in: [entities/message.ts:261](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L261)
+Defined in: [entities/message.ts:261](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L261)
 
 Unpins this message from its channel.
 
@@ -312,15 +306,15 @@ A promise resolving to `true` if the message was successfully unpinned, or `fals
 
 ### endPoll()
 
-> **endPoll**(): `Promise`\<`undefined` \| `APIPoll`\>
+> **endPoll**(): `Promise`\<`any`\>
 
-Defined in: [entities/message.ts:280](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L280)
+Defined in: [entities/message.ts:280](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L280)
 
 Ends a poll associated with this message.
 
 #### Returns
 
-`Promise`\<`undefined` \| `APIPoll`\>
+`Promise`\<`any`\>
 
 A promise resolving to the APIPoll object representing the ended poll, or `undefined` if the operation fails.
 
@@ -330,7 +324,7 @@ A promise resolving to the APIPoll object representing the ended poll, or `undef
 
 > **answerVoters**(`answerId`): `Promise`\<`undefined` \| `APIUser`[]\>
 
-Defined in: [entities/message.ts:298](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L298)
+Defined in: [entities/message.ts:298](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L298)
 
 Fetches the voters for a specific answer in a poll associated with this message.
 
@@ -352,7 +346,7 @@ A promise resolving to an array of APIUser objects representing the voters, or `
 
 > **isDefault**(): `this is Message<Default>`
 
-Defined in: [entities/message.ts:312](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L312)
+Defined in: [entities/message.ts:312](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L312)
 
 #### Returns
 
@@ -364,7 +358,7 @@ Defined in: [entities/message.ts:312](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isRecipientAdd**(): `this is Message<RecipientAdd>`
 
-Defined in: [entities/message.ts:316](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L316)
+Defined in: [entities/message.ts:316](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L316)
 
 #### Returns
 
@@ -376,7 +370,7 @@ Defined in: [entities/message.ts:316](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isRecipientRemove**(): `this is Message<RecipientRemove>`
 
-Defined in: [entities/message.ts:320](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L320)
+Defined in: [entities/message.ts:320](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L320)
 
 #### Returns
 
@@ -388,7 +382,7 @@ Defined in: [entities/message.ts:320](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isCall**(): `this is Message<Call>`
 
-Defined in: [entities/message.ts:324](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L324)
+Defined in: [entities/message.ts:324](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L324)
 
 #### Returns
 
@@ -400,7 +394,7 @@ Defined in: [entities/message.ts:324](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isChannelNameChange**(): `this is Message<ChannelNameChange>`
 
-Defined in: [entities/message.ts:328](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L328)
+Defined in: [entities/message.ts:328](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L328)
 
 #### Returns
 
@@ -412,7 +406,7 @@ Defined in: [entities/message.ts:328](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isChannelIconChange**(): `this is Message<ChannelIconChange>`
 
-Defined in: [entities/message.ts:332](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L332)
+Defined in: [entities/message.ts:332](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L332)
 
 #### Returns
 
@@ -424,7 +418,7 @@ Defined in: [entities/message.ts:332](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isChannelPinnedMessage**(): `this is Message<ChannelPinnedMessage>`
 
-Defined in: [entities/message.ts:336](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L336)
+Defined in: [entities/message.ts:336](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L336)
 
 #### Returns
 
@@ -436,7 +430,7 @@ Defined in: [entities/message.ts:336](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isUserJoin**(): `this is Message<UserJoin>`
 
-Defined in: [entities/message.ts:340](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L340)
+Defined in: [entities/message.ts:340](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L340)
 
 #### Returns
 
@@ -448,7 +442,7 @@ Defined in: [entities/message.ts:340](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isGuildBoost**(): `this is Message<GuildBoost>`
 
-Defined in: [entities/message.ts:344](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L344)
+Defined in: [entities/message.ts:344](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L344)
 
 #### Returns
 
@@ -460,7 +454,7 @@ Defined in: [entities/message.ts:344](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isGuildBoostTier1**(): `this is Message<GuildBoostTier1>`
 
-Defined in: [entities/message.ts:348](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L348)
+Defined in: [entities/message.ts:348](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L348)
 
 #### Returns
 
@@ -472,7 +466,7 @@ Defined in: [entities/message.ts:348](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isGuildBoostTier2**(): `this is Message<GuildBoostTier2>`
 
-Defined in: [entities/message.ts:352](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L352)
+Defined in: [entities/message.ts:352](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L352)
 
 #### Returns
 
@@ -484,7 +478,7 @@ Defined in: [entities/message.ts:352](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isGuildBoostTier3**(): `this is Message<GuildBoostTier3>`
 
-Defined in: [entities/message.ts:356](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L356)
+Defined in: [entities/message.ts:356](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L356)
 
 #### Returns
 
@@ -496,7 +490,7 @@ Defined in: [entities/message.ts:356](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isChannelFollowAdd**(): `this is Message<ChannelFollowAdd>`
 
-Defined in: [entities/message.ts:360](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L360)
+Defined in: [entities/message.ts:360](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L360)
 
 #### Returns
 
@@ -508,7 +502,7 @@ Defined in: [entities/message.ts:360](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isGuildDiscoveryDisqualified**(): `this is Message<GuildDiscoveryDisqualified>`
 
-Defined in: [entities/message.ts:364](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L364)
+Defined in: [entities/message.ts:364](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L364)
 
 #### Returns
 
@@ -520,7 +514,7 @@ Defined in: [entities/message.ts:364](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isGuildDiscoveryRequalified**(): `this is Message<GuildDiscoveryRequalified>`
 
-Defined in: [entities/message.ts:368](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L368)
+Defined in: [entities/message.ts:368](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L368)
 
 #### Returns
 
@@ -532,7 +526,7 @@ Defined in: [entities/message.ts:368](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isGuildGuildDiscoveryGracePeriodInitialWarning**(): `this is Message<GuildDiscoveryGracePeriodInitialWarning>`
 
-Defined in: [entities/message.ts:372](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L372)
+Defined in: [entities/message.ts:372](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L372)
 
 #### Returns
 
@@ -544,7 +538,7 @@ Defined in: [entities/message.ts:372](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isGuildDiscoveryGracePeriodFinalWarning**(): `this is Message<GuildDiscoveryGracePeriodFinalWarning>`
 
-Defined in: [entities/message.ts:376](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L376)
+Defined in: [entities/message.ts:376](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L376)
 
 #### Returns
 
@@ -556,7 +550,7 @@ Defined in: [entities/message.ts:376](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isThreadCreated**(): `this is Message<ThreadCreated>`
 
-Defined in: [entities/message.ts:380](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L380)
+Defined in: [entities/message.ts:380](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L380)
 
 #### Returns
 
@@ -568,7 +562,7 @@ Defined in: [entities/message.ts:380](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isReply**(): `this is Message<Reply>`
 
-Defined in: [entities/message.ts:384](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L384)
+Defined in: [entities/message.ts:384](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L384)
 
 #### Returns
 
@@ -580,7 +574,7 @@ Defined in: [entities/message.ts:384](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isChatInputCommand**(): `this is Message<ChatInputCommand>`
 
-Defined in: [entities/message.ts:388](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L388)
+Defined in: [entities/message.ts:388](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L388)
 
 #### Returns
 
@@ -592,7 +586,7 @@ Defined in: [entities/message.ts:388](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isThreadStarterMessage**(): `this is Message<ThreadStarterMessage>`
 
-Defined in: [entities/message.ts:392](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L392)
+Defined in: [entities/message.ts:392](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L392)
 
 #### Returns
 
@@ -604,7 +598,7 @@ Defined in: [entities/message.ts:392](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isGuildInviteReminder**(): `this is Message<GuildInviteReminder>`
 
-Defined in: [entities/message.ts:396](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L396)
+Defined in: [entities/message.ts:396](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L396)
 
 #### Returns
 
@@ -616,7 +610,7 @@ Defined in: [entities/message.ts:396](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isContextMenuCommand**(): `this is Message<ContextMenuCommand>`
 
-Defined in: [entities/message.ts:400](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L400)
+Defined in: [entities/message.ts:400](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L400)
 
 #### Returns
 
@@ -628,7 +622,7 @@ Defined in: [entities/message.ts:400](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isAutoModerationAction**(): `this is Message<AutoModerationAction>`
 
-Defined in: [entities/message.ts:404](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L404)
+Defined in: [entities/message.ts:404](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L404)
 
 #### Returns
 
@@ -640,7 +634,7 @@ Defined in: [entities/message.ts:404](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isRoleSubscriptionPurchase**(): `this is Message<RoleSubscriptionPurchase>`
 
-Defined in: [entities/message.ts:408](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L408)
+Defined in: [entities/message.ts:408](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L408)
 
 #### Returns
 
@@ -652,7 +646,7 @@ Defined in: [entities/message.ts:408](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isInteractionPremiumUpsell**(): `this is Message<InteractionPremiumUpsell>`
 
-Defined in: [entities/message.ts:412](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L412)
+Defined in: [entities/message.ts:412](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L412)
 
 #### Returns
 
@@ -664,7 +658,7 @@ Defined in: [entities/message.ts:412](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isStageStart**(): `this is Message<StageStart>`
 
-Defined in: [entities/message.ts:416](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L416)
+Defined in: [entities/message.ts:416](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L416)
 
 #### Returns
 
@@ -676,7 +670,7 @@ Defined in: [entities/message.ts:416](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isStageEnd**(): `this is Message<StageEnd>`
 
-Defined in: [entities/message.ts:420](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L420)
+Defined in: [entities/message.ts:420](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L420)
 
 #### Returns
 
@@ -688,7 +682,7 @@ Defined in: [entities/message.ts:420](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isStageSpeaker**(): `this is Message<StageSpeaker>`
 
-Defined in: [entities/message.ts:424](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L424)
+Defined in: [entities/message.ts:424](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L424)
 
 #### Returns
 
@@ -700,7 +694,7 @@ Defined in: [entities/message.ts:424](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isStageRaiseHand**(): `this is Message<StageRaiseHand>`
 
-Defined in: [entities/message.ts:428](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L428)
+Defined in: [entities/message.ts:428](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L428)
 
 #### Returns
 
@@ -712,7 +706,7 @@ Defined in: [entities/message.ts:428](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isStageTopic**(): `this is Message<StageTopic>`
 
-Defined in: [entities/message.ts:432](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L432)
+Defined in: [entities/message.ts:432](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L432)
 
 #### Returns
 
@@ -724,7 +718,7 @@ Defined in: [entities/message.ts:432](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isGuildApplicationPremiumSubscription**(): `this is Message<GuildApplicationPremiumSubscription>`
 
-Defined in: [entities/message.ts:436](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L436)
+Defined in: [entities/message.ts:436](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L436)
 
 #### Returns
 
@@ -736,7 +730,7 @@ Defined in: [entities/message.ts:436](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isGuildIncidentAlertModeEnabled**(): `this is Message<GuildIncidentAlertModeEnabled>`
 
-Defined in: [entities/message.ts:440](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L440)
+Defined in: [entities/message.ts:440](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L440)
 
 #### Returns
 
@@ -748,7 +742,7 @@ Defined in: [entities/message.ts:440](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isGuildIncidentAlertModeDisabled**(): `this is Message<GuildIncidentAlertModeDisabled>`
 
-Defined in: [entities/message.ts:444](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L444)
+Defined in: [entities/message.ts:444](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L444)
 
 #### Returns
 
@@ -760,7 +754,7 @@ Defined in: [entities/message.ts:444](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isGuildIncidentReportRaid**(): `this is Message<GuildIncidentReportRaid>`
 
-Defined in: [entities/message.ts:448](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L448)
+Defined in: [entities/message.ts:448](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L448)
 
 #### Returns
 
@@ -772,7 +766,7 @@ Defined in: [entities/message.ts:448](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isGuildIncidentReportFalseAlarm**(): `this is Message<GuildIncidentReportFalseAlarm>`
 
-Defined in: [entities/message.ts:452](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L452)
+Defined in: [entities/message.ts:452](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L452)
 
 #### Returns
 
@@ -784,7 +778,7 @@ Defined in: [entities/message.ts:452](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isPurchaseNotification**(): `this is Message<PurchaseNotification>`
 
-Defined in: [entities/message.ts:456](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L456)
+Defined in: [entities/message.ts:456](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L456)
 
 #### Returns
 
@@ -796,7 +790,7 @@ Defined in: [entities/message.ts:456](https://github.com/KingsBeCattz/Kodkord/bl
 
 > **isPollResult**(): `this is Message<PollResult>`
 
-Defined in: [entities/message.ts:460](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/message.ts#L460)
+Defined in: [entities/message.ts:460](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/message.ts#L460)
 
 #### Returns
 

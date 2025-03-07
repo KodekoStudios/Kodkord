@@ -5,7 +5,7 @@ prev: false
 title: "Channel"
 ---
 
-Defined in: [entities/channel.ts:21](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L21)
+Defined in: [entities/channel.ts:21](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L21)
 
 Represents a Discord channel.
 
@@ -25,7 +25,7 @@ Represents a Discord channel.
 
 > **new Channel**\<`Type`\>(`rest`, `raw`): [`Channel`](/api/classes/classes/channel/)\<`Type`\>
 
-Defined in: [core/entity.ts:18](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/core/entity.ts#L18)
+Defined in: [core/entity.ts:18](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/core/entity.ts#L18)
 
 Creates an instance of the Entity.
 
@@ -34,7 +34,7 @@ Creates an instance of the Entity.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `rest` | `Rest` | - |
-| `raw` | `object` & `APIChannel` | The raw data from the API response. |
+| `raw` | `any` | The raw data from the API response. |
 
 #### Returns
 
@@ -50,7 +50,7 @@ Creates an instance of the Entity.
 
 > `readonly` **rest**: `Rest`
 
-Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/core/entity.ts#L8)
+Defined in: [core/entity.ts:8](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/core/entity.ts#L8)
 
 The `Rest` instance for interacting with the Discord API.
 
@@ -62,17 +62,11 @@ The `Rest` instance for interacting with the Discord API.
 
 ### raw
 
-> `readonly` **raw**: `object` & `APIChannel`
+> `readonly` **raw**: `any`
 
-Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/core/entity.ts#L11)
+Defined in: [core/entity.ts:11](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/core/entity.ts#L11)
 
 Raw data from the API response, read-only to prevent unnecessary mutations.
-
-#### Type declaration
-
-##### type
-
-> **type**: `Type`
 
 #### Inherited from
 
@@ -84,7 +78,7 @@ Raw data from the API response, read-only to prevent unnecessary mutations.
 
 > **fetchMessage**(`id`): `Promise`\<`undefined` \| [`Message`](/api/classes/classes/message/)\<`MessageType`\>\>
 
-Defined in: [entities/channel.ts:29](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L29)
+Defined in: [entities/channel.ts:29](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L29)
 
 Fetches a specific message from the channel.
 
@@ -106,7 +100,7 @@ A promise resolving to a [Message](/api/classes/api/classes/classes/message/) in
 
 > **postMessage**(`body`): `Promise`\<`undefined` \| [`Message`](/api/classes/classes/message/)\<`MessageType`\>\>
 
-Defined in: [entities/channel.ts:50](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L50)
+Defined in: [entities/channel.ts:50](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L50)
 
 Posts a message in the channel.
 
@@ -128,7 +122,7 @@ A promise resolving to a [Message](/api/classes/api/classes/classes/message/) in
 
 > **fetch**(): `Promise`\<`undefined` \| [`Channel`](/api/classes/classes/channel/)\<`Type`\>\>
 
-Defined in: [entities/channel.ts:74](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L74)
+Defined in: [entities/channel.ts:74](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L74)
 
 Fetches the latest data for the channel from the Discord API.
 
@@ -144,7 +138,7 @@ A promise resolving to an updated [Channel](/api/classes/api/classes/classes/cha
 
 > **modify**(`body`, `reason`?): `Promise`\<`boolean`\>
 
-Defined in: [entities/channel.ts:94](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L94)
+Defined in: [entities/channel.ts:94](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L94)
 
 Modifies the channel's data in the Discord API.
 
@@ -167,7 +161,7 @@ A promise resolving to `true` if the channel was successfully modified, or `fals
 
 > **delete**(): `Promise`\<`boolean`\>
 
-Defined in: [entities/channel.ts:116](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L116)
+Defined in: [entities/channel.ts:116](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L116)
 
 Deletes the channel.
 
@@ -183,7 +177,7 @@ A promise resolving to `true` if the channel was successfully deleted, or `false
 
 > **mention**(): `string`
 
-Defined in: [entities/channel.ts:135](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L135)
+Defined in: [entities/channel.ts:135](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L135)
 
 Returns a string to mention the channel in Discord.
 
@@ -199,7 +193,7 @@ A string representing the channel mention.
 
 > **bulkDelete**(`ids`): `Promise`\<`boolean`\>
 
-Defined in: [entities/channel.ts:146](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L146)
+Defined in: [entities/channel.ts:146](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L146)
 
 Deletes multiple messages in bulk from the channel.
 
@@ -207,7 +201,7 @@ Deletes multiple messages in bulk from the channel.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `ids` | `string`[] | An array of message IDs to delete. |
+| `ids` | `Snowflake`[] | An array of message IDs to delete. |
 
 #### Returns
 
@@ -221,7 +215,7 @@ A promise resolving to `true` if the messages were successfully deleted, or `fal
 
 > **isGuildText**(): `this is Channel<GuildText>`
 
-Defined in: [entities/channel.ts:165](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L165)
+Defined in: [entities/channel.ts:165](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L165)
 
 Determines if this channel is a guild text channel.
 
@@ -235,7 +229,7 @@ Determines if this channel is a guild text channel.
 
 > **isDM**(): `this is Channel<DM>`
 
-Defined in: [entities/channel.ts:170](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L170)
+Defined in: [entities/channel.ts:170](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L170)
 
 Determines if this channel is a direct message channel.
 
@@ -249,7 +243,7 @@ Determines if this channel is a direct message channel.
 
 > **isGuildVoice**(): `this is Channel<GuildVoice>`
 
-Defined in: [entities/channel.ts:175](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L175)
+Defined in: [entities/channel.ts:175](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L175)
 
 Determines if this channel is a guild voice channel.
 
@@ -263,7 +257,7 @@ Determines if this channel is a guild voice channel.
 
 > **isGroupDM**(): `this is Channel<GroupDM>`
 
-Defined in: [entities/channel.ts:180](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L180)
+Defined in: [entities/channel.ts:180](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L180)
 
 Determines if this channel is a group DM channel.
 
@@ -277,7 +271,7 @@ Determines if this channel is a group DM channel.
 
 > **isGuildCategory**(): `this is Channel<GuildCategory>`
 
-Defined in: [entities/channel.ts:185](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L185)
+Defined in: [entities/channel.ts:185](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L185)
 
 Determines if this channel is a guild category.
 
@@ -291,7 +285,7 @@ Determines if this channel is a guild category.
 
 > **isGuildAnnouncement**(): `this is Channel<GuildAnnouncement>`
 
-Defined in: [entities/channel.ts:190](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L190)
+Defined in: [entities/channel.ts:190](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L190)
 
 Determines if this channel is a guild announcement channel.
 
@@ -305,7 +299,7 @@ Determines if this channel is a guild announcement channel.
 
 > **isAnnouncementThread**(): `this is Channel<AnnouncementThread>`
 
-Defined in: [entities/channel.ts:195](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L195)
+Defined in: [entities/channel.ts:195](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L195)
 
 Determines if this channel is an announcement thread.
 
@@ -319,7 +313,7 @@ Determines if this channel is an announcement thread.
 
 > **isPublicThread**(): `this is Channel<PublicThread>`
 
-Defined in: [entities/channel.ts:200](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L200)
+Defined in: [entities/channel.ts:200](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L200)
 
 Determines if this channel is a public thread.
 
@@ -333,7 +327,7 @@ Determines if this channel is a public thread.
 
 > **isPrivateThread**(): `this is Channel<PrivateThread>`
 
-Defined in: [entities/channel.ts:205](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L205)
+Defined in: [entities/channel.ts:205](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L205)
 
 Determines if this channel is a private thread.
 
@@ -347,7 +341,7 @@ Determines if this channel is a private thread.
 
 > **isGuildStageVoice**(): `this is Channel<GuildStageVoice>`
 
-Defined in: [entities/channel.ts:210](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L210)
+Defined in: [entities/channel.ts:210](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L210)
 
 Determines if this channel is a guild stage voice channel.
 
@@ -361,7 +355,7 @@ Determines if this channel is a guild stage voice channel.
 
 > **isGuildForum**(): `this is Channel<GuildForum>`
 
-Defined in: [entities/channel.ts:215](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L215)
+Defined in: [entities/channel.ts:215](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L215)
 
 Determines if this channel is a guild forum channel.
 
@@ -375,7 +369,7 @@ Determines if this channel is a guild forum channel.
 
 > **isGuildMedia**(): `this is Channel<GuildMedia>`
 
-Defined in: [entities/channel.ts:220](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/channel.ts#L220)
+Defined in: [entities/channel.ts:220](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/channel.ts#L220)
 
 Determines if this channel is a guild media channel.
 

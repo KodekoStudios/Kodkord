@@ -5,7 +5,7 @@ prev: false
 title: "Shard"
 ---
 
-Defined in: [packages/kodkord/src/core/shard.ts:19](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/core/shard.ts#L19)
+Defined in: [packages/kodkord/src/core/shard.ts:19](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/core/shard.ts#L19)
 
 Represents a single shard for handling Discord Gateway connections.
 
@@ -19,7 +19,7 @@ of the WebSocket connection, including connection, disconnection, and error hand
 
 > **new Shard**(`client`, `id`, `settings`?): [`Shard`](/api/kodkord/classes/shard/)
 
-Defined in: [packages/kodkord/src/core/shard.ts:47](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/core/shard.ts#L47)
+Defined in: [packages/kodkord/src/core/shard.ts:47](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/core/shard.ts#L47)
 
 Creates a new Shard instance.
 
@@ -41,7 +41,7 @@ Creates a new Shard instance.
 
 > `readonly` **websocket**: [`WebSocket`](/api/kodkord/classes/websocket/)
 
-Defined in: [packages/kodkord/src/core/shard.ts:21](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/core/shard.ts#L21)
+Defined in: [packages/kodkord/src/core/shard.ts:21](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/core/shard.ts#L21)
 
 The WebSocket instance responsible for managing the Gateway connection.
 
@@ -51,7 +51,7 @@ The WebSocket instance responsible for managing the Gateway connection.
 
 > `readonly` **client**: [`Client`](/api/kodkord/classes/client/)
 
-Defined in: [packages/kodkord/src/core/shard.ts:24](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/core/shard.ts#L24)
+Defined in: [packages/kodkord/src/core/shard.ts:24](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/core/shard.ts#L24)
 
 Reference to the parent client that created this shard.
 
@@ -61,7 +61,7 @@ Reference to the parent client that created this shard.
 
 > `readonly` **id**: `number`
 
-Defined in: [packages/kodkord/src/core/shard.ts:27](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/core/shard.ts#L27)
+Defined in: [packages/kodkord/src/core/shard.ts:27](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/core/shard.ts#L27)
 
 The Id of this shard.
 
@@ -73,7 +73,7 @@ The Id of this shard.
 
 > **get** **rest**(): [`Rest`](/api/kodkord/classes/rest/)
 
-Defined in: [packages/kodkord/src/core/shard.ts:177](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/core/shard.ts#L177)
+Defined in: [packages/kodkord/src/core/shard.ts:177](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/core/shard.ts#L177)
 
 Returns the REST client associated with this shard.
 
@@ -91,7 +91,7 @@ The REST client instance from the parent client.
 
 > `static` **calculateId**(`guildId`, `shards`): `number`
 
-Defined in: [packages/kodkord/src/core/shard.ts:36](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/core/shard.ts#L36)
+Defined in: [packages/kodkord/src/core/shard.ts:36](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/core/shard.ts#L36)
 
 Calculates the shard Id for a given guild based on Discord's sharding formula.
 
@@ -114,7 +114,7 @@ The shard Id that is responsible for the given guild.
 
 > **connect**(): `void`
 
-Defined in: [packages/kodkord/src/core/shard.ts:65](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/core/shard.ts#L65)
+Defined in: [packages/kodkord/src/core/shard.ts:65](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/core/shard.ts#L65)
 
 Connects the shard to Discord's Gateway.
 
@@ -131,7 +131,7 @@ Connects the shard to Discord's Gateway.
 
 > **disconnect**(): `void`
 
-Defined in: [packages/kodkord/src/core/shard.ts:89](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/core/shard.ts#L89)
+Defined in: [packages/kodkord/src/core/shard.ts:89](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/core/shard.ts#L89)
 
 Disconnects the shard from Discord's Gateway.
 
@@ -148,7 +148,7 @@ Disconnects the shard from Discord's Gateway.
 
 > **send**(`message`, `force`): `void`
 
-Defined in: [packages/kodkord/src/core/shard.ts:123](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/core/shard.ts#L123)
+Defined in: [packages/kodkord/src/core/shard.ts:123](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/core/shard.ts#L123)
 
 Sends a message to the Discord gateway. Handles automatic reconnection if the shard is disconnected.
 

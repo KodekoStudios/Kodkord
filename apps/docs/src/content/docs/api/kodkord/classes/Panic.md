@@ -5,7 +5,7 @@ prev: false
 title: "Panic"
 ---
 
-Defined in: [packages/kodkord/src/common/log.ts:149](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/common/log.ts#L149)
+Defined in: [packages/kodkord/src/common/log.ts:149](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/common/log.ts#L149)
 
 A log entry with a predefined "Panic" level and red background styling.
 
@@ -22,7 +22,7 @@ into an `Error` object, useful for throwing or further handling.
 
 > **new Panic**(`header`, ...`messages`): [`Panic`](/api/kodkord/classes/panic/)
 
-Defined in: [packages/kodkord/src/common/log.ts:156](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/common/log.ts#L156)
+Defined in: [packages/kodkord/src/common/log.ts:156](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/common/log.ts#L156)
 
 Creates a new `Panic` log entry.
 
@@ -47,7 +47,7 @@ Creates a new `Panic` log entry.
 
 > **note**(): `void`
 
-Defined in: [packages/kodkord/src/common/log.ts:44](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/common/log.ts#L44)
+Defined in: [packages/kodkord/src/common/log.ts:44](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/common/log.ts#L44)
 
 Logs the message to the console as a standard note.
 
@@ -65,7 +65,7 @@ Logs the message to the console as a standard note.
 
 > **trace**(): `void`
 
-Defined in: [packages/kodkord/src/common/log.ts:49](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/common/log.ts#L49)
+Defined in: [packages/kodkord/src/common/log.ts:49](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/common/log.ts#L49)
 
 Logs the message to the console with a debug level.
 
@@ -83,7 +83,7 @@ Logs the message to the console with a debug level.
 
 > **warn**(): `void`
 
-Defined in: [packages/kodkord/src/common/log.ts:54](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/common/log.ts#L54)
+Defined in: [packages/kodkord/src/common/log.ts:54](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/common/log.ts#L54)
 
 Logs the message to the console as a warning.
 
@@ -101,7 +101,7 @@ Logs the message to the console as a warning.
 
 > **panic**(): `void`
 
-Defined in: [packages/kodkord/src/common/log.ts:59](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/common/log.ts#L59)
+Defined in: [packages/kodkord/src/common/log.ts:59](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/common/log.ts#L59)
 
 Logs the message to the console as an error.
 
@@ -119,7 +119,7 @@ Logs the message to the console as an error.
 
 > **format**(): `string`
 
-Defined in: [packages/kodkord/src/common/log.ts:69](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/common/log.ts#L69)
+Defined in: [packages/kodkord/src/common/log.ts:69](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/common/log.ts#L69)
 
 Formats the log into a styled string suitable for console output.
 
@@ -141,7 +141,7 @@ A formatted log string
 
 > **formatLines**(): `string`
 
-Defined in: [packages/kodkord/src/common/log.ts:86](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/common/log.ts#L86)
+Defined in: [packages/kodkord/src/common/log.ts:86](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/common/log.ts#L86)
 
 Formats the individual lines of the log with a consistent style.
 
@@ -163,7 +163,7 @@ A formatted string containing all log lines
 
 > **toError**(): `Error`
 
-Defined in: [packages/kodkord/src/common/log.ts:168](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/common/log.ts#L168)
+Defined in: [packages/kodkord/src/common/log.ts:168](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/common/log.ts#L168)
 
 Converts the log entry into an `Error` object.
 

@@ -5,7 +5,7 @@ prev: false
 title: "Member"
 ---
 
-Defined in: [entities/member.ts:15](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/member.ts#L15)
+Defined in: [entities/member.ts:15](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/member.ts#L15)
 
 Represents a member within a Discord guild.
 
@@ -19,7 +19,7 @@ Represents a member within a Discord guild.
 
 > **new Member**(`rest`, `raw`, `guild_raw`): [`Member`](/api/classes/classes/member/)
 
-Defined in: [entities/member.ts:26](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/member.ts#L26)
+Defined in: [entities/member.ts:26](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/member.ts#L26)
 
 Creates an instance of the Entity.
 
@@ -45,7 +45,7 @@ Creates an instance of the Entity.
 
 > `readonly` **rest**: `Rest`
 
-Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/core/entity.ts#L8)
+Defined in: [core/entity.ts:8](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/core/entity.ts#L8)
 
 The `Rest` instance for interacting with the Discord API.
 
@@ -59,7 +59,7 @@ The `Rest` instance for interacting with the Discord API.
 
 > `readonly` **raw**: `APIGuildMember`
 
-Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/core/entity.ts#L11)
+Defined in: [core/entity.ts:11](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/core/entity.ts#L11)
 
 Raw data from the API response, read-only to prevent unnecessary mutations.
 
@@ -73,7 +73,7 @@ Raw data from the API response, read-only to prevent unnecessary mutations.
 
 > `readonly` **guild**: [`Guild`](/api/classes/classes/guild/)
 
-Defined in: [entities/member.ts:17](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/member.ts#L17)
+Defined in: [entities/member.ts:17](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/member.ts#L17)
 
 The [Guild](../../../../../../../api/classes/classes/guild) instance in which the member belongs.
 
@@ -85,7 +85,7 @@ The [Guild](../../../../../../../api/classes/classes/guild) instance in which th
 
 > **get** **joined**(): `Date`
 
-Defined in: [entities/member.ts:40](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/member.ts#L40)
+Defined in: [entities/member.ts:40](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/member.ts#L40)
 
 Returns the joining date of the member.
 
@@ -103,7 +103,7 @@ A `Date` object representing the member's joining date.
 
 > **get** **premium**(): `null` \| `Date`
 
-Defined in: [entities/member.ts:49](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/member.ts#L49)
+Defined in: [entities/member.ts:49](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/member.ts#L49)
 
 Returns the date when the member started boosting the guild.
 
@@ -119,7 +119,7 @@ A `Date` object representing the date when the member started boosting the guild
 
 > **banner**(): [`MemberBanner`](/api/classes/classes/memberbanner/)
 
-Defined in: [entities/member.ts:64](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/member.ts#L64)
+Defined in: [entities/member.ts:64](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/member.ts#L64)
 
 Retrieves the member's banner.
 
@@ -135,7 +135,7 @@ A [MemberBanner](/api/classes/api/classes/classes/memberbanner/) instance repres
 
 > **avatar**(): [`MemberAvatar`](/api/classes/classes/memberavatar/)
 
-Defined in: [entities/member.ts:77](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/member.ts#L77)
+Defined in: [entities/member.ts:77](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/member.ts#L77)
 
 Retrieves the member's avatar.
 
@@ -151,7 +151,7 @@ A [MemberAvatar](/api/classes/api/classes/classes/memberavatar/) instance repres
 
 > **fetch**(): `Promise`\<[`Member`](/api/classes/classes/member/)\>
 
-Defined in: [entities/member.ts:95](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/member.ts#L95)
+Defined in: [entities/member.ts:95](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/member.ts#L95)
 
 Fetches the latest data for the member from the Discord API.
 
@@ -171,7 +171,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **modify**(`data`): `Promise`\<[`Member`](/api/classes/classes/member/)\>
 
-Defined in: [entities/member.ts:118](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/member.ts#L118)
+Defined in: [entities/member.ts:118](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/member.ts#L118)
 
 Modifies a member's data in the Discord API.
 
@@ -197,7 +197,7 @@ If the API request fails, an error is logged and re-thrown.
 
 > **voice**(): `Promise`\<`APIVoiceState`\>
 
-Defined in: [entities/member.ts:147](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/member.ts#L147)
+Defined in: [entities/member.ts:147](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/member.ts#L147)
 
 Fetches the voice state of the member in the guild.
 

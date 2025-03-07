@@ -5,7 +5,7 @@ prev: false
 title: "Interaction"
 ---
 
-Defined in: [entities/interaction.ts:22](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/interaction.ts#L22)
+Defined in: [entities/interaction.ts:22](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/interaction.ts#L22)
 
 Represents an interaction with Discord, such as a slash command or button click.
 
@@ -25,7 +25,7 @@ Represents an interaction with Discord, such as a slash command or button click.
 
 > **new Interaction**\<`Type`\>(`rest`, `raw`): [`Interaction`](/api/classes/classes/interaction/)\<`Type`\>
 
-Defined in: [entities/interaction.ts:33](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/interaction.ts#L33)
+Defined in: [entities/interaction.ts:33](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/interaction.ts#L33)
 
 Creates an instance of the Interaction.
 
@@ -34,7 +34,7 @@ Creates an instance of the Interaction.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `rest` | `Rest` | The REST manager for making API requests. |
-| `raw` | `APIInteraction` & `object` | The raw data from the API response. |
+| `raw` | `any` | The raw data from the API response. |
 
 #### Returns
 
@@ -50,7 +50,7 @@ Creates an instance of the Interaction.
 
 > `readonly` **rest**: `Rest`
 
-Defined in: [core/entity.ts:8](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/core/entity.ts#L8)
+Defined in: [core/entity.ts:8](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/core/entity.ts#L8)
 
 The `Rest` instance for interacting with the Discord API.
 
@@ -62,17 +62,11 @@ The `Rest` instance for interacting with the Discord API.
 
 ### raw
 
-> `readonly` **raw**: `APIInteraction` & `object`
+> `readonly` **raw**: `any`
 
-Defined in: [core/entity.ts:11](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/core/entity.ts#L11)
+Defined in: [core/entity.ts:11](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/core/entity.ts#L11)
 
 Raw data from the API response, read-only to prevent unnecessary mutations.
-
-#### Type declaration
-
-##### type
-
-> **type**: `Type`
 
 #### Inherited from
 
@@ -84,7 +78,7 @@ Raw data from the API response, read-only to prevent unnecessary mutations.
 
 > **deleteResponse**(`body`): `Promise`\<`boolean`\>
 
-Defined in: [entities/interaction.ts:48](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/interaction.ts#L48)
+Defined in: [entities/interaction.ts:48](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/interaction.ts#L48)
 
 Deletes the initial response to this interaction.
 
@@ -106,7 +100,7 @@ A promise resolving to `true` if the response was successfully deleted, or `fals
 
 > **modifyResponse**(`body`): `Promise`\<`boolean`\>
 
-Defined in: [entities/interaction.ts:71](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/interaction.ts#L71)
+Defined in: [entities/interaction.ts:71](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/interaction.ts#L71)
 
 Modifies the initial response to this interaction.
 
@@ -126,15 +120,15 @@ A promise resolving to `true` if the response was successfully modified, or `fal
 
 ### pong()
 
-> **pong**(): `Promise`\<`undefined` \| `RESTPostAPIInteractionCallbackWithResponseResult`\>
+> **pong**(): `Promise`\<`any`\>
 
-Defined in: [entities/interaction.ts:93](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/interaction.ts#L93)
+Defined in: [entities/interaction.ts:93](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/interaction.ts#L93)
 
 Sends a Pong response to a Ping interaction.
 
 #### Returns
 
-`Promise`\<`undefined` \| `RESTPostAPIInteractionCallbackWithResponseResult`\>
+`Promise`\<`any`\>
 
 A promise resolving to the interaction callback result, or `undefined` if the interaction is not a Ping.
 
@@ -142,9 +136,9 @@ A promise resolving to the interaction callback result, or `undefined` if the in
 
 ### respond()
 
-> **respond**(`body`): `Promise`\<`undefined` \| `RESTPostAPIInteractionCallbackWithResponseResult`\>
+> **respond**(`body`): `Promise`\<`any`\>
 
-Defined in: [entities/interaction.ts:112](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/interaction.ts#L112)
+Defined in: [entities/interaction.ts:112](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/interaction.ts#L112)
 
 Responds to the interaction.
 
@@ -156,7 +150,7 @@ Responds to the interaction.
 
 #### Returns
 
-`Promise`\<`undefined` \| `RESTPostAPIInteractionCallbackWithResponseResult`\>
+`Promise`\<`any`\>
 
 A promise resolving to the interaction callback result, or `undefined` if the interaction has already been completed or the request fails.
 
@@ -166,7 +160,7 @@ A promise resolving to the interaction callback result, or `undefined` if the in
 
 > **guild**(): `Promise`\<`undefined` \| [`Guild`](/api/classes/classes/guild/)\>
 
-Defined in: [entities/interaction.ts:152](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/interaction.ts#L152)
+Defined in: [entities/interaction.ts:152](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/interaction.ts#L152)
 
 Fetches the guild associated with this interaction, if applicable.
 
@@ -182,7 +176,7 @@ A promise resolving to an [Guild](/api/classes/api/classes/classes/guild/) insta
 
 > **channel**(): `Promise`\<`undefined` \| [`Channel`](/api/classes/classes/channel/)\<`ChannelType`\>\>
 
-Defined in: [entities/interaction.ts:174](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/interaction.ts#L174)
+Defined in: [entities/interaction.ts:174](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/interaction.ts#L174)
 
 Fetches the channel associated with this interaction, if applicable.
 
@@ -198,7 +192,7 @@ A promise resolving to a [\<ChannelType\>](/api/classes/api/classes/classes/chan
 
 > **user**(): `null` \| [`User`](/api/classes/classes/user/)
 
-Defined in: [entities/interaction.ts:200](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/interaction.ts#L200)
+Defined in: [entities/interaction.ts:200](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/interaction.ts#L200)
 
 Retrieves the user associated with this interaction.
 
@@ -214,7 +208,7 @@ A [User](/api/classes/api/classes/classes/user/) instance representing the user,
 
 > **member**(): `Promise`\<`null` \| [`Member`](/api/classes/classes/member/)\>
 
-Defined in: [entities/interaction.ts:212](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/interaction.ts#L212)
+Defined in: [entities/interaction.ts:212](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/interaction.ts#L212)
 
 Retrieves the member associated with this interaction, if applicable.
 
@@ -230,7 +224,7 @@ A promise resolving to a [Member](/api/classes/api/classes/classes/member/) inst
 
 > **isCompleted**(): `boolean`
 
-Defined in: [entities/interaction.ts:226](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/interaction.ts#L226)
+Defined in: [entities/interaction.ts:226](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/interaction.ts#L226)
 
 Checks if the interaction has been completed.
 
@@ -246,7 +240,7 @@ Checks if the interaction has been completed.
 
 > **isPing**(): `this is Interaction<Ping>`
 
-Defined in: [entities/interaction.ts:237](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/interaction.ts#L237)
+Defined in: [entities/interaction.ts:237](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/interaction.ts#L237)
 
 Checks if the interaction is a Ping.
 
@@ -260,7 +254,7 @@ Checks if the interaction is a Ping.
 
 > **isApplicationCommand**(): `this is Interaction<ApplicationCommand>`
 
-Defined in: [entities/interaction.ts:244](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/interaction.ts#L244)
+Defined in: [entities/interaction.ts:244](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/interaction.ts#L244)
 
 Checks if the interaction is an Application Command.
 
@@ -274,7 +268,7 @@ Checks if the interaction is an Application Command.
 
 > **isMessageComponent**(): `this is Interaction<MessageComponent>`
 
-Defined in: [entities/interaction.ts:251](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/interaction.ts#L251)
+Defined in: [entities/interaction.ts:251](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/interaction.ts#L251)
 
 Checks if the interaction is a Message Component.
 
@@ -288,7 +282,7 @@ Checks if the interaction is a Message Component.
 
 > **isApplicationCommandAutocomplete**(): `this is Interaction<ApplicationCommandAutocomplete>`
 
-Defined in: [entities/interaction.ts:258](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/interaction.ts#L258)
+Defined in: [entities/interaction.ts:258](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/interaction.ts#L258)
 
 Checks if the interaction is an Application Command Autocomplete.
 
@@ -302,7 +296,7 @@ Checks if the interaction is an Application Command Autocomplete.
 
 > **isModalSubmit**(): `this is Interaction<ModalSubmit>`
 
-Defined in: [entities/interaction.ts:265](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/classes/src/entities/interaction.ts#L265)
+Defined in: [entities/interaction.ts:265](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/classes/src/entities/interaction.ts#L265)
 
 Checks if the interaction is a Modal Submit.
 

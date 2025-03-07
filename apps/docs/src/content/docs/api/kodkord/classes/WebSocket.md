@@ -5,7 +5,7 @@ prev: false
 title: "WebSocket"
 ---
 
-Defined in: [packages/kodkord/src/api/ws.ts:41](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/ws.ts#L41)
+Defined in: [packages/kodkord/src/api/ws.ts:41](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/ws.ts#L41)
 
 Manages the WebSocket connection to the Discord Gateway.
 
@@ -20,7 +20,7 @@ will automatically attempt to reconnect in case of disconnections.
 
 > **new WebSocket**(`settings`): [`WebSocket`](/api/kodkord/classes/websocket/)
 
-Defined in: [packages/kodkord/src/api/ws.ts:61](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/ws.ts#L61)
+Defined in: [packages/kodkord/src/api/ws.ts:61](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/ws.ts#L61)
 
 Creates a new `WebSocket` instance.
 
@@ -40,7 +40,7 @@ Creates a new `WebSocket` instance.
 
 > `readonly` **settings**: [`WebSocketSettings`](/api/kodkord/interfaces/websocketsettings/)
 
-Defined in: [packages/kodkord/src/api/ws.ts:54](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/ws.ts#L54)
+Defined in: [packages/kodkord/src/api/ws.ts:54](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/ws.ts#L54)
 
 Configuration settings for the WebSocket connection.
 
@@ -50,7 +50,7 @@ Configuration settings for the WebSocket connection.
 
 > **connect**(): `void`
 
-Defined in: [packages/kodkord/src/api/ws.ts:72](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/ws.ts#L72)
+Defined in: [packages/kodkord/src/api/ws.ts:72](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/ws.ts#L72)
 
 Establishes a WebSocket connection to the Discord Gateway.
 
@@ -68,7 +68,7 @@ Establishes a WebSocket connection to the Discord Gateway.
 
 > **disconnect**(): `void`
 
-Defined in: [packages/kodkord/src/api/ws.ts:144](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/ws.ts#L144)
+Defined in: [packages/kodkord/src/api/ws.ts:144](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/ws.ts#L144)
 
 Disconnects the WebSocket connection and clears resources.
 
@@ -86,7 +86,7 @@ Disconnects the WebSocket connection and clears resources.
 
 > **identify**(): `void`
 
-Defined in: [packages/kodkord/src/api/ws.ts:163](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/ws.ts#L163)
+Defined in: [packages/kodkord/src/api/ws.ts:163](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/ws.ts#L163)
 
 Sends the identify payload to the Discord Gateway.
 
@@ -103,7 +103,7 @@ to authenticate the connection and begin receiving events.
 
 > **send**(`message`): `void`
 
-Defined in: [packages/kodkord/src/api/ws.ts:185](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/ws.ts#L185)
+Defined in: [packages/kodkord/src/api/ws.ts:185](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/ws.ts#L185)
 
 Sends a message through the WebSocket connection.
 
@@ -125,7 +125,7 @@ This method serializes the provided payload into a JSON string
 
 > **disconnected**(): `boolean`
 
-Defined in: [packages/kodkord/src/api/ws.ts:194](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/ws.ts#L194)
+Defined in: [packages/kodkord/src/api/ws.ts:194](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/ws.ts#L194)
 
 Checks if the WebSocket connection is closed.
 
@@ -141,7 +141,7 @@ Checks if the WebSocket connection is closed.
 
 > **connected**(): `boolean`
 
-Defined in: [packages/kodkord/src/api/ws.ts:203](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/api/ws.ts#L203)
+Defined in: [packages/kodkord/src/api/ws.ts:203](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/api/ws.ts#L203)
 
 Checks if the WebSocket connection is established.
 

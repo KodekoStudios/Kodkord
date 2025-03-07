@@ -5,7 +5,7 @@ prev: false
 title: "Client"
 ---
 
-Defined in: [packages/kodkord/src/core/client.ts:66](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/core/client.ts#L66)
+Defined in: [packages/kodkord/src/core/client.ts:66](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/core/client.ts#L66)
 
 Represents the main bot client.
 
@@ -19,7 +19,7 @@ and allows interaction with the Discord Gateway.
 
 > **new Client**(`settings`): [`Client`](/api/kodkord/classes/client/)
 
-Defined in: [packages/kodkord/src/core/client.ts:84](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/core/client.ts#L84)
+Defined in: [packages/kodkord/src/core/client.ts:84](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/core/client.ts#L84)
 
 Creates a new client instance with the provided settings.
 
@@ -39,7 +39,7 @@ Creates a new client instance with the provided settings.
 
 > `readonly` **settings**: [`ClientSettings`](/api/kodkord/type-aliases/clientsettings/)
 
-Defined in: [packages/kodkord/src/core/client.ts:68](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/core/client.ts#L68)
+Defined in: [packages/kodkord/src/core/client.ts:68](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/core/client.ts#L68)
 
 The settings used to configure the client.
 
@@ -49,7 +49,7 @@ The settings used to configure the client.
 
 > `readonly` **shards**: [`Sharder`](/api/kodkord/classes/sharder/)
 
-Defined in: [packages/kodkord/src/core/client.ts:71](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/core/client.ts#L71)
+Defined in: [packages/kodkord/src/core/client.ts:71](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/core/client.ts#L71)
 
 The sharding manager responsible for handling multiple shards.
 
@@ -59,7 +59,7 @@ The sharding manager responsible for handling multiple shards.
 
 > `readonly` **events**: [`Events`](/api/kodkord/interfaces/events/)
 
-Defined in: [packages/kodkord/src/core/client.ts:74](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/core/client.ts#L74)
+Defined in: [packages/kodkord/src/core/client.ts:74](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/core/client.ts#L74)
 
 The event handler for managing events.
 
@@ -69,7 +69,7 @@ The event handler for managing events.
 
 > `readonly` **rest**: [`Rest`](/api/kodkord/classes/rest/)
 
-Defined in: [packages/kodkord/src/core/client.ts:77](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/core/client.ts#L77)
+Defined in: [packages/kodkord/src/core/client.ts:77](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/core/client.ts#L77)
 
 The `Rest` instance for interacting with the Discord API.
 
@@ -79,7 +79,7 @@ The `Rest` instance for interacting with the Discord API.
 
 > **connect**(): `void`
 
-Defined in: [packages/kodkord/src/core/client.ts:92](https://github.com/KingsBeCattz/Kodkord/blob/e64d9a769150751981b0359a2c19703ea8677956/packages/kodkord/src/core/client.ts#L92)
+Defined in: [packages/kodkord/src/core/client.ts:92](https://github.com/KodekoStudios/Kodkord/blob/dc3759533552e18eb6881d3858a982430eda469c/packages/kodkord/src/core/client.ts#L92)
 
 Connects the client by establishing a connection with the Discord Gateway.
 
