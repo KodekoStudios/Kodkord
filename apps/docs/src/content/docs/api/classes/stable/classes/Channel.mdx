@@ -1,0 +1,396 @@
+---
+title: Channel
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: index.d.ts:280
+
+Represents a Discord channel.
+
+## Extends
+
+- [`Entity`](/api/classes/stable/classes/entity/)\<`APIChannel` & `object`\>
+
+## Type Parameters
+
+| Type Parameter | Description |
+| ------ | ------ |
+| `Type` *extends* `ChannelType` | The specific type of the channel. |
+
+## Constructors
+
+### new Channel()
+
+```ts
+new Channel<Type>(rest, raw): Channel<Type>
+```
+
+Defined in: index.d.ts:17
+
+Creates an instance of the Entity.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `rest` | `Rest` | - |
+| `raw` | `APIChannel` & `object` | The raw data from the API response. |
+
+#### Returns
+
+[`Channel`](/api/classes/stable/classes/channel/)\<`Type`\>
+
+#### Inherited from
+
+[`Entity`](/api/classes/stable/classes/entity/).[`constructor`](/api/classes/stable/classes/entity/#constructors)
+
+## Properties
+
+### rest
+
+```ts
+readonly rest: Rest;
+```
+
+Defined in: index.d.ts:9
+
+The `Rest` instance for interacting with the Discord API.
+
+#### Inherited from
+
+[`Entity`](/api/classes/stable/classes/entity/).[`rest`](/api/classes/stable/classes/entity/#rest-1)
+
+***
+
+### raw
+
+```ts
+readonly raw: APIChannel & object;
+```
+
+Defined in: index.d.ts:11
+
+Raw data from the API response, read-only to prevent unnecessary mutations.
+
+#### Type declaration
+
+##### type
+
+```ts
+type: Type;
+```
+
+#### Inherited from
+
+[`Entity`](/api/classes/stable/classes/entity/).[`raw`](/api/classes/stable/classes/entity/#raw-1)
+
+## Methods
+
+### fetchMessage()
+
+```ts
+fetchMessage(id): Promise<
+  | undefined
+| Message<MessageType>>
+```
+
+Defined in: index.d.ts:283
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `id` | `string` |
+
+#### Returns
+
+`Promise`\<
+  \| `undefined`
+  \| [`Message`](/api/classes/stable/classes/message/)\<`MessageType`\>\>
+
+***
+
+### postMessage()
+
+```ts
+postMessage(body): Promise<
+  | undefined
+| Message<MessageType>>
+```
+
+Defined in: index.d.ts:284
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `body` | `RESTPostAPIChannelMessageJSONBody` |
+
+#### Returns
+
+`Promise`\<
+  \| `undefined`
+  \| [`Message`](/api/classes/stable/classes/message/)\<`MessageType`\>\>
+
+***
+
+### fetch()
+
+```ts
+fetch(): Promise<undefined | Channel<Type>>
+```
+
+Defined in: index.d.ts:285
+
+#### Returns
+
+`Promise`\<`undefined` \| [`Channel`](/api/classes/stable/classes/channel/)\<`Type`\>\>
+
+***
+
+### edit()
+
+```ts
+edit(body, reason?): Promise<boolean>
+```
+
+Defined in: index.d.ts:286
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `body` | `RESTPatchAPIChannelJSONBody` |
+| `reason`? | `string` |
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+***
+
+### delete()
+
+```ts
+delete(): Promise<boolean>
+```
+
+Defined in: index.d.ts:287
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+***
+
+### mention()
+
+```ts
+mention(): string
+```
+
+Defined in: index.d.ts:293
+
+Returns a string to mention the channel in Discord.
+
+#### Returns
+
+`string`
+
+A string representing the channel mention.
+
+***
+
+### isGuildText()
+
+```ts
+isGuildText(): this is Channel<GuildText>
+```
+
+Defined in: index.d.ts:295
+
+Determines if this channel is a guild text channel.
+
+#### Returns
+
+`this is Channel<GuildText>`
+
+***
+
+### isDM()
+
+```ts
+isDM(): this is Channel<DM>
+```
+
+Defined in: index.d.ts:297
+
+Determines if this channel is a direct message channel.
+
+#### Returns
+
+`this is Channel<DM>`
+
+***
+
+### isGuildVoice()
+
+```ts
+isGuildVoice(): this is Channel<GuildVoice>
+```
+
+Defined in: index.d.ts:299
+
+Determines if this channel is a guild voice channel.
+
+#### Returns
+
+`this is Channel<GuildVoice>`
+
+***
+
+### isGroupDM()
+
+```ts
+isGroupDM(): this is Channel<GroupDM>
+```
+
+Defined in: index.d.ts:301
+
+Determines if this channel is a group DM channel.
+
+#### Returns
+
+`this is Channel<GroupDM>`
+
+***
+
+### isGuildCategory()
+
+```ts
+isGuildCategory(): this is Channel<GuildCategory>
+```
+
+Defined in: index.d.ts:303
+
+Determines if this channel is a guild category.
+
+#### Returns
+
+`this is Channel<GuildCategory>`
+
+***
+
+### isGuildAnnouncement()
+
+```ts
+isGuildAnnouncement(): this is Channel<GuildAnnouncement>
+```
+
+Defined in: index.d.ts:305
+
+Determines if this channel is a guild announcement channel.
+
+#### Returns
+
+`this is Channel<GuildAnnouncement>`
+
+***
+
+### isAnnouncementThread()
+
+```ts
+isAnnouncementThread(): this is Channel<AnnouncementThread>
+```
+
+Defined in: index.d.ts:307
+
+Determines if this channel is an announcement thread.
+
+#### Returns
+
+`this is Channel<AnnouncementThread>`
+
+***
+
+### isPublicThread()
+
+```ts
+isPublicThread(): this is Channel<PublicThread>
+```
+
+Defined in: index.d.ts:309
+
+Determines if this channel is a public thread.
+
+#### Returns
+
+`this is Channel<PublicThread>`
+
+***
+
+### isPrivateThread()
+
+```ts
+isPrivateThread(): this is Channel<PrivateThread>
+```
+
+Defined in: index.d.ts:311
+
+Determines if this channel is a private thread.
+
+#### Returns
+
+`this is Channel<PrivateThread>`
+
+***
+
+### isGuildStageVoice()
+
+```ts
+isGuildStageVoice(): this is Channel<GuildStageVoice>
+```
+
+Defined in: index.d.ts:313
+
+Determines if this channel is a guild stage voice channel.
+
+#### Returns
+
+`this is Channel<GuildStageVoice>`
+
+***
+
+### isGuildForum()
+
+```ts
+isGuildForum(): this is Channel<GuildForum>
+```
+
+Defined in: index.d.ts:315
+
+Determines if this channel is a guild forum channel.
+
+#### Returns
+
+`this is Channel<GuildForum>`
+
+***
+
+### isGuildMedia()
+
+```ts
+isGuildMedia(): this is Channel<GuildMedia>
+```
+
+Defined in: index.d.ts:317
+
+Determines if this channel is a guild media channel.
+
+#### Returns
+
+`this is Channel<GuildMedia>`

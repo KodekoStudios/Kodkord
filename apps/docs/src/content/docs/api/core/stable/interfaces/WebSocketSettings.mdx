@@ -1,0 +1,72 @@
+---
+title: WebSocketSettings
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: kodkord/lib/index.d.ts:467
+
+Settings required for establishing a WebSocket connection to the Discord Gateway.
+
+## Properties
+
+### token
+
+```ts
+token: string;
+```
+
+Defined in: kodkord/lib/index.d.ts:469
+
+The bot's authentication token.
+
+***
+
+### intents
+
+```ts
+intents: number;
+```
+
+Defined in: kodkord/lib/index.d.ts:471
+
+The bitwise value representing the Gateway intents.
+
+***
+
+### device
+
+```ts
+device: string;
+```
+
+Defined in: kodkord/lib/index.d.ts:473
+
+The device name to be sent in the identify payload.
+
+***
+
+### os
+
+```ts
+os: "windows" | "linux" | "macos";
+```
+
+Defined in: kodkord/lib/index.d.ts:475
+
+The operating system of the host machine.
+
+***
+
+### events
+
+```ts
+events: Events;
+```
+
+Defined in: kodkord/lib/index.d.ts:477
+
+Event handlers for incoming Gateway events.

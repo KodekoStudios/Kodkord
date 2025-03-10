@@ -1,0 +1,195 @@
+---
+title: Avatar
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: index.d.ts:84
+
+Class representing a user's avatar image.
+
+This class extends the `HashImage` abstract class and implements methods to
+retrieve user avatar URLs, including support for default Discord avatars.
+
+## Extends
+
+- [`HashImage`](/api/classes/stable/classes/hashimage/)\<[`RawImage`](/api/classes/stable/interfaces/rawimage/)\>
+
+## Constructors
+
+### new Avatar()
+
+```ts
+new Avatar(rest, raw): Avatar
+```
+
+Defined in: index.d.ts:17
+
+Creates an instance of the Entity.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `rest` | `Rest` | - |
+| `raw` | [`RawImage`](/api/classes/stable/interfaces/rawimage/) | The raw data from the API response. |
+
+#### Returns
+
+[`Avatar`](/api/classes/stable/classes/avatar/)
+
+#### Inherited from
+
+[`HashImage`](/api/classes/stable/classes/hashimage/).[`constructor`](/api/classes/stable/classes/hashimage/#constructors)
+
+## Properties
+
+### rest
+
+```ts
+readonly rest: Rest;
+```
+
+Defined in: index.d.ts:9
+
+The `Rest` instance for interacting with the Discord API.
+
+#### Inherited from
+
+[`HashImage`](/api/classes/stable/classes/hashimage/).[`rest`](/api/classes/stable/classes/hashimage/#rest-1)
+
+***
+
+### raw
+
+```ts
+readonly raw: RawImage;
+```
+
+Defined in: index.d.ts:11
+
+Raw data from the API response, read-only to prevent unnecessary mutations.
+
+#### Inherited from
+
+[`HashImage`](/api/classes/stable/classes/hashimage/).[`raw`](/api/classes/stable/classes/hashimage/#raw-1)
+
+## Methods
+
+### display()
+
+```ts
+display(settings?): string
+```
+
+Defined in: index.d.ts:67
+
+Retrieves the most appropriate image URL.
+
+This method prioritizes the custom image URL and falls back to the default
+URL if available. If neither is available, it returns an empty string.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `settings`? | \{ `format`: `ImageFormat`; `size`: [`Sizes`](/api/classes/stable/type-aliases/sizes/); \} | Optional settings to specify the image format and size. |
+| `settings.format`? | `ImageFormat` | - |
+| `settings.size`? | [`Sizes`](/api/classes/stable/type-aliases/sizes/) | - |
+
+#### Returns
+
+`string`
+
+The displayable URL of the image or an empty string.
+
+#### Inherited from
+
+[`HashImage`](/api/classes/stable/classes/hashimage/).[`display`](/api/classes/stable/classes/hashimage/#display)
+
+***
+
+### buffer()
+
+```ts
+buffer(): Promise<ArrayBuffer>
+```
+
+Defined in: index.d.ts:76
+
+Converts the image to an ArrayBuffer for further processing or usage.
+
+#### Returns
+
+`Promise`\<`ArrayBuffer`\>
+
+A promise resolving to an ArrayBuffer representing the image data.
+
+#### Inherited from
+
+[`HashImage`](/api/classes/stable/classes/hashimage/).[`buffer`](/api/classes/stable/classes/hashimage/#buffer)
+
+***
+
+### url()
+
+```ts
+url(settings?): null | string
+```
+
+Defined in: index.d.ts:91
+
+Retrieves the URL of the user's avatar.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `settings`? | \{ `format`: `UserAvatarFormat`; `size`: [`Sizes`](/api/classes/stable/type-aliases/sizes/); \} | Optional settings to specify the avatar format and size. |
+| `settings.format`? | `UserAvatarFormat` | - |
+| `settings.size`? | [`Sizes`](/api/classes/stable/type-aliases/sizes/) | - |
+
+#### Returns
+
+`null` \| `string`
+
+The avatar URL or `null` if the user does not have a custom avatar.
+
+#### Overrides
+
+[`HashImage`](/api/classes/stable/classes/hashimage/).[`url`](/api/classes/stable/classes/hashimage/#url)
+
+***
+
+### default()
+
+```ts
+default(settings?): undefined | string
+```
+
+Defined in: index.d.ts:103
+
+Retrieves the default URL of the user's avatar.
+
+The default avatar is determined based on the user's Id.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `settings`? | \{ `format`: `ImageFormat`; `size`: [`Sizes`](/api/classes/stable/type-aliases/sizes/); \} | Optional settings to specify the avatar size. |
+| `settings.format`? | `ImageFormat` | - |
+| `settings.size`? | [`Sizes`](/api/classes/stable/type-aliases/sizes/) | - |
+
+#### Returns
+
+`undefined` \| `string`
+
+The default avatar URL.
+
+#### Overrides
+
+[`HashImage`](/api/classes/stable/classes/hashimage/).[`default`](/api/classes/stable/classes/hashimage/#default)

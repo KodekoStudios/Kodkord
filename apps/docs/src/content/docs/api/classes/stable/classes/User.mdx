@@ -1,0 +1,169 @@
+---
+title: User
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: index.d.ts:136
+
+Class representing a Discord user.
+
+## Extends
+
+- [`Entity`](/api/classes/stable/classes/entity/)\<`APIUser`\>
+
+## Constructors
+
+### new User()
+
+```ts
+new User(rest, raw): User
+```
+
+Defined in: index.d.ts:17
+
+Creates an instance of the Entity.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `rest` | `Rest` | - |
+| `raw` | `APIUser` | The raw data from the API response. |
+
+#### Returns
+
+[`User`](/api/classes/stable/classes/user/)
+
+#### Inherited from
+
+[`Entity`](/api/classes/stable/classes/entity/).[`constructor`](/api/classes/stable/classes/entity/#constructors)
+
+## Properties
+
+### rest
+
+```ts
+readonly rest: Rest;
+```
+
+Defined in: index.d.ts:9
+
+The `Rest` instance for interacting with the Discord API.
+
+#### Inherited from
+
+[`Entity`](/api/classes/stable/classes/entity/).[`rest`](/api/classes/stable/classes/entity/#rest-1)
+
+***
+
+### raw
+
+```ts
+readonly raw: APIUser;
+```
+
+Defined in: index.d.ts:11
+
+Raw data from the API response, read-only to prevent unnecessary mutations.
+
+#### Inherited from
+
+[`Entity`](/api/classes/stable/classes/entity/).[`raw`](/api/classes/stable/classes/entity/#raw-1)
+
+## Methods
+
+### fetch()
+
+```ts
+fetch(): Promise<User>
+```
+
+Defined in: index.d.ts:143
+
+Fetches the latest data for the user from the Discord API.
+
+#### Returns
+
+`Promise`\<[`User`](/api/classes/stable/classes/user/)\>
+
+A promise that resolves to an updated `User` instance.
+
+#### Throws
+
+If the API request fails, an error is logged and re-thrown.
+
+***
+
+### banner()
+
+```ts
+banner(): Banner
+```
+
+Defined in: index.d.ts:149
+
+Retrieves the user's banner.
+
+#### Returns
+
+[`Banner`](/api/classes/stable/classes/banner/)
+
+A `Banner` instance representing the user's banner.
+
+***
+
+### avatar()
+
+```ts
+avatar(): Avatar
+```
+
+Defined in: index.d.ts:155
+
+Retrieves the user's avatar.
+
+#### Returns
+
+[`Avatar`](/api/classes/stable/classes/avatar/)
+
+An `Avatar` instance representing the user's avatar.
+
+***
+
+### createdAt()
+
+```ts
+createdAt(): Date
+```
+
+Defined in: index.d.ts:161
+
+Returns the creation date of the user based on their Id.
+
+#### Returns
+
+`Date`
+
+A `Date` object representing when the user was created.
+
+***
+
+### mention()
+
+```ts
+mention(): string
+```
+
+Defined in: index.d.ts:167
+
+Returns a string to mention the user in Discord.
+
+#### Returns
+
+`string`
+
+A string representing the user mention.

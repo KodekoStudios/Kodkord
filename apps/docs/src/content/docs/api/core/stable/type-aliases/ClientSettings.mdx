@@ -1,0 +1,27 @@
+---
+title: ClientSettings
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+```ts
+type ClientSettings = RestSettings & object;
+```
+
+Defined in: kodkord/lib/index.d.ts:431
+
+Represents the settings required to initialize a client.
+
+This type extends `RestSettings` and adds an additional property `intents` to manage
+the events the client will listen to.
+
+## Type declaration
+
+### intents
+
+```ts
+intents: number;
+```

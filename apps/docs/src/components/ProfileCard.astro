@@ -1,0 +1,135 @@
+---
+type Props = {
+  id: string,
+  Stepped?: unknown,
+  Centered?: unknown
+}
+
+const { id, Stepped, Centered } = Astro.props;
+
+import { Image } from 'astro:assets';
+import { parseEmojis, parseTime, parseLines } from "../functions/bio.parser"
+
+const response = await fetch(`https://dcdn.dstn.to/profile/${id}`);
+const data = await response.json();
+
+const CDN = "https://cdn.discordapp.com/";
+
+function parseBanner(id: string, hash: string) {
+  return `${CDN}banners/${id}/${hash}.${hash.startsWith("a_") ? "gif" : "webp"}?size=1024`
+}
+function parseAvatar(id: string, discriminator: string, hash: string | null) {
+  if(!hash) return `${CDN}embed/avatars/${!Number(discriminator) ? Number(BigInt(id) >> 22n) % 6 : Number(discriminator) % 5}.png`;
+  return `${CDN}avatars/${id}/${hash}.${hash.startsWith("a_") ? "gif" : "webp"}`
+}
+---
+
+<div class={`profile-card ${Stepped ? "stepped" : ""} ${Centered ? "centered" : ""}`}>
+  <div class="user-data" style={data.user.banner ? `background-image: url(${parseBanner(data.user.id, data.user.banner)})` : `background-color: #${(data.user.accent_color ?? 1513500).toString(16)};`}>
+    <Image 
+      src={parseAvatar(data.user.id, data.user.discriminator, data.user.avatar)} alt=""
+      width="64"
+      height="64"
+      decoding="async"
+      loading="lazy"
+      class="avatar"
+    />
+    <div class="user-name-n-user">
+      <span class="name">{data.user.global_name ?? data.user.username}</span>
+      <span class="username">{data.user.global_name ? data.user.username : `${data.user.username}#${data.user.discriminator}`}</span>
+    </div>
+  </div>
+  <div class="user-description" set:html={parseEmojis(parseTime(parseLines(data.user_profile.bio ?? "No bio")))} />
+</div>
+
+<style>
+  :root {
+    --avatar-size: 64px;
+    --user-font-size: 125%;
+    --username-font-size: 85%;
+    --emoji-size: 19.25px
+  }
+
+  .profile-card.stepped {
+    margin-left: auto
+  }
+  .profile-card.centered {
+    margin: 0 auto
+  }
+  .profile-card {
+    background-color: var(--sl-color-black);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 1rem;
+    max-width: 600px;
+    overflow: hidden;
+    min-width: min-content;
+    display: inline-block;
+    margin-top: 0 !important;
+    min-height: min-content;
+  }
+
+  .profile-card * {
+    color: var(--sl-color-white)
+  }
+
+  .profile-card .user-data {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    gap: 5px;
+    min-width: max-content;
+    padding: 1rem 1rem 1ch 1rem;
+    border-bottom: 1px solid var(--sl-color-gray-5);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+
+  .profile-card .user-data .avatar {
+    border-radius: 50%;
+    max-height: var(--avatar-size);
+    max-width: var(--avatar-size);
+    border: 1px solid var(--sl-color-gray-5);
+    margin: auto 0
+  }
+
+  .profile-card .user-data .user-name-n-user {
+    margin: 0;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: .5rem;
+    padding: 1ch;
+    background-color: var(--sl-color-black);
+    max-width: min-content;
+  }
+
+  .profile-card .user-data .user-name-n-user span {
+    display: block;
+  }
+
+  .profile-card .user-data .user-name-n-user span.name {
+    font-size: var(--user-font-size);
+    font-weight: bold;
+  }
+  .profile-card .user-data .user-name-n-user span.username {
+    font-size: var(--username-font-size);
+  }
+
+  .profile-card .user-description {
+    margin: 0 1rem 1rem 1rem !important;
+  }
+
+  @media (max-width: 600px) {
+    :root {
+      --avatar-size: 48px;
+      --user-font-size: 100%;
+      --username-font-size: 75%
+    }
+  }
+
+  @media (max-width: 300px) {
+    :root {
+      --avatar-size: 32px;
+      --user-font-size: 80%;
+      --username-font-size: 50%
+    }
+  }
+</style>

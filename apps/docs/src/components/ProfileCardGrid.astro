@@ -1,0 +1,23 @@
+---
+import ProfileCard from "./ProfileCard.astro";
+
+interface Props {
+  ids: string[];
+}
+
+const { ids } = Astro.props;
+---
+
+<div class="profile-card-grid">
+  {ids.map((id) => <ProfileCard id={id} />)}
+</div>
+
+<style>
+  .profile-card-grid {
+    display: grid;
+    gap: 5px;
+    grid-auto-rows: minmax(170px, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    overflow-x: auto;
+  }
+</style>

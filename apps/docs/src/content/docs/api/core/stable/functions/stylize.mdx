@@ -1,0 +1,32 @@
+---
+title: stylize
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+```ts
+function stylize(input, ...codes): string
+```
+
+Defined in: kodkord/lib/index.d.ts:667
+
+Stylizes the given string by applying the specified ANSI codes.
+
+The function resets specific styles automatically, such as text color, background color,
+or other text formatting, based on the provided ANSI codes.
+
+## Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `input` | `string` | The string to be stylized. |
+| ...`codes` | [`ANSICodes`](/api/core/stable/enumerations/ansicodes/)[] | ANSI codes to apply to the string. |
+
+## Returns
+
+`string`
+
+The stylized string with the applied ANSI codes.

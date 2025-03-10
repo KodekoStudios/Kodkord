@@ -1,0 +1,98 @@
+---
+title: Introduction
+lastUpdated: 2025-03-09
+---
+
+import {
+  Steps, Tabs, TabItem, Code, Aside, Icon, Badge, CardGrid, LinkCard
+} from '@astrojs/starlight/components';
+
+`@kodkord/classes` offers an even more robust experience, thanks to classes dedicated to each type of Discord API data.
+
+<Aside type="caution">`@kodkord/classes` is completely independent of `kodkord`, since it is based on using the raw data from the Discord API.</Aside>
+
+### Before Installation <Badge text="IMPORTANT" size="small" variant="caution" style={{ fontWeight: "bolder", textDecoration: "underline" }} />
+We recommend first of all to have installed:
+<div class="div-before-installation">
+  <Icon name="right-caret" label=">" class="display-inline" />[<Icon name="node" class="display-inline" /> NodeJS](https://nodejs.org/) (v18 or higher)
+</div>
+<div class="div-before-installation">
+  <Icon name="right-caret" label=">" class="display-inline" />[<Icon name="seti:typescript" class="display-inline" /> TypeScript](https://www.typescriptlang.org/) (v4.3 or higher) <Badge variant="tip" text="OPTIONAL USE"/>
+</div>
+<div class="div-before-installation">
+  <Icon name="right-caret" label=">" class="display-inline" /> Any package manager, below are some examples
+</div>
+
+<Aside type="note">
+- TypeScript is not required to use `@kodkord/classes` <tr/>
+- `@kodkord/classes` was recently released, that means there may be bugs. Also, backwards compatibility with node and typescript has not been tested. So we would appreciate it if you could contribute by testing :3.
+</Aside>
+
+### Installation
+
+<Tabs syncKey="pkg">
+  <TabItem label="Bun" icon="bun">
+    <Code code=" bun add @kodkord/classes" lang="sh" frame="terminal" class="JetBrains-Mono-Semibold" />
+  </TabItem>
+
+  <TabItem label="npm" icon="seti:npm">
+    <Code code=" npm i @kodkord/classes" lang="sh" frame="terminal" class="JetBrains-Mono-Semibold" />
+  </TabItem>
+
+  <TabItem label="pnpm" icon="pnpm">
+    <Code code="pnpm i @kodkord/classes" lang="sh" frame="terminal" class="JetBrains-Mono-Semibold" />
+  </TabItem>
+
+  <TabItem label="Yarn" icon="seti:yarn">
+    <Code code="yarn add @kodkord/classes" lang="sh" frame="terminal" class="JetBrains-Mono-Semibold" />
+  </TabItem>
+</Tabs>
+
+<Aside type="tip">
+  In case you want to have the mirror version of Github installed, i.e. the development version, just replace `@kodkord/classes` with `@kodkord/classes@dev`, you can also have multiple instances, for example:
+  
+<Tabs syncKey="pkg">
+  <TabItem label="Bun" icon="bun">
+    <Code code=" bun add @kodkord/classes-stable@npm:@kodkord/classes" lang="sh" frame="terminal" class="JetBrains-Mono-Semibold" title="Stable"/>
+    <Code code=" bun add @kodkord/classes-dev@npm:@kodkord/classes@dev" lang="sh" frame="terminal" class="JetBrains-Mono-Semibold" title="Dev"/>
+    <Aside type="caution">
+      When installing an aliased dependency with bun, instead of saving it in your package.json with, for example: `"@kodkord/classes-dev": "npm:@kodkord/classes@0.0.2-dev-13076173580.0"`, save it as: `"@kodkord/classes-dev": "^0.0.2-dev-13076173580.0"`.
+
+      This can cause problems with other package managers as they will look for `@kodkord/classes-dev` in the npm registry, you can fix this by replacing `“^0.0.2-dev-13076173580.0"` with `"npm:@kodkord/classes@0.0.2-dev-13076173580.0"`.
+    </Aside>
+  </TabItem>
+
+  <TabItem label="npm" icon="seti:npm">
+    <Code code=" npm i @kodkord/classes-stable@npm:@kodkord/classes" lang="sh" frame="terminal" class="JetBrains-Mono-Semibold" title="Stable"/>
+    <Code code=" npm i @kodkord/classes-stable@npm:@kodkord/classes@dev" lang="sh" frame="terminal" class="JetBrains-Mono-Semibold" title="Dev"/>
+  </TabItem>
+
+  <TabItem label="pnpm" icon="pnpm">
+    <Code code="pnpm i @kodkord/classes-stable@npm:@kodkord/classes" lang="sh" frame="terminal" class="JetBrains-Mono-Semibold" title="Stable"/>
+    <Code code="pnpm i @kodkord/classes-stable@npm:@kodkord/classes@dev" lang="sh" frame="terminal" class="JetBrains-Mono-Semibold" title="Dev"/>
+  </TabItem>
+
+  <TabItem label="Yarn" icon="seti:yarn">
+    <Code code="yarn add @kodkord/classes-stable@npm:@kodkord/classes" lang="sh" frame="terminal" class="JetBrains-Mono-Semibold" title="Stable"/>
+    <Code code="yarn add @kodkord/classes-stable@npm:@kodkord/classes@dev" lang="sh" frame="terminal" class="JetBrains-Mono-Semibold" title="Dev"/>
+  </TabItem>
+</Tabs>
+</Aside>
+
+
+<Aside type='note'>
+At the moment there is no guide for `@kodkord/classes` since a rewrite is planned, if you still want to know how to use it, please read the reference.
+
+<CardGrid>
+<LinkCard
+  title="Go to the Stable Reference"
+  href="/api/classes/stable/reference"
+  description="See the reference of the Stable Kodkord Classes"
+/>
+<LinkCard
+  title="Go to the Development Reference"
+  href="/api/classes/dev/reference"
+  description="See the reference of the Development Kodkord Classes"
+/>
+</CardGrid>
+</Aside>

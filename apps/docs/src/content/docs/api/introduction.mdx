@@ -1,3 +1,35 @@
 ---
 title: Introduction
+lastUpdated: 2025-03-09
 ---
+
+import { LinkCard, Card, CardGrid } from '@astrojs/starlight/components';
+
+<Card title="Stable Reference" icon="rocket">
+<CardGrid>
+<LinkCard
+    title="Core Reference"
+    href="/api/core/stable/reference"
+    description="See the reference of the Stable Kodkord Core"
+  />
+  <LinkCard
+    title="Classes Reference"
+    href="/api/classes/stable/reference"
+    description="See the reference of the Stable Kodkord Classes"
+  />
+</CardGrid>
+</Card>
+<Card title="Development Reference" icon="laptop">
+<CardGrid>
+<LinkCard
+    title="Core Reference"
+    href="/api/core/dev/reference"
+    description="See the reference of the Development Kodkord Core"
+  />
+  <LinkCard
+    title="Classes Reference"
+    href="/api/classes/dev/reference"
+    description="See the reference of the Development Kodkord Classes"
+  />
+</CardGrid>
+</Card>

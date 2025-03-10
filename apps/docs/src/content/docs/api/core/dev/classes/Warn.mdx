@@ -1,0 +1,171 @@
+---
+title: Warn
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: kodkord-dev/lib/index.d.ts:647
+
+A log entry with a predefined "Warning" level and yellow background styling.
+
+## Extends
+
+- [`Loggable`](/api/core/dev/classes/loggable/)
+
+## Constructors
+
+### new Warn()
+
+```ts
+new Warn(header, ...messages): Warn
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:654
+
+Creates a new `Warn` log entry.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `header` | `string` | The header of the log, typically a title or identifier |
+| ...`messages` | `string`[] | Additional lines or content for the log |
+
+#### Returns
+
+[`Warn`](/api/core/dev/classes/warn/)
+
+#### Overrides
+
+[`Loggable`](/api/core/dev/classes/loggable/).[`constructor`](/api/core/dev/classes/loggable/#constructors)
+
+## Methods
+
+### note()
+
+```ts
+note(): void
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:610
+
+Logs the message to the console as a standard note.
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[`Loggable`](/api/core/dev/classes/loggable/).[`note`](/api/core/dev/classes/loggable/#note)
+
+***
+
+### trace()
+
+```ts
+trace(): void
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:612
+
+Logs the message to the console with a debug level.
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[`Loggable`](/api/core/dev/classes/loggable/).[`trace`](/api/core/dev/classes/loggable/#trace)
+
+***
+
+### warn()
+
+```ts
+warn(): void
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:614
+
+Logs the message to the console as a warning.
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[`Loggable`](/api/core/dev/classes/loggable/).[`warn`](/api/core/dev/classes/loggable/#warn)
+
+***
+
+### panic()
+
+```ts
+panic(): void
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:616
+
+Logs the message to the console as an error.
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[`Loggable`](/api/core/dev/classes/loggable/).[`panic`](/api/core/dev/classes/loggable/#panic)
+
+***
+
+### format()
+
+```ts
+format(): string
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:623
+
+Formats the log into a styled string suitable for console output.
+
+The format includes the log header, timestamp, and a separator.
+
+#### Returns
+
+`string`
+
+A formatted log string
+
+#### Inherited from
+
+[`Loggable`](/api/core/dev/classes/loggable/).[`format`](/api/core/dev/classes/loggable/#format)
+
+***
+
+### formatLines()
+
+```ts
+formatLines(): string
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:630
+
+Formats the individual lines of the log with a consistent style.
+
+Each line is prefixed with a vertical bar (`|`) for clarity.
+
+#### Returns
+
+`string`
+
+A formatted string containing all log lines
+
+#### Inherited from
+
+[`Loggable`](/api/core/dev/classes/loggable/).[`formatLines`](/api/core/dev/classes/loggable/#formatlines)

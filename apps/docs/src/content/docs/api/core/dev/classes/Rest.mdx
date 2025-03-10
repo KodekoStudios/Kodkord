@@ -1,0 +1,276 @@
+---
+title: Rest
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: kodkord-dev/lib/index.d.ts:96
+
+A class for managing RESTful interactions with the Discord API.
+
+The `Rest` class provides methods to send HTTP requests to Discord's REST API.
+It ensures proper rate-limiting using buckets and handles request retries when necessary.
+
+## Constructors
+
+### new Rest()
+
+```ts
+new Rest(settings): Rest
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:106
+
+Creates a new `Rest` instance.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `settings` | `object` & [`RestSettings`](/api/core/dev/interfaces/restsettings/) | Configuration settings for the REST client. |
+
+#### Returns
+
+[`Rest`](/api/core/dev/classes/rest/)
+
+## Methods
+
+### latency()
+
+```ts
+latency(route?): Promise<number>
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:109
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `route`? | `string` |
+
+#### Returns
+
+`Promise`\<`number`\>
+
+***
+
+### delete()
+
+```ts
+delete<Returns>(route, parameters?): Promise<Returns>
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:117
+
+Sends a DELETE request to the specified API route.
+
+#### Type Parameters
+
+| Type Parameter |
+| ------ |
+| `Returns` |
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `route` | `string` | API route to send the request to. |
+| `parameters`? | [`APIRequestParameters`](/api/core/dev/interfaces/apirequestparameters/) | Optional parameters for the request. |
+
+#### Returns
+
+`Promise`\<`Returns`\>
+
+A promise resolving to the response of the request.
+
+***
+
+### patch()
+
+```ts
+patch<Returns>(route, parameters?): Promise<Returns>
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:125
+
+Sends a PATCH request to the specified API route.
+
+#### Type Parameters
+
+| Type Parameter |
+| ------ |
+| `Returns` |
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `route` | `string` | API route to send the request to. |
+| `parameters`? | [`APIRequestParameters`](/api/core/dev/interfaces/apirequestparameters/) | Optional parameters for the request. |
+
+#### Returns
+
+`Promise`\<`Returns`\>
+
+A promise resolving to the response of the request.
+
+***
+
+### post()
+
+```ts
+post<Returns>(route, parameters?): Promise<Returns>
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:133
+
+Sends a POST request to the specified API route.
+
+#### Type Parameters
+
+| Type Parameter |
+| ------ |
+| `Returns` |
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `route` | `string` | API route to send the request to. |
+| `parameters`? | [`APIRequestParameters`](/api/core/dev/interfaces/apirequestparameters/) | Optional parameters for the request. |
+
+#### Returns
+
+`Promise`\<`Returns`\>
+
+A promise resolving to the response of the request.
+
+***
+
+### put()
+
+```ts
+put<Returns>(route, parameters?): Promise<Returns>
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:141
+
+Sends a PUT request to the specified API route.
+
+#### Type Parameters
+
+| Type Parameter |
+| ------ |
+| `Returns` |
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `route` | `string` | API route to send the request to. |
+| `parameters`? | [`APIRequestParameters`](/api/core/dev/interfaces/apirequestparameters/) | Optional parameters for the request. |
+
+#### Returns
+
+`Promise`\<`Returns`\>
+
+A promise resolving to the response of the request.
+
+***
+
+### get()
+
+```ts
+get<Returns>(route, parameters?): Promise<Returns>
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:149
+
+Sends a GET request to the specified API route.
+
+#### Type Parameters
+
+| Type Parameter |
+| ------ |
+| `Returns` |
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `route` | `string` | API route to send the request to. |
+| `parameters`? | [`APIRequestParameters`](/api/core/dev/interfaces/apirequestparameters/) | Optional parameters for the request. |
+
+#### Returns
+
+`Promise`\<`Returns`\>
+
+A promise resolving to the response of the request.
+
+***
+
+### request()
+
+```ts
+request<Returns>(
+   method, 
+   route, 
+parameters?): Promise<Returns>
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:161
+
+Sends a request to the Discord API.
+
+- Applies rate limits using buckets based on the API route.
+- Automatically constructs headers and appends query parameters if provided.
+
+#### Type Parameters
+
+| Type Parameter |
+| ------ |
+| `Returns` |
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `method` | [`RequestMethod`](/api/core/dev/type-aliases/requestmethod/) | HTTP method for the request. |
+| `route` | `string` | API route to send the request to. |
+| `parameters`? | [`APIRequestParameters`](/api/core/dev/interfaces/apirequestparameters/) | Optional parameters for the request. |
+
+#### Returns
+
+`Promise`\<`Returns`\>
+
+A promise resolving to the response of the request.
+
+***
+
+### getBucket()
+
+```ts
+getBucket(route): Bucket
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:170
+
+Retrieves the rate-limiting bucket for the specified route.
+
+If no bucket exists for the route, a new one is created.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `route` | `string` | API route for which the bucket is required. |
+
+#### Returns
+
+[`Bucket`](/api/core/dev/classes/bucket/)
+
+The bucket associated with the route.

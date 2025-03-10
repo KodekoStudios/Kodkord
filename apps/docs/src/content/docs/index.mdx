@@ -1,5 +1,8 @@
 ---
 title: Welcome to Kodkord!
+lastUpdated: 2025-03-09
+description: Take a look at this great and robust package for the Discord API
+topic: guide
 hero:
   tagline: Welcome to the beginning of your improvement as a bot developer.
   image:
@@ -12,5 +15,12 @@ hero:
       link: /api/introduction
       icon: open-book
       variant: minimal
-lastUpdated: 2025-08-09
 ---
+
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import ProfileCardGrid from '../../components/ProfileCardGrid.astro'
+
+<Card title="Colaborators" icon="laptop">
+  <ProfileCardGrid ids={["788869971073040454","852970774067544165","1125490330679115847"]}/>
+</Card>

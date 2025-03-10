@@ -1,0 +1,33 @@
+---
+title: Task
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+```ts
+type Task<Type> = (resolve, reject) => void;
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:4
+
+A task to be processed by the bucket.
+
+## Type Parameters
+
+| Type Parameter |
+| ------ |
+| `Type` |
+
+## Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `resolve` | (`value`) => `void` |
+| `reject` | (`reason`?) => `void` |
+
+## Returns
+
+`void`

@@ -1,0 +1,102 @@
+---
+title: Client
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: kodkord/lib/index.d.ts:441
+
+Represents the main bot client.
+
+This class encapsulates the client settings, shard management, event handling, and
+communication with the Discord API via the `Rest` class. It manages the connection
+and allows interaction with the Discord Gateway.
+
+## Constructors
+
+### new Client()
+
+```ts
+new Client(settings): Client
+```
+
+Defined in: kodkord/lib/index.d.ts:455
+
+Creates a new client instance with the provided settings.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `settings` | [`ClientSettings`](/api/core/stable/type-aliases/clientsettings/) | The settings used to configure the client. |
+
+#### Returns
+
+[`Client`](/api/core/stable/classes/client/)
+
+## Properties
+
+### settings
+
+```ts
+readonly settings: ClientSettings;
+```
+
+Defined in: kodkord/lib/index.d.ts:443
+
+The settings used to configure the client.
+
+***
+
+### shards
+
+```ts
+readonly shards: Sharder;
+```
+
+Defined in: kodkord/lib/index.d.ts:445
+
+The sharding manager responsible for handling multiple shards.
+
+***
+
+### events
+
+```ts
+readonly events: Events;
+```
+
+Defined in: kodkord/lib/index.d.ts:447
+
+The event handler for managing events.
+
+***
+
+### rest
+
+```ts
+readonly rest: Rest;
+```
+
+Defined in: kodkord/lib/index.d.ts:449
+
+The `Rest` instance for interacting with the Discord API.
+
+## Methods
+
+### connect()
+
+```ts
+connect(): void
+```
+
+Defined in: kodkord/lib/index.d.ts:457
+
+Connects the client by establishing a connection with the Discord Gateway.
+
+#### Returns
+
+`void`

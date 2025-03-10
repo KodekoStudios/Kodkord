@@ -1,0 +1,194 @@
+---
+title: HashImage
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: index.d.ts:41
+
+Abstract class representing a hash-based image entity.
+
+This class provides a base for entities such as avatars, banners, and icons,
+offering common functionality for retrieving and processing image-related data.
+It extends the `Entity` class, allowing interaction with raw API data.
+
+## Extends
+
+- [`Entity`](/api/classes/dev/classes/entity/)\<`Raw`\>
+
+## Extended by
+
+- [`GuildBanner`](/api/classes/dev/classes/guildbanner/)
+- [`GuildIcon`](/api/classes/dev/classes/guildicon/)
+- [`MemberAvatar`](/api/classes/dev/classes/memberavatar/)
+- [`MemberBanner`](/api/classes/dev/classes/memberbanner/)
+- [`RoleIcon`](/api/classes/dev/classes/roleicon/)
+- [`UserAvatar`](/api/classes/dev/classes/useravatar/)
+- [`UserBanner`](/api/classes/dev/classes/userbanner/)
+
+## Type Parameters
+
+| Type Parameter | Description |
+| ------ | ------ |
+| `Raw` *extends* [`RawImage`](/api/classes/dev/interfaces/rawimage/) | The raw data type for the image entity. |
+
+## Constructors
+
+### new HashImage()
+
+```ts
+new HashImage<Raw>(rest, raw): HashImage<Raw>
+```
+
+Defined in: index.d.ts:17
+
+Creates an instance of the Entity.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `rest` | `Rest` | - |
+| `raw` | `Raw` | The raw data from the API response. |
+
+#### Returns
+
+[`HashImage`](/api/classes/dev/classes/hashimage/)\<`Raw`\>
+
+#### Inherited from
+
+[`Entity`](/api/classes/dev/classes/entity/).[`constructor`](/api/classes/dev/classes/entity/#constructors)
+
+## Properties
+
+### rest
+
+```ts
+readonly rest: Rest;
+```
+
+Defined in: index.d.ts:9
+
+The `Rest` instance for interacting with the Discord API.
+
+#### Inherited from
+
+[`Entity`](/api/classes/dev/classes/entity/).[`rest`](/api/classes/dev/classes/entity/#rest-1)
+
+***
+
+### raw
+
+```ts
+readonly raw: Raw;
+```
+
+Defined in: index.d.ts:11
+
+Raw data from the API response, read-only to prevent unnecessary mutations.
+
+#### Inherited from
+
+[`Entity`](/api/classes/dev/classes/entity/).[`raw`](/api/classes/dev/classes/entity/#raw-1)
+
+## Methods
+
+### url()
+
+```ts
+abstract url(settings?): null | string
+```
+
+Defined in: index.d.ts:48
+
+Retrieves the URL of the image based on the hash and settings provided.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `settings`? | \{ `format`: `ImageFormat`; `size`: [`Sizes`](/api/classes/dev/type-aliases/sizes/); \} | Optional settings to specify the image format and size. |
+| `settings.format`? | `ImageFormat` | - |
+| `settings.size`? | [`Sizes`](/api/classes/dev/type-aliases/sizes/) | - |
+
+#### Returns
+
+`null` \| `string`
+
+The URL of the image or `null` if the hash is not available.
+
+***
+
+### default()
+
+```ts
+abstract default(settings?): undefined | string
+```
+
+Defined in: index.d.ts:58
+
+Retrieves the default URL of the image if a default is provided by Discord.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `settings`? | \{ `format`: `ImageFormat`; `size`: [`Sizes`](/api/classes/dev/type-aliases/sizes/); \} | Optional settings to specify the image format and size. |
+| `settings.format`? | `ImageFormat` | - |
+| `settings.size`? | [`Sizes`](/api/classes/dev/type-aliases/sizes/) | - |
+
+#### Returns
+
+`undefined` \| `string`
+
+The default image URL or `undefined` if not applicable.
+
+***
+
+### display()
+
+```ts
+display(settings?): string
+```
+
+Defined in: index.d.ts:71
+
+Retrieves the most appropriate image URL.
+
+This method prioritizes the custom image URL and falls back to the default
+URL if available. If neither is available, it returns an empty string.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `settings`? | \{ `format`: `ImageFormat`; `size`: [`Sizes`](/api/classes/dev/type-aliases/sizes/); \} | Optional settings to specify the image format and size. |
+| `settings.format`? | `ImageFormat` | - |
+| `settings.size`? | [`Sizes`](/api/classes/dev/type-aliases/sizes/) | - |
+
+#### Returns
+
+`string`
+
+The displayable URL of the image or an empty string.
+
+***
+
+### buffer()
+
+```ts
+buffer(): Promise<ArrayBuffer>
+```
+
+Defined in: index.d.ts:80
+
+Converts the image to an ArrayBuffer for further processing or usage.
+
+#### Returns
+
+`Promise`\<`ArrayBuffer`\>
+
+A promise resolving to an ArrayBuffer representing the image data.

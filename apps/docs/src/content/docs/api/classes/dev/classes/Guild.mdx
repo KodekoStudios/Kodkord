@@ -1,0 +1,472 @@
+---
+title: Guild
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: index.d.ts:361
+
+Represents a Discord guild (server).
+
+## Extends
+
+- [`Entity`](/api/classes/dev/classes/entity/)\<`APIGuild`\>
+
+## Constructors
+
+### new Guild()
+
+```ts
+new Guild(rest, raw): Guild
+```
+
+Defined in: index.d.ts:17
+
+Creates an instance of the Entity.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `rest` | `Rest` | - |
+| `raw` | `APIGuild` | The raw data from the API response. |
+
+#### Returns
+
+[`Guild`](/api/classes/dev/classes/guild/)
+
+#### Inherited from
+
+[`Entity`](/api/classes/dev/classes/entity/).[`constructor`](/api/classes/dev/classes/entity/#constructors)
+
+## Properties
+
+### rest
+
+```ts
+readonly rest: Rest;
+```
+
+Defined in: index.d.ts:9
+
+The `Rest` instance for interacting with the Discord API.
+
+#### Inherited from
+
+[`Entity`](/api/classes/dev/classes/entity/).[`rest`](/api/classes/dev/classes/entity/#rest-1)
+
+***
+
+### raw
+
+```ts
+readonly raw: APIGuild;
+```
+
+Defined in: index.d.ts:11
+
+Raw data from the API response, read-only to prevent unnecessary mutations.
+
+#### Inherited from
+
+[`Entity`](/api/classes/dev/classes/entity/).[`raw`](/api/classes/dev/classes/entity/#raw-1)
+
+## Methods
+
+### fetch()
+
+```ts
+fetch(): Promise<Guild>
+```
+
+Defined in: index.d.ts:368
+
+Fetches the latest data for the guild from the Discord API.
+
+#### Returns
+
+`Promise`\<[`Guild`](/api/classes/dev/classes/guild/)\>
+
+A promise that resolves to an updated [Guild](/api/classes/dev/api/classes/dev/classes/guild/) instance.
+
+#### Throws
+
+If the API request fails, an error is logged and re-thrown.
+
+***
+
+### modify()
+
+```ts
+modify(data): Promise<Guild>
+```
+
+Defined in: index.d.ts:376
+
+Modifies a guild's data in the Discord API.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `data` | `Partial`\<`APIGuild`\> | The data to update for the guild. |
+
+#### Returns
+
+`Promise`\<[`Guild`](/api/classes/dev/classes/guild/)\>
+
+A promise that resolves to an updated [Guild](/api/classes/dev/api/classes/dev/classes/guild/) instance.
+
+#### Throws
+
+If the API request fails, an error is logged and re-thrown.
+
+***
+
+### icon()
+
+```ts
+icon(): GuildIcon
+```
+
+Defined in: index.d.ts:382
+
+Retrieves the guild's icon.
+
+#### Returns
+
+[`GuildIcon`](/api/classes/dev/classes/guildicon/)
+
+A [GuildIcon](/api/classes/dev/api/classes/dev/classes/guildicon/) instance representing the guild's icon.
+
+***
+
+### banner()
+
+```ts
+banner(): GuildBanner
+```
+
+Defined in: index.d.ts:388
+
+Retrieves the guild's banner.
+
+#### Returns
+
+[`GuildBanner`](/api/classes/dev/classes/guildbanner/)
+
+A [GuildBanner](/api/classes/dev/api/classes/dev/classes/guildbanner/) instance representing the guild's banner.
+
+***
+
+### preview()
+
+```ts
+preview(): Promise<APIGuildPreview>
+```
+
+Defined in: index.d.ts:395
+
+Fetches the latest data for the guild preview from the Discord API.
+
+#### Returns
+
+`Promise`\<`APIGuildPreview`\>
+
+A promise that resolves to an updated APIGuildPreview object.
+
+#### Throws
+
+If the API request fails, an error is logged and re-thrown.
+
+***
+
+### channels()
+
+```ts
+channels(): Promise<Dictionary<string[], Channel<ChannelType>>>
+```
+
+Defined in: index.d.ts:404
+
+Fetches the channel list of the guild from the Discord API.
+
+This method doesn't include thread channels.
+
+#### Returns
+
+`Promise`\<`Dictionary`\<`string`[], [`Channel`](/api/classes/dev/classes/channel/)\<`ChannelType`\>\>\>
+
+A promise resolving to a Dictionary of [Channel](/api/classes/dev/api/classes/dev/classes/channel/) instances.
+
+#### Throws
+
+If the API request fails, an error is logged and re-thrown.
+
+***
+
+### threads()
+
+```ts
+threads(): Promise<Dictionary<string[], Channel<ChannelType>>>
+```
+
+Defined in: index.d.ts:411
+
+Fetches the thread list of the guild from the Discord API.
+
+#### Returns
+
+`Promise`\<`Dictionary`\<`string`[], [`Channel`](/api/classes/dev/classes/channel/)\<`ChannelType`\>\>\>
+
+A promise resolving to a Dictionary of [Channel](/api/classes/dev/api/classes/dev/classes/channel/) instances representing threads.
+
+#### Throws
+
+If the API request fails, an error is logged and re-thrown.
+
+***
+
+### createChannel()
+
+```ts
+createChannel(data): Promise<Channel<ChannelType>>
+```
+
+Defined in: index.d.ts:419
+
+Creates a channel in the guild.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `data` | `RESTPostAPIGuildChannelJSONBody` | The data for the new channel. |
+
+#### Returns
+
+`Promise`\<[`Channel`](/api/classes/dev/classes/channel/)\<`ChannelType`\>\>
+
+A promise resolving to the [Channel](/api/classes/dev/api/classes/dev/classes/channel/) instance of the created channel.
+
+#### Throws
+
+If the API request fails, an error is logged and re-thrown.
+
+***
+
+### members()
+
+```ts
+members(): Promise<Dictionary<string[], Member>>
+```
+
+Defined in: index.d.ts:426
+
+Fetches the member list of the guild from the Discord API.
+
+#### Returns
+
+`Promise`\<`Dictionary`\<`string`[], [`Member`](/api/classes/dev/classes/member/)\>\>
+
+A promise resolving to a Dictionary of [Member](/api/classes/dev/api/classes/dev/classes/member/) instances.
+
+#### Throws
+
+If the API request fails, an error is logged and re-thrown.
+
+***
+
+### kick()
+
+```ts
+kick(id): Promise<boolean>
+```
+
+Defined in: index.d.ts:434
+
+Removes a member from the guild.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `id` | `string` | The ID of the member to kick. |
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+A promise resolving to `true` if the member was successfully kicked, or `false` if it failed.
+
+#### Throws
+
+If the API request fails, an error is logged and re-thrown.
+
+***
+
+### ban()
+
+```ts
+ban(id, seconds?): Promise<boolean>
+```
+
+Defined in: index.d.ts:443
+
+Bans a member from the guild.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `id` | `string` | The ID of the member to ban. |
+| `seconds`? | `number` | The number of seconds to delete messages for (between 0 and 604800). |
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+A promise resolving to `true` if the member was successfully banned, or `false` if it failed.
+
+#### Throws
+
+If the API request fails, an error is logged and re-thrown.
+
+***
+
+### bulkBan()
+
+```ts
+bulkBan(ids, seconds?): Promise<boolean>
+```
+
+Defined in: index.d.ts:452
+
+Performs a bulk ban of members in the guild.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `ids` | `string`[] | An array of user IDs to ban (maximum of 200). |
+| `seconds`? | `number` | The number of seconds to delete messages for (between 0 and 604800). |
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+A promise resolving to `true` if the bulk ban was successful, or `false` if it failed.
+
+#### Throws
+
+If the API request fails, an error is logged and re-thrown.
+
+***
+
+### unban()
+
+```ts
+unban(id): Promise<boolean>
+```
+
+Defined in: index.d.ts:460
+
+Unbans a member from the guild.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `id` | `string` | The ID of the member to unban. |
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+A promise resolving to `true` if the member was successfully unbanned, or `false` if it failed.
+
+#### Throws
+
+If the API request fails, an error is logged and re-thrown.
+
+***
+
+### bans()
+
+```ts
+bans(
+   limit?, 
+   before?, 
+after?): Promise<APIBan[]>
+```
+
+Defined in: index.d.ts:470
+
+Fetches the list of bans in the guild.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `limit`? | `number` | The maximum number of bans to return. |
+| `before`? | `null` \| `string` | The ID of the user to get bans before. |
+| `after`? | `null` \| `string` | The ID of the user to get bans after. |
+
+#### Returns
+
+`Promise`\<`APIBan`[]\>
+
+A promise resolving to an array of APIBan objects.
+
+#### Throws
+
+If the API request fails, an error is logged and re-thrown.
+
+***
+
+### getBan()
+
+```ts
+getBan(id): Promise<APIBan>
+```
+
+Defined in: index.d.ts:478
+
+Fetches the ban data for a specific user in the guild.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `id` | `string` | The ID of the user to fetch ban data for. |
+
+#### Returns
+
+`Promise`\<`APIBan`\>
+
+A promise resolving to an APIBan object.
+
+#### Throws
+
+If the API request fails, an error is logged and re-thrown.
+
+***
+
+### roles()
+
+```ts
+roles(): Dictionary<string, Role>
+```
+
+Defined in: index.d.ts:484
+
+Retrieves a dictionary of roles in the guild.
+
+#### Returns
+
+`Dictionary`\<`string`, [`Role`](/api/classes/dev/classes/role/)\>
+
+A Dictionary of [Role](/api/classes/dev/api/classes/dev/classes/role/) instances.

@@ -1,0 +1,353 @@
+---
+title: Interaction
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: index.d.ts:744
+
+Represents an interaction with Discord, such as a slash command or button click.
+
+## Extends
+
+- [`Entity`](/api/classes/dev/classes/entity/)\<`APIInteraction` & `object`\>
+
+## Type Parameters
+
+| Type Parameter |
+| ------ |
+| `Type` *extends* `InteractionType` |
+
+## Constructors
+
+### new Interaction()
+
+```ts
+new Interaction<Type>(rest, raw): Interaction<Type>
+```
+
+Defined in: index.d.ts:754
+
+Creates an instance of the Interaction.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `rest` | `Rest` | The REST manager for making API requests. |
+| `raw` | `APIInteraction` & `object` | The raw data from the API response. |
+
+#### Returns
+
+[`Interaction`](/api/classes/dev/classes/interaction/)\<`Type`\>
+
+#### Overrides
+
+[`Entity`](/api/classes/dev/classes/entity/).[`constructor`](/api/classes/dev/classes/entity/#constructors)
+
+## Properties
+
+### rest
+
+```ts
+readonly rest: Rest;
+```
+
+Defined in: index.d.ts:9
+
+The `Rest` instance for interacting with the Discord API.
+
+#### Inherited from
+
+[`Entity`](/api/classes/dev/classes/entity/).[`rest`](/api/classes/dev/classes/entity/#rest-1)
+
+***
+
+### raw
+
+```ts
+readonly raw: APIInteraction & object;
+```
+
+Defined in: index.d.ts:11
+
+Raw data from the API response, read-only to prevent unnecessary mutations.
+
+#### Type declaration
+
+##### type
+
+```ts
+type: Type;
+```
+
+#### Inherited from
+
+[`Entity`](/api/classes/dev/classes/entity/).[`raw`](/api/classes/dev/classes/entity/#raw-1)
+
+## Methods
+
+### deleteResponse()
+
+```ts
+deleteResponse(body): Promise<boolean>
+```
+
+Defined in: index.d.ts:763
+
+Deletes the initial response to this interaction.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `body` | `APIInteractionResponse` | The interaction response payload. |
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+A promise resolving to `true` if the response was successfully deleted, or `false` if it failed.
+
+***
+
+### modifyResponse()
+
+```ts
+modifyResponse(body): Promise<boolean>
+```
+
+Defined in: index.d.ts:770
+
+Modifies the initial response to this interaction.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `body` | `APIInteractionResponse` | The interaction response payload. |
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+A promise resolving to `true` if the response was successfully modified, or `false` if it failed.
+
+***
+
+### pong()
+
+```ts
+pong(): Promise<undefined | RESTPostAPIInteractionCallbackWithResponseResult>
+```
+
+Defined in: index.d.ts:776
+
+Sends a Pong response to a Ping interaction.
+
+#### Returns
+
+`Promise`\<`undefined` \| `RESTPostAPIInteractionCallbackWithResponseResult`\>
+
+A promise resolving to the interaction callback result, or `undefined` if the interaction is not a Ping.
+
+***
+
+### respond()
+
+```ts
+respond(body): Promise<undefined | RESTPostAPIInteractionCallbackWithResponseResult>
+```
+
+Defined in: index.d.ts:783
+
+Responds to the interaction.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `body` | `APIInteractionResponse` | The interaction response payload. |
+
+#### Returns
+
+`Promise`\<`undefined` \| `RESTPostAPIInteractionCallbackWithResponseResult`\>
+
+A promise resolving to the interaction callback result, or `undefined` if the interaction has already been completed or the request fails.
+
+***
+
+### guild()
+
+```ts
+guild(): Promise<undefined | Guild>
+```
+
+Defined in: index.d.ts:789
+
+Fetches the guild associated with this interaction, if applicable.
+
+#### Returns
+
+`Promise`\<`undefined` \| [`Guild`](/api/classes/dev/classes/guild/)\>
+
+A promise resolving to an [Guild](/api/classes/dev/api/classes/dev/classes/guild/) instance representing the guild, or `undefined` if the interaction is not in a guild or the request fails.
+
+***
+
+### channel()
+
+```ts
+channel(): Promise<
+  | undefined
+| Channel<ChannelType>>
+```
+
+Defined in: index.d.ts:795
+
+Fetches the channel associated with this interaction, if applicable.
+
+#### Returns
+
+`Promise`\<
+  \| `undefined`
+  \| [`Channel`](/api/classes/dev/classes/channel/)\<`ChannelType`\>\>
+
+A promise resolving to a [\<ChannelType\>](/api/classes/dev/api/classes/dev/classes/channel/) instance representing the channel, or `undefined` if the interaction is not in a channel or the request fails.
+
+***
+
+### user()
+
+```ts
+user(): null | User
+```
+
+Defined in: index.d.ts:801
+
+Retrieves the user associated with this interaction.
+
+#### Returns
+
+`null` \| [`User`](/api/classes/dev/classes/user/)
+
+A [User](/api/classes/dev/api/classes/dev/classes/user/) instance representing the user, or `null` if the user is not available.
+
+***
+
+### member()
+
+```ts
+member(): Promise<null | Member>
+```
+
+Defined in: index.d.ts:807
+
+Retrieves the member associated with this interaction, if applicable.
+
+#### Returns
+
+`Promise`\<`null` \| [`Member`](/api/classes/dev/classes/member/)\>
+
+A promise resolving to a [Member](/api/classes/dev/api/classes/dev/classes/member/) instance representing the member, or `null` if the interaction is not in a guild or the member is not available.
+
+***
+
+### isCompleted()
+
+```ts
+isCompleted(): boolean
+```
+
+Defined in: index.d.ts:813
+
+Checks if the interaction has been completed.
+
+#### Returns
+
+`boolean`
+
+`true` if the interaction has been completed, otherwise `false`.
+
+***
+
+### isPing()
+
+```ts
+isPing(): this is Interaction<Ping>
+```
+
+Defined in: index.d.ts:817
+
+Checks if the interaction is a Ping.
+
+#### Returns
+
+`this is Interaction<Ping>`
+
+***
+
+### isApplicationCommand()
+
+```ts
+isApplicationCommand(): this is Interaction<ApplicationCommand>
+```
+
+Defined in: index.d.ts:821
+
+Checks if the interaction is an Application Command.
+
+#### Returns
+
+`this is Interaction<ApplicationCommand>`
+
+***
+
+### isMessageComponent()
+
+```ts
+isMessageComponent(): this is Interaction<MessageComponent>
+```
+
+Defined in: index.d.ts:825
+
+Checks if the interaction is a Message Component.
+
+#### Returns
+
+`this is Interaction<MessageComponent>`
+
+***
+
+### isApplicationCommandAutocomplete()
+
+```ts
+isApplicationCommandAutocomplete(): this is Interaction<ApplicationCommandAutocomplete>
+```
+
+Defined in: index.d.ts:829
+
+Checks if the interaction is an Application Command Autocomplete.
+
+#### Returns
+
+`this is Interaction<ApplicationCommandAutocomplete>`
+
+***
+
+### isModalSubmit()
+
+```ts
+isModalSubmit(): this is Interaction<ModalSubmit>
+```
+
+Defined in: index.d.ts:833
+
+Checks if the interaction is a Modal Submit.
+
+#### Returns
+
+`this is Interaction<ModalSubmit>`

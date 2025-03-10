@@ -1,0 +1,48 @@
+---
+title: APIRequestParameters
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: kodkord/lib/index.d.ts:78
+
+Parameters for a REST API request.
+
+## Properties
+
+### body?
+
+```ts
+optional body: Record<string, object>;
+```
+
+Defined in: kodkord/lib/index.d.ts:80
+
+Request body as a JSON object.
+
+***
+
+### query?
+
+```ts
+optional query: Record<string, string>;
+```
+
+Defined in: kodkord/lib/index.d.ts:82
+
+Query parameters to append to the request URL.
+
+***
+
+### reason?
+
+```ts
+optional reason: string;
+```
+
+Defined in: kodkord/lib/index.d.ts:84
+
+Reason for the request, logged in Discord's audit log if applicable.

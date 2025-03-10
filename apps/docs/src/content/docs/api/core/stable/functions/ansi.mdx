@@ -1,0 +1,31 @@
+---
+title: ansi
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+```ts
+function ansi(...codes): `[${string}m`
+```
+
+Defined in: kodkord/lib/index.d.ts:677
+
+Generates an ANSI escape sequence for the provided ANSI codes.
+
+This function returns a valid ANSI escape sequence that can be used
+to style text in a terminal.
+
+## Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| ...`codes` | [`ANSICodes`](/api/core/stable/enumerations/ansicodes/)[] | ANSI codes to include in the escape sequence. |
+
+## Returns
+
+`` `[${string}m` ``
+
+The ANSI escape sequence as a string.

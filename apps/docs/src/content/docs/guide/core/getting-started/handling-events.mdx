@@ -1,0 +1,88 @@
+---
+title: Handling Events
+lastUpdated: 2025-03-09
+---
+
+import {
+  Tabs, TabItem, Code, Aside
+} from '@astrojs/starlight/components';
+
+An event in the Discord API is a notification that Discord sends to your bot when an action occurs on a server or in a message. In technical terms, they are signals that indicate changes in the state of the server, users or messages, allowing the bot to react in real time.
+
+If you notice, in the code below, where it is highlighted as `Event Handler` it sets the function to execute when receiving the `GatewayDispatchEvents.MessageCreate` event that is triggered when sending a message.
+<Tabs syncKey="language-select">
+  <TabItem label="TypeScript" icon="seti:typescript">
+  ```ts title="src/index.ts" copy wrap twoslash {"Non-Null Assertion":9-10} ins={"Event Handler":18-21}
+import { inspect } from "node:util";
+import {
+  type APIUser, GatewayDispatchEvents, GatewayIntentBits
+} from "discord-api-types/v10";
+import { Client, Note } from "kodkord";
+
+const CLIENT = new Client({
+	intents: GatewayIntentBits.Guilds | GatewayIntentBits.GuildMessages,
+	token: process.env.DISCORD_TOKEN!,
+});
+
+CLIENT.shards.create(0);
+
+const USER = await CLIENT.rest.get<APIUser>("/users/@me");
+new Note("Client > User", inspect(USER, { depth: null })).note();
+
+
+CLIENT.events.set(GatewayDispatchEvents.MessageCreate, (data) => {
+	new Note("Client > MessageCreate", inspect(data, { depth: null })).note();
+});
+
+CLIENT.connect();
+  ```
+  </TabItem>
+  <TabItem label="JavaScript" icon="seti:javascript">
+```ts title="src/index.js" copy wrap twoslash ins={"Event Handler":17-20}
+//@ts-nocheck
+// ---cut---
+import { inspect } from "node:util";
+import {
+  GatewayDispatchEvents, GatewayIntentBits
+} from "discord-api-types/v10";
+import { Client, Note } from "kodkord";
+
+const CLIENT = new Client({
+	intents: GatewayIntentBits.Guilds | GatewayIntentBits.GuildMessages,
+	token: process.env.DISCORD_TOKEN,
+});
+
+CLIENT.shards.create(0);
+
+const USER = await CLIENT.rest.get("/users/@me");
+new Note("Client > User", inspect(USER, { depth: null })).note();
+
+
+CLIENT.events.set(GatewayDispatchEvents.MessageCreate, (data) => {
+	new Note("Client > MessageCreate", inspect(data, { depth: null })).note();
+});
+
+CLIENT.connect();
+```
+  </TabItem>
+</Tabs>
+
+To receive any type of event, visit [GatewayDispatchEvents](https://discord-api-types.dev/api/discord-api-types-v10/enum/GatewayDispatchEvents), there you will find all the events in `GatewayDispatchEvents`, here is an example for receiving interactions
+
+```ts copy wrap twoslash
+import { inspect } from "node:util";
+import {
+  type APIUser, GatewayDispatchEvents, GatewayIntentBits
+} from "discord-api-types/v10";
+import { Client, Note } from "kodkord";
+
+const CLIENT = new Client({
+	intents: GatewayIntentBits.Guilds | GatewayIntentBits.GuildMessages,
+	token: process.env.DISCORD_TOKEN as string,
+});
+// ---cut---
+CLIENT.events.set(GatewayDispatchEvents.InteractionCreate, (data) => {
+	new Note("Client > InteractionCreate", inspect(data, { depth: null })).note();
+});
+```
+

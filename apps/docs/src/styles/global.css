@@ -1,18 +1,58 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,600;1,600');
 
+:root {
+  --ease-elastic-animation: cubic-bezier(0.5, 1.25, 0.75, 1.25)
+}
+
+html[data-theme] {
+  transition: all 400ms var(--ease-elastic-animation)
+}
+
 *.display-inline {
-	display: inline !important;
-	margin: 0 !important;
+  display: inline !important;
+  margin: 0 !important;
 }
 
 *.div-before-installation {
-	margin: 0 !important;
+  margin: 0 !important;
 }
+
 *.div-before-installation p a {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 *.no-margin {
-	margin: 0 !important;
+  margin: 0 !important;
 }
 
+*.discord-emoji {
+  max-width: var(--emoji-size);
+  max-height: var(--emoji-size);
+  display: inline !important;
+}
+
+*.timestamp {
+  margin: 0 1ch;
+  padding: 0 1ch;
+  background-color: #57575741;
+  max-height: min-content;
+  min-width: fit-content;
+  white-space: nowrap;
+}
+
+*.timestamp:hover {
+  cursor: default;
+}
+
+*.timestamp::selection {
+  background-color: none;
+}
+
+div.line-parsed {
+  width: fit-content !important;
+  min-height: 2ch;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  margin-top: .5ch !important;
+}

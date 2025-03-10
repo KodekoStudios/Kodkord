@@ -1,0 +1,225 @@
+---
+title: Emoji
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: index.d.ts:837
+
+Represents an emoji within a Discord guild.
+
+## Extends
+
+- [`Entity`](/api/classes/dev/classes/entity/)\<`APIEmoji`\>
+
+## Constructors
+
+### new Emoji()
+
+```ts
+new Emoji(
+   rest, 
+   raw, 
+   guild_raw): Emoji
+```
+
+Defined in: index.d.ts:847
+
+Creates an instance of the Entity.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `rest` | `Rest` | The REST manager for making API requests. |
+| `raw` | `APIEmoji` | The raw data from the API response. |
+| `guild_raw` | `APIGuild` | The raw data of the guild to which the emoji belongs. |
+
+#### Returns
+
+[`Emoji`](/api/classes/dev/classes/emoji/)
+
+#### Overrides
+
+[`Entity`](/api/classes/dev/classes/entity/).[`constructor`](/api/classes/dev/classes/entity/#constructors)
+
+## Properties
+
+### rest
+
+```ts
+readonly rest: Rest;
+```
+
+Defined in: index.d.ts:9
+
+The `Rest` instance for interacting with the Discord API.
+
+#### Inherited from
+
+[`Entity`](/api/classes/dev/classes/entity/).[`rest`](/api/classes/dev/classes/entity/#rest-1)
+
+***
+
+### raw
+
+```ts
+readonly raw: APIEmoji;
+```
+
+Defined in: index.d.ts:11
+
+Raw data from the API response, read-only to prevent unnecessary mutations.
+
+#### Inherited from
+
+[`Entity`](/api/classes/dev/classes/entity/).[`raw`](/api/classes/dev/classes/entity/#raw-1)
+
+***
+
+### guild
+
+```ts
+readonly guild: Guild;
+```
+
+Defined in: index.d.ts:839
+
+The [Guild](../../../../../../../api/classes/dev/classes/guild) instance in which the emoji belongs.
+
+## Methods
+
+### fetch()
+
+```ts
+fetch(): Promise<Emoji>
+```
+
+Defined in: index.d.ts:854
+
+Fetches the latest data for the emoji from the Discord API.
+
+#### Returns
+
+`Promise`\<[`Emoji`](/api/classes/dev/classes/emoji/)\>
+
+A promise that resolves to an updated [Emoji](/api/classes/dev/api/classes/dev/classes/emoji/) instance.
+
+#### Throws
+
+If the API request fails, an error is logged and re-thrown.
+
+***
+
+### modify()
+
+```ts
+modify(data): Promise<Emoji>
+```
+
+Defined in: index.d.ts:862
+
+Modifies the emoji's data in the Discord API.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `data` | `RESTPatchAPIGuildEmojiJSONBody` | The data to update for the emoji. |
+
+#### Returns
+
+`Promise`\<[`Emoji`](/api/classes/dev/classes/emoji/)\>
+
+A promise that resolves to an updated [Emoji](/api/classes/dev/api/classes/dev/classes/emoji/) instance.
+
+#### Throws
+
+If the API request fails, an error is logged and re-thrown.
+
+***
+
+### url()
+
+```ts
+url(settings?): null | string
+```
+
+Defined in: index.d.ts:869
+
+Retrieves the URL of the emoji.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `settings`? | \{ `format`: `EmojiFormat`; `size`: [`Sizes`](/api/classes/dev/type-aliases/sizes/); \} | Optional settings to specify the emoji format and size. |
+| `settings.format`? | `EmojiFormat` | - |
+| `settings.size`? | [`Sizes`](/api/classes/dev/type-aliases/sizes/) | - |
+
+#### Returns
+
+`null` \| `string`
+
+The URL of the emoji, or `null` if the emoji does not have an ID.
+
+***
+
+### buffer()
+
+```ts
+buffer(): Promise<null | ArrayBuffer>
+```
+
+Defined in: index.d.ts:878
+
+Converts the emoji image to an ArrayBuffer for further processing or usage.
+
+#### Returns
+
+`Promise`\<`null` \| `ArrayBuffer`\>
+
+A promise that resolves to an `ArrayBuffer` representing the image data, or `null` if the emoji is not a guild emoji.
+
+***
+
+### mention()
+
+```ts
+mention(): string
+```
+
+Defined in: index.d.ts:884
+
+Returns a string to mention the emoji in Discord.
+
+#### Returns
+
+`string`
+
+A string representing the emoji mention.
+
+***
+
+### delete()
+
+```ts
+delete(): Promise<boolean>
+```
+
+Defined in: index.d.ts:891
+
+Deletes the emoji from the Discord API.
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+A promise resolving to `true` if the emoji was successfully deleted, or `false` if it failed.
+
+#### Throws
+
+If the API request fails, an error is logged and re-thrown.

@@ -1,0 +1,73 @@
+---
+title: Entity
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: index.d.ts:7
+
+Class that represents a base entity for API objects.
+
+## Extended by
+
+- [`Channel`](/api/classes/stable/classes/channel/)
+- [`HashImage`](/api/classes/stable/classes/hashimage/)
+- [`Interaction`](/api/classes/stable/classes/interaction/)
+- [`Message`](/api/classes/stable/classes/message/)
+- [`User`](/api/classes/stable/classes/user/)
+
+## Type Parameters
+
+| Type Parameter |
+| ------ |
+| `Raw` |
+
+## Constructors
+
+### new Entity()
+
+```ts
+new Entity<Raw>(rest, raw): Entity<Raw>
+```
+
+Defined in: index.d.ts:17
+
+Creates an instance of the Entity.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `rest` | `Rest` | - |
+| `raw` | `Raw` | The raw data from the API response. |
+
+#### Returns
+
+[`Entity`](/api/classes/stable/classes/entity/)\<`Raw`\>
+
+## Properties
+
+### rest
+
+```ts
+readonly rest: Rest;
+```
+
+Defined in: index.d.ts:9
+
+The `Rest` instance for interacting with the Discord API.
+
+***
+
+### raw
+
+```ts
+readonly raw: Raw;
+```
+
+Defined in: index.d.ts:11
+
+Raw data from the API response, read-only to prevent unnecessary mutations.

@@ -1,0 +1,60 @@
+---
+title: RestSettings
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: kodkord-dev/lib/index.d.ts:65
+
+Configuration settings for the `Rest` class.
+
+## Properties
+
+### baseURL?
+
+```ts
+optional baseURL: string;
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:67
+
+Base URL for API requests. Defaults to Discord's API base URL.
+
+***
+
+### token
+
+```ts
+token: string;
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:69
+
+Authorization token for the bot or application.
+
+***
+
+### type?
+
+```ts
+optional type: "Bearer" | "Bot";
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:71
+
+Type of authorization token, defaults to "Bot".
+
+***
+
+### agent?
+
+```ts
+optional agent: string;
+```
+
+Defined in: kodkord-dev/lib/index.d.ts:73
+
+User-Agent header to identify the client.

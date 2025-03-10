@@ -1,0 +1,187 @@
+---
+title: Sticker
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: index.d.ts:895
+
+Represents a sticker within a Discord guild.
+
+## Extends
+
+- [`Entity`](/api/classes/dev/classes/entity/)\<`APISticker`\>
+
+## Constructors
+
+### new Sticker()
+
+```ts
+new Sticker(rest, raw): Sticker
+```
+
+Defined in: index.d.ts:17
+
+Creates an instance of the Entity.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `rest` | `Rest` | - |
+| `raw` | `APISticker` | The raw data from the API response. |
+
+#### Returns
+
+[`Sticker`](/api/classes/dev/classes/sticker/)
+
+#### Inherited from
+
+[`Entity`](/api/classes/dev/classes/entity/).[`constructor`](/api/classes/dev/classes/entity/#constructors)
+
+## Properties
+
+### rest
+
+```ts
+readonly rest: Rest;
+```
+
+Defined in: index.d.ts:9
+
+The `Rest` instance for interacting with the Discord API.
+
+#### Inherited from
+
+[`Entity`](/api/classes/dev/classes/entity/).[`rest`](/api/classes/dev/classes/entity/#rest-1)
+
+***
+
+### raw
+
+```ts
+readonly raw: APISticker;
+```
+
+Defined in: index.d.ts:11
+
+Raw data from the API response, read-only to prevent unnecessary mutations.
+
+#### Inherited from
+
+[`Entity`](/api/classes/dev/classes/entity/).[`raw`](/api/classes/dev/classes/entity/#raw-1)
+
+## Methods
+
+### fetch()
+
+```ts
+fetch(): Promise<Sticker>
+```
+
+Defined in: index.d.ts:902
+
+Fetches the latest data for the sticker from the Discord API.
+
+#### Returns
+
+`Promise`\<[`Sticker`](/api/classes/dev/classes/sticker/)\>
+
+A promise that resolves to an updated [Sticker](/api/classes/dev/api/classes/dev/classes/sticker/) instance.
+
+#### Throws
+
+If the API request fails, an error is logged and re-thrown.
+
+***
+
+### modify()
+
+```ts
+modify(data): Promise<Sticker>
+```
+
+Defined in: index.d.ts:910
+
+Modifies the sticker's data in the Discord API.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `data` | `RESTPatchAPIGuildStickerJSONBody` | The data to update for the sticker. |
+
+#### Returns
+
+`Promise`\<[`Sticker`](/api/classes/dev/classes/sticker/)\>
+
+A promise that resolves to an updated [Sticker](/api/classes/dev/api/classes/dev/classes/sticker/) instance.
+
+#### Throws
+
+If the API request fails, an error is logged and re-thrown.
+
+***
+
+### url()
+
+```ts
+url(settings?): string
+```
+
+Defined in: index.d.ts:917
+
+Retrieves the URL of the sticker.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `settings`? | \{ `format`: `StickerFormat`; `size`: [`Sizes`](/api/classes/dev/type-aliases/sizes/); \} | Optional settings to specify the sticker format and size. |
+| `settings.format`? | `StickerFormat` | - |
+| `settings.size`? | [`Sizes`](/api/classes/dev/type-aliases/sizes/) | - |
+
+#### Returns
+
+`string`
+
+The URL of the sticker.
+
+***
+
+### buffer()
+
+```ts
+buffer(): Promise<ArrayBuffer>
+```
+
+Defined in: index.d.ts:926
+
+Converts the sticker image to an ArrayBuffer for further processing or usage.
+
+#### Returns
+
+`Promise`\<`ArrayBuffer`\>
+
+A promise that resolves to an `ArrayBuffer` representing the image data.
+
+***
+
+### delete()
+
+```ts
+delete(): Promise<boolean>
+```
+
+Defined in: index.d.ts:932
+
+Deletes the sticker from the Discord API.
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+A promise resolving to `true` if the sticker was successfully deleted, or `false` if it failed.

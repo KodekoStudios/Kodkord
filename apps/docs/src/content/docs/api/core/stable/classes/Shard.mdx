@@ -1,0 +1,164 @@
+---
+title: Shard
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: kodkord/lib/index.d.ts:282
+
+Represents a single shard for handling Discord Gateway connections.
+
+The Shard class manages an individual connection to Discord's Gateway for a specific
+subset of guilds, based on Discord's sharding mechanism. It encapsulates the lifecycle
+of the WebSocket connection, including connection, disconnection, and error handling.
+
+## Constructors
+
+### new Shard()
+
+```ts
+new Shard(
+   client, 
+   id, 
+   settings?): Shard
+```
+
+Defined in: kodkord/lib/index.d.ts:304
+
+Creates a new Shard instance.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `client` | [`Client`](/api/core/stable/classes/client/) | The parent client responsible for creating this shard. |
+| `id` | `number` | The Id of the shard. |
+| `settings`? | `Partial`\<[`WebSocketSettings`](/api/core/stable/interfaces/websocketsettings/)\> | Optional shard-specific settings that override the client's default WebSocket settings. |
+
+#### Returns
+
+[`Shard`](/api/core/stable/classes/shard/)
+
+## Properties
+
+### websocket
+
+```ts
+readonly websocket: WebSocket;
+```
+
+Defined in: kodkord/lib/index.d.ts:284
+
+The WebSocket instance responsible for managing the Gateway connection.
+
+***
+
+### client
+
+```ts
+readonly client: Client;
+```
+
+Defined in: kodkord/lib/index.d.ts:286
+
+Reference to the parent client that created this shard.
+
+***
+
+### id
+
+```ts
+readonly id: number;
+```
+
+Defined in: kodkord/lib/index.d.ts:288
+
+The Id of this shard.
+
+## Accessors
+
+### rest
+
+#### Get Signature
+
+```ts
+get rest(): Rest
+```
+
+Defined in: kodkord/lib/index.d.ts:326
+
+Returns the REST client associated with this shard.
+
+This provides access to the client's REST interface for making API requests.
+
+##### Returns
+
+[`Rest`](/api/core/stable/classes/rest/)
+
+The REST client instance from the parent client.
+
+## Methods
+
+### calculateId()
+
+```ts
+static calculateId(guildId, shards): number
+```
+
+Defined in: kodkord/lib/index.d.ts:296
+
+Calculates the shard Id for a given guild based on Discord's sharding formula.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `guildId` | `string` | The Id of the guild as a string. |
+| `shards` | `number` | The total number of shards. |
+
+#### Returns
+
+`number`
+
+The shard Id that is responsible for the given guild.
+
+***
+
+### connect()
+
+```ts
+connect(): void
+```
+
+Defined in: kodkord/lib/index.d.ts:311
+
+Connects the shard to Discord's Gateway.
+
+- If the shard is already connected, logs a warning and does nothing.
+- Otherwise, attempts to establish a connection and logs the status.
+
+#### Returns
+
+`void`
+
+***
+
+### disconnect()
+
+```ts
+disconnect(): void
+```
+
+Defined in: kodkord/lib/index.d.ts:318
+
+Disconnects the shard from Discord's Gateway.
+
+- If the shard is not connected, logs a warning and does nothing.
+- Otherwise, attempts to cleanly close the connection and logs the status.
+
+#### Returns
+
+`void`

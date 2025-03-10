@@ -1,0 +1,823 @@
+---
+title: Message
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: index.d.ts:171
+
+Represents a message within a Discord channel.
+
+## Extends
+
+- [`Entity`](/api/classes/stable/classes/entity/)\<`APIMessage` & `object`\>
+
+## Type Parameters
+
+| Type Parameter |
+| ------ |
+| `Type` *extends* `MessageType` |
+
+## Constructors
+
+### new Message()
+
+```ts
+new Message<Type>(rest, raw): Message<Type>
+```
+
+Defined in: index.d.ts:17
+
+Creates an instance of the Entity.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `rest` | `Rest` | - |
+| `raw` | `APIMessage` & `object` | The raw data from the API response. |
+
+#### Returns
+
+[`Message`](/api/classes/stable/classes/message/)\<`Type`\>
+
+#### Inherited from
+
+[`Entity`](/api/classes/stable/classes/entity/).[`constructor`](/api/classes/stable/classes/entity/#constructors)
+
+## Properties
+
+### rest
+
+```ts
+readonly rest: Rest;
+```
+
+Defined in: index.d.ts:9
+
+The `Rest` instance for interacting with the Discord API.
+
+#### Inherited from
+
+[`Entity`](/api/classes/stable/classes/entity/).[`rest`](/api/classes/stable/classes/entity/#rest-1)
+
+***
+
+### raw
+
+```ts
+readonly raw: APIMessage & object;
+```
+
+Defined in: index.d.ts:11
+
+Raw data from the API response, read-only to prevent unnecessary mutations.
+
+#### Type declaration
+
+##### type
+
+```ts
+type: Type;
+```
+
+#### Inherited from
+
+[`Entity`](/api/classes/stable/classes/entity/).[`raw`](/api/classes/stable/classes/entity/#raw-1)
+
+## Methods
+
+### postReply()
+
+```ts
+postReply(body, force?): Promise<
+  | undefined
+| Message<MessageType>>
+```
+
+Defined in: index.d.ts:181
+
+Posts a reply to this message.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `body` | `RESTPostAPIChannelMessageJSONBody` | The message payload to send as a reply. |
+| `force`? | `boolean` | Whether to throw an error if the referenced message does not exist. |
+
+#### Returns
+
+`Promise`\<
+  \| `undefined`
+  \| [`Message`](/api/classes/stable/classes/message/)\<`MessageType`\>\>
+
+A promise resolving to the `Message` instance of the sent reply, or `undefined` if the operation fails.
+
+***
+
+### channel()
+
+```ts
+channel(): Promise<
+  | undefined
+| Channel<ChannelType>>
+```
+
+Defined in: index.d.ts:187
+
+Fetches the channel this message belongs to.
+
+#### Returns
+
+`Promise`\<
+  \| `undefined`
+  \| [`Channel`](/api/classes/stable/classes/channel/)\<`ChannelType`\>\>
+
+A promise resolving to the `Channel` instance of the channel, or `undefined` if the operation fails.
+
+***
+
+### author()
+
+```ts
+author(): User
+```
+
+Defined in: index.d.ts:193
+
+Gets the author of this message.
+
+#### Returns
+
+[`User`](/api/classes/stable/classes/user/)
+
+A `User` instance representing the message author.
+
+***
+
+### addReaction()
+
+```ts
+addReaction(emoji): Promise<boolean>
+```
+
+Defined in: index.d.ts:200
+
+Adds a reaction to this message.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `emoji` | `string` | The emoji to add as a reaction. This can be a Unicode emoji or a custom emoji in the format `name:id`. |
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+A promise resolving to `true` if the reaction was successfully added, or `false` if it failed.
+
+***
+
+### removeReaction()
+
+```ts
+removeReaction(emoji, ownerId?): Promise<boolean>
+```
+
+Defined in: index.d.ts:208
+
+Removes a reaction from this message.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `emoji` | `string` | The emoji to remove as a reaction. |
+| `ownerId`? | `string` | The Id of the user whose reaction is being removed. Defaults to `@me`. |
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+A promise resolving to `true` if the reaction was successfully removed, or `false` if it failed.
+
+***
+
+### getReaction()
+
+```ts
+getReaction(reaction): undefined | APIReaction
+```
+
+Defined in: index.d.ts:215
+
+Retrieves reaction data for a specific emoji on this message.Retrieves reaction data for a specific emoji on this message.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `reaction` | `string` | The emoji to search for, either as a Unicode or custom emoji. |
+
+#### Returns
+
+`undefined` \| `APIReaction`
+
+The `APIReaction` object for the emoji, or `undefined` if no reaction is found.
+
+***
+
+### getReactionCount()
+
+```ts
+getReactionCount(reaction): number
+```
+
+Defined in: index.d.ts:222
+
+Retrieves the count of a specific reaction on this message.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `reaction` | `string` | The emoji to search for, either as a Unicode or custom emoji. |
+
+#### Returns
+
+`number`
+
+The count of reactions for the emoji. Returns 0 if the emoji is not found.
+
+***
+
+### pin()
+
+```ts
+pin(): Promise<boolean>
+```
+
+Defined in: index.d.ts:228
+
+Pins this message in its channel.
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+A promise resolving to `true` if the message was successfully pinned, or `false` if it failed.
+
+***
+
+### unpin()
+
+```ts
+unpin(): Promise<boolean>
+```
+
+Defined in: index.d.ts:234
+
+Unpins this message from its channel.
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+A promise resolving to `true` if the message was successfully unpinned, or `false` if it failed.
+
+***
+
+### isDefault()
+
+```ts
+isDefault(): this is Message<Default>
+```
+
+Defined in: index.d.ts:235
+
+#### Returns
+
+`this is Message<Default>`
+
+***
+
+### isRecipientAdd()
+
+```ts
+isRecipientAdd(): this is Message<RecipientAdd>
+```
+
+Defined in: index.d.ts:236
+
+#### Returns
+
+`this is Message<RecipientAdd>`
+
+***
+
+### isRecipientRemove()
+
+```ts
+isRecipientRemove(): this is Message<RecipientRemove>
+```
+
+Defined in: index.d.ts:237
+
+#### Returns
+
+`this is Message<RecipientRemove>`
+
+***
+
+### isCall()
+
+```ts
+isCall(): this is Message<Call>
+```
+
+Defined in: index.d.ts:238
+
+#### Returns
+
+`this is Message<Call>`
+
+***
+
+### isChannelNameChange()
+
+```ts
+isChannelNameChange(): this is Message<ChannelNameChange>
+```
+
+Defined in: index.d.ts:239
+
+#### Returns
+
+`this is Message<ChannelNameChange>`
+
+***
+
+### isChannelIconChange()
+
+```ts
+isChannelIconChange(): this is Message<ChannelIconChange>
+```
+
+Defined in: index.d.ts:240
+
+#### Returns
+
+`this is Message<ChannelIconChange>`
+
+***
+
+### isChannelPinnedMessage()
+
+```ts
+isChannelPinnedMessage(): this is Message<ChannelPinnedMessage>
+```
+
+Defined in: index.d.ts:241
+
+#### Returns
+
+`this is Message<ChannelPinnedMessage>`
+
+***
+
+### isUserJoin()
+
+```ts
+isUserJoin(): this is Message<UserJoin>
+```
+
+Defined in: index.d.ts:242
+
+#### Returns
+
+`this is Message<UserJoin>`
+
+***
+
+### isGuildBoost()
+
+```ts
+isGuildBoost(): this is Message<GuildBoost>
+```
+
+Defined in: index.d.ts:243
+
+#### Returns
+
+`this is Message<GuildBoost>`
+
+***
+
+### isGuildBoostTier1()
+
+```ts
+isGuildBoostTier1(): this is Message<GuildBoostTier1>
+```
+
+Defined in: index.d.ts:244
+
+#### Returns
+
+`this is Message<GuildBoostTier1>`
+
+***
+
+### isGuildBoostTier2()
+
+```ts
+isGuildBoostTier2(): this is Message<GuildBoostTier2>
+```
+
+Defined in: index.d.ts:245
+
+#### Returns
+
+`this is Message<GuildBoostTier2>`
+
+***
+
+### isGuildBoostTier3()
+
+```ts
+isGuildBoostTier3(): this is Message<GuildBoostTier3>
+```
+
+Defined in: index.d.ts:246
+
+#### Returns
+
+`this is Message<GuildBoostTier3>`
+
+***
+
+### isChannelFollowAdd()
+
+```ts
+isChannelFollowAdd(): this is Message<ChannelFollowAdd>
+```
+
+Defined in: index.d.ts:247
+
+#### Returns
+
+`this is Message<ChannelFollowAdd>`
+
+***
+
+### isGuildDiscoveryDisqualified()
+
+```ts
+isGuildDiscoveryDisqualified(): this is Message<GuildDiscoveryDisqualified>
+```
+
+Defined in: index.d.ts:248
+
+#### Returns
+
+`this is Message<GuildDiscoveryDisqualified>`
+
+***
+
+### isGuildDiscoveryRequalified()
+
+```ts
+isGuildDiscoveryRequalified(): this is Message<GuildDiscoveryRequalified>
+```
+
+Defined in: index.d.ts:249
+
+#### Returns
+
+`this is Message<GuildDiscoveryRequalified>`
+
+***
+
+### isGuildGuildDiscoveryGracePeriodInitialWarning()
+
+```ts
+isGuildGuildDiscoveryGracePeriodInitialWarning(): this is Message<GuildDiscoveryGracePeriodInitialWarning>
+```
+
+Defined in: index.d.ts:250
+
+#### Returns
+
+`this is Message<GuildDiscoveryGracePeriodInitialWarning>`
+
+***
+
+### isGuildDiscoveryGracePeriodFinalWarning()
+
+```ts
+isGuildDiscoveryGracePeriodFinalWarning(): this is Message<GuildDiscoveryGracePeriodFinalWarning>
+```
+
+Defined in: index.d.ts:251
+
+#### Returns
+
+`this is Message<GuildDiscoveryGracePeriodFinalWarning>`
+
+***
+
+### isThreadCreated()
+
+```ts
+isThreadCreated(): this is Message<ThreadCreated>
+```
+
+Defined in: index.d.ts:252
+
+#### Returns
+
+`this is Message<ThreadCreated>`
+
+***
+
+### isReply()
+
+```ts
+isReply(): this is Message<Reply>
+```
+
+Defined in: index.d.ts:253
+
+#### Returns
+
+`this is Message<Reply>`
+
+***
+
+### isChatInputCommand()
+
+```ts
+isChatInputCommand(): this is Message<ChatInputCommand>
+```
+
+Defined in: index.d.ts:254
+
+#### Returns
+
+`this is Message<ChatInputCommand>`
+
+***
+
+### isThreadStarterMessage()
+
+```ts
+isThreadStarterMessage(): this is Message<ThreadStarterMessage>
+```
+
+Defined in: index.d.ts:255
+
+#### Returns
+
+`this is Message<ThreadStarterMessage>`
+
+***
+
+### isGuildInviteReminder()
+
+```ts
+isGuildInviteReminder(): this is Message<GuildInviteReminder>
+```
+
+Defined in: index.d.ts:256
+
+#### Returns
+
+`this is Message<GuildInviteReminder>`
+
+***
+
+### isContextMenuCommand()
+
+```ts
+isContextMenuCommand(): this is Message<ContextMenuCommand>
+```
+
+Defined in: index.d.ts:257
+
+#### Returns
+
+`this is Message<ContextMenuCommand>`
+
+***
+
+### isAutoModerationAction()
+
+```ts
+isAutoModerationAction(): this is Message<AutoModerationAction>
+```
+
+Defined in: index.d.ts:258
+
+#### Returns
+
+`this is Message<AutoModerationAction>`
+
+***
+
+### isRoleSubscriptionPurchase()
+
+```ts
+isRoleSubscriptionPurchase(): this is Message<RoleSubscriptionPurchase>
+```
+
+Defined in: index.d.ts:259
+
+#### Returns
+
+`this is Message<RoleSubscriptionPurchase>`
+
+***
+
+### isInteractionPremiumUpsell()
+
+```ts
+isInteractionPremiumUpsell(): this is Message<InteractionPremiumUpsell>
+```
+
+Defined in: index.d.ts:260
+
+#### Returns
+
+`this is Message<InteractionPremiumUpsell>`
+
+***
+
+### isStageStart()
+
+```ts
+isStageStart(): this is Message<StageStart>
+```
+
+Defined in: index.d.ts:261
+
+#### Returns
+
+`this is Message<StageStart>`
+
+***
+
+### isStageEnd()
+
+```ts
+isStageEnd(): this is Message<StageEnd>
+```
+
+Defined in: index.d.ts:262
+
+#### Returns
+
+`this is Message<StageEnd>`
+
+***
+
+### isStageSpeaker()
+
+```ts
+isStageSpeaker(): this is Message<StageSpeaker>
+```
+
+Defined in: index.d.ts:263
+
+#### Returns
+
+`this is Message<StageSpeaker>`
+
+***
+
+### isStageRaiseHand()
+
+```ts
+isStageRaiseHand(): this is Message<StageRaiseHand>
+```
+
+Defined in: index.d.ts:264
+
+#### Returns
+
+`this is Message<StageRaiseHand>`
+
+***
+
+### isStageTopic()
+
+```ts
+isStageTopic(): this is Message<StageTopic>
+```
+
+Defined in: index.d.ts:265
+
+#### Returns
+
+`this is Message<StageTopic>`
+
+***
+
+### isGuildApplicationPremiumSubscription()
+
+```ts
+isGuildApplicationPremiumSubscription(): this is Message<GuildApplicationPremiumSubscription>
+```
+
+Defined in: index.d.ts:266
+
+#### Returns
+
+`this is Message<GuildApplicationPremiumSubscription>`
+
+***
+
+### isGuildIncidentAlertModeEnabled()
+
+```ts
+isGuildIncidentAlertModeEnabled(): this is Message<GuildIncidentAlertModeEnabled>
+```
+
+Defined in: index.d.ts:267
+
+#### Returns
+
+`this is Message<GuildIncidentAlertModeEnabled>`
+
+***
+
+### isGuildIncidentAlertModeDisabled()
+
+```ts
+isGuildIncidentAlertModeDisabled(): this is Message<GuildIncidentAlertModeDisabled>
+```
+
+Defined in: index.d.ts:268
+
+#### Returns
+
+`this is Message<GuildIncidentAlertModeDisabled>`
+
+***
+
+### isGuildIncidentReportRaid()
+
+```ts
+isGuildIncidentReportRaid(): this is Message<GuildIncidentReportRaid>
+```
+
+Defined in: index.d.ts:269
+
+#### Returns
+
+`this is Message<GuildIncidentReportRaid>`
+
+***
+
+### isGuildIncidentReportFalseAlarm()
+
+```ts
+isGuildIncidentReportFalseAlarm(): this is Message<GuildIncidentReportFalseAlarm>
+```
+
+Defined in: index.d.ts:270
+
+#### Returns
+
+`this is Message<GuildIncidentReportFalseAlarm>`
+
+***
+
+### isPurchaseNotification()
+
+```ts
+isPurchaseNotification(): this is Message<PurchaseNotification>
+```
+
+Defined in: index.d.ts:271
+
+#### Returns
+
+`this is Message<PurchaseNotification>`
+
+***
+
+### isPollResult()
+
+```ts
+isPollResult(): this is Message<PollResult>
+```
+
+Defined in: index.d.ts:272
+
+#### Returns
+
+`this is Message<PollResult>`

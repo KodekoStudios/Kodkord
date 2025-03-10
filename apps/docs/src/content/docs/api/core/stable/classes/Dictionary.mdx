@@ -1,0 +1,624 @@
+---
+title: Dictionary
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: kodkord/lib/index.d.ts:179
+
+A specialized extension of Map with array-like utility methods and an entry limit.
+
+## Extends
+
+- `Map`\<`Key`, `Type`\>
+
+## Extended by
+
+- [`Events`](/api/core/stable/interfaces/events/)
+- [`Sharder`](/api/core/stable/classes/sharder/)
+
+## Type Parameters
+
+| Type Parameter |
+| ------ |
+| `Key` |
+| `Type` |
+
+## Constructors
+
+### new Dictionary()
+
+```ts
+new Dictionary<Key, Type>(
+   iterable?, 
+   limit?, 
+name?): Dictionary<Key, Type>
+```
+
+Defined in: kodkord/lib/index.d.ts:193
+
+Creates a new `Dictionary` instance.
+
+If a limit is provided and the initial iterable exceeds the limit, the dictionary will only include entries up to the limit.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `iterable`? | `Iterable`\<readonly \[`Key`, `Type`\], `any`, `any`\> | Initial entries for the dictionary. |
+| `limit`? | `number` | Maximum number of entries allowed. Defaults to Infinity. |
+| `name`? | `string` | Name of the dictionary for identification. Defaults to "unknown". |
+
+#### Returns
+
+[`Dictionary`](/api/core/stable/classes/dictionary/)\<`Key`, `Type`\>
+
+#### Overrides
+
+```ts
+Map<Key, Type>.constructor
+```
+
+## Properties
+
+### size
+
+```ts
+readonly size: number;
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.collection.d.ts:45
+
+#### Returns
+
+the number of elements in the Map.
+
+#### Inherited from
+
+```ts
+Map.size
+```
+
+***
+
+### \[toStringTag\]
+
+```ts
+readonly [toStringTag]: string;
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts:137
+
+#### Inherited from
+
+```ts
+Map.[toStringTag]
+```
+
+***
+
+### \[species\]
+
+```ts
+readonly static [species]: MapConstructor;
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts:319
+
+#### Inherited from
+
+```ts
+Map.[species]
+```
+
+***
+
+### name
+
+```ts
+readonly name: string;
+```
+
+Defined in: kodkord/lib/index.d.ts:181
+
+The name of the dictionary, used for identification.
+
+***
+
+### limit
+
+```ts
+readonly limit: number;
+```
+
+Defined in: kodkord/lib/index.d.ts:183
+
+The maximum number of entries allowed in the dictionary.
+
+## Methods
+
+### clear()
+
+```ts
+clear(): void
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.collection.d.ts:20
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+```ts
+Map.clear
+```
+
+***
+
+### delete()
+
+```ts
+delete(key): boolean
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.collection.d.ts:24
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `key` | `Key` |
+
+#### Returns
+
+`boolean`
+
+true if an element in the Map existed and has been removed, or false if the element does not exist.
+
+#### Inherited from
+
+```ts
+Map.delete
+```
+
+***
+
+### forEach()
+
+```ts
+forEach(callbackfn, thisArg?): void
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.collection.d.ts:28
+
+Executes a provided function once per each key/value pair in the Map, in insertion order.
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `callbackfn` | (`value`, `key`, `map`) => `void` |
+| `thisArg`? | `any` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+```ts
+Map.forEach
+```
+
+***
+
+### get()
+
+```ts
+get(key): undefined | Type
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.collection.d.ts:33
+
+Returns a specified element from the Map object. If the value that is associated to the provided key is an object, then you will get a reference to that object and any change made to that object will effectively modify it inside the Map.
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `key` | `Key` |
+
+#### Returns
+
+`undefined` \| `Type`
+
+Returns the element associated with the specified key. If no element is associated with the specified key, undefined is returned.
+
+#### Inherited from
+
+```ts
+Map.get
+```
+
+***
+
+### has()
+
+```ts
+has(key): boolean
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.collection.d.ts:37
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `key` | `Key` |
+
+#### Returns
+
+`boolean`
+
+boolean indicating whether an element with the specified key exists or not.
+
+#### Inherited from
+
+```ts
+Map.has
+```
+
+***
+
+### \[iterator\]()
+
+```ts
+iterator: MapIterator<[Key, Type]>
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.iterable.d.ts:143
+
+Returns an iterable of entries in the map.
+
+#### Returns
+
+`MapIterator`\<\[`Key`, `Type`\]\>
+
+#### Inherited from
+
+```ts
+Map.[iterator]
+```
+
+***
+
+### entries()
+
+```ts
+entries(): MapIterator<[Key, Type]>
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.iterable.d.ts:148
+
+Returns an iterable of key, value pairs for every entry in the map.
+
+#### Returns
+
+`MapIterator`\<\[`Key`, `Type`\]\>
+
+#### Inherited from
+
+```ts
+Map.entries
+```
+
+***
+
+### keys()
+
+```ts
+keys(): MapIterator<Key>
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.iterable.d.ts:153
+
+Returns an iterable of keys in the map
+
+#### Returns
+
+`MapIterator`\<`Key`\>
+
+#### Inherited from
+
+```ts
+Map.keys
+```
+
+***
+
+### values()
+
+```ts
+values(): MapIterator<Type>
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.iterable.d.ts:158
+
+Returns an iterable of values in the map
+
+#### Returns
+
+`MapIterator`\<`Type`\>
+
+#### Inherited from
+
+```ts
+Map.values
+```
+
+***
+
+### filter()
+
+```ts
+filter(callback): Dictionary<Key, Type>
+```
+
+Defined in: kodkord/lib/index.d.ts:200
+
+Filters the entries of the dictionary based on the provided callback.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `callback` | (`value`, `key`, `dict`) => `boolean` | A function to test each entry. Returns `true` to keep the entry, `false` otherwise. |
+
+#### Returns
+
+[`Dictionary`](/api/core/stable/classes/dictionary/)\<`Key`, `Type`\>
+
+A new `Dictionary` with the filtered entries.
+
+***
+
+### find()
+
+```ts
+find(callback): undefined | Type
+```
+
+Defined in: kodkord/lib/index.d.ts:207
+
+Finds the first value in the dictionary that satisfies the provided callback.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `callback` | (`value`, `key`, `dict`) => `boolean` | A function to test each entry. Returns `true` for the desired entry. |
+
+#### Returns
+
+`undefined` \| `Type`
+
+The first value that satisfies the callback, or `undefined` if none do.
+
+***
+
+### every()
+
+```ts
+every(callback): boolean
+```
+
+Defined in: kodkord/lib/index.d.ts:214
+
+Tests whether all entries in the dictionary pass the provided callback.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `callback` | (`value`, `key`, `dict`) => `boolean` | A function to test each entry. Returns `true` for entries that pass. |
+
+#### Returns
+
+`boolean`
+
+`true` if all entries pass the callback, otherwise `false`.
+
+***
+
+### some()
+
+```ts
+some(callback): boolean
+```
+
+Defined in: kodkord/lib/index.d.ts:221
+
+Tests whether at least one entry in the dictionary passes the provided callback.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `callback` | (`value`, `key`, `dict`) => `boolean` | A function to test each entry. Returns `true` for entries that pass. |
+
+#### Returns
+
+`boolean`
+
+`true` if at least one entry passes the callback, otherwise `false`.
+
+***
+
+### reduce()
+
+```ts
+reduce<T>(callback, initial): T
+```
+
+Defined in: kodkord/lib/index.d.ts:229
+
+Reduces the dictionary's entries to a single value using the provided callback.
+
+#### Type Parameters
+
+| Type Parameter |
+| ------ |
+| `T` |
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `callback` | (`accumulator`, `value`, `key`, `dict`) => `T` | A function to process each entry. |
+| `initial` | `T` | The initial accumulator value. |
+
+#### Returns
+
+`T`
+
+The result of the reduction.
+
+***
+
+### map()
+
+```ts
+map<T>(callback): Dictionary<Key, T>
+```
+
+Defined in: kodkord/lib/index.d.ts:236
+
+Maps the dictionary's entries to a new `Dictionary` with transformed values.
+
+#### Type Parameters
+
+| Type Parameter |
+| ------ |
+| `T` |
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `callback` | (`value`, `key`, `dict`) => `T` | A function to transform each entry. |
+
+#### Returns
+
+[`Dictionary`](/api/core/stable/classes/dictionary/)\<`Key`, `T`\>
+
+A new `Dictionary` with the mapped values.
+
+***
+
+### set()
+
+```ts
+set(key, value): this
+```
+
+Defined in: kodkord/lib/index.d.ts:246
+
+Adds or updates an entry in the dictionary.
+
+If the dictionary has reached its limit, the entry will not be added.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `key` | `Key` | The key of the entry. |
+| `value` | `Type` | The value of the entry. |
+
+#### Returns
+
+`this`
+
+The current dictionary instance.
+
+#### Overrides
+
+```ts
+Map.set
+```
+
+***
+
+### first()
+
+```ts
+first(): undefined | Type
+```
+
+Defined in: kodkord/lib/index.d.ts:252
+
+Retrieves the first value in the dictionary.
+
+#### Returns
+
+`undefined` \| `Type`
+
+The first value, or `undefined` if the dictionary is empty.
+
+***
+
+### last()
+
+```ts
+last(): undefined | Type
+```
+
+Defined in: kodkord/lib/index.d.ts:258
+
+Retrieves the last value in the dictionary.
+
+#### Returns
+
+`undefined` \| `Type`
+
+The last value, or `undefined` if the dictionary is empty.
+
+***
+
+### clone()
+
+```ts
+clone(): Dictionary<Key, Type>
+```
+
+Defined in: kodkord/lib/index.d.ts:264
+
+Creates a shallow copy of the dictionary.
+
+#### Returns
+
+[`Dictionary`](/api/core/stable/classes/dictionary/)\<`Key`, `Type`\>
+
+A new `Dictionary` instance with the same entries, limit, and name.
+
+***
+
+### remaining()
+
+```ts
+remaining(): number
+```
+
+Defined in: kodkord/lib/index.d.ts:270
+
+Calculates the number of additional entries that can be added to the dictionary.
+
+#### Returns
+
+`number`
+
+The number of remaining entries before reaching the limit.

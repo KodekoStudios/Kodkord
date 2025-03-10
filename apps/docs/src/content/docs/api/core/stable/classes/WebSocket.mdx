@@ -1,0 +1,146 @@
+---
+title: WebSocket
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: kodkord/lib/index.d.ts:487
+
+Manages the WebSocket connection to the Discord Gateway.
+
+The `WebSocket` class handles the low-level communication with the Discord Gateway,
+including sending the initial identify payload, responding to heartbeats, and
+processing incoming Gateway events. It ensures the connection remains active and
+will automatically attempt to reconnect in case of disconnections.
+
+## Constructors
+
+### new WebSocket()
+
+```ts
+new WebSocket(settings): WebSocket
+```
+
+Defined in: kodkord/lib/index.d.ts:503
+
+Creates a new `WebSocket` instance.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `settings` | [`WebSocketSettings`](/api/core/stable/interfaces/websocketsettings/) | The settings required to establish a WebSocket connection. |
+
+#### Returns
+
+[`WebSocket`](/api/core/stable/classes/websocket/)
+
+## Properties
+
+### settings
+
+```ts
+readonly settings: WebSocketSettings;
+```
+
+Defined in: kodkord/lib/index.d.ts:497
+
+Configuration settings for the WebSocket connection.
+
+## Methods
+
+### connect()
+
+```ts
+connect(): void
+```
+
+Defined in: kodkord/lib/index.d.ts:511
+
+Establishes a WebSocket connection to the Discord Gateway.
+
+- Sets up event listeners for handling incoming messages, connection lifecycle events, and errors.
+- Automatically sends the identify payload upon successful connection.
+- Begins sending periodic heartbeats upon receiving the "Hello" event from the Gateway.
+
+#### Returns
+
+`void`
+
+***
+
+### disconnect()
+
+```ts
+disconnect(): void
+```
+
+Defined in: kodkord/lib/index.d.ts:519
+
+Disconnects the WebSocket connection and clears resources.
+
+- Stops the heartbeat interval.
+- Removes all event listeners from the WebSocket instance.
+- Closes the WebSocket connection.
+
+#### Returns
+
+`void`
+
+***
+
+### identify()
+
+```ts
+identify(): void
+```
+
+Defined in: kodkord/lib/index.d.ts:526
+
+Sends the identify payload to the Discord Gateway.
+
+This payload contains the bot's token, intents, and client properties. It is required
+to authenticate the connection and begin receiving events.
+
+#### Returns
+
+`void`
+
+***
+
+### disconnected()
+
+```ts
+disconnected(): boolean
+```
+
+Defined in: kodkord/lib/index.d.ts:539
+
+Checks if the WebSocket connection is disconnected.
+
+#### Returns
+
+`boolean`
+
+`true` if the WebSocket connection is closed, otherwise `false`.
+
+***
+
+### connected()
+
+```ts
+connected(): boolean
+```
+
+Defined in: kodkord/lib/index.d.ts:545
+
+Checks if the WebSocket connection is established.
+
+#### Returns
+
+`boolean`
+
+`true` if the WebSocket connection is open, otherwise `false`.

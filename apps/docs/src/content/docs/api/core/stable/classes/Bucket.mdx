@@ -1,0 +1,182 @@
+---
+title: Bucket
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: kodkord/lib/index.d.ts:10
+
+A rate-limit-aware task processor.
+
+Processes tasks in order while respecting a specific rate limit. Used primarily for API calls requiring rate-limit management, such as Discord's API.
+
+## Constructors
+
+### new Bucket()
+
+```ts
+new Bucket(limit?, reset?): Bucket
+```
+
+Defined in: kodkord/lib/index.d.ts:29
+
+Creates a new `Bucket` instance.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `limit`? | `number` | Maximum number of tasks allowed in the rate limit window. Defaults to 1. |
+| `reset`? | `number` | Initial timestamp when the rate limit window resets. Defaults to the current time. |
+
+#### Returns
+
+[`Bucket`](/api/core/stable/classes/bucket/)
+
+## Properties
+
+### remaining
+
+```ts
+remaining: number;
+```
+
+Defined in: kodkord/lib/index.d.ts:18
+
+Remaining requests in the current rate limit window.
+
+***
+
+### limit
+
+```ts
+limit: number;
+```
+
+Defined in: kodkord/lib/index.d.ts:20
+
+Maximum number of requests allowed per rate limit window.
+
+***
+
+### reset
+
+```ts
+reset: number;
+```
+
+Defined in: kodkord/lib/index.d.ts:22
+
+Timestamp when the current rate limit window resets.
+
+## Methods
+
+### process()
+
+```ts
+process(override?): Promise<void>
+```
+
+Defined in: kodkord/lib/index.d.ts:38
+
+Processes tasks in the queue while respecting the rate limit.
+
+If the rate limit is reached, waits until the reset time before continuing.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `override`? | `boolean` | If `true`, forces processing even if another process is already active. Defaults to `false`. |
+
+#### Returns
+
+`Promise`\<`void`\>
+
+Resolves when all tasks in the queue are processed.
+
+***
+
+### add()
+
+```ts
+add<Type>(task, at?): void
+```
+
+Defined in: kodkord/lib/index.d.ts:47
+
+Adds a new task to the queue.
+
+If a position is provided, the task will be inserted at that position in the queue. Otherwise, it is added to the end.
+
+#### Type Parameters
+
+| Type Parameter |
+| ------ |
+| `Type` |
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `task` | [`Task`](/api/core/stable/type-aliases/task/)\<`Type`\> | The task to add. |
+| `at`? | `number` | Optional position to insert the task in the queue. |
+
+#### Returns
+
+`void`
+
+***
+
+### resetState()
+
+```ts
+resetState(): void
+```
+
+Defined in: kodkord/lib/index.d.ts:53
+
+Resets the state of the bucket.
+
+Clears the task queue, resets rate-limit counters, and marks the bucket as ready to process tasks.
+
+#### Returns
+
+`void`
+
+***
+
+### pause()
+
+```ts
+pause(): void
+```
+
+Defined in: kodkord/lib/index.d.ts:55
+
+Pauses task processing.
+
+#### Returns
+
+`void`
+
+***
+
+### resume()
+
+```ts
+resume(): void
+```
+
+Defined in: kodkord/lib/index.d.ts:61
+
+Resumes task processing if paused.
+
+Tasks in the queue will start processing again.
+
+#### Returns
+
+`void`

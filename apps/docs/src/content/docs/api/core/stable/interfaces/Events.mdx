@@ -1,0 +1,605 @@
+---
+title: Events
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: kodkord/lib/index.d.ts:404
+
+Represents a mapping of event types to their corresponding callback functions.
+
+This interface extends `Dictionary`, allowing each event to have a handler function
+that processes the payload for that event type. The event type is inferred based on
+the generic `Event`, which defaults to `GatewayDispatchEvents`.
+
+## Extends
+
+- [`Dictionary`](/api/core/stable/classes/dictionary/)\<`Event`, (`data`) => `unknown`\>
+
+## Type Parameters
+
+| Type Parameter | Default type | Description |
+| ------ | ------ | ------ |
+| `Event` *extends* `GatewayDispatchEvents` | `GatewayDispatchEvents` | The event type to which the handler applies. |
+
+## Properties
+
+### size
+
+```ts
+readonly size: number;
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.collection.d.ts:45
+
+#### Returns
+
+the number of elements in the Map.
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`size`](/api/core/stable/classes/dictionary/#size)
+
+***
+
+### \[toStringTag\]
+
+```ts
+readonly [toStringTag]: string;
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts:137
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`[toStringTag]`](/api/core/stable/classes/dictionary/#tostringtag)
+
+***
+
+### name
+
+```ts
+readonly name: string;
+```
+
+Defined in: kodkord/lib/index.d.ts:181
+
+The name of the dictionary, used for identification.
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`name`](/api/core/stable/classes/dictionary/#name-1)
+
+***
+
+### limit
+
+```ts
+readonly limit: number;
+```
+
+Defined in: kodkord/lib/index.d.ts:183
+
+The maximum number of entries allowed in the dictionary.
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`limit`](/api/core/stable/classes/dictionary/#limit-1)
+
+## Methods
+
+### clear()
+
+```ts
+clear(): void
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.collection.d.ts:20
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`clear`](/api/core/stable/classes/dictionary/#clear)
+
+***
+
+### delete()
+
+```ts
+delete(key): boolean
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.collection.d.ts:24
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `key` | `Event` |
+
+#### Returns
+
+`boolean`
+
+true if an element in the Map existed and has been removed, or false if the element does not exist.
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`delete`](/api/core/stable/classes/dictionary/#delete)
+
+***
+
+### forEach()
+
+```ts
+forEach(callbackfn, thisArg?): void
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.collection.d.ts:28
+
+Executes a provided function once per each key/value pair in the Map, in insertion order.
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `callbackfn` | (`value`, `key`, `map`) => `void` |
+| `thisArg`? | `any` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`forEach`](/api/core/stable/classes/dictionary/#foreach)
+
+***
+
+### has()
+
+```ts
+has(key): boolean
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.collection.d.ts:37
+
+#### Parameters
+
+| Parameter | Type |
+| ------ | ------ |
+| `key` | `Event` |
+
+#### Returns
+
+`boolean`
+
+boolean indicating whether an element with the specified key exists or not.
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`has`](/api/core/stable/classes/dictionary/#has)
+
+***
+
+### \[iterator\]()
+
+```ts
+iterator: MapIterator<[Event, (data) => unknown]>
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.iterable.d.ts:143
+
+Returns an iterable of entries in the map.
+
+#### Returns
+
+`MapIterator`\<\[`Event`, (`data`) => `unknown`\]\>
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`[iterator]`](/api/core/stable/classes/dictionary/#iterator)
+
+***
+
+### entries()
+
+```ts
+entries(): MapIterator<[Event, (data) => unknown]>
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.iterable.d.ts:148
+
+Returns an iterable of key, value pairs for every entry in the map.
+
+#### Returns
+
+`MapIterator`\<\[`Event`, (`data`) => `unknown`\]\>
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`entries`](/api/core/stable/classes/dictionary/#entries)
+
+***
+
+### keys()
+
+```ts
+keys(): MapIterator<Event>
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.iterable.d.ts:153
+
+Returns an iterable of keys in the map
+
+#### Returns
+
+`MapIterator`\<`Event`\>
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`keys`](/api/core/stable/classes/dictionary/#keys)
+
+***
+
+### values()
+
+```ts
+values(): MapIterator<(data) => unknown>
+```
+
+Defined in: .pnpm/typescript@5.8.2/node\_modules/typescript/lib/lib.es2015.iterable.d.ts:158
+
+Returns an iterable of values in the map
+
+#### Returns
+
+`MapIterator`\<(`data`) => `unknown`\>
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`values`](/api/core/stable/classes/dictionary/#values)
+
+***
+
+### filter()
+
+```ts
+filter(callback): Dictionary<Event, (data) => unknown>
+```
+
+Defined in: kodkord/lib/index.d.ts:200
+
+Filters the entries of the dictionary based on the provided callback.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `callback` | (`value`, `key`, `dict`) => `boolean` | A function to test each entry. Returns `true` to keep the entry, `false` otherwise. |
+
+#### Returns
+
+[`Dictionary`](/api/core/stable/classes/dictionary/)\<`Event`, (`data`) => `unknown`\>
+
+A new `Dictionary` with the filtered entries.
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`filter`](/api/core/stable/classes/dictionary/#filter)
+
+***
+
+### find()
+
+```ts
+find(callback): undefined | (data) => unknown
+```
+
+Defined in: kodkord/lib/index.d.ts:207
+
+Finds the first value in the dictionary that satisfies the provided callback.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `callback` | (`value`, `key`, `dict`) => `boolean` | A function to test each entry. Returns `true` for the desired entry. |
+
+#### Returns
+
+`undefined` \| (`data`) => `unknown`
+
+The first value that satisfies the callback, or `undefined` if none do.
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`find`](/api/core/stable/classes/dictionary/#find)
+
+***
+
+### every()
+
+```ts
+every(callback): boolean
+```
+
+Defined in: kodkord/lib/index.d.ts:214
+
+Tests whether all entries in the dictionary pass the provided callback.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `callback` | (`value`, `key`, `dict`) => `boolean` | A function to test each entry. Returns `true` for entries that pass. |
+
+#### Returns
+
+`boolean`
+
+`true` if all entries pass the callback, otherwise `false`.
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`every`](/api/core/stable/classes/dictionary/#every)
+
+***
+
+### some()
+
+```ts
+some(callback): boolean
+```
+
+Defined in: kodkord/lib/index.d.ts:221
+
+Tests whether at least one entry in the dictionary passes the provided callback.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `callback` | (`value`, `key`, `dict`) => `boolean` | A function to test each entry. Returns `true` for entries that pass. |
+
+#### Returns
+
+`boolean`
+
+`true` if at least one entry passes the callback, otherwise `false`.
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`some`](/api/core/stable/classes/dictionary/#some)
+
+***
+
+### reduce()
+
+```ts
+reduce<T>(callback, initial): T
+```
+
+Defined in: kodkord/lib/index.d.ts:229
+
+Reduces the dictionary's entries to a single value using the provided callback.
+
+#### Type Parameters
+
+| Type Parameter |
+| ------ |
+| `T` |
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `callback` | (`accumulator`, `value`, `key`, `dict`) => `T` | A function to process each entry. |
+| `initial` | `T` | The initial accumulator value. |
+
+#### Returns
+
+`T`
+
+The result of the reduction.
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`reduce`](/api/core/stable/classes/dictionary/#reduce)
+
+***
+
+### map()
+
+```ts
+map<T>(callback): Dictionary<Event, T>
+```
+
+Defined in: kodkord/lib/index.d.ts:236
+
+Maps the dictionary's entries to a new `Dictionary` with transformed values.
+
+#### Type Parameters
+
+| Type Parameter |
+| ------ |
+| `T` |
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `callback` | (`value`, `key`, `dict`) => `T` | A function to transform each entry. |
+
+#### Returns
+
+[`Dictionary`](/api/core/stable/classes/dictionary/)\<`Event`, `T`\>
+
+A new `Dictionary` with the mapped values.
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`map`](/api/core/stable/classes/dictionary/#map-1)
+
+***
+
+### first()
+
+```ts
+first(): undefined | (data) => unknown
+```
+
+Defined in: kodkord/lib/index.d.ts:252
+
+Retrieves the first value in the dictionary.
+
+#### Returns
+
+`undefined` \| (`data`) => `unknown`
+
+The first value, or `undefined` if the dictionary is empty.
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`first`](/api/core/stable/classes/dictionary/#first)
+
+***
+
+### last()
+
+```ts
+last(): undefined | (data) => unknown
+```
+
+Defined in: kodkord/lib/index.d.ts:258
+
+Retrieves the last value in the dictionary.
+
+#### Returns
+
+`undefined` \| (`data`) => `unknown`
+
+The last value, or `undefined` if the dictionary is empty.
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`last`](/api/core/stable/classes/dictionary/#last)
+
+***
+
+### clone()
+
+```ts
+clone(): Dictionary<Event, (data) => unknown>
+```
+
+Defined in: kodkord/lib/index.d.ts:264
+
+Creates a shallow copy of the dictionary.
+
+#### Returns
+
+[`Dictionary`](/api/core/stable/classes/dictionary/)\<`Event`, (`data`) => `unknown`\>
+
+A new `Dictionary` instance with the same entries, limit, and name.
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`clone`](/api/core/stable/classes/dictionary/#clone)
+
+***
+
+### remaining()
+
+```ts
+remaining(): number
+```
+
+Defined in: kodkord/lib/index.d.ts:270
+
+Calculates the number of additional entries that can be added to the dictionary.
+
+#### Returns
+
+`number`
+
+The number of remaining entries before reaching the limit.
+
+#### Inherited from
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`remaining`](/api/core/stable/classes/dictionary/#remaining)
+
+***
+
+### set()
+
+```ts
+set<E>(event, callback): this
+```
+
+Defined in: kodkord/lib/index.d.ts:412
+
+Sets a callback function for a specific event.
+
+#### Type Parameters
+
+| Type Parameter |
+| ------ |
+| `E` *extends* `GatewayDispatchEvents` |
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `event` | `E` | The event to bind the callback to. |
+| `callback` | (`data`) => `unknown` | The function to handle the event data. |
+
+#### Returns
+
+`this`
+
+The instance of the `Events` interface, allowing method chaining.
+
+#### Overrides
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`set`](/api/core/stable/classes/dictionary/#set)
+
+***
+
+### get()
+
+```ts
+get<E>(event): undefined | (data) => unknown
+```
+
+Defined in: kodkord/lib/index.d.ts:421
+
+Gets the callback function associated with a specific event.
+
+#### Type Parameters
+
+| Type Parameter |
+| ------ |
+| `E` *extends* `GatewayDispatchEvents` |
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `event` | `E` | The event for which to retrieve the callback function. |
+
+#### Returns
+
+`undefined` \| (`data`) => `unknown`
+
+The callback function for the event, or `undefined` if no handler is set.
+
+#### Overrides
+
+[`Dictionary`](/api/core/stable/classes/dictionary/).[`get`](/api/core/stable/classes/dictionary/#get)

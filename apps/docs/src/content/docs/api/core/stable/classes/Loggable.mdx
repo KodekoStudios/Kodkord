@@ -1,0 +1,154 @@
+---
+title: Loggable
+topic: api
+lastUpdated: 2025-03-10
+editUrl: false
+next: false
+prev: false
+---
+
+Defined in: kodkord/lib/index.d.ts:557
+
+Provides a lightweight, extensible logging mechanism with customizable formatting.
+
+The `Loggable` class is designed to be extended and used for temporary logging purposes,
+avoiding the memory overhead of persistent logger instances. Each instance is created
+when needed and goes out of scope once used, improving performance.
+
+## Extended by
+
+- [`Note`](/api/core/stable/classes/note/)
+- [`Panic`](/api/core/stable/classes/panic/)
+- [`Trace`](/api/core/stable/classes/trace/)
+- [`Warn`](/api/core/stable/classes/warn/)
+
+## Constructors
+
+### new Loggable()
+
+```ts
+new Loggable(
+   level, 
+   header, ...
+   messages): Loggable
+```
+
+Defined in: kodkord/lib/index.d.ts:574
+
+Creates a new `Loggable` instance.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `level` | `string` | The log level used to identify the type of log |
+| `header` | `string` | The header of the log, typically a title or identifier |
+| ...`messages` | `string`[] | Additional lines or content for the log |
+
+#### Returns
+
+[`Loggable`](/api/core/stable/classes/loggable/)
+
+## Methods
+
+### note()
+
+```ts
+note(): void
+```
+
+Defined in: kodkord/lib/index.d.ts:576
+
+Logs the message to the console as a standard note.
+
+#### Returns
+
+`void`
+
+***
+
+### trace()
+
+```ts
+trace(): void
+```
+
+Defined in: kodkord/lib/index.d.ts:578
+
+Logs the message to the console with a debug level.
+
+#### Returns
+
+`void`
+
+***
+
+### warn()
+
+```ts
+warn(): void
+```
+
+Defined in: kodkord/lib/index.d.ts:580
+
+Logs the message to the console as a warning.
+
+#### Returns
+
+`void`
+
+***
+
+### panic()
+
+```ts
+panic(): void
+```
+
+Defined in: kodkord/lib/index.d.ts:582
+
+Logs the message to the console as an error.
+
+#### Returns
+
+`void`
+
+***
+
+### format()
+
+```ts
+format(): string
+```
+
+Defined in: kodkord/lib/index.d.ts:589
+
+Formats the log into a styled string suitable for console output.
+
+The format includes the log header, timestamp, and a separator.
+
+#### Returns
+
+`string`
+
+A formatted log string
+
+***
+
+### formatLines()
+
+```ts
+formatLines(): string
+```
+
+Defined in: kodkord/lib/index.d.ts:596
+
+Formats the individual lines of the log with a consistent style.
+
+Each line is prefixed with a vertical bar (`|`) for clarity.
+
+#### Returns
+
+`string`
+
+A formatted string containing all log lines
