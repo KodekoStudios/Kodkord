@@ -1,0 +1,32 @@
+# Environment files
+.env
+
+# Node.js dependencies
+node_modules/
+
+# Bun lockfile (if you prefer to regenerate)
+# bun.lock
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# TypeScript cache
+*.tsbuildinfo
+
+# VSCode settings (uncomment if you want to commit them)
+// .vscode/
+
+# Rust build artifacts
+/native/temp/
+/native/target/
+/native/artifacts/
+/native/.cargo/
+
+# OS files
+.DS_Store
+
+# Editor backups
+*~
+*.swp

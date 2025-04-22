@@ -1,0 +1,20 @@
+{
+  "name": "kodkord",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@discordjs/rest": "^2.4.3",
+    "@types/bun": "latest",
+    "@types/terminal-kit": "^2.5.7",
+    "discord-api-types": "^0.37.119",
+    "eris": "^0.18.0",
+    "kodkord": "^1.0.3-dev-13076173580.0",
+    "oceanic.js": "^1.11.2",
+    "seyfert": "^2.2.0",
+    "terminal-kit": "^3.1.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "packageManager": "bun@1.2.5"
+}
