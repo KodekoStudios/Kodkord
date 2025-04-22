@@ -46,7 +46,7 @@ await rest.request({
                 content: "Here's my avatar",
                 embeds: [{
                     image: {
-                        url: `attachment://avatar.ong`  // Must be the same as attachmen.name
+                        url: `attachment://avatar.png`  // Must be the same as attachmen.name
                     }
                 }]
             }),
