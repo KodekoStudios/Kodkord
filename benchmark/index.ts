@@ -4,16 +4,11 @@ import { terminal } from "terminal-kit";
 // Read CPU time (user + sys) in microseconds from /proc
 async function getCpuTimeFromProc(pid: number): Promise<number> {
     try {
-        const stat = Bun.file(`/proc/${pid}/stat`);
-        const content = await stat.text();
-        const parts = content.split(" ");
-        const utime = Number(parts[13]); // user time in ticks
-        const stime = Number(parts[14]); // system time in ticks
-        const totalTicks = utime + stime;
-
-        const ticksPerSecond = 100; // Common default on Linux
-        const cpuSeconds = totalTicks / ticksPerSecond;
-        return cpuSeconds * 1_000_000; // μs
+        const stat           = Bun.file(`/proc/${pid}/stat`)    ;
+        const [utime, stime] = (await stat.text()).split(" ")
+                                                  .slice(13, 15)
+                                                  .map(Number)  ;
+        return (utime! + stime!) / 100 * 1_000_000;
     } catch {
         return 0;
     }
@@ -25,7 +20,7 @@ async function benchFile(file: string) {
     return await new Promise<void>((resolve) => {
         terminal.getCursorLocation(async (_, x = 0, y = 0) => {
             const child = spawn(["bun", await Bun.resolve(file, __dirname)], {
-                stdout: "inherit",
+                stdout: "ignore",
                 stderr: "inherit",
             });
 
@@ -83,16 +78,16 @@ async function benchFile(file: string) {
                     "Max",
                 ],
                 [
-                    "RSS",
-                    `${rss.avg} MiB`,
-                    `${rss.min} MiB`,
-                    `${rss.max} MiB`,
-                ],
-                [
                     "TIME",
                     `${cpuMicros.toFixed(0)} μs`,
                     "-",
                     "-",
+                ],
+                [
+                    "RSS",
+                    `${rss.avg} MiB`,
+                    `${rss.min} MiB`,
+                    `${rss.max} MiB`,
                 ],
                 [
                     "MEM",
@@ -121,6 +116,7 @@ async function benchFile(file: string) {
     });
 }
 
+console.log();
 await benchFile("./kodkord.ts");
 await benchFile("./discord.ts");
-await benchFile("./oceanic.ts");
+// await benchFile("./oceanic.ts");

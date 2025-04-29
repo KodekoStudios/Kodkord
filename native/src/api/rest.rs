@@ -68,7 +68,7 @@ impl Rest {
                     headers
                 })
                 .build()
-                .expect("This is your fault, kys."),
+                .expect("That was your fault."),
         }
     }
 

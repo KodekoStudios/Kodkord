@@ -1,0 +1,24 @@
+src/
+benchmark/
+
+*.ts
+tsconfig.json
+rollup.config.js
+
+# bun.lock
+package-lock.json
+npm-debug.log*
+
+native/src/
+native/target/
+native/build.rs
+native/Cargo.toml
+native/Cargo.lock
+
+build/
+build.sh
+
+.vscode/
+.idea/
+
+.DS_Store

@@ -1,15 +1,22 @@
-import { REST } from "@discordjs/rest";
-import { Routes } from "discord-api-types/v10";
+import { Client, GatewayIntentBits, InteractionType } from "discord.js";
 
-const rest = new REST({ version: "10" }).setToken(process.env.TOKEN!);
-const promises = [];
+const client = new Client({
+    intents: GatewayIntentBits.Guilds      |
+             GatewayIntentBits.GuildMembers,
+});
 
-for (let i = 0; i < 10; i++) {
-    promises.push(rest.get(Routes.user("@me")));
-}
+client.on("interactionCreate", async (i) => {
+    if (i.type !== InteractionType.ApplicationCommand) return;
+    switch (i.commandName) {
+        case "latency":
+            const start = Bun.nanoseconds();
+            await client.rest.get("/users/@me");
+            const nanos = Bun.nanoseconds() - start;
 
-for (let i = 0; i < 10; i++) {
-    promises.push(rest.get(Routes.user("788869971073040454")));
-}
+            await i.reply({ content: `${nanos}ns`, withResponse: false });
+            await client.destroy();
+            break;
+    }
+});
 
-await Promise.all(promises);
+client.login(Bun.env.TOKEN!);

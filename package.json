@@ -1,20 +1,60 @@
 {
   "name": "kodkord",
-  "module": "index.ts",
+  "version": "1.2.0",
+  "description": "Minimal, zero-dependency, high-performance Discord HTTP REST client for Bun, written in NAPI-RS.",
+  "keywords": [
+    "discord",
+    "discord-rest",
+    "discord-api",
+    "http-client",
+    "typescript",
+    "bun",
+    "lightweight",
+    "high-performance",
+    "minimal"
+  ],
+  "license": "MIT",
   "type": "module",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "exports": { ".": { "import": "./dist/index.esm.js", "require": "./dist/index.cjs.js", "types":"./dist/index.d.ts" } },
+  "files": ["dist/", "native/index.js", "native/index.d.ts", "native/artifacts/"],
+  "engines": { "node": ">=16", "bun":">=1.2.5" },
+  "sideEffects": false,
+  "publishConfig": { "access":"public" },
+  "repository": { "type":"git", "url":"https://github.com/..." },
+  "bugs": { "url":"https://github.com/.../issues" },
+  "contributors": [{ "name":"Pavéz", "url":"https://github.com/Pavez7274/" }],
+  "scripts": {
+    "build:types": "rollup -c",
+    "build:esm": "bun build src/index.ts --outdir dist --format esm --entry-naming '[name].esm.js' --packages external --external ../native/index.js --minify-syntax --minify-identifiers",
+    "build:cjs": "bun build src/index.ts --outdir dist --format cjs --target node --entry-naming '[name].cjs.js' --packages external --minify-syntax --minify-identifiers",
+    "build": "bun run build:esm && bun run build:cjs && bun run build:types"
+  },
+  "dependencies": {
+    "kodkord-native": "file:./native"
+  },
   "devDependencies": {
     "@discordjs/rest": "^2.4.3",
     "@types/bun": "latest",
     "@types/terminal-kit": "^2.5.7",
-    "discord-api-types": "^0.37.119",
+    "discord-api-types": "^0.38.1",
+    "discord.js": "^14.18.0",
     "eris": "^0.18.0",
     "kodkord": "^1.0.3-dev-13076173580.0",
     "oceanic.js": "^1.11.2",
+    "rollup": "^4.40.1",
+    "rollup-plugin-dts": "^6.2.1",
     "seyfert": "^2.2.0",
     "terminal-kit": "^3.1.2"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
-  "packageManager": "bun@1.2.5"
+  "packageManager": "bun@1.2.5",
+  "release": {
+    "branches": [
+      "main"
+    ]
+  }
 }

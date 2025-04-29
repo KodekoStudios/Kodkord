@@ -1,6 +1,4 @@
-use std::ops::Deref;
-
-use crate::{opt_field, req_field};
+use crate::{opt_field, req_field, str::str::Str};
 
 use super::attachment::Attachment;
 use napi::{
@@ -42,17 +40,18 @@ define_method!(DELETE, PATCH, POST, GET, PUT);
 /// Wraps a JavaScript `Deferred` with a boxed closure resolver: `FnOnce(Env) -> Result<Data>`.
 pub type Deferred<Data> = JsDeferred<Data, Box<dyn FnOnce(Env) -> Result<Data> + Send + 'static>>;
 
-/// Represents an in-flight REST request, constructed from JavaScript arguments.
+/// Represent
+/// 
+/// s an in-flight REST request, constructed from JavaScript arguments.
 #[rustfmt::skip]
 pub struct Request {
-    pub version    : u8                     , 
     pub method     : Method                 ,
-    pub route      : Box<str>               ,
+    pub route      : Str                    ,
     pub attachments: Option<Vec<Attachment>>,
     pub deferred   : Option<Deferred<Value>>,
-    pub reason     : Option<Box<str>>       ,
-    pub query      : Option<Box<str>>       ,
-    pub body       : Option<Box<str>>       ,
+    pub reason     : Str                    ,
+    pub query      : Str                    ,
+    pub body       : Str                    ,
 }
 
 impl FromNapiValue for Request {
@@ -62,14 +61,12 @@ impl FromNapiValue for Request {
 
         let attachments = opt_field!(request, "attachments", Vec<Attachment>)?;
         let method      = req_field!(request, "method"     , Method         )?;
-        let version     = opt_field!(request, "version"    , u8             )?.unwrap_or(10);
-        let route       = req_field!(request, "route"      , &str           )?.into();
-        let reason      = opt_field!(request, "reason"     , &str           )?.map(Into::into);
-        let query       = opt_field!(request, "query"      , &str           )?.map(Into::into);
-        let body        = opt_field!(request, "body"       , &str           )?.map(Into::into);
+        let route       = req_field!(request, "route"      , Str            )?;
+        let reason      = opt_field!(request, "reason"     , Str            )?.unwrap_or(Str::Empty);
+        let query       = opt_field!(request, "query"      , Str            )?.unwrap_or(Str::Empty);
+        let body        = opt_field!(request, "body"       , Str            )?.unwrap_or(Str::Empty);
 
         Ok(Request {
-            version,
             method,
             route,
             attachments,
@@ -86,13 +83,12 @@ impl ToNapiValue for Request {
     unsafe fn to_napi_value(env: napi_env, request: Self) -> Result<napi_value> {
         let mut object = JsObject::from_raw(env, std::ptr::null_mut())?;
 
-        object.set_named_property("version"    , request.version          )?;
-        object.set_named_property("method"     , request.method           )?;
-        object.set_named_property("route"      , request.route .deref()   )?;
-        object.set_named_property("attachments", request.attachments      )?;
-        object.set_named_property("reason"     , request.reason.as_deref())?;
-        object.set_named_property("query"      , request.query .as_deref())?;
-        object.set_named_property("body"       , request.body  .as_deref())?;
+        object.set_named_property("method"     , request.method         )?;
+        object.set_named_property("route"      , request.route .as_str())?;
+        object.set_named_property("attachments", request.attachments    )?;
+        object.set_named_property("reason"     , request.reason.as_str())?;
+        object.set_named_property("query"      , request.query .as_str())?;
+        object.set_named_property("body"       , request.body  .as_str())?;
 
         Ok(object.raw())
     }

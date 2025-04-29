@@ -1,8 +1,8 @@
 use super::{
     bucket::Bucket,
-    interner::INTERNER,
     request::{Request, RequestBuilderExt},
 };
+use crate::str::interner::INTERNER;
 use napi::Result;
 use reqwest::{Client, StatusCode};
 use rustc_hash::FxHashMap;
@@ -39,10 +39,9 @@ pub struct Scheduler {
 }
 
 impl Scheduler {
+    #[rustfmt::skip]
     pub async fn schedule(self: Arc<Self>, request: Request, delay: u64) {
-        let mut dq = self.queue.lock().await;
-        // println!("Requesting: {:?}", request);
-        dq.insert(request, Duration::from_millis(delay));
+        self.queue.lock().await.insert(request, Duration::from_millis(delay));
         self.notify.notify_one();
     }
 
@@ -51,6 +50,7 @@ impl Scheduler {
         self.stop.notify_one();
     }
 
+    #[rustfmt::skip]
     pub async fn run(self: Arc<Self>, client: &Client) -> Result<()> {
         loop {
             let maybe_deadline = {
@@ -81,7 +81,7 @@ impl Scheduler {
 
                     let bucket_key = {
                         let routes = self.routes.read().await;
-                        routes.get(&*request.route).cloned().unwrap_or("unknown")
+                        routes.get(request.route.as_str()).cloned().unwrap_or("unknown")
                     };
 
                     let bucket_id = INTERNER.intern(bucket_key).await;
@@ -102,13 +102,10 @@ impl Scheduler {
 
                     drop(buckets);
 
-                    #[rustfmt::skip]
-                    let url = format!("https://discord.com/api/v{}{}", request.version, request.route);
-                    let builder = client
-                        .request(request.method.into(), url)
-                        .header_opt("X-Audit-Log-Reason", request.reason.as_deref());
-
-                    let builder = builder.json_opt(request.body.as_deref())?;
+                    let url     = format!("https://discord.com/api/{}", request.route.as_str());
+                    let builder = client.request(request.method.into(), url)
+                                        .header_opt("X-Audit-Log-Reason", request.reason.as_str_optional())
+                                        .json_opt(request.body.as_str_optional())?;
 
                     let response = match builder.send().await {
                         Ok(response) => response,
@@ -120,7 +117,6 @@ impl Scheduler {
 
                     let headers = response.headers();
 
-                    #[rustfmt::skip]
                     let remaining   = header_str!(headers, "X-RateLimit-Remaining");
                     let retry_after = header_str!(headers, "Retry-After")
                         .and_then(|h| h.parse().ok())
@@ -129,7 +125,6 @@ impl Scheduler {
                     if response.status() == StatusCode::TOO_MANY_REQUESTS {
                         let mut buckets = self.buckets.write().await;
 
-                        #[rustfmt::skip]
                         buckets.entry(bucket_id)
                             .and_modify(|bucket| {
                                 bucket.near_limit = true;
@@ -148,9 +143,9 @@ impl Scheduler {
 
                     if let Some(new_bucket_id) = header_str!(headers, "X-RateLimit-Bucket") {
                         if new_bucket_id != bucket_id {
-                            let interned = INTERNER.intern(new_bucket_id).await;
+                            let interned   = INTERNER.intern(new_bucket_id).await;
                             let mut routes = self.routes.write().await;
-                            routes.insert(INTERNER.intern(&*request.route).await, interned);
+                            routes.insert(INTERNER.intern(request.route.as_str()).await, interned);
                         }
                     }
 
@@ -159,7 +154,6 @@ impl Scheduler {
                         .entry(bucket_id)
                         .or_insert_with(|| Bucket::new(bucket_id));
 
-                    #[rustfmt::skip]
                     if matches!(remaining.map(str::trim), Some("0")) {
                         bucket.near_limit = true;
                         bucket.reset_at   = retry_after + now;
@@ -177,12 +171,16 @@ impl Scheduler {
                         Ok(text) => text,
                     };
 
-                    let json = match serde_json::from_str::<serde_json::Value>(&text) {
-                        Err(error) => {
-                            let _ = deferred.reject(napi::Error::from_reason(error.to_string()));
-                            continue;
+                    let json = if text.trim().is_empty() {
+                        serde_json::Value::Null
+                    } else {
+                        match serde_json::from_str::<serde_json::Value>(&text) {
+                            Err(error) => {
+                                let _ = deferred.reject(napi::Error::from_reason(error.to_string()));
+                                continue;
+                            }
+                            Ok(value) => value,
                         }
-                        Ok(value) => value,
                     };
 
                     let _ = deferred.resolve(Box::new(move |_| Ok(json)));

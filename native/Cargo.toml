@@ -7,14 +7,16 @@ version = "0.0.0"
 crate-type = ["cdylib"]
 
 [dependencies]
+chrono = "0.4.40"
 futures = "0.3.31"
 # Default enable napi4 feature, see https://nodejs.org/api/n-api.html#node-api-version-matrix
 napi = { version = "2.12.2", default-features = false, features = [
     "napi6",
     "tokio_rt",
     "serde-json",
+    "compat-mode",
 ] }
-napi-derive = "2.12.2"
+napi-derive = { version = "2.12.2", features = ["compat-mode"] }
 once_cell = "1.21.3"
 reqwest = { version = "0.12.15", features = ["json"] }
 rustc-hash = "2.1.1"

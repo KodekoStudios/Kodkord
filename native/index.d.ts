@@ -61,7 +61,6 @@ export const enum Method {
 }
 
 export interface Request {
-  version?: number;
   method  : Method;
   route   : string;
   reason ?: string;
@@ -106,3 +105,8 @@ export declare class Rest {
   /** Stop the scheduler but don't clean up. */
   public stop_scheduler() : Promise<void>
 }
+
+export declare function note(header: string, ...lines: string[]): void;
+export declare function echo(header: string, ...lines: string[]): void;
+export declare function warn(header: string, ...lines: string[]): void;
+export declare function fail(header: string, ...lines: string[]): void;

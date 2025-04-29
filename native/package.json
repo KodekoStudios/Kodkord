@@ -1,10 +1,10 @@
 {
-  "name": "kodkord-native",
-  "version": "0.0.0",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "name": "native",
+  "version": "1.0.0",
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "napi": {
-    "name": "kodkord-native",
+    "name": "native",
     "triples": {
       "defaults": false,
       "additional": [
@@ -17,9 +17,7 @@
   "devDependencies": {
     "@napi-rs/cli": "^2.18.4"
   },
-  "engines": {
-    "bun": ">= 1.2.5"
-  },
+  "gypfile": true,
   "scripts": {
     "artifacts": "napi artifacts",
     "build": "sh build.sh",
