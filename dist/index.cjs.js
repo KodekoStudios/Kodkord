@@ -1,110 +1,116 @@
-var { defineProperty: r, getOwnPropertyNames: l, getOwnPropertyDescriptor: S } = Object, p = Object.prototype.hasOwnProperty, c = (e, t, i) => {
-  for (let n of l(t))
-    if (!p.call(e, n) && n !== "default")
-      r(e, n, {
-        get: () => t[n],
+var { defineProperty: S, getOwnPropertyNames: g, getOwnPropertyDescriptor: z } = Object, k = Object.prototype.hasOwnProperty, r = (t, l, i) => {
+  for (let b of g(l))
+    if (!k.call(t, b) && b !== "default")
+      S(t, b, {
+        get: () => l[b],
         enumerable: !0
       });
   if (i) {
-    for (let n of l(t))
-      if (!p.call(i, n) && n !== "default")
-        r(i, n, {
-          get: () => t[n],
+    for (let b of g(l))
+      if (!k.call(i, b) && b !== "default")
+        S(i, b, {
+          get: () => l[b],
           enumerable: !0
         });
     return i;
   }
 };
-var v = /* @__PURE__ */ new WeakMap, m = (e) => {
-  var t = v.get(e), i;
-  if (t)
-    return t;
-  if (t = r({}, "__esModule", { value: !0 }), e && typeof e === "object" || typeof e === "function")
-    l(e).map((n) => !p.call(t, n) && r(t, n, {
-      get: () => e[n],
-      enumerable: !(i = S(e, n)) || i.enumerable
+var v = /* @__PURE__ */ new WeakMap, F = (t) => {
+  var l = v.get(t), i;
+  if (l)
+    return l;
+  if (l = S({}, "__esModule", { value: !0 }), t && typeof t === "object" || typeof t === "function")
+    g(t).map((b) => !k.call(l, b) && S(l, b, {
+      get: () => t[b],
+      enumerable: !(i = z(t, b)) || i.enumerable
     }));
-  return v.set(e, t), t;
+  return v.set(t, l), l;
 };
-var h = (e, t) => {
-  for (var i in t)
-    r(e, i, {
-      get: t[i],
+var n = (t, l) => {
+  for (var i in l)
+    S(t, i, {
+      get: l[i],
       enumerable: !0,
       configurable: !0,
-      set: (n) => t[i] = () => n
+      set: (b) => l[i] = () => b
     });
 };
 
 // src/index.ts
-var o = {};
-h(o, {
-  WebSocket: () => d,
-  WEB_SOCKET_ADDRESS: () => b,
-  Client: () => y
+var u = {};
+n(u, {
+  WebSocket: () => f,
+  WEB_SOCKET_ADDRESS: () => R,
+  Client: () => p
 });
-module.exports = m(o);
-c(o, require("kodkord-native"), module.exports);
+module.exports = F(u);
+r(u, require("kodkord-native"), module.exports);
 
 // src/websocket.ts
-var k = {};
-h(k, {
-  WebSocket: () => d,
-  WEB_SOCKET_ADDRESS: () => b
+var W = {};
+n(W, {
+  WebSocket: () => f,
+  WEB_SOCKET_ADDRESS: () => R
 });
-var s = require("discord-api-types/v10"), a = require("kodkord-native"), b = `wss://gateway.discord.gg/?v=${s.GatewayVersion}&encoding=json`;
+var x = require("discord-api-types/v10"), m = require("kodkord-native"), R = `wss://gateway.discord.gg/?v=${x.GatewayVersion}&encoding=json`;
 
-class d {
+class f {
   settings;
   events;
   inner;
   timer;
-  constructor(e) {
-    this.settings = e, this.events = /* @__PURE__ */ new Map;
+  constructor(t) {
+    this.settings = t, this.events = /* @__PURE__ */ new Map;
   }
   connect() {
-    this.inner = new globalThis.WebSocket(b), this.inner.addEventListener("open", () => {
-      a.echo("Web Socket", "Connected to the Discord gateway.", "Sending identify..."), this.identify();
-    }), this.inner.addEventListener("close", ({ code: e, wasClean: t }) => {
-      if (!t || e !== 1000)
-        a.warn("Web Socket", "Connection lost!", "An attempt will be made to reconnect", "Warning: an exponential backoff has not yet been implemented!"), this.disconnect(), this.connect();
-    }), this.inner.addEventListener("message", ({ data: e }) => {
-      let t = JSON.parse(e);
-      switch (t.op) {
-        case s.GatewayOpcodes.Dispatch:
-          this.events.get(t.t)?.(t.d);
+    this.inner = new globalThis.WebSocket(R), this.inner.addEventListener("open", () => {
+      m.echo("Web Socket", "Connected to the Discord gateway.", "Sending identify..."), this.identify();
+    }), this.inner.addEventListener("close", ({ code: t, wasClean: l }) => {
+      if (!l || t !== 1000)
+        m.warn("Web Socket", "Connection lost!", "An attempt will be made to reconnect", "Warning: an exponential backoff has not yet been implemented!"), this.disconnect(), this.connect();
+    }), this.inner.addEventListener("message", ({ data: t }) => {
+      let l = JSON.parse(t);
+      switch (l.op) {
+        case x.GatewayOpcodes.Dispatch:
+          this.events.get(l.t)?.(l.d);
           break;
-        case s.GatewayOpcodes.Heartbeat:
+        case x.GatewayOpcodes.Heartbeat:
           this.heartbeat();
           break;
-        case s.GatewayOpcodes.InvalidSession:
-          a.warn("Web Socket", "Invalid session.");
+        case x.GatewayOpcodes.InvalidSession:
+          m.warn("Web Socket", "Invalid session.");
           break;
-        case s.GatewayOpcodes.Reconnect:
-          a.echo("Web Socket", "Reconnecting to the Discord gateway."), this.disconnect(), this.connect();
+        case x.GatewayOpcodes.Reconnect:
+          m.echo("Web Socket", "Reconnecting to the Discord gateway."), this.disconnect(), this.connect();
           break;
-        case s.GatewayOpcodes.Hello:
-          this.timer = setInterval(this.heartbeat.bind(this), t.d.heartbeat_interval);
+        case x.GatewayOpcodes.Hello:
+          this.timer = setInterval(this.heartbeat.bind(this), l.d.heartbeat_interval);
           break;
-        case s.GatewayOpcodes.HeartbeatAck:
-          a.echo("Web Socket", "Received heartbeat acknowledgement.");
+        case x.GatewayOpcodes.HeartbeatAck:
+          m.echo("Web Socket", "Received heartbeat acknowledgement.");
           break;
       }
-    }), this.inner.addEventListener("error", (e) => {
-      a.warn("Web Socket", e.message);
+    }), this.inner.addEventListener("error", (t) => {
+      m.warn("Web Socket", t.message);
     });
   }
-  disconnect(e, t) {
+  disconnect(t, l) {
     if (this.timer != null)
       clearInterval(this.timer);
-    this.inner?.close(e ?? 1000, t), delete this.inner, delete this.timer;
+    this.inner?.close(t ?? 1000, l), delete this.inner, delete this.timer;
   }
-  send(e) {
-    this.inner?.send(JSON.stringify(e));
+  send(t) {
+    this.inner?.send(JSON.stringify(t));
+  }
+  connected() {
+    return this.inner?.readyState === globalThis.WebSocket.OPEN;
+  }
+  disconnected() {
+    return this.inner?.readyState === globalThis.WebSocket.CLOSED;
   }
   identify() {
     this.send({
-      op: s.GatewayOpcodes.Identify,
+      op: x.GatewayOpcodes.Identify,
       d: {
         intents: this.settings.intents,
         token: this.settings.token,
@@ -117,21 +123,21 @@ class d {
     });
   }
   heartbeat() {
-    this.send({ op: s.GatewayOpcodes.Heartbeat, d: Date.now() });
+    this.send({ op: x.GatewayOpcodes.Heartbeat, d: Date.now() });
   }
 }
 // src/client.ts
-var w = {};
-h(w, {
-  Client: () => y
+var q = {};
+n(q, {
+  Client: () => p
 });
-var g = require("kodkord-native");
+var j = require("kodkord-native");
 
-class y {
+class p {
   socket;
   rest;
-  constructor({ socket: e, rest: t }) {
-    this.socket = new d(e), this.rest = new g.Rest(t);
+  constructor({ socket: t, rest: l }) {
+    this.socket = new f(t), this.rest = new j.Rest(l);
   }
   get events() {
     return this.socket.events;

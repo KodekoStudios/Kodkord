@@ -3,63 +3,69 @@ export * from "kodkord-native";
 
 // src/websocket.ts
 import {
-  GatewayOpcodes as n,
-  GatewayVersion as o
+  GatewayOpcodes as b,
+  GatewayVersion as u
 } from "discord-api-types/v10";
-import { echo as i, warn as s } from "kodkord-native";
-var r = `wss://gateway.discord.gg/?v=${o}&encoding=json`;
+import { echo as i, warn as x } from "kodkord-native";
+var S = `wss://gateway.discord.gg/?v=${u}&encoding=json`;
 
-class a {
+class m {
   settings;
   events;
   inner;
   timer;
-  constructor(e) {
-    this.settings = e, this.events = /* @__PURE__ */ new Map;
+  constructor(t) {
+    this.settings = t, this.events = /* @__PURE__ */ new Map;
   }
   connect() {
-    this.inner = new globalThis.WebSocket(r), this.inner.addEventListener("open", () => {
+    this.inner = new globalThis.WebSocket(S), this.inner.addEventListener("open", () => {
       i("Web Socket", "Connected to the Discord gateway.", "Sending identify..."), this.identify();
-    }), this.inner.addEventListener("close", ({ code: e, wasClean: t }) => {
-      if (!t || e !== 1000)
-        s("Web Socket", "Connection lost!", "An attempt will be made to reconnect", "Warning: an exponential backoff has not yet been implemented!"), this.disconnect(), this.connect();
-    }), this.inner.addEventListener("message", ({ data: e }) => {
-      let t = JSON.parse(e);
-      switch (t.op) {
-        case n.Dispatch:
-          this.events.get(t.t)?.(t.d);
+    }), this.inner.addEventListener("close", ({ code: t, wasClean: l }) => {
+      if (!l || t !== 1000)
+        x("Web Socket", "Connection lost!", "An attempt will be made to reconnect", "Warning: an exponential backoff has not yet been implemented!"), this.disconnect(), this.connect();
+    }), this.inner.addEventListener("message", ({ data: t }) => {
+      let l = JSON.parse(t);
+      switch (l.op) {
+        case b.Dispatch:
+          this.events.get(l.t)?.(l.d);
           break;
-        case n.Heartbeat:
+        case b.Heartbeat:
           this.heartbeat();
           break;
-        case n.InvalidSession:
-          s("Web Socket", "Invalid session.");
+        case b.InvalidSession:
+          x("Web Socket", "Invalid session.");
           break;
-        case n.Reconnect:
+        case b.Reconnect:
           i("Web Socket", "Reconnecting to the Discord gateway."), this.disconnect(), this.connect();
           break;
-        case n.Hello:
-          this.timer = setInterval(this.heartbeat.bind(this), t.d.heartbeat_interval);
+        case b.Hello:
+          this.timer = setInterval(this.heartbeat.bind(this), l.d.heartbeat_interval);
           break;
-        case n.HeartbeatAck:
+        case b.HeartbeatAck:
           i("Web Socket", "Received heartbeat acknowledgement.");
           break;
       }
-    }), this.inner.addEventListener("error", (e) => {
-      s("Web Socket", e.message);
+    }), this.inner.addEventListener("error", (t) => {
+      x("Web Socket", t.message);
     });
   }
-  disconnect(e, t) {
+  disconnect(t, l) {
     if (this.timer != null)
       clearInterval(this.timer);
-    this.inner?.close(e ?? 1000, t), delete this.inner, delete this.timer;
+    this.inner?.close(t ?? 1000, l), delete this.inner, delete this.timer;
   }
-  send(e) {
-    this.inner?.send(JSON.stringify(e));
+  send(t) {
+    this.inner?.send(JSON.stringify(t));
+  }
+  connected() {
+    return this.inner?.readyState === globalThis.WebSocket.OPEN;
+  }
+  disconnected() {
+    return this.inner?.readyState === globalThis.WebSocket.CLOSED;
   }
   identify() {
     this.send({
-      op: n.Identify,
+      op: b.Identify,
       d: {
         intents: this.settings.intents,
         token: this.settings.token,
@@ -72,24 +78,24 @@ class a {
     });
   }
   heartbeat() {
-    this.send({ op: n.Heartbeat, d: Date.now() });
+    this.send({ op: b.Heartbeat, d: Date.now() });
   }
 }
 // src/client.ts
-import { Rest as c } from "kodkord-native";
+import { Rest as r } from "kodkord-native";
 
-class d {
+class f {
   socket;
   rest;
-  constructor({ socket: e, rest: t }) {
-    this.socket = new a(e), this.rest = new c(t);
+  constructor({ socket: t, rest: l }) {
+    this.socket = new m(t), this.rest = new r(l);
   }
   get events() {
     return this.socket.events;
   }
 }
 export {
-  a as WebSocket,
-  r as WEB_SOCKET_ADDRESS,
-  d as Client
+  m as WebSocket,
+  S as WEB_SOCKET_ADDRESS,
+  f as Client
 };

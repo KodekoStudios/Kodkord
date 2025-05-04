@@ -114,7 +114,23 @@ export class WebSocket {
         this.inner?.send(JSON.stringify(message));
     }
 
-    private identify(): void {
+    /**
+     * Checks if the Web Socket is connected.
+     * @returns `true` if the Web Socket is connected, `false` otherwise.
+     */
+    public connected(): boolean {
+        return this.inner?.readyState === globalThis.WebSocket.OPEN;
+    }
+
+    /**
+     * Checks if the Web Socket is disconnected.
+     * @returns `true` if the Web Socket is disconnected, `false` otherwise.
+     */
+    public disconnected(): boolean {
+        return this.inner?.readyState === globalThis.WebSocket.CLOSED;
+    }
+
+    public identify(): void {
         this.send({
             op: GatewayOpcodes.Identify,
             d: {

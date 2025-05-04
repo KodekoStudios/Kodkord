@@ -27,7 +27,17 @@ declare class WebSocket {
     connect(): void;
     disconnect(code?: number, reason?: string): void;
     send(message: GatewaySendPayload): void;
-    private identify;
+    /**
+     * Checks if the Web Socket is connected.
+     * @returns `true` if the Web Socket is connected, `false` otherwise.
+     */
+    connected(): boolean;
+    /**
+     * Checks if the Web Socket is disconnected.
+     * @returns `true` if the Web Socket is disconnected, `false` otherwise.
+     */
+    disconnected(): boolean;
+    identify(): void;
     private heartbeat;
 }
 
