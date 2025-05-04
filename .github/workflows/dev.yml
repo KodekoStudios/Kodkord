@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - rust
 
 jobs:
   publish_dev:
